@@ -1,0 +1,40 @@
+config:
+  TaiHu_Motor_Init_Config: &TaiHu_Init_Config
+    TaiHu_Motor_EN_In_Init: true
+    TaiHu_Set_Zero_In_Init: false
+    TaiHu_Motor_Zero_Write: false
+    TaiHu_Motor_Config: true
+
+  TaiHu_6070_Motor_config: &TaiHu_6070_Motor_config
+    <<: *TaiHu_Init_Config 
+
+    TaiHu_Reduction_Ratio: 101
+    TaiHu_Pos_Offest: 0
+    TaiHu_Forward_Vel: 1000
+    TaiHu_Backward_vel: 1000
+
+  TaiHu_5060_Motor_config: &TaiHu_5060_Motor_config
+    <<: *TaiHu_Init_Config 
+
+    TaiHu_Reduction_Ratio: 101
+    TaiHu_Pos_Offest: 1
+    TaiHu_Forward_Vel: 1000
+    TaiHu_Backward_vel: 1000
+
+  TaiHu_4052_Motor_config: &TaiHu_4052_Motor_config
+    <<: *TaiHu_Init_Config 
+
+    TaiHu_Reduction_Ratio: 101
+    TaiHu_Pos_Offest: 0
+    TaiHu_Forward_Vel: 1000
+    TaiHu_Backward_vel: 1000
+
+  TaiHu_3040_Motor_config: &TaiHu_3040_Motor_config
+    <<: *TaiHu_Init_Config 
+
+    TaiHu_Reduction_Ratio: 101
+    TaiHu_Pos_Offest: 0
+    TaiHu_Forward_Vel: 1000
+    TaiHu_Backward_vel: 1000
+
+

@@ -1,0 +1,28 @@
+
+config:
+  Eyou_Motor_Init_Config: &Eyou_Init_Config
+    Eyou_Motor_EN_In_Init: true
+    Set_Zero_In_Init: false
+    Eyou_Motor_Zero_Write: false
+    Eyou_Motor_Config: true
+
+  Eyou_Motor_PH20_config: &Eyou_Motor_PH20_config
+    <<: *Eyou_Init_Config 
+
+    Eyou_Motor_Set_Reduction_Ratio: 121
+    Eyou_Motor_Set_Offest: 60
+    Eyou_Motor_Set_Speed: 1
+    Eyou_Motor_Set_Acceleration: 1
+    Eyou_Motor_Set_Deceleration: 1
+
+  Eyou_Motor_PH25_config: &Eyou_Motor_PH25_config
+    <<: *Eyou_Init_Config 
+
+    Eyou_Motor_Set_Reduction_Ratio: 121
+    Eyou_Motor_Set_Offest: 30
+    Eyou_Motor_Set_Speed: 1 
+    Eyou_Motor_Set_Acceleration: 1
+    Eyou_Motor_Set_Deceleration: 1
+
+
+  

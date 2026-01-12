@@ -1,0 +1,80 @@
+config:
+  Serial_1_Config: &Serial_1_Config
+    - Serial_CH: USART1
+      Serial_menu: 1
+      Serial_EN: true
+      Serial_Baud: 115200
+      Serial_ID: 200
+      WordLength: UART_WORDLENGTH_8B
+      Stm_Tx_Rx_GPIO:
+        Tx_GPIO: GPIOA
+        Rx_GPIO: GPIOA
+        Tx_GPIO_PIN: GPIO_PIN_9
+        Rx_GPIO_PIN: GPIO_PIN_10
+      Other_Config:
+        GPIO_AF: GPIO_AF7_USART1
+        Serial_interrupt: USART1_IRQn
+        TX_DMA: DMA_REQUEST_USART1_TX
+        RX_DMA: DMA_REQUEST_USART1_RX
+        TX_DMA_STREAM: DMA1_Stream1
+        RX_DMA_STREAM: DMA1_Stream0
+
+  Serial_1_SCS0009_Config: &Serial_1_SCS0009_Config
+    - Serial_CH: USART1
+      Serial_menu: 1
+      Serial_EN: true
+      Serial_Baud: 1000000
+      Serial_ID: 200
+      WordLength: UART_WORDLENGTH_8B
+      Stm_Tx_Rx_GPIO:
+        Tx_GPIO: GPIOA
+        Rx_GPIO: GPIOA
+        Tx_GPIO_PIN: GPIO_PIN_9
+        Rx_GPIO_PIN: GPIO_PIN_10
+      Other_Config:
+        GPIO_AF: GPIO_AF7_USART1
+        Serial_interrupt: USART1_IRQn
+        TX_DMA: DMA_REQUEST_USART1_TX
+        RX_DMA: DMA_REQUEST_USART1_RX
+        TX_DMA_STREAM: DMA1_Stream1
+        RX_DMA_STREAM: DMA1_Stream0
+
+  Serial_4_SCS0009_Config: &Serial_4_SCS0009_Config
+    - Serial_CH: UART4
+      Serial_menu: 4
+      Serial_EN: true
+      Serial_Baud: 1000000
+      Serial_ID: 200
+      WordLength: UART_WORDLENGTH_8B
+      Stm_Tx_Rx_GPIO:
+        Tx_GPIO: GPIOD
+        Rx_GPIO: GPIOD
+        Tx_GPIO_PIN: GPIO_PIN_1
+        Rx_GPIO_PIN: GPIO_PIN_0
+      Other_Config:
+        GPIO_AF: GPIO_AF8_UART4
+        Serial_interrupt: UART4_IRQn
+        TX_DMA: DMA_REQUEST_UART4_TX
+        RX_DMA: DMA_REQUEST_UART4_RX
+        TX_DMA_STREAM: DMA1_Stream3
+        RX_DMA_STREAM: DMA1_Stream2
+
+  Serial_4_Config: &Serial_4_Config
+    - Serial_CH: UART4
+      Serial_menu: 4
+      Serial_EN: true
+      Serial_Baud: 921600
+      Serial_ID: 200
+      WordLength: UART_WORDLENGTH_8B
+      Stm_Tx_Rx_GPIO:
+        Tx_GPIO: GPIOD
+        Rx_GPIO: GPIOD
+        Tx_GPIO_PIN: GPIO_PIN_1
+        Rx_GPIO_PIN: GPIO_PIN_0
+      Other_Config:
+        GPIO_AF: GPIO_AF8_UART4
+        Serial_interrupt: UART4_IRQn
+        TX_DMA: DMA_REQUEST_UART4_TX
+        RX_DMA: DMA_REQUEST_UART4_RX
+        TX_DMA_STREAM: DMA1_Stream3
+        RX_DMA_STREAM: DMA1_Stream2

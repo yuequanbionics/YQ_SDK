@@ -1,0 +1,13 @@
+build
+build-mingw
+build-mingw-32
+build-mingw-64
+3rdparty
+
+.project
+.cmake/
+.vscode/
+
+obj-*
+*.user*
+*.swp

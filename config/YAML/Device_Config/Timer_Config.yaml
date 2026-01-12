@@ -1,0 +1,142 @@
+config:
+  Timer_Test_Config: &Timer_Test_Config
+    - Timer_Instance: TIM3
+      Timer_En: true
+      Timer_Index: 1
+      Prescaler: 239
+      CounterMode: TIM_COUNTERMODE_UP
+      Period: 999
+      Tim_CHX:
+        Timer_ChX: 1
+        Timer_ChX_OutMode: PWM
+        Timer_ChX_OCMode: TIM_OCMODE_PWM1
+        Timer_ChX_Pulse:  200
+        Timer_ChX_OCPolarity: TIM_OCPOLARITY_HIGH
+        Timer_ChX_OCFastMode: TIM_OCFAST_DISABLE
+        Timer_ChX_GPIO: GPIOC
+        Timer_ChX_Pin: GPIO_PIN_6
+        Timer_ChX_GPIO_Alternate: GPIO_AF2_TIM3
+
+    # - Timer_Instance: TIM2
+    #   Timer_En: true
+    #   Timer_Index: 2
+    #   Prescaler: 239
+    #   CounterMode: TIM_COUNTERMODE_UP
+    #   Period: 999
+    #   Tim_CHX:
+    #     Timer_ChX: 1
+    #     Timer_ChX_OutMode: PWM
+    #     Timer_ChX_OCMode: TIM_OCMODE_PWM1
+    #     Timer_ChX_Pulse:  500
+    #     Timer_ChX_OCPolarity: TIM_OCPOLARITY_HIGH
+    #     Timer_ChX_OCFastMode: TIM_OCFAST_DISABLE
+    #     Timer_ChX_GPIO: GPIOA
+    #     Timer_ChX_Pin: GPIO_PIN_0
+    #     Timer_ChX_GPIO_Alternate: GPIO_AF1_TIM2
+
+    # - Timer_Instance: TIM17
+    #   Timer_En: true
+    #   Timer_Index: 2
+    #   Prescaler: 239
+    #   CounterMode: TIM_COUNTERMODE_UP
+    #   Period: 999
+    #   Tim_CHX:
+    #     Timer_ChX: 1
+    #     Timer_ChX_OutMode: PWM
+    #     Timer_ChX_OCMode: TIM_OCMODE_PWM2
+    #     Timer_ChX_Pulse:  0
+    #     Timer_ChX_OCPolarity: TIM_OCPOLARITY_LOW
+    #     Timer_ChX_OCFastMode: TIM_OCFAST_DISABLE
+    #     Timer_ChX_GPIO: GPIOB
+    #     Timer_ChX_Pin: GPIO_PIN_9
+    #     Timer_ChX_GPIO_Alternate: GPIO_AF1_TIM17
+        # DMA_Config:
+        #     Timer_Ch_DMA_Instance: DMA1_Stream1
+        #     Timer_Ch_DMA_Request: DMA_REQUEST_TIM17_CH1
+        #     Timer_Ch_DMA_Direction: DMA_MEMORY_TO_PERIPH
+        #     Timer_Ch_DMA_PeriphInc: DMA_PINC_DISABLE
+        #     Timer_Ch_DMA_MemInc:  DMA_MINC_ENABLE
+        #     Timer_Ch_DMA_PeriphDataAlignment: DMA_PDATAALIGN_HALFWORD
+        #     Timer_Ch_DMA_MemDataAlignment:  DMA_MDATAALIGN_HALFWORD
+        #     Timer_Ch_DMA_Mode:  DMA_NORMAL
+        #     Timer_Ch_DMA_Priority:  DMA_PRIORITY_MEDIUM
+        #     Timer_Ch_DMA_FIFOMode:  DMA_FIFOMODE_DISABLE
+        #     Timer_Ch_DMA_Handle_index:  TIM_DMA_ID_CC1
+
+  Timer_WS2812B_Config: &Timer_WS2812B_Config
+    - Timer_Instance: TIM17
+      Timer_En: true
+      Timer_Index: 1
+      Prescaler: 0
+      CounterMode: TIM_COUNTERMODE_UP
+      Period: 311
+      # LedS:
+      #   - TIMX: 1
+      #     CH: 1
+      #     RGBS:
+      #       - [222, 333, 444]
+      #       - [222, 333, 444]
+      #       - [222, 333, 444]
+      #       - [222, 333, 444]
+      #       - [222, 333, 444]
+      #       - [222, 333, 444]
+      #       - [222, 333, 444]
+      #       - [222, 333, 444]
+      #       - [222, 333, 444]
+
+      Tim_CHX:
+        Timer_ChX: 1
+        Timer_ChX_OutMode: DMA
+        Timer_ChX_OCMode: TIM_OCMODE_PWM2
+        Timer_ChX_Pulse:  0
+        Timer_ChX_OCPolarity: TIM_OCPOLARITY_LOW
+        Timer_ChX_OCFastMode: TIM_OCFAST_DISABLE
+        Timer_ChX_GPIO: GPIOB
+        Timer_ChX_Pin: GPIO_PIN_9
+        Timer_ChX_GPIO_Alternate: GPIO_AF1_TIM17
+        DMA_Config:
+            Timer_Ch_DMA_Instance: DMA2_Stream0
+            Timer_Ch_DMA_Request: DMA_REQUEST_TIM17_CH1
+            Timer_Ch_DMA_Direction: DMA_MEMORY_TO_PERIPH
+            Timer_Ch_DMA_PeriphInc: DMA_PINC_DISABLE
+            Timer_Ch_DMA_MemInc:  DMA_MINC_ENABLE
+            Timer_Ch_DMA_PeriphDataAlignment: DMA_PDATAALIGN_HALFWORD
+            Timer_Ch_DMA_MemDataAlignment:  DMA_MDATAALIGN_HALFWORD
+            Timer_Ch_DMA_Mode:  DMA_NORMAL
+            Timer_Ch_DMA_Priority:  DMA_PRIORITY_MEDIUM
+            Timer_Ch_DMA_FIFOMode:  DMA_FIFOMODE_DISABLE
+            Timer_Ch_DMA_Handle_index:  TIM_DMA_ID_CC1
+
+  Timer_WS2812B_Config: &W_Bot_WS2812B_Config
+    - Timer_Instance: TIM2
+      Timer_En: true
+      Timer_Index: 1
+      Prescaler: 0
+      CounterMode: TIM_COUNTERMODE_UP
+      Period: 311
+
+      Tim_CHX:
+        Timer_ChX: 1
+        Timer_ChX_OutMode: DMA
+        TIM_OCMODE_PWM2 Timer_ChX_OCMode: 
+        Timer_ChX_Pulse:  0
+        Timer_ChX_OCPolarity: TIM_OCPOLARITY_LOW
+        Timer_ChX_OCFastMode: TIM_OCFAST_DISABLE
+        Timer_ChX_GPIO: GPIOA
+        Timer_ChX_Pin: GPIO_PIN_0
+        Timer_ChX_GPIO_Alternate: GPIO_AF1_TIM2
+        DMA_Config:
+            Timer_Ch_DMA_Instance: DMA1_Stream1
+            Timer_Ch_DMA_Request: DMA_REQUEST_TIM2_CH1
+            Timer_Ch_DMA_Direction: DMA_MEMORY_TO_PERIPH
+            Timer_Ch_DMA_PeriphInc: DMA_PINC_DISABLE
+            Timer_Ch_DMA_MemInc:  DMA_MINC_ENABLE
+            Timer_Ch_DMA_PeriphDataAlignment: DMA_PDATAALIGN_HALFWORD
+            Timer_Ch_DMA_MemDataAlignment:  DMA_MDATAALIGN_HALFWORD
+            Timer_Ch_DMA_Mode:  DMA_NORMAL
+            Timer_Ch_DMA_Priority:  DMA_PRIORITY_MEDIUM
+            Timer_Ch_DMA_FIFOMode:  DMA_FIFOMODE_DISABLE
+            Timer_Ch_DMA_Handle_index:  TIM_DMA_ID_CC1
+
+
+      

@@ -1,0 +1,5 @@
+# core deps
+numpy
+swanlab
+streamlit
+pyinstaller

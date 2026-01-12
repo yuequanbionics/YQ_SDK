@@ -1,0 +1,56 @@
+
+config:
+  Init_Config: &Init_Config
+    Save_All_Config: false 
+    Motor_EN_In_Init: true
+    Set_Zero_In_Init: false
+    Set_Config_In_Init: false
+    Set_Pid_Config_In_Init: false
+    Motor_Cal_In_Init: false
+
+  # #保存参数到FLASH
+  # Init_Config: &Init_Config
+  #   Save_All_Config: true #不可常true 仅保存参数的时候开一次 否则快速损耗flash寿命
+  #   Motor_EN_In_Init: false
+  #   Set_Zero_In_Init: false
+  #   Set_Config_In_Init: true
+  #   Set_Pid_Config_In_Init: true
+  #   Motor_Cal_In_Init: true
+
+  Motor_default_config: &Motor_default_config
+    <<: *Init_Config 
+    
+    #Zero
+    Motor_Set_Zero_Offest: 0.0
+
+    #Config
+    Motor_Mod: Motor_MIT_Control
+    Motor_Heart_Beat: 0
+    Motor_Pole_Pairs: 1
+    Motor_AB_Mirror: false
+    Motor_current_sample_offset: 10
+
+    Dead_Time: 0
+    V_IC_MU_FORCE: 200
+    IC_MU_SPEED: 1
+    V_rated: 300
+
+    DI_I_MAX: 1.0                 
+    I_Hardware_Max: 1.5
+    Current_Amplifier_Gain: 10
+    Motor_CMD_I_To_Force_K: 1.0
+
+    Gear_Ratio: 54
+    Gear_multiple: 10
+
+
+    #Pid_Config
+    Electricity_D_P: 200000
+    Electricity_D_I: 20000
+    Electricity_D_OUT_MAX: 0.90
+    Electricity_D_Integration_MAX: 0.90
+    Electricity_Q_P: 200000
+    Electricity_Q_I: 20000
+    Electricity_Q_OUT_MAX: 0.90
+    Electricity_Q_Integration_MAX: 0.90
+

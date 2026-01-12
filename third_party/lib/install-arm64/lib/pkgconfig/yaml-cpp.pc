@@ -1,0 +1,11 @@
+prefix=/app/third_party/lib/install-arm64
+exec_prefix=${prefix}
+includedir=/app/third_party/lib/install-arm64/include
+libdir=/app/third_party/lib/install-arm64/lib
+
+Name: Yaml-cpp
+Description: A YAML parser and emitter for C++
+Version: 0.8.0
+Requires:
+Libs: -L${libdir} -lyaml-cpp
+Cflags: -I${includedir}

@@ -1,0 +1,14 @@
+OTA_BAG:
+  - FileName: foc-sts.bin
+    DeviceType: Motor_Device
+    # MaskDeviceName: [Main_Control_Board, Main_Control_Board123]
+    Device_1: 2
+    Device_2: 0
+    Device_3: 0
+    version_1: 0
+    version_2: 1
+    check_version: false
+    RUN_OTA: true
+    BOOT_MENU: 0
+    Save_BOOT_MENU: true
+
