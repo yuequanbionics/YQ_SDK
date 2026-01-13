@@ -1,0 +1,20 @@
+DriverVersion: 0.0.0
+
+# Log_Path: log_dir
+# Log_Name: name
+Log_Max_Size: 5
+# Debug_Level: debug
+# Debug_Level: info
+# Debug_Level: warn
+# Debug_Level: err
+# Debug_Level: critical
+# Debug_Level: _off
+
+Name: Motor
+PC_IP: &PC_IP 192.168.3.245
+Broadcast_IP: 192.168.3.255
+
+import:
+  Motor_Config0: "config.yaml"
+  Motor_Config1: "../../Device_Config/MZ_Motor_Config.yaml"
+  Motors: "Y_Hand_Devices.yaml"

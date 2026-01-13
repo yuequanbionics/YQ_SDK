@@ -38,14 +38,15 @@ typedef struct {
 
 // BM_M1502D电机指令定义
 enum BM_M1502D_Command : uint16_t {
-    BM_CMD_DRIVE_MOTORS_1_4 = 0x32,  // 驱动电机1-4控制指令（ID 1-4使用）
-    BM_CMD_DRIVE_MOTORS_5_8 = 0x33,  // 驱动电机5-8控制指令（ID 5-8使用）
-    BM_CMD_QUERY_OFFSET_ID = 0x96,   // 反馈报文标识符
-    BM_CMD_SET_MODE = 0x105,         // 设置模式指令(多电机)
-    BM_CMD_SET_FEEDBACK = 0x106,     // 设置反馈方式指令(多电机)
-    BM_CMD_QUERY_STATUS = 0x107,     // 查询状态指令(单电机)
-    BM_CMD_SET_MOTOR_ID = 0x108,     // 设置电机ID指令
-    BM_CMD_SAVE_TO_FLASH = 0x10C     // 参数保存
+    BM_CMD_DRIVE_MOTORS_1_4 = 0x32,      // 驱动电机1-4控制指令（ID 1-4使用）
+    BM_CMD_DRIVE_MOTORS_5_8 = 0x33,      // 驱动电机5-8控制指令（ID 5-8使用）
+    BM_CMD_QUERY_OFFSET_ID = 0x96,       // 反馈报文标识符
+    BM_CMD_SET_MODE = 0x105,             // 设置模式指令(多电机)
+    BM_CMD_SET_FEEDBACK = 0x106,         // 设置反馈方式指令(多电机)
+    BM_CMD_QUERY_STATUS = 0x107,         // 查询状态指令(单电机)
+    BM_CMD_SET_MOTOR_ID = 0x108,         // 设置电机ID指令
+    BM_CMD_SAVE_TO_FLASH = 0x10C,        // 参数保存
+    BM_CMD_SET_ZERO_CALIBRATION = 0x112  // 机械零位标定设置
 };
 
 // 电机运行模式定义
@@ -243,6 +244,9 @@ class Motor_BM_M1502D : private Robot_Hardware {
      * @return 执行结果
      */
     int Save_Parameters_To_Flash_Direct(std::shared_ptr<Device_Struct> Device_P);
+
+    /*  @brief 机械零位标定设置 */
+    int Set_Zero_Calibration(std::shared_ptr<Device_Struct> Device_P);
 
     /***********************************************状态获取*******************************************************
     /**

@@ -1,0 +1,28 @@
+config:
+  : &Run_Auto_Set_Id true
+  : &Auto_Set_Id_Save true
+  
+  Usr_Motor_Init_Config: &Usr_Motor_Init_Config
+    Save_All_Config: false 
+    Motor_EN_In_Init: true
+    Set_Zero_In_Init: false
+    Set_Config_In_Init: false
+    Set_Pid_Config_In_Init: false
+    Motor_Cal_In_Init: false
+
+  # #保存参数到FLASH
+  # Usr_Motor_Init_Config: &Usr_Motor_Init_Config
+  #   Save_All_Config: true #不可常true 仅保存参数的时候开一次 否则快速损耗flash寿命
+  #   Motor_EN_In_Init: false
+  #   Set_Zero_In_Init: false
+  #   Set_Config_In_Init: true
+  #   Set_Pid_Config_In_Init: true
+  #   Motor_Cal_In_Init: true
+
+  # Usr_Motor_Init_Config: &Usr_Motor_Init_Config
+  #   Save_All_Config: false 
+  #   Motor_EN_In_Init: false
+  #   Set_Zero_In_Init: false
+  #   Set_Config_In_Init: false
+  #   Set_Pid_Config_In_Init: false
+  #   Motor_Cal_In_Init: false
