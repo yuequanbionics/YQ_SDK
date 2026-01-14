@@ -1,6 +1,6 @@
 config:
-  : &Run_Auto_Set_Id true
-  : &Auto_Set_Id_Save true
+  : &Run_Auto_Set_Id false
+  : &Auto_Set_Id_Save false
   
   Usr_Motor_Init_Config: &Usr_Motor_Init_Config
     Save_All_Config: false 

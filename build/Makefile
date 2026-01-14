@@ -85,51 +85,6 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-.PHONY : list_install_components/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/lwz/workspace/sdk_2/build/CMakeFiles /home/lwz/workspace/sdk_2/build//CMakeFiles/progress.marks
@@ -331,188 +286,6 @@ Motor_Interpolation/fast:
 .PHONY : Motor_Interpolation/fast
 
 #=============================================================================
-# Target rules for targets named Test_Servo
-
-# Build rule for target.
-Test_Servo: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Test_Servo
-.PHONY : Test_Servo
-
-# fast build rule for target.
-Test_Servo/fast:
-	$(MAKE) $(MAKESILENT) -f src/Project/E_Bot/li_wenzhi/CMakeFiles/Test_Servo.dir/build.make src/Project/E_Bot/li_wenzhi/CMakeFiles/Test_Servo.dir/build
-.PHONY : Test_Servo/fast
-
-#=============================================================================
-# Target rules for targets named Test_DaMiao
-
-# Build rule for target.
-Test_DaMiao: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Test_DaMiao
-.PHONY : Test_DaMiao
-
-# fast build rule for target.
-Test_DaMiao/fast:
-	$(MAKE) $(MAKESILENT) -f src/Project/E_Bot/li_wenzhi/CMakeFiles/Test_DaMiao.dir/build.make src/Project/E_Bot/li_wenzhi/CMakeFiles/Test_DaMiao.dir/build
-.PHONY : Test_DaMiao/fast
-
-#=============================================================================
-# Target rules for targets named E_hand_demo
-
-# Build rule for target.
-E_hand_demo: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 E_hand_demo
-.PHONY : E_hand_demo
-
-# fast build rule for target.
-E_hand_demo/fast:
-	$(MAKE) $(MAKESILENT) -f src/Project/E_Bot/out/CMakeFiles/E_hand_demo.dir/build.make src/Project/E_Bot/out/CMakeFiles/E_hand_demo.dir/build
-.PHONY : E_hand_demo/fast
-
-#=============================================================================
-# Target rules for targets named Test_Eyou
-
-# Build rule for target.
-Test_Eyou: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Test_Eyou
-.PHONY : Test_Eyou
-
-# fast build rule for target.
-Test_Eyou/fast:
-	$(MAKE) $(MAKESILENT) -f src/Project/W_Bot/gao_zhi/CMakeFiles/Test_Eyou.dir/build.make src/Project/W_Bot/gao_zhi/CMakeFiles/Test_Eyou.dir/build
-.PHONY : Test_Eyou/fast
-
-#=============================================================================
-# Target rules for targets named Test_Timer
-
-# Build rule for target.
-Test_Timer: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Test_Timer
-.PHONY : Test_Timer
-
-# fast build rule for target.
-Test_Timer/fast:
-	$(MAKE) $(MAKESILENT) -f src/Project/W_Bot/gao_zhi/CMakeFiles/Test_Timer.dir/build.make src/Project/W_Bot/gao_zhi/CMakeFiles/Test_Timer.dir/build
-.PHONY : Test_Timer/fast
-
-#=============================================================================
-# Target rules for targets named Test_us
-
-# Build rule for target.
-Test_us: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Test_us
-.PHONY : Test_us
-
-# fast build rule for target.
-Test_us/fast:
-	$(MAKE) $(MAKESILENT) -f src/Project/W_Bot/gao_zhi/CMakeFiles/Test_us.dir/build.make src/Project/W_Bot/gao_zhi/CMakeFiles/Test_us.dir/build
-.PHONY : Test_us/fast
-
-#=============================================================================
-# Target rules for targets named Test_Led
-
-# Build rule for target.
-Test_Led: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Test_Led
-.PHONY : Test_Led
-
-# fast build rule for target.
-Test_Led/fast:
-	$(MAKE) $(MAKESILENT) -f src/Project/W_Bot/gao_zhi/CMakeFiles/Test_Led.dir/build.make src/Project/W_Bot/gao_zhi/CMakeFiles/Test_Led.dir/build
-.PHONY : Test_Led/fast
-
-#=============================================================================
-# Target rules for targets named TaiHu_Test
-
-# Build rule for target.
-TaiHu_Test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TaiHu_Test
-.PHONY : TaiHu_Test
-
-# fast build rule for target.
-TaiHu_Test/fast:
-	$(MAKE) $(MAKESILENT) -f src/Project/W_Bot/zhang_RuiMing/CMakeFiles/TaiHu_Test.dir/build.make src/Project/W_Bot/zhang_RuiMing/CMakeFiles/TaiHu_Test.dir/build
-.PHONY : TaiHu_Test/fast
-
-#=============================================================================
-# Target rules for targets named Test_Pressure_Sensor
-
-# Build rule for target.
-Test_Pressure_Sensor: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Test_Pressure_Sensor
-.PHONY : Test_Pressure_Sensor
-
-# fast build rule for target.
-Test_Pressure_Sensor/fast:
-	$(MAKE) $(MAKESILENT) -f src/Project/X_Hand/ma_bamboo/CMakeFiles/Test_Pressure_Sensor.dir/build.make src/Project/X_Hand/ma_bamboo/CMakeFiles/Test_Pressure_Sensor.dir/build
-.PHONY : Test_Pressure_Sensor/fast
-
-#=============================================================================
-# Target rules for targets named X_Hand_Motor_test
-
-# Build rule for target.
-X_Hand_Motor_test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 X_Hand_Motor_test
-.PHONY : X_Hand_Motor_test
-
-# fast build rule for target.
-X_Hand_Motor_test/fast:
-	$(MAKE) $(MAKESILENT) -f src/Project/X_Hand/ma_bamboo/CMakeFiles/X_Hand_Motor_test.dir/build.make src/Project/X_Hand/ma_bamboo/CMakeFiles/X_Hand_Motor_test.dir/build
-.PHONY : X_Hand_Motor_test/fast
-
-#=============================================================================
-# Target rules for targets named BenMo_Test
-
-# Build rule for target.
-BenMo_Test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 BenMo_Test
-.PHONY : BenMo_Test
-
-# fast build rule for target.
-BenMo_Test/fast:
-	$(MAKE) $(MAKESILENT) -f src/Project/X_Hand/ma_bamboo/CMakeFiles/BenMo_Test.dir/build.make src/Project/X_Hand/ma_bamboo/CMakeFiles/BenMo_Test.dir/build
-.PHONY : BenMo_Test/fast
-
-#=============================================================================
-# Target rules for targets named X_hand_demo
-
-# Build rule for target.
-X_hand_demo: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 X_hand_demo
-.PHONY : X_hand_demo
-
-# fast build rule for target.
-X_hand_demo/fast:
-	$(MAKE) $(MAKESILENT) -f src/Project/X_Hand/out/CMakeFiles/X_hand_demo.dir/build.make src/Project/X_Hand/out/CMakeFiles/X_hand_demo.dir/build
-.PHONY : X_hand_demo/fast
-
-#=============================================================================
-# Target rules for targets named Test
-
-# Build rule for target.
-Test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Test
-.PHONY : Test
-
-# fast build rule for target.
-Test/fast:
-	$(MAKE) $(MAKESILENT) -f src/Project/X_Hand/wang_zheng_yi/CMakeFiles/Test.dir/build.make src/Project/X_Hand/wang_zheng_yi/CMakeFiles/Test.dir/build
-.PHONY : Test/fast
-
-#=============================================================================
-# Target rules for targets named X_hand
-
-# Build rule for target.
-X_hand: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 X_hand
-.PHONY : X_hand
-
-# fast build rule for target.
-X_hand/fast:
-	$(MAKE) $(MAKESILENT) -f src/Project/X_Hand/wang_zheng_yi/CMakeFiles/X_hand.dir/build.make src/Project/X_Hand/wang_zheng_yi/CMakeFiles/X_hand.dir/build
-.PHONY : X_hand/fast
-
-#=============================================================================
 # Target rules for targets named Switch_Board
 
 # Build rule for target.
@@ -558,16 +331,10 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... install"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... Auto_Set_Id"
-	@echo "... BenMo_Test"
 	@echo "... Cal_Motor"
 	@echo "... Custom_Motor_Device_DaMiao"
-	@echo "... E_hand_demo"
 	@echo "... Eyou_Custom_Motor_Device"
 	@echo "... IMU_Device_YuanJi"
 	@echo "... Led_Device"
@@ -579,19 +346,7 @@ help:
 	@echo "... Servo_Feetech_SCS0009"
 	@echo "... Set_ID"
 	@echo "... Switch_Board"
-	@echo "... TaiHu_Test"
-	@echo "... Test"
-	@echo "... Test_DaMiao"
-	@echo "... Test_Eyou"
-	@echo "... Test_Led"
-	@echo "... Test_Pressure_Sensor"
-	@echo "... Test_Servo"
-	@echo "... Test_Timer"
-	@echo "... Test_us"
 	@echo "... Uart_Custom_Dome_Device"
-	@echo "... X_Hand_Motor_test"
-	@echo "... X_hand"
-	@echo "... X_hand_demo"
 	@echo "... menu_config"
 .PHONY : help
 

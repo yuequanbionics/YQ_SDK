@@ -49,7 +49,6 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/lwz/workspace/sdk_2/build/src/Led_Device/cmake_install.cmake")
   include("/home/lwz/workspace/sdk_2/build/src/Motor/cmake_install.cmake")
   include("/home/lwz/workspace/sdk_2/build/src/Motor_Interpolation/cmake_install.cmake")
-  include("/home/lwz/workspace/sdk_2/build/src/Project/cmake_install.cmake")
   include("/home/lwz/workspace/sdk_2/build/src/Switch_Board/cmake_install.cmake")
   include("/home/lwz/workspace/sdk_2/build/src/Tool/cmake_install.cmake")
 

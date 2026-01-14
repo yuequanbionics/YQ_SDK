@@ -100,8 +100,8 @@ int main(int argc, char *argv[])
 
     float S = 0;                   // 正弦函数相位变量（随时间递增）
     float P[30], V[30], F[30];     // 存储电机反馈数据：位置(Position)、速度(Velocity)、力(电流 0-100 参数为百分比*100) //从1开始
-    float Kp = 500;
-    float Kd = 10;
+    float Kp = 0;
+    float Kd = 0;
     int times = 0;
     float PP_old = 0;
     constexpr int time_step = 1000*1000/250;
@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
         float VV = (PP - PP_old) * (static_cast<float>(1000000) / time_step);  // MIT 控制目标速度, 它是位置的微分
         float TT = -sin(S)*0.5f;   
 
-        // PP = 0; 
+        PP = 0; 
         VV = 0;     
         TT = 0;
     
