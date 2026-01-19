@@ -48,7 +48,8 @@ enum Main_B_CMD_Data_Enum
     Main_CMD_USART_DATA,
     Main_CMD_Timer_Config,
     Main_CMD_CAN_CONFIG,
-    Main_CMD_GPIO_CONFIG
+    Main_CMD_GPIO_CONFIG,
+    Main_CMD_GPIO_CONTROL,
 };
 
 #endif

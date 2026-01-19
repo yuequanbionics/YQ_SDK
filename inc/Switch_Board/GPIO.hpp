@@ -30,6 +30,29 @@ typedef struct
     GPIO_TypeDef *GPIOx;
 }GPIO_Data;
 
+typedef struct
+{
+    // Head
+    u16 Can_Id;
+    u16 Len;
+    u16 Flag;
+
+    // DATA
+    u8 CRC8;
+    u8 Cmd;
+    u8 control_cmd;
+    u8 Pin_State;
+    u32 GPIOx_Pin;
+    GPIO_TypeDef *GPIOx;
+}GPIO_Control;
+
+typedef enum
+{
+    E_GPIO_Read = 0U,
+    E_GPIO_Write
+}GPIO_Control_Cmd;
+
+extern u8 g_pin_state;
 
 class C_GPIO : private Robot_Hardware
 {
@@ -37,6 +60,8 @@ public:
     static int Get_Yaml_And_Init(const shared_ptr<Device_Struct>& Device, const YAML::Node& One_Node);
 
     void GPIOx_Init(const shared_ptr<Device_Struct>& Device, GPIO_TypeDef *GPIOx, const GPIO_InitTypeDef *GPIO_Init_Struct);
+    int GPIOx_Read(const shared_ptr<Device_Struct>& Device, GPIO_TypeDef* GPIOx, u32 GPIOx_Pin, u32 timeout);
+    int GPIOx_Call_Back(volatile u8* Can_Frame);
 };
 
 #endif //RHS_GPIO_HPP
