@@ -116,52 +116,8 @@ int main(int argc, char *argv[])
 
         // PP = 0; 
         VV = 0;     
-        TT = -0.03;
+        TT = -0.025;
     
-        // int Send_MIT_PD_Control_Data(shared_ptr<Device_Struct> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);        // 上面的指令向发送缓冲区添加 MIT PD控制指令（参数：设备实例、目标位置、目标速度、目标力、KP增益、KD增益）
-        /**
-         * @brief Send_MIT_PD_Control_Data 发送MIT PD控制指令到指定电机，实现基于位置和速度的闭环控制
-         * 
-         * 该函数是Motor类提供的MIT（麻省理工学院）风格PD控制器接口，通过输入目标状态（位置、速度）、
-         * 控制参数（比例增益、微分增益）和力指令，计算并发送控制信号到电机，实现高精度闭环控制。
-         * MIT PD控制策略常用于机器人关节、精密电机等场景，核心是通过比例项（位置误差）和微分项（速度误差）
-         * 抑制系统震荡，提高响应速度和控制精度。
-         * 
-         * @param Device_P 电机设备结构体智能指针（shared_ptr<Device_Struct>）
-         *                 - 用于指定目标电机，包含电机硬件地址、设备ID、通信参数等设备信息
-         *                 - 由Robot_Hardware类通过Get_Device_For_Name()方法获取，与配置文件中的电机名称绑定
-         * 
-         * @param Rad 目标位置（单位：弧度，rad）
-         *            - 电机需要达到的期望位置，在示例中通过正弦函数动态生成（PP = sin(S)*2.8f）
-         *            - 需与电机实际可转动范围匹配，超出范围可能导致机械限位或控制失效
-         * 
-         * @param Speed_Rad_S 目标速度（单位：弧度/秒，rad/s）
-         *                    - 电机在运动过程中的期望速度，示例中通过余弦函数生成（VV = cos(S)*2.8f）
-         *                    - 与目标位置配合，决定电机运动的平滑度和动态特性
-         * 
-         * @param Force_N 前馈力/电流指令（单位：牛顿·米，N·m，此处参数名Force_N可能简化标注）
-         *                - 用于补偿系统已知负载或摩擦力的前馈控制量，示例中设为0（不启用前馈）
-         *                - 合理设置可减少PD控制器的负担，提高动态响应速度
-         * 
-         * @param P_N_Rad 比例增益（单位：牛/弧度，N/rad）
-         *                - 用于放大位置误差（目标位置 - 实际位置），比例项输出 = P_N_Rad * (Rad - 实际位置)
-         *                - 示例中设置为800，数值越大，位置误差的修正力度越强，但过大会导致系统震荡
-         * 
-         * @param D_N_Rad_s 微分增益（单位：牛·秒/弧度，N·s/rad）
-         *                  - 用于抑制速度变化，微分项输出 = D_N_Rad_s * (Speed_Rad_S - 实际速度)
-         *                  - 示例中设置为10，数值越大，系统阻尼越强，可抑制震荡，但过大会导致响应迟缓
-         * 
-         * @return int 暂无意义
-         * 
-         * 控制逻辑说明：
-         * 电机实际输出的控制量（力/电流）计算公式约为：
-         * 控制量 = Force_N + P_N_Rad*(Rad - 实际位置) + D_N_Rad_s*(Speed_Rad_S - 实际速度)
-         * 其中，比例项（P）负责减小位置偏差，微分项（D）负责抑制速度波动，前馈力（Force_N）用于预先补偿已知干扰。
-         * 
-         * 示例中应用场景：
-         * 所有24个电机均使用相同的目标轨迹（正弦位置+余弦速度）、零前馈力、固定P=800和D=10，实现同步周期性运动，
-         * 常用于测试多电机协同控制性能或硬件一致性。
-         */
          Motor1_Control->Send_MIT_PD_Control_Data( Motor1_Device, PP, VV, TT, Kp, Kd);
          Motor2_Control->Send_MIT_PD_Control_Data( Motor2_Device, PP, VV, TT, Kp, Kd);
          Motor3_Control->Send_MIT_PD_Control_Data( Motor3_Device, PP, VV, TT, Kp, Kd);

@@ -16,19 +16,225 @@
 
 using namespace std;
 
-int main(int argc, char *argv[])
+Robot_Hardware *Test_Robot;
+
+shared_ptr<Device_Struct>  Motor1_Device;
+shared_ptr<Device_Struct>  Motor2_Device;
+shared_ptr<Device_Struct>  Motor3_Device;
+shared_ptr<Device_Struct>  Motor4_Device;
+shared_ptr<Device_Struct>  Motor5_Device;
+shared_ptr<Device_Struct>  Motor6_Device;
+shared_ptr<Device_Struct>  Motor7_Device;
+shared_ptr<Device_Struct>  Motor8_Device;
+shared_ptr<Device_Struct>  Motor9_Device;
+shared_ptr<Device_Struct> Motor10_Device;
+shared_ptr<Device_Struct> Motor11_Device;
+shared_ptr<Device_Struct> Motor12_Device;
+shared_ptr<Device_Struct> Motor13_Device;
+shared_ptr<Device_Struct> Motor14_Device;
+shared_ptr<Device_Struct> Motor15_Device;
+shared_ptr<Device_Struct> Motor16_Device;
+shared_ptr<Device_Struct> Motor17_Device;
+shared_ptr<Device_Struct> Motor18_Device;
+shared_ptr<Device_Struct> Motor19_Device;
+shared_ptr<Device_Struct> Motor20_Device;
+shared_ptr<Device_Struct> Motor21_Device;
+shared_ptr<Device_Struct> Motor22_Device;
+shared_ptr<Device_Struct> Motor23_Device;
+shared_ptr<Device_Struct> Motor24_Device;
+shared_ptr<Device_Struct> Motor25_Device;
+shared_ptr<Device_Struct> Motor26_Device;
+shared_ptr<Device_Struct> Motor27_Device;
+shared_ptr<Device_Struct> Motor28_Device;
+
+Motor * Motor1_Control;
+Motor * Motor2_Control;
+Motor * Motor3_Control;
+Motor * Motor4_Control;
+Motor * Motor5_Control;
+Motor * Motor6_Control;
+Motor * Motor7_Control;
+Motor * Motor8_Control;
+Motor * Motor9_Control;
+Motor *Motor10_Control;
+Motor *Motor11_Control;
+Motor *Motor12_Control;
+Motor *Motor13_Control;
+Motor *Motor14_Control;
+Motor *Motor15_Control;
+Motor *Motor16_Control;
+Motor *Motor17_Control;
+Motor *Motor18_Control;
+Motor *Motor19_Control;
+Motor *Motor20_Control;
+Motor *Motor21_Control;
+Motor *Motor22_Control;
+Motor *Motor23_Control;
+Motor *Motor24_Control;
+Motor *Motor25_Control;
+Motor *Motor26_Control;
+Motor *Motor27_Control;
+Motor *Motor28_Control;
+
+int hand_pretighten(float F, uint32_t time_ms)
 {
-    Robot_Hardware *Test_Robot = new Robot_Hardware();
+    if(F > 0.1f)
+        F = 0.1f;
+    time_ms = time_ms/100;
+    if(time_ms <= 1)
+        time_ms = 5;
+    while (time_ms--)
+    {   
+        float TT = -F; 
+        float PP = 0;   
+        float VV = 0;   
+        float Kp = 0;   
+        float Kd = 0; 
+    
+         Motor1_Control->Send_MIT_PD_Control_Data( Motor1_Device, PP, VV, TT, Kp, Kd);
+         Motor2_Control->Send_MIT_PD_Control_Data( Motor2_Device, PP, VV, TT, Kp, Kd);
+         Motor3_Control->Send_MIT_PD_Control_Data( Motor3_Device, PP, VV, TT, Kp, Kd);
+         Motor4_Control->Send_MIT_PD_Control_Data( Motor4_Device, PP, VV, TT, Kp, Kd);
+         Motor5_Control->Send_MIT_PD_Control_Data( Motor5_Device, PP, VV, TT, Kp, Kd);
+         Motor6_Control->Send_MIT_PD_Control_Data( Motor6_Device, PP, VV, TT, Kp, Kd);
+         Motor7_Control->Send_MIT_PD_Control_Data( Motor7_Device, PP, VV, TT, Kp, Kd);
+         Motor8_Control->Send_MIT_PD_Control_Data( Motor8_Device, PP, VV, TT, Kp, Kd);
+         Motor9_Control->Send_MIT_PD_Control_Data( Motor9_Device, PP, VV, TT, Kp, Kd);
+        Motor10_Control->Send_MIT_PD_Control_Data(Motor10_Device, PP, VV, TT, Kp, Kd);
+        Motor11_Control->Send_MIT_PD_Control_Data(Motor11_Device, PP, VV, TT, Kp, Kd);
+        Motor12_Control->Send_MIT_PD_Control_Data(Motor12_Device, PP, VV, TT, Kp, Kd);
+        Motor13_Control->Send_MIT_PD_Control_Data(Motor13_Device, PP, VV, TT, Kp, Kd);
+        Motor14_Control->Send_MIT_PD_Control_Data(Motor14_Device, PP, VV, TT, Kp, Kd);
+        Motor15_Control->Send_MIT_PD_Control_Data(Motor15_Device, PP, VV, TT, Kp, Kd);
+        Motor16_Control->Send_MIT_PD_Control_Data(Motor16_Device, PP, VV, TT, Kp, Kd);
+        Motor17_Control->Send_MIT_PD_Control_Data(Motor17_Device, PP, VV, TT, Kp, Kd);
+        Motor18_Control->Send_MIT_PD_Control_Data(Motor18_Device, PP, VV, TT, Kp, Kd);
+        Motor19_Control->Send_MIT_PD_Control_Data(Motor19_Device, PP, VV, TT, Kp, Kd);
+        Motor20_Control->Send_MIT_PD_Control_Data(Motor20_Device, PP, VV, TT, Kp, Kd);
+        Motor21_Control->Send_MIT_PD_Control_Data(Motor21_Device, PP, VV, TT, Kp, Kd);
+        Motor22_Control->Send_MIT_PD_Control_Data(Motor22_Device, PP, VV, TT, Kp, Kd);
+        Motor23_Control->Send_MIT_PD_Control_Data(Motor23_Device, PP, VV, TT, Kp, Kd);
+        Motor24_Control->Send_MIT_PD_Control_Data(Motor24_Device, PP, VV, TT, Kp, Kd);
+        Motor25_Control->Send_MIT_PD_Control_Data(Motor25_Device, PP, VV, TT, Kp, Kd);
+        Motor26_Control->Send_MIT_PD_Control_Data(Motor26_Device, PP, VV, TT, Kp, Kd);
+        Motor27_Control->Send_MIT_PD_Control_Data(Motor27_Device, PP, VV, TT, Kp, Kd);
+        Motor28_Control->Send_MIT_PD_Control_Data(Motor28_Device, PP, VV, TT, Kp, Kd);
+
+        // 发送控制缓冲区数据到硬件
+        Test_Robot->Send_Buff_Data();
+
+        // 控制周期延时
+        usleep(100000);
+    }
+
+     Motor1_Control->Motor_EN( Motor1_Device, 0);
+     Motor2_Control->Motor_EN( Motor2_Device, 0);
+     Motor3_Control->Motor_EN( Motor3_Device, 0);
+     Motor4_Control->Motor_EN( Motor4_Device, 0);
+     Motor5_Control->Motor_EN( Motor5_Device, 0);
+     Motor6_Control->Motor_EN( Motor6_Device, 0);
+     Motor7_Control->Motor_EN( Motor7_Device, 0);
+     Motor8_Control->Motor_EN( Motor8_Device, 0);
+     Motor9_Control->Motor_EN( Motor9_Device, 0);
+    Motor10_Control->Motor_EN(Motor10_Device, 0);
+    Motor11_Control->Motor_EN(Motor11_Device, 0);
+    Motor12_Control->Motor_EN(Motor12_Device, 0);
+    Motor13_Control->Motor_EN(Motor13_Device, 0);
+    Motor14_Control->Motor_EN(Motor14_Device, 0);
+    Motor15_Control->Motor_EN(Motor15_Device, 0);
+    Motor16_Control->Motor_EN(Motor16_Device, 0);
+    Motor17_Control->Motor_EN(Motor17_Device, 0);
+    Motor18_Control->Motor_EN(Motor18_Device, 0);
+    Motor19_Control->Motor_EN(Motor19_Device, 0);
+    Motor20_Control->Motor_EN(Motor20_Device, 0);
+    Motor21_Control->Motor_EN(Motor21_Device, 0);
+    Motor22_Control->Motor_EN(Motor22_Device, 0);
+    Motor23_Control->Motor_EN(Motor23_Device, 0);
+    Motor24_Control->Motor_EN(Motor24_Device, 0);
+    Motor25_Control->Motor_EN(Motor25_Device, 0);
+    Motor26_Control->Motor_EN(Motor26_Device, 0);
+    Motor27_Control->Motor_EN(Motor27_Device, 0);
+    Motor28_Control->Motor_EN(Motor28_Device, 0);
+    usleep(1000000);
+     Motor1_Control->Set_Zero( Motor1_Device, 0);
+     Motor2_Control->Set_Zero( Motor2_Device, 0);
+     Motor3_Control->Set_Zero( Motor3_Device, 0);
+     Motor4_Control->Set_Zero( Motor4_Device, 0);
+     Motor5_Control->Set_Zero( Motor5_Device, 0);
+     Motor6_Control->Set_Zero( Motor6_Device, 0);
+     Motor7_Control->Set_Zero( Motor7_Device, 0);
+     Motor8_Control->Set_Zero( Motor8_Device, 0);
+     Motor9_Control->Set_Zero( Motor9_Device, 0);
+    Motor10_Control->Set_Zero(Motor10_Device, 0);
+    Motor11_Control->Set_Zero(Motor11_Device, 0);
+    Motor12_Control->Set_Zero(Motor12_Device, 0);
+    Motor13_Control->Set_Zero(Motor13_Device, 0);
+    Motor14_Control->Set_Zero(Motor14_Device, 0);
+    Motor15_Control->Set_Zero(Motor15_Device, 0);
+    Motor16_Control->Set_Zero(Motor16_Device, 0);
+    Motor17_Control->Set_Zero(Motor17_Device, 0);
+    Motor18_Control->Set_Zero(Motor18_Device, 0);
+    Motor19_Control->Set_Zero(Motor19_Device, 0);
+    Motor20_Control->Set_Zero(Motor20_Device, 0);
+    Motor21_Control->Set_Zero(Motor21_Device, 0);
+    Motor22_Control->Set_Zero(Motor22_Device, 0);
+    Motor23_Control->Set_Zero(Motor23_Device, 0);
+    Motor24_Control->Set_Zero(Motor24_Device, 0);
+    Motor25_Control->Set_Zero(Motor25_Device, 0);
+    Motor26_Control->Set_Zero(Motor26_Device, 0);
+    Motor27_Control->Set_Zero(Motor27_Device, 0);
+    Motor28_Control->Set_Zero(Motor28_Device, 0);  
+    usleep(1000000);
+     Motor1_Control->Motor_EN( Motor1_Device, 1);
+     Motor2_Control->Motor_EN( Motor2_Device, 1);
+     Motor3_Control->Motor_EN( Motor3_Device, 1);
+     Motor4_Control->Motor_EN( Motor4_Device, 1);
+     Motor5_Control->Motor_EN( Motor5_Device, 1);
+     Motor6_Control->Motor_EN( Motor6_Device, 1);
+     Motor7_Control->Motor_EN( Motor7_Device, 1);
+     Motor8_Control->Motor_EN( Motor8_Device, 1);
+     Motor9_Control->Motor_EN( Motor9_Device, 1);
+    Motor10_Control->Motor_EN(Motor10_Device, 1);
+    Motor11_Control->Motor_EN(Motor11_Device, 1);
+    Motor12_Control->Motor_EN(Motor12_Device, 1);
+    Motor13_Control->Motor_EN(Motor13_Device, 1);
+    Motor14_Control->Motor_EN(Motor14_Device, 1);
+    Motor15_Control->Motor_EN(Motor15_Device, 1);
+    Motor16_Control->Motor_EN(Motor16_Device, 1);
+    Motor17_Control->Motor_EN(Motor17_Device, 1);
+    Motor18_Control->Motor_EN(Motor18_Device, 1);
+    Motor19_Control->Motor_EN(Motor19_Device, 1);
+    Motor20_Control->Motor_EN(Motor20_Device, 1);
+    Motor21_Control->Motor_EN(Motor21_Device, 1);
+    Motor22_Control->Motor_EN(Motor22_Device, 1);
+    Motor23_Control->Motor_EN(Motor23_Device, 1);
+    Motor24_Control->Motor_EN(Motor24_Device, 1);
+    Motor25_Control->Motor_EN(Motor25_Device, 1);
+    Motor26_Control->Motor_EN(Motor26_Device, 1);
+    Motor27_Control->Motor_EN(Motor27_Device, 1);
+    Motor28_Control->Motor_EN(Motor28_Device, 1);  
+
+    return 0;
+}
+
+
+#ifndef HAVE_ROS
+int main(int argc, char* argv[])
+#else
+int hardware_init(string ADDR)
+#endif
+{
+    Test_Robot = new Robot_Hardware();
     Test_Robot->Add_Device_Type("Switch_Board", Switch_Board_Device_Init, Switch_Board_Device_CallBack_F, Switch_Board_Device_Delete_F);
     Test_Robot->Add_Device_Type("Motor_Device", Motor_Device_Init, Motor_Device_CallBack_F, Motor_Device_Delete_F);
     Test_Robot->Add_Device_Type(Auto_Set_Id_Type, Auto_Set_Id_Init, Auto_Set_Id_CallBack_F, Auto_Set_Id_Delete_F);
  
-
+#ifndef HAVE_ROS
     filesystem::path exe_path = filesystem::canonical("/proc/self/exe");  
     filesystem::path dir_path = exe_path.parent_path();
     std::cout << "程序所在目录: " << dir_path << std::endl;
-
     string ADDR = dir_path.string() + "/../config/YAML/Y_Hand/out/TOP.yaml";
+#endif
     if(Test_Robot->Init_TOP(ADDR) != 0)
     { 
         cout << "Init_ERR" << endl;
@@ -39,65 +245,67 @@ int main(int argc, char *argv[])
     // Test_Robot->OTA_GO(ADDR_OTA);
     // return 0;
 
-    shared_ptr<Device_Struct>  Motor1_Device = Test_Robot->Get_Device_For_Name("Motor_1");
-    shared_ptr<Device_Struct>  Motor2_Device = Test_Robot->Get_Device_For_Name("Motor_2");
-    shared_ptr<Device_Struct>  Motor3_Device = Test_Robot->Get_Device_For_Name("Motor_3");
-    shared_ptr<Device_Struct>  Motor4_Device = Test_Robot->Get_Device_For_Name("Motor_4");
-    shared_ptr<Device_Struct>  Motor5_Device = Test_Robot->Get_Device_For_Name("Motor_5");
-    shared_ptr<Device_Struct>  Motor6_Device = Test_Robot->Get_Device_For_Name("Motor_6");
-    shared_ptr<Device_Struct>  Motor7_Device = Test_Robot->Get_Device_For_Name("Motor_7");
-    shared_ptr<Device_Struct>  Motor8_Device = Test_Robot->Get_Device_For_Name("Motor_8");
-    shared_ptr<Device_Struct>  Motor9_Device = Test_Robot->Get_Device_For_Name("Motor_9");
-    shared_ptr<Device_Struct> Motor10_Device = Test_Robot->Get_Device_For_Name("Motor_10");
-    shared_ptr<Device_Struct> Motor11_Device = Test_Robot->Get_Device_For_Name("Motor_11");
-    shared_ptr<Device_Struct> Motor12_Device = Test_Robot->Get_Device_For_Name("Motor_12");
-    shared_ptr<Device_Struct> Motor13_Device = Test_Robot->Get_Device_For_Name("Motor_13");
-    shared_ptr<Device_Struct> Motor14_Device = Test_Robot->Get_Device_For_Name("Motor_14");
-    shared_ptr<Device_Struct> Motor15_Device = Test_Robot->Get_Device_For_Name("Motor_15");
-    shared_ptr<Device_Struct> Motor16_Device = Test_Robot->Get_Device_For_Name("Motor_16");
-    shared_ptr<Device_Struct> Motor17_Device = Test_Robot->Get_Device_For_Name("Motor_17");
-    shared_ptr<Device_Struct> Motor18_Device = Test_Robot->Get_Device_For_Name("Motor_18");
-    shared_ptr<Device_Struct> Motor19_Device = Test_Robot->Get_Device_For_Name("Motor_19");
-    shared_ptr<Device_Struct> Motor20_Device = Test_Robot->Get_Device_For_Name("Motor_20");
-    shared_ptr<Device_Struct> Motor21_Device = Test_Robot->Get_Device_For_Name("Motor_21");
-    shared_ptr<Device_Struct> Motor22_Device = Test_Robot->Get_Device_For_Name("Motor_22");
-    shared_ptr<Device_Struct> Motor23_Device = Test_Robot->Get_Device_For_Name("Motor_23");
-    shared_ptr<Device_Struct> Motor24_Device = Test_Robot->Get_Device_For_Name("Motor_24");
-    shared_ptr<Device_Struct> Motor25_Device = Test_Robot->Get_Device_For_Name("Motor_25");
-    shared_ptr<Device_Struct> Motor26_Device = Test_Robot->Get_Device_For_Name("Motor_26");
-    shared_ptr<Device_Struct> Motor27_Device = Test_Robot->Get_Device_For_Name("Motor_27");
-    shared_ptr<Device_Struct> Motor28_Device = Test_Robot->Get_Device_For_Name("Motor_28");
+     Motor1_Device = Test_Robot->Get_Device_For_Name("Motor_1");
+     Motor2_Device = Test_Robot->Get_Device_For_Name("Motor_2");
+     Motor3_Device = Test_Robot->Get_Device_For_Name("Motor_3");
+     Motor4_Device = Test_Robot->Get_Device_For_Name("Motor_4");
+     Motor5_Device = Test_Robot->Get_Device_For_Name("Motor_5");
+     Motor6_Device = Test_Robot->Get_Device_For_Name("Motor_6");
+     Motor7_Device = Test_Robot->Get_Device_For_Name("Motor_7");
+     Motor8_Device = Test_Robot->Get_Device_For_Name("Motor_8");
+     Motor9_Device = Test_Robot->Get_Device_For_Name("Motor_9");
+    Motor10_Device = Test_Robot->Get_Device_For_Name("Motor_10");
+    Motor11_Device = Test_Robot->Get_Device_For_Name("Motor_11");
+    Motor12_Device = Test_Robot->Get_Device_For_Name("Motor_12");
+    Motor13_Device = Test_Robot->Get_Device_For_Name("Motor_13");
+    Motor14_Device = Test_Robot->Get_Device_For_Name("Motor_14");
+    Motor15_Device = Test_Robot->Get_Device_For_Name("Motor_15");
+    Motor16_Device = Test_Robot->Get_Device_For_Name("Motor_16");
+    Motor17_Device = Test_Robot->Get_Device_For_Name("Motor_17");
+    Motor18_Device = Test_Robot->Get_Device_For_Name("Motor_18");
+    Motor19_Device = Test_Robot->Get_Device_For_Name("Motor_19");
+    Motor20_Device = Test_Robot->Get_Device_For_Name("Motor_20");
+    Motor21_Device = Test_Robot->Get_Device_For_Name("Motor_21");
+    Motor22_Device = Test_Robot->Get_Device_For_Name("Motor_22");
+    Motor23_Device = Test_Robot->Get_Device_For_Name("Motor_23");
+    Motor24_Device = Test_Robot->Get_Device_For_Name("Motor_24");
+    Motor25_Device = Test_Robot->Get_Device_For_Name("Motor_25");
+    Motor26_Device = Test_Robot->Get_Device_For_Name("Motor_26");
+    Motor27_Device = Test_Robot->Get_Device_For_Name("Motor_27");
+    Motor28_Device = Test_Robot->Get_Device_For_Name("Motor_28");
 
 
-    Motor * Motor1_Control = (Motor*)Test_Robot->Get_Control_Class( Motor1_Device);
-    Motor * Motor2_Control = (Motor*)Test_Robot->Get_Control_Class( Motor2_Device);
-    Motor * Motor3_Control = (Motor*)Test_Robot->Get_Control_Class( Motor3_Device);
-    Motor * Motor4_Control = (Motor*)Test_Robot->Get_Control_Class( Motor4_Device);
-    Motor * Motor5_Control = (Motor*)Test_Robot->Get_Control_Class( Motor5_Device);
-    Motor * Motor6_Control = (Motor*)Test_Robot->Get_Control_Class( Motor6_Device);
-    Motor * Motor7_Control = (Motor*)Test_Robot->Get_Control_Class( Motor7_Device);
-    Motor * Motor8_Control = (Motor*)Test_Robot->Get_Control_Class( Motor8_Device);
-    Motor * Motor9_Control = (Motor*)Test_Robot->Get_Control_Class( Motor9_Device);
-    Motor *Motor10_Control = (Motor*)Test_Robot->Get_Control_Class(Motor10_Device);
-    Motor *Motor11_Control = (Motor*)Test_Robot->Get_Control_Class(Motor11_Device);
-    Motor *Motor12_Control = (Motor*)Test_Robot->Get_Control_Class(Motor12_Device);
-    Motor *Motor13_Control = (Motor*)Test_Robot->Get_Control_Class(Motor13_Device);
-    Motor *Motor14_Control = (Motor*)Test_Robot->Get_Control_Class(Motor14_Device);
-    Motor *Motor15_Control = (Motor*)Test_Robot->Get_Control_Class(Motor15_Device);
-    Motor *Motor16_Control = (Motor*)Test_Robot->Get_Control_Class(Motor16_Device);
-    Motor *Motor17_Control = (Motor*)Test_Robot->Get_Control_Class(Motor17_Device);
-    Motor *Motor18_Control = (Motor*)Test_Robot->Get_Control_Class(Motor18_Device);
-    Motor *Motor19_Control = (Motor*)Test_Robot->Get_Control_Class(Motor19_Device);
-    Motor *Motor20_Control = (Motor*)Test_Robot->Get_Control_Class(Motor20_Device);
-    Motor *Motor21_Control = (Motor*)Test_Robot->Get_Control_Class(Motor21_Device);
-    Motor *Motor22_Control = (Motor*)Test_Robot->Get_Control_Class(Motor22_Device);
-    Motor *Motor23_Control = (Motor*)Test_Robot->Get_Control_Class(Motor23_Device);
-    Motor *Motor24_Control = (Motor*)Test_Robot->Get_Control_Class(Motor24_Device);
-    Motor *Motor25_Control = (Motor*)Test_Robot->Get_Control_Class(Motor25_Device);
-    Motor *Motor26_Control = (Motor*)Test_Robot->Get_Control_Class(Motor26_Device);
-    Motor *Motor27_Control = (Motor*)Test_Robot->Get_Control_Class(Motor27_Device);
-    Motor *Motor28_Control = (Motor*)Test_Robot->Get_Control_Class(Motor28_Device);
+     Motor1_Control = (Motor*)Test_Robot->Get_Control_Class( Motor1_Device);
+     Motor2_Control = (Motor*)Test_Robot->Get_Control_Class( Motor2_Device);
+     Motor3_Control = (Motor*)Test_Robot->Get_Control_Class( Motor3_Device);
+     Motor4_Control = (Motor*)Test_Robot->Get_Control_Class( Motor4_Device);
+     Motor5_Control = (Motor*)Test_Robot->Get_Control_Class( Motor5_Device);
+     Motor6_Control = (Motor*)Test_Robot->Get_Control_Class( Motor6_Device);
+     Motor7_Control = (Motor*)Test_Robot->Get_Control_Class( Motor7_Device);
+     Motor8_Control = (Motor*)Test_Robot->Get_Control_Class( Motor8_Device);
+     Motor9_Control = (Motor*)Test_Robot->Get_Control_Class( Motor9_Device);
+    Motor10_Control = (Motor*)Test_Robot->Get_Control_Class(Motor10_Device);
+    Motor11_Control = (Motor*)Test_Robot->Get_Control_Class(Motor11_Device);
+    Motor12_Control = (Motor*)Test_Robot->Get_Control_Class(Motor12_Device);
+    Motor13_Control = (Motor*)Test_Robot->Get_Control_Class(Motor13_Device);
+    Motor14_Control = (Motor*)Test_Robot->Get_Control_Class(Motor14_Device);
+    Motor15_Control = (Motor*)Test_Robot->Get_Control_Class(Motor15_Device);
+    Motor16_Control = (Motor*)Test_Robot->Get_Control_Class(Motor16_Device);
+    Motor17_Control = (Motor*)Test_Robot->Get_Control_Class(Motor17_Device);
+    Motor18_Control = (Motor*)Test_Robot->Get_Control_Class(Motor18_Device);
+    Motor19_Control = (Motor*)Test_Robot->Get_Control_Class(Motor19_Device);
+    Motor20_Control = (Motor*)Test_Robot->Get_Control_Class(Motor20_Device);
+    Motor21_Control = (Motor*)Test_Robot->Get_Control_Class(Motor21_Device);
+    Motor22_Control = (Motor*)Test_Robot->Get_Control_Class(Motor22_Device);
+    Motor23_Control = (Motor*)Test_Robot->Get_Control_Class(Motor23_Device);
+    Motor24_Control = (Motor*)Test_Robot->Get_Control_Class(Motor24_Device);
+    Motor25_Control = (Motor*)Test_Robot->Get_Control_Class(Motor25_Device);
+    Motor26_Control = (Motor*)Test_Robot->Get_Control_Class(Motor26_Device);
+    Motor27_Control = (Motor*)Test_Robot->Get_Control_Class(Motor27_Device);
+    Motor28_Control = (Motor*)Test_Robot->Get_Control_Class(Motor28_Device);
 
+
+#ifndef HAVE_ROS
     float S = 0;                   // 正弦函数相位变量（随时间递增）
     float P[30], V[30], F[30];     // 存储电机反馈数据：位置(Position)、速度(Velocity)、力(电流 0-100 参数为百分比*100) //从1开始
     float Kp = 0;
@@ -118,50 +326,6 @@ int main(int argc, char *argv[])
         VV = 0;     
         TT = 0;
     
-        // int Send_MIT_PD_Control_Data(shared_ptr<Device_Struct> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);        // 上面的指令向发送缓冲区添加 MIT PD控制指令（参数：设备实例、目标位置、目标速度、目标力、KP增益、KD增益）
-        /**
-         * @brief Send_MIT_PD_Control_Data 发送MIT PD控制指令到指定电机，实现基于位置和速度的闭环控制
-         * 
-         * 该函数是Motor类提供的MIT（麻省理工学院）风格PD控制器接口，通过输入目标状态（位置、速度）、
-         * 控制参数（比例增益、微分增益）和力指令，计算并发送控制信号到电机，实现高精度闭环控制。
-         * MIT PD控制策略常用于机器人关节、精密电机等场景，核心是通过比例项（位置误差）和微分项（速度误差）
-         * 抑制系统震荡，提高响应速度和控制精度。
-         * 
-         * @param Device_P 电机设备结构体智能指针（shared_ptr<Device_Struct>）
-         *                 - 用于指定目标电机，包含电机硬件地址、设备ID、通信参数等设备信息
-         *                 - 由Robot_Hardware类通过Get_Device_For_Name()方法获取，与配置文件中的电机名称绑定
-         * 
-         * @param Rad 目标位置（单位：弧度，rad）
-         *            - 电机需要达到的期望位置，在示例中通过正弦函数动态生成（PP = sin(S)*2.8f）
-         *            - 需与电机实际可转动范围匹配，超出范围可能导致机械限位或控制失效
-         * 
-         * @param Speed_Rad_S 目标速度（单位：弧度/秒，rad/s）
-         *                    - 电机在运动过程中的期望速度，示例中通过余弦函数生成（VV = cos(S)*2.8f）
-         *                    - 与目标位置配合，决定电机运动的平滑度和动态特性
-         * 
-         * @param Force_N 前馈力/电流指令（单位：牛顿·米，N·m，此处参数名Force_N可能简化标注）
-         *                - 用于补偿系统已知负载或摩擦力的前馈控制量，示例中设为0（不启用前馈）
-         *                - 合理设置可减少PD控制器的负担，提高动态响应速度
-         * 
-         * @param P_N_Rad 比例增益（单位：牛/弧度，N/rad）
-         *                - 用于放大位置误差（目标位置 - 实际位置），比例项输出 = P_N_Rad * (Rad - 实际位置)
-         *                - 示例中设置为800，数值越大，位置误差的修正力度越强，但过大会导致系统震荡
-         * 
-         * @param D_N_Rad_s 微分增益（单位：牛·秒/弧度，N·s/rad）
-         *                  - 用于抑制速度变化，微分项输出 = D_N_Rad_s * (Speed_Rad_S - 实际速度)
-         *                  - 示例中设置为10，数值越大，系统阻尼越强，可抑制震荡，但过大会导致响应迟缓
-         * 
-         * @return int 暂无意义
-         * 
-         * 控制逻辑说明：
-         * 电机实际输出的控制量（力/电流）计算公式约为：
-         * 控制量 = Force_N + P_N_Rad*(Rad - 实际位置) + D_N_Rad_s*(Speed_Rad_S - 实际速度)
-         * 其中，比例项（P）负责减小位置偏差，微分项（D）负责抑制速度波动，前馈力（Force_N）用于预先补偿已知干扰。
-         * 
-         * 示例中应用场景：
-         * 所有24个电机均使用相同的目标轨迹（正弦位置+余弦速度）、零前馈力、固定P=800和D=10，实现同步周期性运动，
-         * 常用于测试多电机协同控制性能或硬件一致性。
-         */
          Motor1_Control->Send_MIT_PD_Control_Data( Motor1_Device, PP, VV, 0.0, Kp, Kd);
          Motor2_Control->Send_MIT_PD_Control_Data( Motor2_Device, PP, VV, 0.0, Kp, Kd);
          Motor3_Control->Send_MIT_PD_Control_Data( Motor3_Device, PP, VV, 0.0, Kp, Kd);
@@ -230,6 +394,7 @@ int main(int argc, char *argv[])
         // // 打印电机反馈数据（当前仅打印P[0]和V[0]，此处可能存在索引偏移，实际应用中需根据需求调整）
         // cout << "Post:" << P[1] << " Speed:" << V[1] << endl; //从1开始
     }
-    
+#endif
+
     return 0;
 }

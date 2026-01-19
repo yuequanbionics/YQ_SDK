@@ -54,7 +54,7 @@ try:
 except:
     pass
 try:
-    shutil.rmtree(current_script_dir_out_src + "/build", ignore_errors=False)
+    shutil.rmtree(current_script_dir_out + "/build", ignore_errors=False)
 except:
     pass
 try:
