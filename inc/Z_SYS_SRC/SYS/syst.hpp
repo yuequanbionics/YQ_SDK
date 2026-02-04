@@ -23,6 +23,7 @@ typedef unsigned int u32;
 typedef int s32;
 typedef short s16;
 
+#define Error_Map(DEVICE) (*DEVICE->Error_Map)
 
 // ANSI控制码重置：清除所有颜色和样式（必须搭配使用，避免颜色残留）
 #define COLOR_RESET "\033[0m"

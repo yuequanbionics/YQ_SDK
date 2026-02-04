@@ -7,7 +7,9 @@
 
 #include "HARDWARE_TOP.hpp"
 
-#define Feetech_Custom_Servo_Device_Init [](const std::shared_ptr<Device_Struct> Device, YAML::Node *Node) -> int \
+#define Servo_Feetech_Device_Type "Servo_Custom_Feetech_SCS0009"
+
+#define Feetech_Custom_Servo_Device_Init [](const std::shared_ptr<Device_class> Device, YAML::Node *Node) -> int \
                                          { \
                                              Servo_SCS0009 *One_Feetech_Servo = new Servo_SCS0009(); \
                                              Device->Device_Private_Class = (void *)One_Feetech_Servo; \
@@ -17,9 +19,9 @@
                                                  return 0; \
                                          }
 
-#define Feetech_Custom_Servo_Device_CallBack_F [](void *Device_Private_Class, volatile u8 *Msg) -> int \
+#define Feetech_Custom_Servo_Device_CallBack_F [](shared_ptr<Device_class> Device, u8 *Msg) -> int \
                                                { \
-                                               return ((Servo_SCS0009 *)Device_Private_Class)->Feetech_Custom_Motor_Top_Frame_Analyze(Msg); \
+                                               return ((Servo_SCS0009 *)Device->Device_Private_Class)->Feetech_Custom_Motor_Top_Frame_Analyze(Msg); \
                                                }
 
 #define Feetech_Custom_Servo_Device_Delete_F [](void *Device_Private_Class) \
@@ -124,22 +126,23 @@ typedef struct
 class Servo_SCS0009 : Robot_Hardware
 {
 public:
-    static int Get_Feetech_Servo_Data_From_Yaml_And_Init(std::shared_ptr<Device_Struct> Device, const YAML::Node& One_Node);
+    static int Get_Feetech_Servo_Data_From_Yaml_And_Init(shared_ptr<Device_class> Device, const YAML::Node &One_Node);
     static int Feetech_Custom_Motor_Top_Frame_Analyze(const volatile u8* Can_Frame);
-    void WritePos(const std::shared_ptr<Device_Struct>& Device, uint8_t servo_id, uint8_t write_type, uint16_t pos, uint16_t vel);
-    void Reset(const std::shared_ptr<Device_Struct>& Device, uint8_t servo_id);
-    void Ping(const std::shared_ptr<Device_Struct>& Device, uint8_t servo_id);
-    void Write(const std::shared_ptr<Device_Struct>& Device, uint8_t servo_id, uint8_t write_type, uint8_t param_num, const uint8_t* write_data);
-    void RegAction(const std::shared_ptr<Device_Struct>& Device);
-    void SyncWrite(const std::shared_ptr<Device_Struct>& Device, uint8_t servo_num, uint8_t param_num, uint8_t* write_data);
-    void Read(const shared_ptr<Device_Struct>& Device, uint8_t servo_id, uint8_t read_addr, uint8_t read_len);
+    void WritePos(const shared_ptr<Device_class> &Device, uint8_t servo_id, uint8_t write_type, uint16_t pos, uint16_t vel);
+    void Reset(const shared_ptr<Device_class> &Device, uint8_t servo_id);
+    void Ping(const shared_ptr<Device_class> &Device, uint8_t servo_id);
+    void Write(const shared_ptr<Device_class> &Device, uint8_t servo_id, uint8_t write_type, uint8_t param_num, const uint8_t *
+               write_data);
+    void RegAction(const shared_ptr<Device_class> &Device);
+    void SyncWrite(const shared_ptr<Device_class> &Device, uint8_t servo_num, uint8_t param_num, uint8_t *write_data);
+    void Read(const shared_ptr<Device_class> &Device, uint8_t servo_id, uint8_t read_addr, uint8_t read_len);
 
-    void Get_Finger_Start_Pos(const shared_ptr<Device_Struct>& Device);
-    void Restore(const shared_ptr<Device_Struct>& Device);
-    void Movement_1_Yeah(const shared_ptr<Device_Struct>& Device);
-    void Movement_2_Point(const shared_ptr<Device_Struct>& Device);
-    void Movement_3_Fist(const shared_ptr<Device_Struct>& Device);
-    void Movement_4_Pinch(const shared_ptr<Device_Struct>& Device);
+    void Get_Finger_Start_Pos(const shared_ptr<Device_class>& Device);
+    void Restore(const shared_ptr<Device_class>& Device);
+    void Movement_1_Yeah(const shared_ptr<Device_class>& Device);
+    void Movement_2_Point(const shared_ptr<Device_class>& Device);
+    void Movement_3_Fist(const shared_ptr<Device_class>& Device);
+    void Movement_4_Pinch(const shared_ptr<Device_class>& Device);
 
 private:
     static void Host2SCS(uint8_t* DataL, uint8_t* DataH, int Data);

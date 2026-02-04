@@ -14,6 +14,8 @@
 
 #include "HARDWARE_TOP.hpp"
 
+#define Pressure_Sensor_Custom_Type "Pressure_Sensor_Custom"
+
 // 触觉传感器主从模式通信协议实现
 // 版本: V1.6.250303
 
@@ -152,7 +154,7 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
      * @param One_Node YAML配置节点
      * @return 成功返回0，失败返回错误码
      */
-    int Hw_Pressure_Sensor_Data_From_Yaml_And_Init(std::shared_ptr<Device_Struct> Device, YAML::Node One_Node);
+    int Hw_Pressure_Sensor_Data_From_Yaml_And_Init(std::shared_ptr<Device_class> Device, YAML::Node One_Node);
 
     /**
      * @brief 帧解析函数
@@ -163,16 +165,16 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
 
     // ========== 设备控制接口 ==========
     /* 请求传感器数据 (GET操作) */
-    int Request_Sensor_Data(std::shared_ptr<Device_Struct> Device_P, u8 sensor_id);
+    int Request_Sensor_Data(std::shared_ptr<Device_class> Device_P, u8 sensor_id);
 
     /* 查询设备信息 */
-    int Query_Device_Info(std::shared_ptr<Device_Struct> Device_P, u8 sensor_id, u8 cmd);
+    int Query_Device_Info(std::shared_ptr<Device_class> Device_P, u8 sensor_id, u8 cmd);
 
     /* 归零校准控制 */
-    int Zero_Calibration(std::shared_ptr<Device_Struct> Device_P, u8 sensor_id, u8 cmd);
+    int Zero_Calibration(std::shared_ptr<Device_class> Device_P, u8 sensor_id, u8 cmd);
 
     /* 设置设备地址 */
-    int Set_Device_Address(std::shared_ptr<Device_Struct> Device_P, u8 sensor_id, u8 new_addr);
+    int Set_Device_Address(std::shared_ptr<Device_class> Device_P, u8 sensor_id, u8 new_addr);
 
     // ========== 数据采集控制 ==========
     /**
@@ -181,13 +183,13 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
      * @param interval_ms 采集间隔(毫秒)
      * @return 成功返回0，失败返回错误码
      */
-    int Start_Periodic_Data_Collection(std::shared_ptr<Device_Struct> Device_P, u32 interval_ms);
+    int Start_Periodic_Data_Collection(std::shared_ptr<Device_class> Device_P, u32 interval_ms);
 
     /* 停止周期性数据采集 */
     int Stop_Periodic_Data_Collection();
 
     /* 单次采集所有传感器数据 */
-    int Collect_All_Sensors_Data(std::shared_ptr<Device_Struct> Device_P);
+    int Collect_All_Sensors_Data(std::shared_ptr<Device_class> Device_P);
 
     // ========== 数据存储和查询接口 ==========
     /**
@@ -269,7 +271,7 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
     /* CRC16-CCITT校验和计算 */
     u16 Calculate_Checksum(const u8* data, u16 length);
 
-    int Serial_Send(std::shared_ptr<Device_Struct> Device_P, u8* Data, u32 len);
+    int Serial_Send(std::shared_ptr<Device_class> Device_P, u8* Data, u32 len);
 
     /**
      * @brief 构建并发送帧
@@ -281,7 +283,7 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
      * @param payload_len 负载长度
      * @return 成功返回0，失败返回错误码
      */
-    int SendFrame(std::shared_ptr<Device_Struct> Device_P, u8 sensor_id, u8 channel, u8 flags, const u8* payload, u16 payload_len);
+    int SendFrame(std::shared_ptr<Device_class> Device_P, u8 sensor_id, u8 channel, u8 flags, const u8* payload, u16 payload_len);
 
     /* 解析接收到的协议帧 */
     bool Parse_Received_Frame(const u8* data, u16 length, Hw_Pressure_Sensor_Frame& frame);
@@ -373,7 +375,7 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
 
 // 初始化宏定义
 #define Hw_Pressure_Sensor_Init                                               \
-    [](std::shared_ptr<Device_Struct> Device, YAML::Node* Node) -> int {      \
+    [](std::shared_ptr<Device_class> Device, YAML::Node* Node) -> int {       \
         Hw_Pressure_Sensor* sensor = new Hw_Pressure_Sensor();                \
         Device->Device_Private_Class = (void*)sensor;                         \
         if (Node != nullptr)                                                  \
@@ -383,10 +385,10 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
             return 0;                                                         \
     }
 
-#define Hw_Pressure_Sensor_CallBack_F                         \
-    [](void* Device_Private_Class, volatile u8* Msg) -> int { \
-        return ((Hw_Pressure_Sensor*)Device_Private_Class)    \
-            ->Hw_Pressure_Sensor_Frame_Analyze(Msg);          \
+#define Hw_Pressure_Sensor_CallBack_F                              \
+    [](shared_ptr<Device_class> Device, u8* Msg) -> int {          \
+        return ((Hw_Pressure_Sensor*)Device->Device_Private_Class) \
+            ->Hw_Pressure_Sensor_Frame_Analyze(Msg);               \
     }
 
 #define Hw_Pressure_Sensor_Delete_F                         \

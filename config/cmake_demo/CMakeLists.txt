@@ -12,8 +12,7 @@
 #     target_include_directories(${EXE_NAME} PUBLIC
 #         ${YAML_CPP_INCLUDE_DIR}
 #         ${SYS_INC_DIR}
-#         # ${INC_DIR}/Motor
-#         # ${INC_DIR}/Switch_Board
+#         ${INC_SUBDIRS} 
 #     )
 
 #     add_dependencies(${EXE_NAME}
@@ -34,6 +33,6 @@
 #         # -Wl,--no-as-needed 
 #         # ${YAML_CPP_LIB}      
 #         # -Wl,--as-needed  
-#         # spdlog_global    
+#         # spdlog_global 
 #     )
 # endif()

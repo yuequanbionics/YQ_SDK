@@ -7,6 +7,8 @@
 #include "UDP.hpp"
 #include "syst.hpp"
 
+#define BenMo_Custom_Motor_Type "BenMo_Custom_Motor"
+
 #define BM_Motor_FOC_Start 1
 #define BM_Motor_FOC_Stop 0
 
@@ -125,7 +127,7 @@ typedef struct {
 
 /********************************* */
 #define Motor_Device_Init_BM_M1502D                                            \
-    [](shared_ptr<Device_Struct> Device, YAML::Node* Node) -> int {            \
+    [](shared_ptr<Device_class> Device, YAML::Node* Node) -> int {             \
         Motor_BM_M1502D* One_Motor = new Motor_BM_M1502D();                    \
         Device->Device_Private_Class = (void*)One_Motor;                       \
         if (Node != nullptr)                                                   \
@@ -135,10 +137,10 @@ typedef struct {
             return 0;                                                          \
     }
 
-#define Motor_Device_CallBack_BM_M1502D                       \
-    [](void* Device_Private_Class, volatile u8* Msg) -> int { \
-        return ((Motor_BM_M1502D*)Device_Private_Class)       \
-            ->Motor_Top_Frame_Analyze(Msg);                   \
+#define Motor_Device_CallBack_BM_M1502D                         \
+    [](shared_ptr<Device_class> Device, u8* Msg) -> int {       \
+        return ((Motor_BM_M1502D*)Device->Device_Private_Class) \
+            ->Motor_Top_Frame_Analyze(Msg);                     \
     }
 
 #define Motor_Device_Delete_BM_M1502D                    \
@@ -174,25 +176,25 @@ class Motor_BM_M1502D : private Robot_Hardware {
     static std::mutex data_mutex;
 
    public:
-    std::shared_ptr<Device_Struct> s_device;
+    std::shared_ptr<Device_class> s_device;
 
     /**
      * @brief 电机使能/失能
      * @param EN 1使能，0失能
      */
-    int Motor_EN(std::shared_ptr<Device_Struct> Device_P, int EN);
+    int Motor_EN(std::shared_ptr<Device_class> Device_P, int EN);
 
     /**
      * @brief 设置电机控制模式
      * @param mode 控制模式（电流环/速度环/位置环）
      */
-    int Set_Control_Mode(std::shared_ptr<Device_Struct> Device_P, BM_Control_Mode mode);
+    int Set_Control_Mode(std::shared_ptr<Device_class> Device_P, BM_Control_Mode mode);
 
     /**
      * @brief 设置电机反馈模式
      * @param mode 反馈模式
      */
-    int Set_Feedback_Mode(std::shared_ptr<Device_Struct> Device_P, BM_Feedback_Mode mode);
+    int Set_Feedback_Mode(std::shared_ptr<Device_class> Device_P, BM_Feedback_Mode mode);
 
     /**
      * @brief MIT控制数据发送（速度环控制）
@@ -202,7 +204,7 @@ class Motor_BM_M1502D : private Robot_Hardware {
      * @param P_N_Rad P参数 - 在速度环模式下此参数无效
      * @param D_N_Rad_s D参数 - 在速度环模式下此参数无效
      */
-    int Send_MIT_PD_Control_Data(std::shared_ptr<Device_Struct> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
+    int Send_MIT_PD_Control_Data(std::shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
 
     /**
      * @brief 获取电机反馈数据
@@ -210,17 +212,17 @@ class Motor_BM_M1502D : private Robot_Hardware {
      * @param V 速度（RPM）
      * @param F 力矩（Nm）
      */
-    int Get_Motor_FB_Data(std::shared_ptr<Device_Struct> Device_P, float* P, float* V, float* F);
+    int Get_Motor_FB_Data(std::shared_ptr<Device_class> Device_P, float* P, float* V, float* F);
 
     /**
      * @brief 查询电机状态（发送查询指令）
      */
-    int Query_Motor_Status(std::shared_ptr<Device_Struct> Device_P, BM_Query_Target targets[], u8 target_count);
+    int Query_Motor_Status(std::shared_ptr<Device_class> Device_P, BM_Query_Target targets[], u8 target_count);
 
     /**
      * @brief 从YAML配置文件读取电机参数并初始化
      */
-    int Get_Motor_Device_Data_From_Yaml_And_Init(std::shared_ptr<Device_Struct> Device, YAML::Node One_Node);
+    int Get_Motor_Device_Data_From_Yaml_And_Init(std::shared_ptr<Device_class> Device, YAML::Node One_Node);
 
     /**
      * @brief CAN帧数据解析回调函数
@@ -231,22 +233,22 @@ class Motor_BM_M1502D : private Robot_Hardware {
      * @brief 设置电机ID
      * @param id 电机ID（1-8）
      */
-    int Set_Motor_ID(std::shared_ptr<Device_Struct> Device_P, u8 id);
+    int Set_Motor_ID(std::shared_ptr<Device_class> Device_P, u8 id);
 
     /**
      * @brief 保存参数到Flash（自动处理使能状态）
      */
-    int Save_Parameters_To_Flash_Safe(std::shared_ptr<Device_Struct> Device_P);
+    int Save_Parameters_To_Flash_Safe(std::shared_ptr<Device_class> Device_P);
 
     /**
      * @brief 直接保存参数到Flash（不检查使能状态）
      * @param Device_P 设备结构体指针
      * @return 执行结果
      */
-    int Save_Parameters_To_Flash_Direct(std::shared_ptr<Device_Struct> Device_P);
+    int Save_Parameters_To_Flash_Direct(std::shared_ptr<Device_class> Device_P);
 
     /*  @brief 机械零位标定设置 */
-    int Set_Zero_Calibration(std::shared_ptr<Device_Struct> Device_P);
+    int Set_Zero_Calibration(std::shared_ptr<Device_class> Device_P);
 
     /***********************************************状态获取*******************************************************
     /**
@@ -350,7 +352,7 @@ class Motor_BM_M1502D : private Robot_Hardware {
      * @param pi_params PI参数结构体
      * @return 执行结果
      */
-    int Set_PI_Parameters(std::shared_ptr<Device_Struct> Device_P, BM_PI_Adjust_Mode mode, const BM_PI_Parameters& pi_params);
+    int Set_PI_Parameters(std::shared_ptr<Device_class> Device_P, BM_PI_Adjust_Mode mode, const BM_PI_Parameters& pi_params);
 
     /**
      * @brief 设置电机PI参数输出限幅
@@ -359,14 +361,14 @@ class Motor_BM_M1502D : private Robot_Hardware {
      * @param limit 输出限幅结构体
      * @return 执行结果
      */
-    int Set_PI_Output_Limit(std::shared_ptr<Device_Struct> Device_P, BM_PI_Adjust_Mode mode, const BM_PI_Output_Limit& limit);
+    int Set_PI_Output_Limit(std::shared_ptr<Device_class> Device_P, BM_PI_Adjust_Mode mode, const BM_PI_Output_Limit& limit);
 
     /**
      * @brief 复位所有环路PID参数
      * @param Device_P 设备结构体指针
      * @return 执行结果
      */
-    int Reset_All_PID_Parameters(std::shared_ptr<Device_Struct> Device_P);
+    int Reset_All_PID_Parameters(std::shared_ptr<Device_class> Device_P);
 
     // 辅助函数
     /**
@@ -414,12 +416,12 @@ class Motor_BM_M1502D : private Robot_Hardware {
      * @brief 发送CAN指令
      * @param data 8字节数据
      */
-    int Send_CAN_Command(std::shared_ptr<Device_Struct> Device_P, u8 data[8]);
+    int Send_CAN_Command(std::shared_ptr<Device_class> Device_P, u8 data[8]);
 
     /**
      * @brief 初始化电机控制模式
      */
-    int Init_Control_Mode(std::shared_ptr<Device_Struct> Device_P);
+    int Init_Control_Mode(std::shared_ptr<Device_class> Device_P);
 
     /**
      * @brief 解析主动上报数据
@@ -444,7 +446,7 @@ class Motor_BM_M1502D : private Robot_Hardware {
      * @param timeout_ms 超时时间（毫秒）
      * @return 是否成功停止
      */
-    bool Wait_For_Motor_Stop(std::shared_ptr<Device_Struct> Device_P, u32 timeout_ms = 1000);
+    bool Wait_For_Motor_Stop(std::shared_ptr<Device_class> Device_P, u32 timeout_ms = 1000);
 
     /**
      * @brief 检查数据有效性

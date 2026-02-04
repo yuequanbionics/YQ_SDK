@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(RHS)   
+project(SDK)   
 # --------------------------
 # 基础配置与项目结构定义
 # --------------------------
@@ -26,6 +26,18 @@ else()
 endif()
 
 set(THIRD_PARTY_DIR ${PROJECT_ROOT}/third_party)
+
+file(GLOB_RECURSE INC_ALL_ITEMS LIST_DIRECTORIES true "${INC_DIR}/*")
+set(INC_SUBDIRS "")
+foreach(ITEM ${INC_ALL_ITEMS})
+    if(IS_DIRECTORY ${ITEM})
+        list(APPEND INC_SUBDIRS ${ITEM})
+    endif()
+endforeach()
+list(REMOVE_DUPLICATES INC_SUBDIRS)
+
+# include(CMakePrintHelpers)
+# cmake_print_variables(INC_SUBDIRS)
 
 set(SYS_INC_DIR 
     ${INC_DIR} 
@@ -364,21 +376,21 @@ function(import_shared_library TARGET_NAME)
 endfunction()
 
 # script auto start -> lib_add
-    import_shared_library(Switch_Board)
-    import_shared_library(Servo_Feetech_SCS0009)
-    import_shared_library(Eyou_Custom_Motor_Device)
-    import_shared_library(Motor_Interpolation)
-    import_shared_library(HARDWARE_TOP)
-    import_shared_library(Battery_BMS_Device)
-    import_shared_library(IMU_Device_YuanJi)
     import_shared_library(Motor_Device)
-    import_shared_library(Motor_Device_BenMo)
-    import_shared_library(Uart_Custom_Dome_Device)
-    import_shared_library(Motor_Device_TaiHu)
-    import_shared_library(Custom_Motor_Device_DaMiao)
     import_shared_library(Pressure_Sensor_Custom_Device)
-    import_shared_library(Auto_Set_Id)
+    import_shared_library(Battery_BMS_Device)
+    import_shared_library(HARDWARE_TOP)
+    import_shared_library(Servo_Feetech_SCS0009)
     import_shared_library(Led_Device)
+    import_shared_library(IMU_Device_YuanJi)
+    import_shared_library(Custom_Motor_Device_DaMiao)
+    import_shared_library(Auto_Set_Id)
+    import_shared_library(Switch_Board)
+    import_shared_library(Uart_Custom_Dome_Device)
+    import_shared_library(Eyou_Custom_Motor_Device)
+    import_shared_library(Motor_Device_BenMo)
+    import_shared_library(Motor_Device_TaiHu)
+    import_shared_library(Motor_Interpolation)
 # script auto end -> lib_add
 
 # 设置整个项目的编译输出路径

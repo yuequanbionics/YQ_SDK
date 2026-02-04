@@ -7,7 +7,7 @@ SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 # 自动补全函数定义
 # --------------------------
 _tool_completion() {
-    local commands=("make" "clean" "Dmake" "init_install" "completion" "menu_config" "ipconfig" "set_id" "make_config" "make_third" "build_out")  
+    local commands=("make" "clean" "Dmake" "init_install" "completion" "menu_config" "ipconfig" "set_id" "make_config" "make_third" "build_out" "OTA" "INIT")  
     local cur=${COMP_WORDS[COMP_CWORD]}
     if [ $COMP_CWORD -eq 1 ]; then
         COMPREPLY=($(compgen -W "${commands[*]}" -- "$cur"))
@@ -50,7 +50,9 @@ usage() {
     echo "  make_third   编译第三方库" 
     echo "  ipconfig     设置网卡IP"  
     echo "  set_id       设置设备ID"  
-    echo "  build_out    构建输出版"  
+    echo "  build_out    构建输出版" 
+    echo "  OTA          设备OTA升级"  
+    echo "  INIT         设备初始化"  
     exit 1
 }
 
@@ -293,9 +295,10 @@ case "$1" in
         echo "1) Docker 安装"
         echo "2) Miniconda 安装"
         echo "3) Ollama 安装"
+        echo "4) 基础环境 安装"
         
         # 读取用户输入
-        read -p "请输入选项(0-3):" choice
+        read -p "请输入选项(0-4):" choice
 
         # 映射选择到版本号
         case $choice in
@@ -397,6 +400,9 @@ WantedBy=default.target"
                     sudo systemctl status ollama
                     # ollama run SimonPu/Qwen3-Coder:30B-Instruct_Q4_K_XL
                 fi
+                ;;
+            4)
+                sudo apt install -y build-essential cmake libboost-all-dev htop tmux net-tools gparted
                 ;;
             *)
                 # 处理无效输入
@@ -526,7 +532,7 @@ WantedBy=default.target"
 cat >> "$bashrc_file" <<EOF
 # ${script_name} 自动补全配置
 _tool_completion() {
-    local commands=("make" "clean" "Dmake" "init_install" "completion" "menu_config" "ipconfig" "set_id" "make_config" "make_third" "build_out")  
+    local commands=("make" "clean" "Dmake" "init_install" "completion" "menu_config" "ipconfig" "set_id" "make_config" "make_third" "build_out" "OTA" "INIT")  
     local cur=\${COMP_WORDS[COMP_CWORD]}
     if [ \$COMP_CWORD -eq 1 ]; then
         COMPREPLY=(\$(compgen -W "\${commands[*]}" -- "\$cur"))
@@ -608,6 +614,13 @@ EOF
         conda run -n sdk --no-capture-output python ./script/python/Tool/build_out.py
         ;;
 
+    OTA)
+        script/shell/Device_OTA.sh $2
+        ;;
+
+    INIT)
+        script/shell/Device_INIT.sh $2
+        ;;
     *)
         echo "错误:未知命令 '$1'"
         usage

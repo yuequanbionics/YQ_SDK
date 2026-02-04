@@ -106,6 +106,8 @@ enum Motor_CMD_Data_Enum
 	Motor_CMD_Debugfloat3,
 
 	Motor_CMD_FB_MOD,
+	Motor_CMD_Coil_Temp_Alarm_Threshold,
+	Motor_CMD_Coil_Temp_Protect_Threshold,
 };
 
 enum Motor_CONTROL_MOD
@@ -417,7 +419,7 @@ public:
         buffer.push_back(new_data);
         
         // 如果缓冲区大小超过核大小，移除最旧的数据
-        if (buffer.size() > kernel_size) {
+        if ((u32)buffer.size() > (u32)kernel_size) {
             buffer.pop_front();
         }
 

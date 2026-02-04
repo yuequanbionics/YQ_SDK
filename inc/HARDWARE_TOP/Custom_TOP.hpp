@@ -22,9 +22,10 @@ typedef struct
 class Custom : private Robot_Hardware
 {
 public:
-    int Custom_Send_Msg(shared_ptr<Device_Struct> Device_P, u8 *Msg_Frame);
+	int Custom_Top_Frame_Analyze(volatile u8 *Can_Frame);
+    int Custom_Send_Msg(shared_ptr<Device_class> Device_P, u8 *Msg_Frame);
 	int (*Custom_Msg_CallBack)(volatile u8 *);
-	
+
 	Custom(void);
 };
 

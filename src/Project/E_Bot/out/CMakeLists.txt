@@ -8,13 +8,11 @@ if(${OUT})
     add_executable(${EXE_NAME}
             ./E_Bot_Out.cpp
     )
-
+    
     target_include_directories(${EXE_NAME} PUBLIC
-            ${YAML_CPP_INCLUDE_DIR}
-            ${SYS_INC_DIR}
-            ${INC_DIR}/Motor
-            ${INC_DIR}/Switch_Board
-            ${INC_DIR}/Custom_Device/Servo_Feetech
+        ${YAML_CPP_INCLUDE_DIR}
+        ${SYS_INC_DIR}
+        ${INC_SUBDIRS} 
     )
 
     add_dependencies(${EXE_NAME}

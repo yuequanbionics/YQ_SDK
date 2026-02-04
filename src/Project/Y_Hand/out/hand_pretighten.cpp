@@ -5,6 +5,7 @@
 #include "Motor_TOP.hpp"
 #include "Switch_Board.hpp"
 #include "Auto_Set_Id.hpp"
+#include "Led_Device.hpp"
 
 #include <iostream>
 #include <chrono>
@@ -19,11 +20,11 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     Robot_Hardware *Test_Robot = new Robot_Hardware();
-    Test_Robot->Add_Device_Type("Switch_Board", Switch_Board_Device_Init, Switch_Board_Device_CallBack_F, Switch_Board_Device_Delete_F);
-    Test_Robot->Add_Device_Type("Motor_Device", Motor_Device_Init, Motor_Device_CallBack_F, Motor_Device_Delete_F);
+    Test_Robot->Add_Device_Type(Switch_Board_Type, Switch_Board_Device_Init, Switch_Board_Device_CallBack_F, Switch_Board_Device_Delete_F);
+    Test_Robot->Add_Device_Type(Led_Device_TYPE, Led_Device_Init, Led_Device_CallBack_F, Led_Device_Delete_F);
+    Test_Robot->Add_Device_Type(Motor_Device_Type, Motor_Device_Init, Motor_Device_CallBack_F, Motor_Device_Delete_F);
     Test_Robot->Add_Device_Type(Auto_Set_Id_Type, Auto_Set_Id_Init, Auto_Set_Id_CallBack_F, Auto_Set_Id_Delete_F);
  
-
     filesystem::path exe_path = filesystem::canonical("/proc/self/exe");  
     filesystem::path dir_path = exe_path.parent_path();
     std::cout << "程序所在目录: " << dir_path << std::endl;
@@ -38,37 +39,38 @@ int main(int argc, char *argv[])
     // string ADDR_OTA = "/home/toko/SP/sdk_2/config/OTA_BAG/Y_Hand_OTA";
     // Test_Robot->OTA_GO(ADDR_OTA);
     // return 0;
+    shared_ptr<Device_class> Led_Devicess = Test_Robot->Get_Device_For_Name("Led_GoGo");
+    shared_ptr<Device_class>  Motor1_Device = Test_Robot->Get_Device_For_Name("Motor_1");
+    shared_ptr<Device_class>  Motor2_Device = Test_Robot->Get_Device_For_Name("Motor_2");
+    shared_ptr<Device_class>  Motor3_Device = Test_Robot->Get_Device_For_Name("Motor_3");
+    shared_ptr<Device_class>  Motor4_Device = Test_Robot->Get_Device_For_Name("Motor_4");
+    shared_ptr<Device_class>  Motor5_Device = Test_Robot->Get_Device_For_Name("Motor_5");
+    shared_ptr<Device_class>  Motor6_Device = Test_Robot->Get_Device_For_Name("Motor_6");
+    shared_ptr<Device_class>  Motor7_Device = Test_Robot->Get_Device_For_Name("Motor_7");
+    shared_ptr<Device_class>  Motor8_Device = Test_Robot->Get_Device_For_Name("Motor_8");
+    shared_ptr<Device_class>  Motor9_Device = Test_Robot->Get_Device_For_Name("Motor_9");
+    shared_ptr<Device_class> Motor10_Device = Test_Robot->Get_Device_For_Name("Motor_10");
+    shared_ptr<Device_class> Motor11_Device = Test_Robot->Get_Device_For_Name("Motor_11");
+    shared_ptr<Device_class> Motor12_Device = Test_Robot->Get_Device_For_Name("Motor_12");
+    shared_ptr<Device_class> Motor13_Device = Test_Robot->Get_Device_For_Name("Motor_13");
+    shared_ptr<Device_class> Motor14_Device = Test_Robot->Get_Device_For_Name("Motor_14");
+    shared_ptr<Device_class> Motor15_Device = Test_Robot->Get_Device_For_Name("Motor_15");
+    shared_ptr<Device_class> Motor16_Device = Test_Robot->Get_Device_For_Name("Motor_16");
+    shared_ptr<Device_class> Motor17_Device = Test_Robot->Get_Device_For_Name("Motor_17");
+    shared_ptr<Device_class> Motor18_Device = Test_Robot->Get_Device_For_Name("Motor_18");
+    shared_ptr<Device_class> Motor19_Device = Test_Robot->Get_Device_For_Name("Motor_19");
+    shared_ptr<Device_class> Motor20_Device = Test_Robot->Get_Device_For_Name("Motor_20");
+    shared_ptr<Device_class> Motor21_Device = Test_Robot->Get_Device_For_Name("Motor_21");
+    shared_ptr<Device_class> Motor22_Device = Test_Robot->Get_Device_For_Name("Motor_22");
+    shared_ptr<Device_class> Motor23_Device = Test_Robot->Get_Device_For_Name("Motor_23");
+    shared_ptr<Device_class> Motor24_Device = Test_Robot->Get_Device_For_Name("Motor_24");
+    shared_ptr<Device_class> Motor25_Device = Test_Robot->Get_Device_For_Name("Motor_25");
+    shared_ptr<Device_class> Motor26_Device = Test_Robot->Get_Device_For_Name("Motor_26");
+    shared_ptr<Device_class> Motor27_Device = Test_Robot->Get_Device_For_Name("Motor_27");
+    shared_ptr<Device_class> Motor28_Device = Test_Robot->Get_Device_For_Name("Motor_28");
 
-    shared_ptr<Device_Struct>  Motor1_Device = Test_Robot->Get_Device_For_Name("Motor_1");
-    shared_ptr<Device_Struct>  Motor2_Device = Test_Robot->Get_Device_For_Name("Motor_2");
-    shared_ptr<Device_Struct>  Motor3_Device = Test_Robot->Get_Device_For_Name("Motor_3");
-    shared_ptr<Device_Struct>  Motor4_Device = Test_Robot->Get_Device_For_Name("Motor_4");
-    shared_ptr<Device_Struct>  Motor5_Device = Test_Robot->Get_Device_For_Name("Motor_5");
-    shared_ptr<Device_Struct>  Motor6_Device = Test_Robot->Get_Device_For_Name("Motor_6");
-    shared_ptr<Device_Struct>  Motor7_Device = Test_Robot->Get_Device_For_Name("Motor_7");
-    shared_ptr<Device_Struct>  Motor8_Device = Test_Robot->Get_Device_For_Name("Motor_8");
-    shared_ptr<Device_Struct>  Motor9_Device = Test_Robot->Get_Device_For_Name("Motor_9");
-    shared_ptr<Device_Struct> Motor10_Device = Test_Robot->Get_Device_For_Name("Motor_10");
-    shared_ptr<Device_Struct> Motor11_Device = Test_Robot->Get_Device_For_Name("Motor_11");
-    shared_ptr<Device_Struct> Motor12_Device = Test_Robot->Get_Device_For_Name("Motor_12");
-    shared_ptr<Device_Struct> Motor13_Device = Test_Robot->Get_Device_For_Name("Motor_13");
-    shared_ptr<Device_Struct> Motor14_Device = Test_Robot->Get_Device_For_Name("Motor_14");
-    shared_ptr<Device_Struct> Motor15_Device = Test_Robot->Get_Device_For_Name("Motor_15");
-    shared_ptr<Device_Struct> Motor16_Device = Test_Robot->Get_Device_For_Name("Motor_16");
-    shared_ptr<Device_Struct> Motor17_Device = Test_Robot->Get_Device_For_Name("Motor_17");
-    shared_ptr<Device_Struct> Motor18_Device = Test_Robot->Get_Device_For_Name("Motor_18");
-    shared_ptr<Device_Struct> Motor19_Device = Test_Robot->Get_Device_For_Name("Motor_19");
-    shared_ptr<Device_Struct> Motor20_Device = Test_Robot->Get_Device_For_Name("Motor_20");
-    shared_ptr<Device_Struct> Motor21_Device = Test_Robot->Get_Device_For_Name("Motor_21");
-    shared_ptr<Device_Struct> Motor22_Device = Test_Robot->Get_Device_For_Name("Motor_22");
-    shared_ptr<Device_Struct> Motor23_Device = Test_Robot->Get_Device_For_Name("Motor_23");
-    shared_ptr<Device_Struct> Motor24_Device = Test_Robot->Get_Device_For_Name("Motor_24");
-    shared_ptr<Device_Struct> Motor25_Device = Test_Robot->Get_Device_For_Name("Motor_25");
-    shared_ptr<Device_Struct> Motor26_Device = Test_Robot->Get_Device_For_Name("Motor_26");
-    shared_ptr<Device_Struct> Motor27_Device = Test_Robot->Get_Device_For_Name("Motor_27");
-    shared_ptr<Device_Struct> Motor28_Device = Test_Robot->Get_Device_For_Name("Motor_28");
 
-
+    Led_Device *Led_Device_A_Ptr = (Led_Device*)Test_Robot->Get_Control_Class( Led_Devicess);
     Motor * Motor1_Control = (Motor*)Test_Robot->Get_Control_Class( Motor1_Device);
     Motor * Motor2_Control = (Motor*)Test_Robot->Get_Control_Class( Motor2_Device);
     Motor * Motor3_Control = (Motor*)Test_Robot->Get_Control_Class( Motor3_Device);

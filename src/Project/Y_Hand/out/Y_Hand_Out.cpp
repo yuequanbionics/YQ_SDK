@@ -5,6 +5,7 @@
 #include "Motor_TOP.hpp"
 #include "Switch_Board.hpp"
 #include "Auto_Set_Id.hpp"
+#include "Led_Device.hpp"
 
 #include <iostream>
 #include <chrono>
@@ -13,40 +14,43 @@
 #include <math.h>
 #include "unistd.h"
 #include <filesystem>
+#include <iomanip> 
 
 using namespace std;
 
 Robot_Hardware *Test_Robot;
 
-shared_ptr<Device_Struct>  Motor1_Device;
-shared_ptr<Device_Struct>  Motor2_Device;
-shared_ptr<Device_Struct>  Motor3_Device;
-shared_ptr<Device_Struct>  Motor4_Device;
-shared_ptr<Device_Struct>  Motor5_Device;
-shared_ptr<Device_Struct>  Motor6_Device;
-shared_ptr<Device_Struct>  Motor7_Device;
-shared_ptr<Device_Struct>  Motor8_Device;
-shared_ptr<Device_Struct>  Motor9_Device;
-shared_ptr<Device_Struct> Motor10_Device;
-shared_ptr<Device_Struct> Motor11_Device;
-shared_ptr<Device_Struct> Motor12_Device;
-shared_ptr<Device_Struct> Motor13_Device;
-shared_ptr<Device_Struct> Motor14_Device;
-shared_ptr<Device_Struct> Motor15_Device;
-shared_ptr<Device_Struct> Motor16_Device;
-shared_ptr<Device_Struct> Motor17_Device;
-shared_ptr<Device_Struct> Motor18_Device;
-shared_ptr<Device_Struct> Motor19_Device;
-shared_ptr<Device_Struct> Motor20_Device;
-shared_ptr<Device_Struct> Motor21_Device;
-shared_ptr<Device_Struct> Motor22_Device;
-shared_ptr<Device_Struct> Motor23_Device;
-shared_ptr<Device_Struct> Motor24_Device;
-shared_ptr<Device_Struct> Motor25_Device;
-shared_ptr<Device_Struct> Motor26_Device;
-shared_ptr<Device_Struct> Motor27_Device;
-shared_ptr<Device_Struct> Motor28_Device;
+shared_ptr<Device_class>  Led_Devicess;
+shared_ptr<Device_class>  Motor1_Device;
+shared_ptr<Device_class>  Motor2_Device;
+shared_ptr<Device_class>  Motor3_Device;
+shared_ptr<Device_class>  Motor4_Device;
+shared_ptr<Device_class>  Motor5_Device;
+shared_ptr<Device_class>  Motor6_Device;
+shared_ptr<Device_class>  Motor7_Device;
+shared_ptr<Device_class>  Motor8_Device;
+shared_ptr<Device_class>  Motor9_Device;
+shared_ptr<Device_class> Motor10_Device;
+shared_ptr<Device_class> Motor11_Device;
+shared_ptr<Device_class> Motor12_Device;
+shared_ptr<Device_class> Motor13_Device;
+shared_ptr<Device_class> Motor14_Device;
+shared_ptr<Device_class> Motor15_Device;
+shared_ptr<Device_class> Motor16_Device;
+shared_ptr<Device_class> Motor17_Device;
+shared_ptr<Device_class> Motor18_Device;
+shared_ptr<Device_class> Motor19_Device;
+shared_ptr<Device_class> Motor20_Device;
+shared_ptr<Device_class> Motor21_Device;
+shared_ptr<Device_class> Motor22_Device;
+shared_ptr<Device_class> Motor23_Device;
+shared_ptr<Device_class> Motor24_Device;
+shared_ptr<Device_class> Motor25_Device;
+shared_ptr<Device_class> Motor26_Device;
+shared_ptr<Device_class> Motor27_Device;
+shared_ptr<Device_class> Motor28_Device;
 
+Led_Device *Led_Device_A_Ptr;
 Motor * Motor1_Control;
 Motor * Motor2_Control;
 Motor * Motor3_Control;
@@ -183,7 +187,7 @@ int hand_pretighten(float F, uint32_t time_ms)
     Motor25_Control->Set_Zero(Motor25_Device, 0);
     Motor26_Control->Set_Zero(Motor26_Device, 0);
     Motor27_Control->Set_Zero(Motor27_Device, 0);
-    Motor28_Control->Set_Zero(Motor28_Device, 0);  
+    Motor28_Control->Set_Zero(Motor28_Device, 0);
     usleep(1000000);
      Motor1_Control->Motor_EN( Motor1_Device, 1);
      Motor2_Control->Motor_EN( Motor2_Device, 1);
@@ -212,7 +216,7 @@ int hand_pretighten(float F, uint32_t time_ms)
     Motor25_Control->Motor_EN(Motor25_Device, 1);
     Motor26_Control->Motor_EN(Motor26_Device, 1);
     Motor27_Control->Motor_EN(Motor27_Device, 1);
-    Motor28_Control->Motor_EN(Motor28_Device, 1);  
+    Motor28_Control->Motor_EN(Motor28_Device, 1);
 
     return 0;
 }
@@ -225,8 +229,9 @@ int hardware_init(string ADDR)
 #endif
 {
     Test_Robot = new Robot_Hardware();
-    Test_Robot->Add_Device_Type("Switch_Board", Switch_Board_Device_Init, Switch_Board_Device_CallBack_F, Switch_Board_Device_Delete_F);
-    Test_Robot->Add_Device_Type("Motor_Device", Motor_Device_Init, Motor_Device_CallBack_F, Motor_Device_Delete_F);
+    Test_Robot->Add_Device_Type(Switch_Board_Type, Switch_Board_Device_Init, Switch_Board_Device_CallBack_F, Switch_Board_Device_Delete_F);
+    Test_Robot->Add_Device_Type(Led_Device_TYPE, Led_Device_Init, Led_Device_CallBack_F, Led_Device_Delete_F);
+    Test_Robot->Add_Device_Type(Motor_Device_Type, Motor_Device_Init, Motor_Device_CallBack_F, Motor_Device_Delete_F);
     Test_Robot->Add_Device_Type(Auto_Set_Id_Type, Auto_Set_Id_Init, Auto_Set_Id_CallBack_F, Auto_Set_Id_Delete_F);
  
 #ifndef HAVE_ROS
@@ -244,7 +249,7 @@ int hardware_init(string ADDR)
     // string ADDR_OTA = "/home/toko/SP/sdk_2/config/OTA_BAG/Y_Hand_OTA";
     // Test_Robot->OTA_GO(ADDR_OTA);
     // return 0;
-
+    Led_Devicess = Test_Robot->Get_Device_For_Name("Led_GoGo");
      Motor1_Device = Test_Robot->Get_Device_For_Name("Motor_1");
      Motor2_Device = Test_Robot->Get_Device_For_Name("Motor_2");
      Motor3_Device = Test_Robot->Get_Device_For_Name("Motor_3");
@@ -274,7 +279,7 @@ int hardware_init(string ADDR)
     Motor27_Device = Test_Robot->Get_Device_For_Name("Motor_27");
     Motor28_Device = Test_Robot->Get_Device_For_Name("Motor_28");
 
-
+    Led_Device_A_Ptr = (Led_Device*)Test_Robot->Get_Control_Class( Led_Devicess);
      Motor1_Control = (Motor*)Test_Robot->Get_Control_Class( Motor1_Device);
      Motor2_Control = (Motor*)Test_Robot->Get_Control_Class( Motor2_Device);
      Motor3_Control = (Motor*)Test_Robot->Get_Control_Class( Motor3_Device);
@@ -312,7 +317,7 @@ int hardware_init(string ADDR)
     float Kd = 0;
     int times = 0;
     float PP_old = 0;
-    constexpr int time_step = 1000*1000/250;
+    constexpr int time_step = 5000*1000/500;
     // 主控制循环（持续运行）
     while (1)
     {   
@@ -322,11 +327,11 @@ int hardware_init(string ADDR)
         float VV = (PP - PP_old) * (static_cast<float>(1000000) / time_step);  // MIT 控制目标速度, 它是位置的微分
         float TT = -sin(S)*0.5f;   
 
-        PP = 0; 
-        VV = 0;     
+        PP = 0;
+        VV = 0;
         TT = 0;
     
-         Motor1_Control->Send_MIT_PD_Control_Data( Motor1_Device, PP, VV, 0.0, Kp, Kd);
+         Motor1_Control->Send_MIT_PD_Control_Data( Motor1_Device, PP, VV, 0, Kp, Kd);
          Motor2_Control->Send_MIT_PD_Control_Data( Motor2_Device, PP, VV, 0.0, Kp, Kd);
          Motor3_Control->Send_MIT_PD_Control_Data( Motor3_Device, PP, VV, 0.0, Kp, Kd);
          Motor4_Control->Send_MIT_PD_Control_Data( Motor4_Device, PP, VV, 0.0, Kp, Kd);
@@ -392,7 +397,14 @@ int hardware_init(string ADDR)
         Motor28_Control->Get_Motor_FB_Data(Motor28_Device, &P[28], &V[28], &F[28]);
 
         // // 打印电机反馈数据（当前仅打印P[0]和V[0]，此处可能存在索引偏移，实际应用中需根据需求调整）
-        // cout << "Post:" << P[1] << " Speed:" << V[1] << endl; //从1开始
+            // for (int i = 0; i < 28; i++) {
+            //     int motorNo = i + 1;
+            //     cout << "Motor: "
+            //         << setw(2) << setfill('0') << motorNo // 核心：两位宽，补0
+            //         << " Post:" << P[i+1]
+            //         << " F:" << F[i+1]
+            //         << endl;
+            // }
     }
 #endif
 

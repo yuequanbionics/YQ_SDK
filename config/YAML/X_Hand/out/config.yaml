@@ -1,7 +1,4 @@
 config:
-  : &IO_Map_Send true
-  : &Save_Main_Config false
-
   : &Run_Auto_Set_Id false
   : &Auto_Set_Id_Save false
   

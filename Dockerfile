@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     g++ \
     ncurses-term \
     gcc-aarch64-linux-gnu g++-aarch64-linux-gnu \
+    libboost-all-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app

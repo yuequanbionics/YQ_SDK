@@ -10,6 +10,8 @@
 #include "UDP.hpp"
 #include "syst.hpp"
 
+#define Battery_BMS_Custom_Type "Battery_BMS_Custom"
+
 #pragma pack(push, 1)
 
 // BMS基础数据结构
@@ -130,7 +132,7 @@ enum BMS_Command_ID : uint16_t {
 
 // 设备初始化宏定义
 #define Battery_BMS_Device_Init                                                       \
-    [](shared_ptr<Device_Struct> Device, YAML::Node* Node) -> int {                   \
+    [](shared_ptr<Device_class> Device, YAML::Node* Node) -> int {                    \
         BMS_Protocol* bms_device = new BMS_Protocol();                                \
         Device->Device_Private_Class = (void*)bms_device;                             \
         if (Node != nullptr)                                                          \
@@ -140,9 +142,9 @@ enum BMS_Command_ID : uint16_t {
     }
 
 // 设备回调函数宏定义
-#define Battery_BMS_Device_CallBack                                           \
-    [](void* Device_Private_Class, volatile u8* Msg) -> int {                 \
-        return ((BMS_Protocol*)Device_Private_Class)->BMS_Frame_Analyze(Msg); \
+#define Battery_BMS_Device_CallBack                                                   \
+    [](shared_ptr<Device_class> Device, u8* Msg) -> int {                             \
+        return ((BMS_Protocol*)Device->Device_Private_Class)->BMS_Frame_Analyze(Msg); \
     }
 
 // 设备删除函数宏定义
@@ -178,7 +180,7 @@ class BMS_Protocol : private Robot_Hardware {
     std::mutex data_mutex;
 
    public:
-    std::shared_ptr<Device_Struct> s_device;
+    std::shared_ptr<Device_class> s_device;
 
     /**
      * @brief 构造函数
@@ -195,7 +197,7 @@ class BMS_Protocol : private Robot_Hardware {
      * @param Device_P 设备结构体指针
      * @return 执行结果
      */
-    int Wake_Up_BMS(std::shared_ptr<Device_Struct> Device_P);
+    int Wake_Up_BMS(std::shared_ptr<Device_class> Device_P);
 
     /**
      * @brief 修改BMS设备地址
@@ -203,63 +205,63 @@ class BMS_Protocol : private Robot_Hardware {
      * @param new_address 新地址 (1-14)
      * @return 执行结果
      */
-    int Change_BMS_Address(std::shared_ptr<Device_Struct> Device_P, u8 new_address);
+    int Change_BMS_Address(std::shared_ptr<Device_class> Device_P, u8 new_address);
 
     /**
      * @brief 请求BMS基本信息
      * @param Device_P 设备结构体指针
      * @return 执行结果
      */
-    int Request_Basic_Info(std::shared_ptr<Device_Struct> Device_P);
+    int Request_Basic_Info(std::shared_ptr<Device_class> Device_P);
 
     /**
      * @brief 请求电压电流信息
      * @param Device_P 设备结构体指针
      * @return 执行结果
      */
-    int Request_Voltage_Current_Info(std::shared_ptr<Device_Struct> Device_P);
+    int Request_Voltage_Current_Info(std::shared_ptr<Device_class> Device_P);
 
     /**
      * @brief 请求容量温度信息
      * @param Device_P 设备结构体指针
      * @return 执行结果
      */
-    int Request_Capacity_Temp_Info(std::shared_ptr<Device_Struct> Device_P);
+    int Request_Capacity_Temp_Info(std::shared_ptr<Device_class> Device_P);
 
     /**
      * @brief 请求状态信息
      * @param Device_P 设备结构体指针
      * @return 执行结果
      */
-    int Request_Status_Info(std::shared_ptr<Device_Struct> Device_P);
+    int Request_Status_Info(std::shared_ptr<Device_class> Device_P);
 
     /**
      * @brief 请求单体电压信息
      * @param Device_P 设备结构体指针
      * @return 执行结果
      */
-    int Request_Cell_Voltage_Info(std::shared_ptr<Device_Struct> Device_P);
+    int Request_Cell_Voltage_Info(std::shared_ptr<Device_class> Device_P);
 
     /**
      * @brief 请求告警信息
      * @param Device_P 设备结构体指针
      * @return 执行结果
      */
-    int Request_Alarm_Info(std::shared_ptr<Device_Struct> Device_P);
+    int Request_Alarm_Info(std::shared_ptr<Device_class> Device_P);
 
     /**
      * @brief 请求保护信息
      * @param Device_P 设备结构体指针
      * @return 执行结果
      */
-    int Request_Protection_Info(std::shared_ptr<Device_Struct> Device_P);
+    int Request_Protection_Info(std::shared_ptr<Device_class> Device_P);
 
     /**
      * @brief 请求故障信息
      * @param Device_P 设备结构体指针
      * @return 执行结果
      */
-    int Request_Fault_Info(std::shared_ptr<Device_Struct> Device_P);
+    int Request_Fault_Info(std::shared_ptr<Device_class> Device_P);
 
     /**
      * @brief 请求单体电压详细信息
@@ -267,14 +269,14 @@ class BMS_Protocol : private Robot_Hardware {
      * @param group 组号 (0:1-4, 1:5-8, 2:9-12, 3:13-16)
      * @return 执行结果
      */
-    int Request_Cell_Voltage_Detail(std::shared_ptr<Device_Struct> Device_P, u8 group);
+    int Request_Cell_Voltage_Detail(std::shared_ptr<Device_class> Device_P, u8 group);
 
     /**
      * @brief 请求UID信息
      * @param Device_P 设备结构体指针
      * @return 执行结果
      */
-    int Request_UID_Info(std::shared_ptr<Device_Struct> Device_P);
+    int Request_UID_Info(std::shared_ptr<Device_class> Device_P);
 
     /**
      * @brief 从YAML配置文件读取BMS参数并初始化
@@ -282,7 +284,7 @@ class BMS_Protocol : private Robot_Hardware {
      * @param One_Node YAML节点
      * @return 执行结果
      */
-    int Get_BMS_Device_Data_From_Yaml_And_Init(std::shared_ptr<Device_Struct> Device, YAML::Node One_Node);
+    int Get_BMS_Device_Data_From_Yaml_And_Init(std::shared_ptr<Device_class> Device, YAML::Node One_Node);
 
     /**
      * @brief BMS帧数据解析回调函数
@@ -340,7 +342,7 @@ class BMS_Protocol : private Robot_Hardware {
      * @param data_length 数据长度
      * @return 执行结果
      */
-    int Send_BMS_Command(std::shared_ptr<Device_Struct> Device_P, u16 command_id, const u8* data, u8 data_length);
+    int Send_BMS_Command(std::shared_ptr<Device_class> Device_P, u16 command_id, const u8* data, u8 data_length);
 
     /**
      * @brief 解析基本信息帧

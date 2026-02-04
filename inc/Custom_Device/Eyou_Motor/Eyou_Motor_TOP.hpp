@@ -4,9 +4,9 @@
 #include "HARDWARE_TOP.hpp"
 #include "UDP.hpp"
 
+#define Eyou_Custom_Type "Eyou_Custom_Motor_TOP"
 
-
-#define Eyou_Custom_Motor_Device_Init  [](shared_ptr<Device_Struct> Device, YAML::Node *Node) -> int\
+#define Eyou_Custom_Motor_Device_Init  [](shared_ptr<Device_class> Device, YAML::Node *Node) -> int\
                             {\
                                 Eyou_Motor *One_Eyou_Motor = new Eyou_Motor();\
                                 Device->Device_Private_Class = (void *)One_Eyou_Motor;\
@@ -16,9 +16,9 @@
                                     return 0;\
                             }\
 
-#define Eyou_Custom_Motor_Device_CallBack_F    [](void *Device_Private_Class, volatile u8 *Msg) -> int\
+#define Eyou_Custom_Motor_Device_CallBack_F    [](shared_ptr<Device_class> Device, u8 *Msg) -> int \
                                     {\
-                                        return ((Eyou_Motor *)Device_Private_Class)->Eyou_Custom_Motor_Top_Frame_Analyze(Msg);\
+                                        return ((Eyou_Motor *)Device->Device_Private_Class)->Eyou_Custom_Motor_Top_Frame_Analyze(Msg);\
                                     }\
 
 #define Eyou_Custom_Motor_Device_Delete_F  [](void *Device_Private_Class)\
@@ -82,18 +82,18 @@ private:
 public:
     double Eyou_Motor_Speed_Now = 0.0;
     double Eyou_Motor_Pos_Now = 0.0;
-    int Get_Eyou_Custom_Motor_Device_Data_From_Yaml_And_Init(shared_ptr<Device_Struct> Device, YAML::Node One_Node);
+    int Get_Eyou_Custom_Motor_Device_Data_From_Yaml_And_Init(shared_ptr<Device_class> Device, YAML::Node One_Node);
     int Eyou_Custom_Motor_Top_Frame_Analyze(volatile u8 *Can_Frame);
     
     /**
      * @brief 电机使能/失能
     */
-    int Motor_EN(shared_ptr<Device_Struct> Device_P, int EN);
+    int Motor_EN(shared_ptr<Device_class> Device_P, int EN);
 
     /**
      * @brief 电机停止，但不下使能
     */
-    int Motor_Stop(shared_ptr<Device_Struct> Device_P);
+    int Motor_Stop(shared_ptr<Device_class> Device_P);
 
     /**
      * @brief 位置控制
@@ -103,7 +103,7 @@ public:
      * @param Deceleration  运动减速度
      * @param Set_Lock      设置锁
     */
-    int Send_MIT_PD_Control_Data(shared_ptr<Device_Struct> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
+    int Send_MIT_PD_Control_Data(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
 
     /**
      * @brief 位置控制
@@ -113,28 +113,28 @@ public:
      * @param Deceleration  运动减速度
      * @param Set_Lock      设置锁
     */
-    int Send_MIT_PD_Control_Data_(shared_ptr<Device_Struct> Device_P, float Rad, float Speed_Rad_S, float Acceleration, float Deceleration);
+    int Send_MIT_PD_Control_Data_(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Acceleration, float Deceleration);
     
     /**
      * @brief 写零点与偏执
      * @param offest 0为设置零点
     */
-    int Set_Zero(shared_ptr<Device_Struct> Device_P);
+    int Set_Zero(shared_ptr<Device_class> Device_P);
 
-    int Set_Offest(shared_ptr<Device_Struct> Device_P, float Offest_Datasss);
+    int Set_Offest(shared_ptr<Device_class> Device_P, float Offest_Datasss);
 
     /**
      * @brief 读取Eyou电机当前速度、位置。
     */
-    int Get_Motor_FB_Data(shared_ptr<Device_Struct> Device_P, float *P, float *V, float *F);
+    int Get_Motor_FB_Data(shared_ptr<Device_class> Device_P, float *P, float *V, float *F);
 
     /**
      * @brief 设置Eyou电机的ID
     */
-    int Set_ID(shared_ptr<Device_Struct> Device_P, u8 new_id);
+    int Set_ID(shared_ptr<Device_class> Device_P, u8 new_id);
 
 private:
-    std::shared_ptr<Device_Struct> s_device;
+    std::shared_ptr<Device_class> s_device;
     int Call_Back_Status = 0;
     int Write_Flag = 0;
     int Motor_Reduction_Ratio = 0;
@@ -143,15 +143,15 @@ private:
     float Deceleration = 0.0;
     float Offest_From_Yaml = 0.0;
     float Offest_Data = 0.0;
-    Eyou_Motor_Data Data_Init(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_Struct> Device); 
-    Eyou_Motor_Data Data_Save_To_Motor(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_Struct> Device);
-    Eyou_Motor_Data Write_1_Data(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_Struct> Device, u8 now_, u8 cmd, u8 index, u8 data);
-    Eyou_Motor_Data Write_2_Data(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_Struct> Device, u8 now_, u8 cmd, u8 index, u8 data0, u8 data1);
-    Eyou_Motor_Data Write_Angel_And_Speed_Data(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_Struct> Device, u8 now_, u8 cmd, u8 index, float in_data);
-    Eyou_Motor_Data Write_Zero_Data(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_Struct> Device, u8 cmd, u8 index, float in_data);
-    Eyou_Motor_Data Read_Motor_Data(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_Struct> Device, u8 cmd, u8 index);
-    Eyou_Motor_Data Set_Zero_Call_Back(shared_ptr<Device_Struct> Device_P, Eyou_Motor_Data *Eyou_Motor_Data_point);
-    Eyou_Motor_Data Set_Offest_Call_Back(shared_ptr<Device_Struct> Device_P, Eyou_Motor_Data *Eyou_Motor_Data_point);
+    Eyou_Motor_Data Data_Init(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_class> Device); 
+    Eyou_Motor_Data Data_Save_To_Motor(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_class> Device);
+    Eyou_Motor_Data Write_1_Data(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_class> Device, u8 now_, u8 cmd, u8 index, u8 data);
+    Eyou_Motor_Data Write_2_Data(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_class> Device, u8 now_, u8 cmd, u8 index, u8 data0, u8 data1);
+    Eyou_Motor_Data Write_Angel_And_Speed_Data(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_class> Device, u8 now_, u8 cmd, u8 index, float in_data);
+    Eyou_Motor_Data Write_Zero_Data(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_class> Device, u8 cmd, u8 index, float in_data);
+    Eyou_Motor_Data Read_Motor_Data(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_class> Device, u8 cmd, u8 index);
+    Eyou_Motor_Data Set_Zero_Call_Back(shared_ptr<Device_class> Device_P, Eyou_Motor_Data *Eyou_Motor_Data_point);
+    Eyou_Motor_Data Set_Offest_Call_Back(shared_ptr<Device_class> Device_P, Eyou_Motor_Data *Eyou_Motor_Data_point);
     void Print_Send_Data(Eyou_Motor_Data *Eyou_Motor_Datas);
     void Print_Back_Data(Eyou_Motor_Data *Eyou_Motor_Datas);
 };

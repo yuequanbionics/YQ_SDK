@@ -16,7 +16,7 @@ using namespace std;
 
 Robot_Hardware *E_Hand;
 
-shared_ptr<Device_Struct> Device_Servo_SCS0009;
+shared_ptr<Device_class> Device_Servo_SCS0009;
 Servo_SCS0009 *Servo_Ctrl;
 
 #ifndef HAVE_ROS
@@ -27,7 +27,7 @@ int hardware_init(string ADDR)
 {
     E_Hand = new Robot_Hardware();
 
-    E_Hand->Add_Device_Type("Switch_Board",
+    E_Hand->Add_Device_Type(Switch_Board_Type,
                         Switch_Board_Device_Init,
                         Switch_Board_Device_CallBack_F,
                         Switch_Board_Device_Delete_F);

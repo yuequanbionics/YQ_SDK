@@ -1,7 +1,7 @@
 config:
   cat_motor_device_config: &cat_motor_device_config
     <<: *Usr_Motor_Init_Config
-    <<: *Motor_default_config
+    <<: *MZ_10MM_Motor_default_config
 
   Motor_Config_Normal_0: &Motor_Config_Normal_0
     DeviceType: Motor_Device 
@@ -76,11 +76,11 @@ Base_Node:
     PC_IP: *PC_IP
     IP: 192.168.3.101
     Port: 15100
-    Up_Data_Speed: 10000
-    Save_Config: *Save_Main_Config
+    Up_Data_Speed: 1000
+    Heart_Beat: false
 
     DeviceConfig:
-      PrintMcuTaskStack: true
+      PrintMcuTaskStack: false
       Serial_S: *Serial_4_Config
 
     child:

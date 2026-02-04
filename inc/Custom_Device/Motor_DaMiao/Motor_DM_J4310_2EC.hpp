@@ -14,7 +14,9 @@
  *
  */
 
-#define DaMiao_Custom_Motor_Device_Init  [](const std::shared_ptr<Device_Struct> Device, YAML::Node *Node) -> int \
+#define Motor_DaMiao_Device_Type  "Motor_Custom_DaMiao"
+
+#define DaMiao_Custom_Motor_Device_Init  [](const std::shared_ptr<Device_class> Device, YAML::Node *Node) -> int \
                                         { \
                                             Motor_DaMiao *One_DaMiao_Motor = new Motor_DaMiao(); \
                                             Device->Device_Private_Class = (void *)One_DaMiao_Motor; \
@@ -24,9 +26,9 @@
                                                 return 0; \
                                         }
 
-#define DaMiao_Custom_Motor_Device_CallBack_F [](void *Device_Private_Class, volatile u8 *Msg) -> int \
+#define DaMiao_Custom_Motor_Device_CallBack_F [](shared_ptr<Device_class> Device, u8 *Msg) -> int \
                                              { \
-                                                 return ((Motor_DaMiao *)Device_Private_Class)->DaMiao_Custom_Motor_Top_Frame_Analyze(Msg); \
+                                                 return ((Motor_DaMiao *)Device->Device_Private_Class)->DaMiao_Custom_Motor_Top_Frame_Analyze(Msg); \
                                              }
 
 #define DaMiao_Custom_Motor_Device_Delete_F [](void *Device_Private_Class) \
@@ -192,52 +194,52 @@ typedef union
 class Motor_DaMiao : Robot_Hardware
 {
 public:
-    int Get_DaMiao_Motor_Data_From_Yaml_And_Init(std::shared_ptr<Device_Struct> Device, const YAML::Node& One_Node);
+    int Get_DaMiao_Motor_Data_From_Yaml_And_Init(std::shared_ptr<Device_class> Device, const YAML::Node& One_Node);
     int DaMiao_Custom_Motor_Top_Frame_Analyze(volatile u8* Can_Frame);
 
-    void Send_MIT_PD_Control_Data(const std::shared_ptr<Device_Struct>& Device,
+    void Send_MIT_PD_Control_Data(const std::shared_ptr<Device_class>& Device,
                                   float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
-    int Get_Motor_FB_Data(const shared_ptr<Device_Struct> &Device, float *P, float *V, float *F, float temp[2], u16 *error);
+    int Get_Motor_FB_Data(const shared_ptr<Device_class> &Device, float *P, float *V, float *F, const float temp[], u16 *error);
 
 
-    void DaMiao_Motor_Enable(const std::shared_ptr<Device_Struct>& Device, const motor_t* motor);
-    void DaMiao_Motor_Disable(const std::shared_ptr<Device_Struct>& Device, motor_t* motor);
-    void DaMiao_Motor_Clear_Err(const std::shared_ptr<Device_Struct>& Device, const motor_t* motor);
-    void DaMiao_Motor_Ctrl_Send(const std::shared_ptr<Device_Struct>& Device, const motor_t *motor);
-    static void DaMiao_Motor_Clear_para(motor_t* motor);
+    void DaMiao_Motor_Enable(const shared_ptr<Device_class> &Device, const motor_t *motor);
+    void DaMiao_Motor_Disable(const shared_ptr<Device_class> &Device, motor_t *motor);
+    void DaMiao_Motor_Clear_Err(const shared_ptr<Device_class> &Device, const motor_t *motor);
+    void DaMiao_Motor_Ctrl_Send(const shared_ptr<Device_class> &Device, const motor_t *motor);
+    void DaMiao_Motor_Clear_para(motor_t* motor);
 
 private:
-    void damiao_motor_fbdata(motor_t* motor, const volatile uint8_t* rx_data);
-    void enable_motor_mode(const std::shared_ptr<Device_Struct>& Device, uint16_t motor_id, uint16_t mode_id);
-    void disable_motor_mode(const std::shared_ptr<Device_Struct>& Device, uint16_t motor_id, uint16_t mode_id);
-    void save_pos_zero( const std::shared_ptr<Device_Struct>& Device, uint16_t motor_id, uint16_t mode_id);
-    void clear_err(const std::shared_ptr<Device_Struct>& Device, uint16_t motor_id, uint16_t mode_id);
+    static void damiao_motor_fbdata(motor_t* motor, const volatile uint8_t* rx_data);
+    static void enable_motor_mode(const shared_ptr<Device_class> &Device, uint16_t motor_id, uint16_t mode_id);
+    static void disable_motor_mode(const shared_ptr<Device_class> &Device, uint16_t motor_id, uint16_t mode_id);
+    static void save_pos_zero(const shared_ptr<Device_class> &Device, uint16_t motor_id, uint16_t mode_id);
+    static void clear_err(const shared_ptr<Device_class> &Device, uint16_t motor_id, uint16_t mode_id);
 
-    void mit_ctrl(std::shared_ptr<Device_Struct> Device, const motor_t *motor,                        \
+    static void mit_ctrl(const std::shared_ptr<Device_class>& Device, const motor_t *motor,                        \
                                                                 uint16_t motor_id, float pos, float vel,    \
                                                                 float    kp,       float kd,  float tor);
-    void pos_ctrl(const std::shared_ptr<Device_Struct>& Device, uint16_t motor_id, float pos, float vel);
-    void spd_ctrl(const std::shared_ptr<Device_Struct>& Device, uint16_t motor_id, float vel);
-    void psi_ctrl(const std::shared_ptr<Device_Struct>& Device, uint16_t motor_id, float pos, float vel, float cur);
+    static void pos_ctrl(const shared_ptr<Device_class> &Device, uint16_t motor_id, float pos, float vel);
+    static void spd_ctrl(const shared_ptr<Device_class> &Device, uint16_t motor_id, float vel);
+    static void psi_ctrl(const shared_ptr<Device_class> &Device, uint16_t motor_id, float pos, float vel, float cur);
 
-    void read_motor_data(const std::shared_ptr<Device_Struct>& Device, uint16_t id, uint8_t rid);
-    void read_motor_ctrl_fbdata(const std::shared_ptr<Device_Struct>& Device);
+    static void read_motor_data(const shared_ptr<Device_class> &Device, uint16_t id, uint8_t rid);
+    static void read_motor_ctrl_fbdata(const shared_ptr<Device_class> &Device);
 
-    void save_motor_data(const std::shared_ptr<Device_Struct>& Device, uint16_t id, uint8_t rid);
-    void write_motor_data( const std::shared_ptr<Device_Struct>& Device,
-                           uint16_t id, uint8_t rid, uint8_t d0,
-                           uint8_t d1,  uint8_t d2, uint8_t d3);
+    static void save_motor_data(const shared_ptr<Device_class> &Device, uint16_t id, uint8_t rid);
+    static void write_motor_data(const shared_ptr<Device_class> &Device,
+                          uint16_t id, uint8_t rid, uint8_t d0,
+                          uint8_t d1, uint8_t d2, uint8_t d3);
 
     static DaMiao_CMD_Data* cmd_data_f(u16 ID, u16 Flag,                       \
-                                       u8 data0, u8 data1, u8 data2, u8 data3, \
-                                       u8 data4, u8 data5, u8 data6, u8 data7, \
-                                       DaMiao_CMD_Data* DaMiao_CMD_Data);
+                                u8 data0, u8 data1, u8 data2, u8 data3, \
+                                u8 data4, u8 data5, u8 data6, u8 data7, \
+                                DaMiao_CMD_Data* DaMiao_CMD_Data);
 
     static void receive_motor_data(motor_t* motor, const uint8_t* data);
 
     static int float_to_uint(float x_float, float x_min, float x_max, int bits);
-    float uint_to_float(int x_int, float x_min, float x_max, int bits);
-    float degrees_to_radians(float degrees);
+    static float uint_to_float(int x_int, float x_min, float x_max, int bits);
+    static float degrees_to_radians(float degrees);
 };
 
 #endif //RHS_MOTOR_DM_J4310_2EC_HPP

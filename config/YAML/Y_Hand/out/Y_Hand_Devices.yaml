@@ -1,7 +1,7 @@
 config:
   cat_motor_device_config: &cat_motor_device_config
     <<: *Usr_Motor_Init_Config
-    <<: *Motor_default_config
+    <<: *MZ_13MM_Motor_default_config
 
   Motor_Config_Normal_0: &Motor_Config_Normal_0
     DeviceType: Motor_Device # Motor_Device IMU_Device Key_Device Switch_Board Custom_Device
@@ -13,6 +13,64 @@ config:
     CH: Head_Flag_Switch_CH2
     IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
 
+  Led_Device_Config: &Led_Device_Config
+    Led_Start_En: true
+    Led_Num: 20
+    Tim_index: 1
+    Tim_ch: 1
+    # All: true
+    # Led_R: 100
+    # Led_G: 100
+    # Led_B: 0
+    All: false
+    Led:
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+      - [  0,   0, 125]
+
+  Led_Belt_Config: &Led_Belt_Config
+    - Name: Led_GoGo
+      DeviceType: Led_Device
+      Id: 301
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      Detect: false
+      DeviceConfig:
+        <<: *Led_Device_Config
+
   MotorS_0: &MotorS_0
     - Name: Motor_1
       Id: 1
@@ -23,164 +81,164 @@ config:
     - Name: Motor_2
       Id: 1
       <<: *Motor_Config_Normal_0
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_3
       Id: 1
       <<: *Motor_Config_Normal_0
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_4
       Id: 1
       <<: *Motor_Config_Normal_0
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_5
       Id: 1
       <<: *Motor_Config_Normal_0
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_6
       Id: 1
       <<: *Motor_Config_Normal_0
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_7
       Id: 1
       <<: *Motor_Config_Normal_0
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_8
       Id: 1
       <<: *Motor_Config_Normal_0
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_9
       Id: 1
       <<: *Motor_Config_Normal_0
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_10
       Id: 1
       <<: *Motor_Config_Normal_0
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_11
       Id: 1
       <<: *Motor_Config_Normal_0
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_12
       Id: 1
       <<: *Motor_Config_Normal_0
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_13
       Id: 1
       <<: *Motor_Config_Normal_0
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_14
       Id: 1
       <<: *Motor_Config_Normal_0
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
   MotorS_1: &MotorS_1
     - Name: Motor_15
       Id: 1
       <<: *Motor_Config_Normal_1
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
-        
+
     - Name: Motor_16
       Id: 1
       <<: *Motor_Config_Normal_1
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_17
       Id: 1
       <<: *Motor_Config_Normal_1
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_18
       Id: 1
       <<: *Motor_Config_Normal_1
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_19
       Id: 1
       <<: *Motor_Config_Normal_1
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_20
       Id: 1
       <<: *Motor_Config_Normal_1
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_21
       Id: 1
       <<: *Motor_Config_Normal_1
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_22
       Id: 1
       <<: *Motor_Config_Normal_1
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_23
       Id: 1
       <<: *Motor_Config_Normal_1
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_24
       Id: 1
       <<: *Motor_Config_Normal_1
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_25
       Id: 1
       <<: *Motor_Config_Normal_1
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_26
       Id: 1
       <<: *Motor_Config_Normal_1
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_27
       Id: 1
       <<: *Motor_Config_Normal_1
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
     - Name: Motor_28
       Id: 1
       <<: *Motor_Config_Normal_1
-      DeviceConfig: 
+      DeviceConfig:
         <<: *cat_motor_device_config
 
   Auto_Set_Id_DeviceS0: &Auto_Set_Id_DeviceS0
@@ -201,7 +259,7 @@ config:
 
   Auto_Set_Id_DeviceS1: &Auto_Set_Id_DeviceS1
     - Name: Auto_Set_Id_1
-      DeviceType: Auto_Set_Id 
+      DeviceType: Auto_Set_Id
       Detect: false
       Id: 2
       CH: Head_Flag_Switch_CH2
@@ -228,13 +286,18 @@ Base_Node:
     IP: 192.168.3.101
     Port: 15100
     Up_Data_Speed: 10000
+    Heart_Beat: true
 
     DeviceConfig:
       PrintMcuTaskStack: false
+      Save_to_Flash: false   # 置 true 表示将 Can 配置写入 flash
+      Timer_S: *Timer_WS2812B_Config
 
     child:
+      --: *Led_Belt_Config
       --: *Auto_Set_Id_DeviceS0
       --: *MotorS_0
+      
 
       --: *Auto_Set_Id_DeviceS1
       --: *MotorS_1

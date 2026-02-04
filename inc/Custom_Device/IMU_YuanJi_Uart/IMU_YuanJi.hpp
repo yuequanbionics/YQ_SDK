@@ -4,7 +4,7 @@
 #include "HARDWARE_TOP.hpp"
 #include "crc32_tab.h"
 
-#define IMU_YuanJi_Init  [](shared_ptr<Device_Struct> Device, YAML::Node *Node) -> int\
+#define IMU_YuanJi_Init  [](shared_ptr<Device_class> Device, YAML::Node *Node) -> int\
                             {\
                                 IMU_YuanJi *One_IMU_YuanJi = new IMU_YuanJi();\
                                 Device->Device_Private_Class = (void *)One_IMU_YuanJi;\
@@ -14,9 +14,9 @@
                                     return 0;\
                             }\
 
-#define IMU_YuanJi_CallBack_F    [](void *Device_Private_Class, volatile u8 *Msg) -> int\
+#define IMU_YuanJi_CallBack_F    [](shared_ptr<Device_class> Device, volatile u8 *Msg) -> int\
                                     {\
-                                        return ((IMU_YuanJi *)Device_Private_Class)->IMU_YuanJi_Frame_Analyze(Msg);\
+                                        return ((IMU_YuanJi *)Device->Device_Private_Class)->IMU_YuanJi_Frame_Analyze(Msg);\
                                     }\
 
 #define IMU_YuanJi_Delete_F  [](void *Device_Private_Class)\
@@ -106,16 +106,16 @@ typedef struct quaternion_data {
 class IMU_YuanJi : private Robot_Hardware
 {
 public:
-	int IMU_YuanJi_Data_From_Yaml_And_Init(shared_ptr<Device_Struct> Device, YAML::Node One_Node);
+	int IMU_YuanJi_Data_From_Yaml_And_Init(shared_ptr<Device_class> Device, YAML::Node One_Node);
 	int IMU_YuanJi_Frame_Analyze(volatile u8 *Can_Frame);
 
-    int Serial_Send(shared_ptr<Device_Struct> Device_P, u8 *Data, u32 len);
+    int Serial_Send(shared_ptr<Device_class> Device_P, u8 *Data, u32 len);
 
 	int (*IMU_YuanJi_Msg_CallBack)(volatile u8 *);
 
-    void Send_CMD_LONG(shared_ptr<Device_Struct> Device_P, u16 id, float cm1, float cm2, u32 cm3, u32 cm4, int32_t cm5, int32_t cm6);
+    void Send_CMD_LONG(shared_ptr<Device_class> Device_P, u16 id, float cm1, float cm2, u32 cm3, u32 cm4, int32_t cm5, int32_t cm6);
 
-    void Start_AHRS_Mod_And_Init(shared_ptr<Device_Struct> Device_P);
+    void Start_AHRS_Mod_And_Init(shared_ptr<Device_class> Device_P);
 
     IMU_frame_data Get_IMU_Frame_Data();
 
@@ -123,7 +123,7 @@ public:
 
     
 
-    //void Stop_AHRS_Mod(shared_ptr<Device_Struct> Device_P);
+    //void Stop_AHRS_Mod(shared_ptr<Device_class> Device_P);
 
 
 private:

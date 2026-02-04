@@ -156,7 +156,10 @@ print(f"最终提取的 LIB_NAME-CMake目录 字典（共 {len(lib_cmake_dir_dic
 print("-" * 60)
 for idx, (lib_name, cmake_dir) in enumerate(lib_cmake_dir_dict.items(), 1):
     print(f"{idx:2d}. LIB_NAME：{lib_name:<15} CMake目录：{cmake_dir}")
-    shutil.rmtree(cmake_dir, ignore_errors=False)
+    try:
+        shutil.rmtree(cmake_dir, ignore_errors=False)
+    except:
+        pass
 
 
 target_dir = Path(current_script_dir_out_src)

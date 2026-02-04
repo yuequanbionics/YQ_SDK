@@ -17,6 +17,6 @@ Broadcast_IP: 192.168.3.255
 import:
   Sensor_Config: "Serial_Config.yaml"
   Motor_Config0: "config.yaml"
-  Motor_Config: "X_Hand_Motor.yaml"
+  Motor_Config1: "../../Device_Config/MZ_Motor_Config.yaml"
   Motors: "Devices.yaml"
 

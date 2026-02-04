@@ -1,5 +1,4 @@
 #include "UDP.hpp"
-
 using namespace std;
 
 #define BUFFER_SIZE 8192
@@ -12,6 +11,24 @@ int Init_One_UDP_Connect(UDP_Def* UDP_Def_Data, uint32_t IP, uint16_t PORT)
     {
         cerr << "socket error" << endl;
         return -1;
+    }
+
+    uint32_t IP_END = IP>>24;
+    if (IP_END == 255) {
+        int reuse_opt = 1;
+        // 设置SO_REUSEADDR：允许端口复用
+        if (setsockopt(UDP_Def_Data->sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse_opt, sizeof(reuse_opt)) == -1) {
+            std::cerr << "Failed to set SO_REUSEADDR for broadcast." << std::endl;
+            close(UDP_Def_Data->sockfd);
+            return -1;
+        }
+        // 设置SO_REUSEPORT：支持多进程/多线程同时绑定同一端口（Linux特有）
+        if (setsockopt(UDP_Def_Data->sockfd, SOL_SOCKET, SO_REUSEPORT, &reuse_opt, sizeof(reuse_opt)) == -1) {
+            std::cerr << "Failed to set SO_REUSEPORT for broadcast." << std::endl;
+            close(UDP_Def_Data->sockfd);
+            return -1;
+        }
+        // cout << "IP_END is 255, enable port reuse success." << endl;
     }
 
     // 开启 SO_BROADCAST 选项
@@ -48,7 +65,7 @@ int Init_One_UDP_Connect(UDP_Def* UDP_Def_Data, uint32_t IP, uint16_t PORT)
     UDP_Def_Data->sockaddr.sin_family = AF_INET;
     UDP_Def_Data->sockaddr.sin_port = PORT;
     UDP_Def_Data->sockaddr.sin_addr.s_addr = INADDR_ANY;
-    int n = bind(UDP_Def_Data->sockfd, (struct sockaddr *)&UDP_Def_Data->sockaddr, sizeof(sockaddr_in));
+    int n = ::bind(UDP_Def_Data->sockfd, (struct sockaddr *)&UDP_Def_Data->sockaddr, sizeof(sockaddr_in));
     UDP_Def_Data->sockaddr.sin_family = AF_INET;
     UDP_Def_Data->sockaddr.sin_port = PORT;
     UDP_Def_Data->sockaddr.sin_addr.s_addr = IP;
@@ -82,122 +99,5 @@ int UDP_Rec_Data(UDP_Def* UDP_Def_Data, uint8_t *data, int len)
     return n;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// #include "UDP.hpp"
-// #include "syst.hpp"
-
-// using namespace std;
-
-// void Usage(string proc)
-// {
-//     cout<<"Usage:\n\t"<<proc<<" serverip serverport\n"<<endl;
-// }
-
-// int main(int argc,char *argv[])
-// {
-//     if(argc!=3)
-//     {
-//         Usage(argv[0]);
-//         exit(1);
-//     }
-//     string serverip=argv[1];
-//     uint16_t serverport=stoi(argv[2]);
-
-//     //1.创建socket
-//     int sockfd=socket(AF_INET,SOCK_DGRAM,0);
-//     if(sockfd<0)
-//     {
-//         cerr<<"socket error"<<endl;
-//     }
-
-//     struct sockaddr_in server;
-//     memset(&server,0,sizeof(server));
-//     server.sin_family=AF_INET;
-//     server.sin_port=htons(serverport);
-//     server.sin_addr.s_addr=inet_addr(serverip.c_str());
-
-//     struct sockaddr_in local;     // struct sockaddr_in 系统提供的数据类型，local是变量，用户栈上开辟空间
-//     bzero(&local, sizeof(local)); // 清空
-//     local.sin_family = AF_INET;
-//     local.sin_port = htons(serverport); // port要经过网络传输给对面，即port先到网络，所以要将_port,从主机序列转化为网络序列
-//     local.sin_addr.s_addr=INADDR_ANY;
-//     int n = bind(sockfd,(struct sockaddr*)&local,sizeof(local));
-//     if(n<0)
-//     {
-//         printf("bind error,%s,%d\n", strerror(errno), errno);
-//     }
-
-//     string message;
-//     //3.直接通信即可
-//     while(true)
-//     {
-//         cout<<"Please Enter# ";
-//         getline(cin,message);
-//         sendto(sockfd,message.c_str(),message.size(),0,(struct sockaddr*)&server,sizeof(server));
-
-//         struct sockaddr_in peer;
-//         socklen_t len=sizeof(peer);
-//         char buffer[1024];
-//         ssize_t n=recvfrom(sockfd,buffer,sizeof(buffer)-1,0,(struct sockaddr*)&peer,&len);
-//         if(n>0)
-//         {
-//             buffer[n]=0;
-//             cout<<"server echo# "<<buffer<<endl;
-//         }
-//     }
-//     return 0;
-// }
 
 

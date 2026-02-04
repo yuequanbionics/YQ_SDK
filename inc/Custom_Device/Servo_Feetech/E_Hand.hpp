@@ -88,12 +88,12 @@
 #define THUMB_DIP_MAX_L     0
 
 
-void Get_Finger_Start_Pos(const shared_ptr<Device_Struct>& Device,  Servo_SCS0009 * Ctrl);
-void Restore(const shared_ptr<Device_Struct>& Device,  Servo_SCS0009 * Ctrl);
-void Movement_1_Yeah(const shared_ptr<Device_Struct>& Device,  Servo_SCS0009 * Ctrl);
-void Movement_2_Point(const shared_ptr<Device_Struct>& Device,  Servo_SCS0009 * Ctrl);
-void Movement_3_Fist(const shared_ptr<Device_Struct>& Device,  Servo_SCS0009 * Ctrl);
-void Movement_4_Pinch(const shared_ptr<Device_Struct>& Device,  Servo_SCS0009 * Ctrl);
+void Get_Finger_Start_Pos(const shared_ptr<Device_class>& Device,  Servo_SCS0009 * Ctrl);
+void Restore(const shared_ptr<Device_class>& Device,  Servo_SCS0009 * Ctrl);
+void Movement_1_Yeah(const shared_ptr<Device_class>& Device,  Servo_SCS0009 * Ctrl);
+void Movement_2_Point(const shared_ptr<Device_class>& Device,  Servo_SCS0009 * Ctrl);
+void Movement_3_Fist(const shared_ptr<Device_class>& Device,  Servo_SCS0009 * Ctrl);
+void Movement_4_Pinch(const shared_ptr<Device_class>& Device,  Servo_SCS0009 * Ctrl);
 
 
 #endif //RHS_E_HAND_HPP

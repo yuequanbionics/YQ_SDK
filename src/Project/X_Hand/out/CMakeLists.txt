@@ -8,14 +8,11 @@ if(${OUT})
     add_executable(${EXE_NAME} 
         ./X_Hand_Out.cpp
     )
-
+    
     target_include_directories(${EXE_NAME} PUBLIC
         ${YAML_CPP_INCLUDE_DIR}
         ${SYS_INC_DIR}
-        ${INC_DIR}/Motor
-        ${INC_DIR}/Switch_Board
-        ${INC_DIR}/Auto_Set_Id
-        ${INC_DIR}/Custom_Device/Uart_Pressure_Sensor
+        ${INC_SUBDIRS} 
     )
 
     add_dependencies(${EXE_NAME}

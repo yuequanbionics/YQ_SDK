@@ -1,0 +1,162 @@
+DriverVersion: 0.0.0
+Log_Max_Size: 5
+Name: Motor
+PC_IP: &1 192.168.3.245
+Broadcast_IP: 192.168.3.255
+config:
+  - "null": &2 false
+  - "null": &3 false
+  - Usr_Motor_Init_Config:
+      Save_All_Config: &4 false
+      Motor_EN_In_Init: &5 true
+      Set_Zero_In_Init: &6 false
+      Set_Config_In_Init: &7 false
+      Set_Pid_Config_In_Init: &8 false
+      Motor_Cal_In_Init: &9 false
+  - Init_Config:
+      Save_All_Config: &10 false
+      Motor_EN_In_Init: &11 true
+      Set_Zero_In_Init: &12 false
+      Set_Config_In_Init: &13 false
+      Set_Pid_Config_In_Init: &14 false
+      Motor_Cal_In_Init: &15 false
+  - MZ_10MM_Motor_default_config:
+      Motor_Set_Zero_Offest: 0.0
+      Motor_Mod: Motor_MIT_Control
+      Motor_Heart_Beat: 0
+      Motor_Pole_Pairs: 1
+      Motor_AB_Mirror: false
+      Motor_current_sample_offset: 10
+      Dead_Time: 0
+      V_IC_MU_FORCE: 200
+      IC_MU_SPEED: 1
+      V_rated: 300
+      DI_I_MAX: 0.4
+      I_Hardware_Max: 2
+      Current_Amplifier_Gain: 10
+      Motor_CMD_I_To_Force_K: 1.0
+      Gear_Ratio: 27.16875
+      Gear_multiple: 50
+      Electricity_D_P: 200000
+      Electricity_D_I: 20000
+      Electricity_D_OUT_MAX: 0.9
+      Electricity_D_Integration_MAX: 0.9
+      Electricity_Q_P: 200000
+      Electricity_Q_I: 20000
+      Electricity_Q_OUT_MAX: 0.9
+      Electricity_Q_Integration_MAX: 0.9
+  - MZ_13MM_Motor_default_config:
+      Motor_Set_Zero_Offest: &16 0.0
+      Motor_Mod: &17 Motor_MIT_Control
+      Motor_Heart_Beat: &18 0
+      Motor_Pole_Pairs: &19 1
+      Motor_AB_Mirror: &20 false
+      Motor_current_sample_offset: &21 10
+      Dead_Time: &22 0
+      V_IC_MU_FORCE: &23 200
+      IC_MU_SPEED: &24 1
+      V_rated: &25 300
+      DI_I_MAX: &26 0.5
+      I_Hardware_Max: &27 2
+      Current_Amplifier_Gain: &28 10
+      Motor_CMD_I_To_Force_K: &29 1.0
+      Ceil_Temperature_Alarm_Th: &30 70
+      Ceil_Temperature_Protect_Th: &31 90
+      Gear_Ratio: &32 54
+      Gear_multiple: &33 10
+      Electricity_D_P: &34 200000
+      Electricity_D_I: &35 20000
+      Electricity_D_OUT_MAX: &36 0.90
+      Electricity_D_Integration_MAX: &37 0.90
+      Electricity_Q_P: &38 200000
+      Electricity_Q_I: &39 20000
+      Electricity_Q_OUT_MAX: &40 0.90
+      Electricity_Q_Integration_MAX: &41 0.90
+      Save_All_Config: *10
+      Motor_EN_In_Init: *11
+      Set_Zero_In_Init: *12
+      Set_Config_In_Init: *13
+      Set_Pid_Config_In_Init: *14
+      Motor_Cal_In_Init: *15
+  - cat_motor_device_config: &42
+      Save_All_Config: *4
+      Motor_EN_In_Init: *5
+      Set_Zero_In_Init: *6
+      Set_Config_In_Init: *7
+      Set_Pid_Config_In_Init: *8
+      Motor_Cal_In_Init: *9
+      Motor_Set_Zero_Offest: *16
+      Motor_Mod: *17
+      Motor_Heart_Beat: *18
+      Motor_Pole_Pairs: *19
+      Motor_AB_Mirror: *20
+      Motor_current_sample_offset: *21
+      Dead_Time: *22
+      V_IC_MU_FORCE: *23
+      IC_MU_SPEED: *24
+      V_rated: *25
+      DI_I_MAX: *26
+      I_Hardware_Max: *27
+      Current_Amplifier_Gain: *28
+      Motor_CMD_I_To_Force_K: *29
+      Ceil_Temperature_Alarm_Th: *30
+      Ceil_Temperature_Protect_Th: *31
+      Gear_Ratio: *32
+      Gear_multiple: *33
+      Electricity_D_P: *34
+      Electricity_D_I: *35
+      Electricity_D_OUT_MAX: *36
+      Electricity_D_Integration_MAX: *37
+      Electricity_Q_P: *38
+      Electricity_Q_I: *39
+      Electricity_Q_OUT_MAX: *40
+      Electricity_Q_Integration_MAX: *41
+  - Motor_Config_Normal_0:
+      DeviceType: &43 Motor_Device
+      CH: &44 Head_Flag_Switch_CH1
+      IO_Mod: &45 Main_CMD_IO_Mod_CAN_ONLY
+  - Motor_Config_Normal_1:
+      DeviceType: Motor_Device
+      CH: Head_Flag_Switch_CH2
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+  - MotorS_0:
+      - &46
+        Name: Motor_1
+        Id: 1
+        DeviceConfig: *42
+        DeviceType: *43
+        CH: *44
+        IO_Mod: *45
+  - Auto_Set_Id_DeviceS0:
+      - &47
+        Name: Auto_Set_Id_0
+        DeviceType: Auto_Set_Id
+        Detect: false
+        Id: 1
+        CH: Head_Flag_Switch_CH1
+        IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+        DeviceConfig:
+          Run_Set: *2
+          Start_Id: 11
+          Save_Id: *3
+          Time_Out_Ms: 1000
+          DeviceList:
+            - *46
+Base_Node:
+  - Name: Main_Switch_Board
+    Range_Name: Motor
+    DeviceType: Switch_Board
+    Id: 101
+    CH: Head_Flag_CH0
+    IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
+    PC_IP: *1
+    IP: 192.168.3.101
+    Port: 15100
+    Up_Data_Speed: 10000
+    Heart_Beat: true
+    DeviceConfig:
+      PrintMcuTaskStack: false
+      Save_to_Flash: false
+    child:
+      - *47
+      - *46

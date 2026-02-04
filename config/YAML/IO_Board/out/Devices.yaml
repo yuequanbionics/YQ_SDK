@@ -1,0 +1,19 @@
+Base_Node: 
+  - Name: Main_Switch_Board
+    Range_Name: Motor
+    DeviceType: Switch_Board # Motor_Device IMU_Device Key_Device Switch_Board Custom_Device
+    Id: 120
+    # Rec_Id_Offest: [1536, 1024]
+    CH: Head_Flag_CH0
+    IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
+    PC_IP: *PC_IP
+    IP: 192.168.3.120
+    Port: 15120
+    Up_Data_Speed: 10000
+
+    DeviceConfig:
+      PrintMcuTaskStack: false
+
+
+
+

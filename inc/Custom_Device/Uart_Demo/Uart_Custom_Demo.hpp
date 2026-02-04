@@ -2,7 +2,9 @@
 #define Uart_Custom_Demo_H_
 #include "HARDWARE_TOP.hpp"
 
-#define Uart_Custom_Dome_Init  [](shared_ptr<Device_Struct> Device, YAML::Node *Node) -> int\
+#define USRT_Test_Custom_Type "UART_TEST"
+
+#define Uart_Custom_Dome_Init  [](shared_ptr<Device_class> Device, YAML::Node *Node) -> int\
                             {\
                                 Uart_Custom_Dome *One_Uart_Custom_Dome = new Uart_Custom_Dome();\
                                 Device->Device_Private_Class = (void *)One_Uart_Custom_Dome;\
@@ -12,9 +14,9 @@
                                     return 0;\
                             }\
 
-#define Uart_Custom_Dome_CallBack_F    [](void *Device_Private_Class, volatile u8 *Msg) -> int\
+#define Uart_Custom_Dome_CallBack_F    [](shared_ptr<Device_class> Device, u8 *Msg) -> int \
                                     {\
-                                        return ((Uart_Custom_Dome *)Device_Private_Class)->Uart_Custom_Dome_Frame_Analyze(Msg);\
+                                        return ((Uart_Custom_Dome *)Device->Device_Private_Class)->Uart_Custom_Dome_Frame_Analyze(Msg);\
                                     }\
 
 #define Uart_Custom_Dome_Delete_F  [](void *Device_Private_Class)\
@@ -37,10 +39,10 @@ typedef struct Serial_Data
 class Uart_Custom_Dome : private Robot_Hardware
 {
 public:
-	int Uart_Custom_Dome_Data_From_Yaml_And_Init(shared_ptr<Device_Struct> Device, YAML::Node One_Node);
+	int Uart_Custom_Dome_Data_From_Yaml_And_Init(shared_ptr<Device_class> Device, YAML::Node One_Node);
 	int Uart_Custom_Dome_Frame_Analyze(volatile u8 *Can_Frame);
 
-    int Serial_Send(shared_ptr<Device_Struct> Device_P, u8 *Data, u32 len);
+    int Serial_Send(shared_ptr<Device_class> Device_P, u8 *Data, u32 len);
 	int (*Custom_Msg_CallBack)(volatile u8 *);
 
 	Uart_Custom_Dome(void);

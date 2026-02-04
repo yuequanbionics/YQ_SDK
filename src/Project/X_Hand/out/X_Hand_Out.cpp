@@ -13,13 +13,13 @@ using namespace std;
 
 Robot_Hardware* X_Hand;
 
-shared_ptr<Device_Struct> Motor_1_D;
-shared_ptr<Device_Struct> Motor_2_D;
-shared_ptr<Device_Struct> Motor_3_D;
-shared_ptr<Device_Struct> Motor_4_D;
-shared_ptr<Device_Struct> Motor_5_D;
-shared_ptr<Device_Struct> Motor_6_D;
-shared_ptr<Device_Struct> Tactile_Sensor_D;
+shared_ptr<Device_class> Motor_1_D;
+shared_ptr<Device_class> Motor_2_D;
+shared_ptr<Device_class> Motor_3_D;
+shared_ptr<Device_class> Motor_4_D;
+shared_ptr<Device_class> Motor_5_D;
+shared_ptr<Device_class> Motor_6_D;
+shared_ptr<Device_class> Tactile_Sensor_D;
 Motor* Motor_1_Control;
 Motor* Motor_2_Control;
 Motor* Motor_3_Control;
@@ -257,8 +257,8 @@ int hardware_init(string ADDR)
 #endif
 {
     X_Hand = new Robot_Hardware();
-    X_Hand->Add_Device_Type("Switch_Board", Switch_Board_Device_Init, Switch_Board_Device_CallBack_F, Switch_Board_Device_Delete_F);
-    X_Hand->Add_Device_Type("Motor_Device", Motor_Device_Init, Motor_Device_CallBack_F, Motor_Device_Delete_F);
+    X_Hand->Add_Device_Type(Switch_Board_Type, Switch_Board_Device_Init, Switch_Board_Device_CallBack_F, Switch_Board_Device_Delete_F);
+    X_Hand->Add_Device_Type(Motor_Device_Type, Motor_Device_Init, Motor_Device_CallBack_F, Motor_Device_Delete_F);
     X_Hand->Add_Device_Type(Auto_Set_Id_Type, Auto_Set_Id_Init, Auto_Set_Id_CallBack_F, Auto_Set_Id_Delete_F);
     X_Hand->Add_Device_Type("Tactile_Sensor_Custom", Hw_Pressure_Sensor_Init, Hw_Pressure_Sensor_CallBack_F, Hw_Pressure_Sensor_Delete_F);
 

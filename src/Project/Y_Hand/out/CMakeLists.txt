@@ -8,13 +8,11 @@ if(${OUT})
     add_executable(${EXE_NAME} 
         ./Y_Hand_Out.cpp
     )
-
+    
     target_include_directories(${EXE_NAME} PUBLIC
         ${YAML_CPP_INCLUDE_DIR}
         ${SYS_INC_DIR}
-        ${INC_DIR}/Motor
-        ${INC_DIR}/Switch_Board
-        ${INC_DIR}/Auto_Set_Id
+        ${INC_SUBDIRS} 
     )
 
     add_dependencies(${EXE_NAME}
@@ -22,6 +20,8 @@ if(${OUT})
         Switch_Board
         Motor_Device
         Auto_Set_Id
+        Led_Device
+
     )
 
     config_debug_mode(${EXE_NAME})
@@ -31,6 +31,7 @@ if(${OUT})
         Switch_Board
         Motor_Device
         Auto_Set_Id
+        Led_Device
 
         pthread
         -Wl,--no-as-needed 
@@ -50,13 +51,11 @@ if(${OUT})
     add_executable(${EXE_NAME} 
         ./hand_pretighten.cpp
     )
-
+    
     target_include_directories(${EXE_NAME} PUBLIC
         ${YAML_CPP_INCLUDE_DIR}
         ${SYS_INC_DIR}
-        ${INC_DIR}/Motor
-        ${INC_DIR}/Switch_Board
-        ${INC_DIR}/Auto_Set_Id
+        ${INC_SUBDIRS} 
     )
 
     add_dependencies(${EXE_NAME}
@@ -64,6 +63,7 @@ if(${OUT})
         Switch_Board
         Motor_Device
         Auto_Set_Id
+        Led_Device
     )
 
     config_debug_mode(${EXE_NAME})
@@ -73,6 +73,7 @@ if(${OUT})
         Switch_Board
         Motor_Device
         Auto_Set_Id
+        Led_Device
 
         pthread
         -Wl,--no-as-needed 
