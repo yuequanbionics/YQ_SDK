@@ -27,6 +27,8 @@
                                     Device_Private_Class = nullptr;\
                                 }\
 
+// script auto start -> IN_USE
+// script auto end -> IN_USE
 
 class Motor : private Robot_Hardware
 {
@@ -56,8 +58,14 @@ public:
     shared_ptr<GaussianFilter1D> V_filter= make_shared<GaussianFilter1D>(15, 5);
     shared_ptr<GaussianFilter1D> F_filter= make_shared<GaussianFilter1D>(15, 5);
     
-    // script auto start -> IN_USE
-    // script auto end -> IN_USE
+// script auto start -> IN_USE
+// script auto end -> IN_USE
+
+// script auto start -> OUT_USE
+#ifndef IN_USE
+    shared_ptr<void> Motor_Private_Data;
+#endif
+// script auto end -> OUT_USE
 
 };
 
