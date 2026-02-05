@@ -56,7 +56,7 @@ public:
 
 public:
     shared_ptr<GaussianFilter1D> V_filter= make_shared<GaussianFilter1D>(15, 5);
-    shared_ptr<GaussianFilter1D> F_filter= make_shared<GaussianFilter1D>(15, 5);
+    shared_ptr<GaussianFilter1D> F_filter= make_shared<GaussianFilter1D>(31, 15);
     
 // script auto start -> IN_USE
 // script auto end -> IN_USE
