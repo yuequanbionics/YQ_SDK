@@ -252,6 +252,8 @@ inline std::map<std::string, u32> ADC_Config_Map = {
       {"ADC_OFFSET_2", ADC_OFFSET_2},
       {"ADC_OFFSET_3", ADC_OFFSET_3},
       {"ADC_OFFSET_4", ADC_OFFSET_4},
+      {"DISABLE", DISABLE},
+      {"ENABLE", ENABLE}
 
 
 

@@ -87,6 +87,19 @@ foreach(MODULE ${MODULE_LIST})
 
     append_config_function("${CMAKE_CURRENT_SOURCE_DIR}/${MODULE}/CMakeLists.txt")
 
+    # 二级目录：在一级处理时预先为子目录生成 .config 和 CMakeLists.txt
+    # （避免父目录被 skip 时，Config_Mod_Dir_Cmake 不执行导致二级目录无法生成）
+    set(SUB_EXCLUDED "Z_SYS_SRC")
+    file(GLOB SUB_ENTRIES RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/${MODULE}" "${CMAKE_CURRENT_SOURCE_DIR}/${MODULE}/*")
+    foreach(SUB_ENTRY ${SUB_ENTRIES})
+        if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/${MODULE}/${SUB_ENTRY}")
+            list(FIND SUB_EXCLUDED "${SUB_ENTRY}" SUB_IDX)
+            if(SUB_IDX EQUAL -1)
+                append_config_function("${CMAKE_CURRENT_SOURCE_DIR}/${MODULE}/${SUB_ENTRY}/CMakeLists.txt")
+            endif()
+        endif()
+    endforeach()
+
     # 检查变量是否存在
     string(TOUPPER "${MODULE}" MODULE_UPPER)
     set(FULL_MODULE_VAR "BUILD_MODULE_${MODULE_UPPER}")

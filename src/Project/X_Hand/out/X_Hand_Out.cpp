@@ -163,25 +163,28 @@ void X_hand_Init(void) {
         Motor_K[i] = 1;
     }
 
+    // 收
     Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror * -0.3, kp, kd);
-    Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * 0.3, kp, kd);
-    Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * 0.3, kp, kd);
-    Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * 0.3, kp, kd);
-    Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror * 0.3, kp, kd);
+    Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror *  0.3, kp, kd);
+    Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror *  0.3, kp, kd);
+    Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror *  0.3, kp, kd);
+    Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror *  0.3, kp, kd);
     X_Hand->Send_Buff_Data();
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
-    Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror * 0.6, kp, kd);
-    Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * -0.6, kp, kd);
-    Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * -0.6, kp, kd);
-    Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * -0.6, kp, kd);
-    Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror * -0.6, kp, kd);
+    // 放
+    Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror *  0.2, kp, kd);
+    Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * -0.2, kp, kd);
+    Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * -0.2, kp, kd);
+    Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * -0.2, kp, kd);
+    Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror * -0.2, kp, kd);
     X_Hand->Send_Buff_Data();
     std::this_thread::sleep_for(std::chrono::milliseconds(25));
 
     while (1) {
-        Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror * 0.1, kp, kd);
-        Motor_2_Control->Send_MIT_PD_Control_Data(Motor_2_D, 0, 0, mirror * 0.1, kp, kd);
+        // 放
+        Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror *  0.1, kp, kd);
+        Motor_2_Control->Send_MIT_PD_Control_Data(Motor_2_D, 0, 0, mirror *  0.1, kp, kd);
         Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * -0.1, kp, kd);
         Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * -0.1, kp, kd);
         Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * -0.1, kp, kd);
@@ -310,8 +313,8 @@ int hardware_init(string ADDR)
             Send_Datas[i].KP = 500;
             Send_Datas[i].KD = 5;
         }
-        Send_Datas[0].P = 0.25 + test / 2;
-        Send_Datas[1].P = 0.1 + test / 5;
+        Send_Datas[0].P = 0.5/4 + test/4;
+        Send_Datas[1].P = 0.5/2 + test/2;
 
         Send();
         usleep(loop_time_step);

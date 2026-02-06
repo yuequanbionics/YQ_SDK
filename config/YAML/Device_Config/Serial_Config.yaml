@@ -78,3 +78,26 @@ config:
         RX_DMA: DMA_REQUEST_UART4_RX
         TX_DMA_STREAM: DMA1_Stream3
         RX_DMA_STREAM: DMA1_Stream2
+
+  Serial_485_Config: &Serial_485_Config
+    - Serial_CH: UART5
+      Serial_menu: 5
+      Serial_EN: true
+      Serial_Baud: 115200
+      Serial_ID: 200
+      WordLength: UART_WORDLENGTH_8B
+      Stm_Tx_Rx_GPIO:
+        Tx_GPIO: GPIOC
+        Rx_GPIO: GPIOD
+        Tx_GPIO_PIN: GPIO_PIN_12
+        Rx_GPIO_PIN: GPIO_PIN_2
+      Other_Config:
+        GPIO_AF: GPIO_AF8_UART5
+        Serial_interrupt: UART5_IRQn
+        TX_DMA: DMA_REQUEST_UART5_TX
+        RX_DMA: DMA_REQUEST_UART5_RX
+        TX_DMA_STREAM: DMA1_Stream1
+        RX_DMA_STREAM: DMA1_Stream0
+      485_Enable:
+        GPIO_DE_Port: GPIOC
+        GPIO_DE_Pin: GPIO_PIN_8

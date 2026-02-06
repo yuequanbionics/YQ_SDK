@@ -1,8 +1,8 @@
 config:
   ADC_Config: &ADC_Config
     # - ADC_Instance: ADC1
-    - ADC_Instance: ADC1
-      ADC_EN: true
+    - ADC_Instance: 1
+      ADC_EN: 1
       ADC_ClockPrescaler: ADC_CLOCK_ASYNC_DIV2
       ADC_Resolution: ADC_RESOLUTION_16B
       ADC_ScanConvMode: ADC_SCAN_ENABLE
@@ -37,8 +37,8 @@ config:
           ADC_OffsetSignedSaturation: DISABLE
 
     # - ADC_Instance: ADC2
-    - ADC_Instance: ADC2
-      ADC_EN: true
+    - ADC_Instance: 2
+      ADC_EN: 1
       ADC_ClockPrescaler: ADC_CLOCK_ASYNC_DIV2
       ADC_Resolution: ADC_RESOLUTION_16B
       ADC_ScanConvMode: ADC_SCAN_ENABLE
@@ -73,8 +73,8 @@ config:
           ADC_OffsetSignedSaturation: DISABLE
 
     # - ADC_Instance: ADC3
-    - ADC_Instance: ADC3
-      ADC_EN: true
+    - ADC_Instance: 3
+      ADC_EN: 1
       ADC_ClockPrescaler: ADC_CLOCK_ASYNC_DIV2
       ADC_Resolution: ADC_RESOLUTION_16B
       ADC_ScanConvMode: ADC_SCAN_ENABLE
@@ -89,7 +89,7 @@ config:
       ADC_Overrun: ADC_OVR_DATA_OVERWRITTEN
       ADC_LeftBitShift: ADC_LEFTBITSHIFT_NONE
       ADC_OversamplingMode: DISABLE
-      ADC_Oversampling.Ratio: 1
+      ADC_Oversampling_Ratio: 1
       ADC_Mode: ADC_MODE_INDEPENDENT
       ADC_ChannelConfig:
         - ADC_Channel: ADC_CHANNEL_2

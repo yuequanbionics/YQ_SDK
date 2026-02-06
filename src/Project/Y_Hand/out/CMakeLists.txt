@@ -16,7 +16,6 @@ if(${OUT})
     )
 
     add_dependencies(${EXE_NAME}
-        HARDWARE_TOP
         Switch_Board
         Motor_Device
         Auto_Set_Id
@@ -27,7 +26,6 @@ if(${OUT})
     config_debug_mode(${EXE_NAME})
 
     target_link_libraries(${EXE_NAME} PRIVATE
-        HARDWARE_TOP
         Switch_Board
         Motor_Device
         Auto_Set_Id
@@ -59,7 +57,6 @@ if(${OUT})
     )
 
     add_dependencies(${EXE_NAME}
-        HARDWARE_TOP
         Switch_Board
         Motor_Device
         Auto_Set_Id
@@ -69,7 +66,6 @@ if(${OUT})
     config_debug_mode(${EXE_NAME})
 
     target_link_libraries(${EXE_NAME} PRIVATE
-        HARDWARE_TOP
         Switch_Board
         Motor_Device
         Auto_Set_Id

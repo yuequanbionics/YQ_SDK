@@ -1,0 +1,290 @@
+DriverVersion: 0.0.0
+Log_Max_Size: 5
+Name: Motor
+PC_IP: &1 192.168.3.245
+Broadcast_IP: 192.168.3.255
+config:
+  - Serial_4_Config: &2
+      - Serial_CH: UART4
+        Serial_menu: 4
+        Serial_EN: true
+        Serial_Baud: 921600
+        Serial_ID: 200
+        WordLength: UART_WORDLENGTH_8B
+        Stm_Tx_Rx_GPIO:
+          Tx_GPIO: GPIOD
+          Rx_GPIO: GPIOD
+          Tx_GPIO_PIN: GPIO_PIN_1
+          Rx_GPIO_PIN: GPIO_PIN_0
+        Other_Config:
+          GPIO_AF: GPIO_AF8_UART4
+          Serial_interrupt: UART4_IRQn
+          TX_DMA: DMA_REQUEST_UART4_TX
+          RX_DMA: DMA_REQUEST_UART4_RX
+          TX_DMA_STREAM: DMA1_Stream3
+          RX_DMA_STREAM: DMA1_Stream2
+  - Sensor_Custom:
+      - &3
+        Name: Tactile_Sensor
+        DeviceType: Tactile_Sensor_Custom
+        Id: 200
+        CH: Head_Flag_Switch_CH14
+  - "null": &4 false
+  - "null": &5 false
+  - Usr_Motor_Init_Config:
+      Save_All_Config: &6 false
+      Motor_EN_In_Init: &7 true
+      Set_Zero_In_Init: &8 false
+      Set_Config_In_Init: &9 false
+      Set_Pid_Config_In_Init: &10 false
+      Motor_Cal_In_Init: &11 false
+  - Init_Config: &12
+      Save_All_Config: false
+      Motor_EN_In_Init: true
+      Set_Zero_In_Init: false
+      Set_Config_In_Init: false
+      Set_Pid_Config_In_Init: false
+      Motor_Cal_In_Init: false
+  - MZ_10MM_Motor_default_config:
+      Motor_Set_Zero_Offest: &13 0.0
+      Motor_Mod: &14 Motor_MIT_Control
+      Motor_Heart_Beat: &15 0
+      Motor_Pole_Pairs: &16 1
+      Motor_AB_Mirror: &17 false
+      Motor_current_sample_offset: &18 10
+      Dead_Time: &19 0
+      V_IC_MU_FORCE: &20 200
+      IC_MU_SPEED: &21 1
+      V_rated: &22 300
+      DI_I_MAX: &23 0.4
+      I_Hardware_Max: &24 2
+      Current_Amplifier_Gain: &25 10
+      Motor_CMD_I_To_Force_K: &26 1.0
+      Ceil_Temperature_Alarm_Th: &27 90
+      Ceil_Temperature_Protect_Th: &28 100
+      Gear_Ratio: &29 27.16875
+      Gear_multiple: &30 50
+      Electricity_D_P: &31 200000
+      Electricity_D_I: &32 20000
+      Electricity_D_OUT_MAX: &33 0.9
+      Electricity_D_Integration_MAX: &34 0.9
+      Electricity_Q_P: &35 200000
+      Electricity_Q_I: &36 20000
+      Electricity_Q_OUT_MAX: &37 0.9
+      Electricity_Q_Integration_MAX: &38 0.9
+  - MZ_13MM_Motor_default_config:
+      <<: *12
+      Motor_Set_Zero_Offest: 0.0
+      Motor_Mod: Motor_MIT_Control
+      Motor_Heart_Beat: 0
+      Motor_Pole_Pairs: 1
+      Motor_AB_Mirror: false
+      Motor_current_sample_offset: 10
+      Dead_Time: 0
+      V_IC_MU_FORCE: 200
+      IC_MU_SPEED: 1
+      V_rated: 300
+      DI_I_MAX: 0.5
+      I_Hardware_Max: 2
+      Current_Amplifier_Gain: 10
+      Motor_CMD_I_To_Force_K: 1.0
+      Ceil_Temperature_Alarm_Th: 70
+      Ceil_Temperature_Protect_Th: 90
+      Gear_Ratio: 54
+      Gear_multiple: 10
+      Electricity_D_P: 200000
+      Electricity_D_I: 20000
+      Electricity_D_OUT_MAX: 0.90
+      Electricity_D_Integration_MAX: 0.90
+      Electricity_Q_P: 200000
+      Electricity_Q_I: 20000
+      Electricity_Q_OUT_MAX: 0.90
+      Electricity_Q_Integration_MAX: 0.90
+  - cat_motor_device_config: &39
+      Save_All_Config: *6
+      Motor_EN_In_Init: *7
+      Set_Zero_In_Init: *8
+      Set_Config_In_Init: *9
+      Set_Pid_Config_In_Init: *10
+      Motor_Cal_In_Init: *11
+      Motor_Set_Zero_Offest: *13
+      Motor_Mod: *14
+      Motor_Heart_Beat: *15
+      Motor_Pole_Pairs: *16
+      Motor_AB_Mirror: *17
+      Motor_current_sample_offset: *18
+      Dead_Time: *19
+      V_IC_MU_FORCE: *20
+      IC_MU_SPEED: *21
+      V_rated: *22
+      DI_I_MAX: *23
+      I_Hardware_Max: *24
+      Current_Amplifier_Gain: *25
+      Motor_CMD_I_To_Force_K: *26
+      Ceil_Temperature_Alarm_Th: *27
+      Ceil_Temperature_Protect_Th: *28
+      Gear_Ratio: *29
+      Gear_multiple: *30
+      Electricity_D_P: *31
+      Electricity_D_I: *32
+      Electricity_D_OUT_MAX: *33
+      Electricity_D_Integration_MAX: *34
+      Electricity_Q_P: *35
+      Electricity_Q_I: *36
+      Electricity_Q_OUT_MAX: *37
+      Electricity_Q_Integration_MAX: *38
+  - Motor_Config_Normal_0:
+      DeviceType: &40 Motor_Device
+      CH: &41 Head_Flag_Switch_CH2
+      IO_Mod: &42 Main_CMD_IO_Mod_CAN_ONLY
+  - MotorS_0:
+      - &43
+        Name: Motor_6
+        Id: 1
+        DeviceConfig: *39
+        DeviceType: *40
+        CH: *41
+        IO_Mod: *42
+      - &44
+        Name: Motor_5
+        Id: 1
+        DeviceConfig: *39
+        DeviceType: *40
+        CH: *41
+        IO_Mod: *42
+      - &45
+        Name: Motor_4
+        Id: 1
+        DeviceConfig: *39
+        DeviceType: *40
+        CH: *41
+        IO_Mod: *42
+      - &46
+        Name: Motor_3
+        Id: 1
+        DeviceConfig: *39
+        DeviceType: *40
+        CH: *41
+        IO_Mod: *42
+      - &47
+        Name: Motor_2
+        Id: 1
+        DeviceConfig:
+          DI_I_MAX: 0.4
+          Gear_multiple: 4
+          Save_All_Config: *6
+          Motor_EN_In_Init: *7
+          Set_Zero_In_Init: *8
+          Set_Config_In_Init: *9
+          Set_Pid_Config_In_Init: *10
+          Motor_Cal_In_Init: *11
+          Motor_Set_Zero_Offest: *13
+          Motor_Mod: *14
+          Motor_Heart_Beat: *15
+          Motor_Pole_Pairs: *16
+          Motor_AB_Mirror: *17
+          Motor_current_sample_offset: *18
+          Dead_Time: *19
+          V_IC_MU_FORCE: *20
+          IC_MU_SPEED: *21
+          V_rated: *22
+          I_Hardware_Max: *24
+          Current_Amplifier_Gain: *25
+          Motor_CMD_I_To_Force_K: *26
+          Ceil_Temperature_Alarm_Th: *27
+          Ceil_Temperature_Protect_Th: *28
+          Gear_Ratio: *29
+          Electricity_D_P: *31
+          Electricity_D_I: *32
+          Electricity_D_OUT_MAX: *33
+          Electricity_D_Integration_MAX: *34
+          Electricity_Q_P: *35
+          Electricity_Q_I: *36
+          Electricity_Q_OUT_MAX: *37
+          Electricity_Q_Integration_MAX: *38
+        DeviceType: *40
+        CH: *41
+        IO_Mod: *42
+      - &48
+        Name: Motor_1
+        Id: 1
+        DeviceConfig:
+          DI_I_MAX: 0.4
+          Gear_multiple: 20
+          Save_All_Config: *6
+          Motor_EN_In_Init: *7
+          Set_Zero_In_Init: *8
+          Set_Config_In_Init: *9
+          Set_Pid_Config_In_Init: *10
+          Motor_Cal_In_Init: *11
+          Motor_Set_Zero_Offest: *13
+          Motor_Mod: *14
+          Motor_Heart_Beat: *15
+          Motor_Pole_Pairs: *16
+          Motor_AB_Mirror: *17
+          Motor_current_sample_offset: *18
+          Dead_Time: *19
+          V_IC_MU_FORCE: *20
+          IC_MU_SPEED: *21
+          V_rated: *22
+          I_Hardware_Max: *24
+          Current_Amplifier_Gain: *25
+          Motor_CMD_I_To_Force_K: *26
+          Ceil_Temperature_Alarm_Th: *27
+          Ceil_Temperature_Protect_Th: *28
+          Gear_Ratio: *29
+          Electricity_D_P: *31
+          Electricity_D_I: *32
+          Electricity_D_OUT_MAX: *33
+          Electricity_D_Integration_MAX: *34
+          Electricity_Q_P: *35
+          Electricity_Q_I: *36
+          Electricity_Q_OUT_MAX: *37
+          Electricity_Q_Integration_MAX: *38
+        DeviceType: *40
+        CH: *41
+        IO_Mod: *42
+  - Auto_Set_Id_DeviceS0:
+      - &49
+        Name: Auto_Set_Id_0
+        DeviceType: Auto_Set_Id
+        Detect: false
+        Id: 1
+        CH: Head_Flag_Switch_CH2
+        IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+        DeviceConfig:
+          Run_Set: *4
+          Start_Id: 10
+          Save_Id: *5
+          Time_Out_Ms: 1000
+          DeviceList:
+            - *43
+            - *44
+            - *45
+            - *46
+            - *47
+            - *48
+Base_Node:
+  - Name: Main_Switch_Board
+    Range_Name: X_Hand
+    DeviceType: Switch_Board
+    Id: 101
+    CH: Head_Flag_CH0
+    IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
+    PC_IP: *1
+    IP: 192.168.3.101
+    Port: 15100
+    Up_Data_Speed: 1000
+    Heart_Beat: false
+    DeviceConfig:
+      PrintMcuTaskStack: false
+      Serial_S: *2
+    child:
+      - *49
+      - *43
+      - *44
+      - *45
+      - *46
+      - *47
+      - *48
+      - *3

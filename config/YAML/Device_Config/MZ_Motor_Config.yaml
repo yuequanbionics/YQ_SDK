@@ -38,6 +38,8 @@ config:
     I_Hardware_Max: 2
     Current_Amplifier_Gain: 10
     Motor_CMD_I_To_Force_K: 1.0
+    Ceil_Temperature_Alarm_Th: 90   # 电机过温告警阈值
+    Ceil_Temperature_Protect_Th: 100 # 电机过温保护阈值
 
     Gear_Ratio: 27.16875
     Gear_multiple: 50

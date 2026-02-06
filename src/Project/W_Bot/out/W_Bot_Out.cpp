@@ -19,45 +19,45 @@ Robot_Hardware *Test_Robot;
 /**
  * @brief 下肢电机
 */
-shared_ptr<Device_Struct>  Lower_Limbs_Motor_Waist_Roll;
-shared_ptr<Device_Struct>  Lower_Limbs_Motor_Waist_Yaw;
-shared_ptr<Device_Struct>  Lower_Limbs_Motor_Knee;
-shared_ptr<Device_Struct>  Lower_Limbs_Motor_Hip;
-shared_ptr<Device_Struct>  Lower_Limbs_Motor_Ankel_Left;
-shared_ptr<Device_Struct>  Lower_Limbs_Motor_Ankel_Right;
+shared_ptr<Device_class>  Lower_Limbs_Motor_Waist_Roll;
+shared_ptr<Device_class>  Lower_Limbs_Motor_Waist_Yaw;
+shared_ptr<Device_class>  Lower_Limbs_Motor_Knee;
+shared_ptr<Device_class>  Lower_Limbs_Motor_Hip;
+shared_ptr<Device_class>  Lower_Limbs_Motor_Ankel_Left;
+shared_ptr<Device_class>  Lower_Limbs_Motor_Ankel_Right;
 
 /**
  * @brief 左臂电机
 */
-shared_ptr<Device_Struct>  Arm_left_shoulder_pitch;
-shared_ptr<Device_Struct>  Arm_left_shoulder_roll;
-shared_ptr<Device_Struct>  Arm_left_shoulder_yaw;
-shared_ptr<Device_Struct>  Arm_left_elbow;
-shared_ptr<Device_Struct>  Arm_left_wrist_yaw;
-shared_ptr<Device_Struct>  Arm_left_wrist_pitch;
-shared_ptr<Device_Struct>  Arm_left_wrist_roll;
+shared_ptr<Device_class>  Arm_left_shoulder_pitch;
+shared_ptr<Device_class>  Arm_left_shoulder_roll;
+shared_ptr<Device_class>  Arm_left_shoulder_yaw;
+shared_ptr<Device_class>  Arm_left_elbow;
+shared_ptr<Device_class>  Arm_left_wrist_yaw;
+shared_ptr<Device_class>  Arm_left_wrist_pitch;
+shared_ptr<Device_class>  Arm_left_wrist_roll;
 
 /**
  * @brief 右臂电机
 */
-shared_ptr<Device_Struct>  Arm_right_shoulder_pitch;
-shared_ptr<Device_Struct>  Arm_right_shoulder_roll;
-shared_ptr<Device_Struct>  Arm_right_shoulder_yaw;
-shared_ptr<Device_Struct>  Arm_right_elbow;
-shared_ptr<Device_Struct>  Arm_right_wrist_yaw;
-shared_ptr<Device_Struct>  Arm_right_wrist_pitch;
-shared_ptr<Device_Struct>  Arm_right_wrist_roll;
+shared_ptr<Device_class>  Arm_right_shoulder_pitch;
+shared_ptr<Device_class>  Arm_right_shoulder_roll;
+shared_ptr<Device_class>  Arm_right_shoulder_yaw;
+shared_ptr<Device_class>  Arm_right_elbow;
+shared_ptr<Device_class>  Arm_right_wrist_yaw;
+shared_ptr<Device_class>  Arm_right_wrist_pitch;
+shared_ptr<Device_class>  Arm_right_wrist_roll;
 
 /**
  * @brief 底盘轮子
 */
-shared_ptr<Device_Struct>  Classis_Motor_1;
-shared_ptr<Device_Struct>  Classis_Motor_2;
+shared_ptr<Device_class>  Classis_Motor_1;
+shared_ptr<Device_class>  Classis_Motor_2;
 
 /**
  * @brief 灯带设备
 */
-shared_ptr<Device_Struct>  Led_Tape_Lights;
+shared_ptr<Device_class>  Led_Tape_Lights;
 
 #ifndef HAVE_ROS
 int main(int argc, char* argv[])
