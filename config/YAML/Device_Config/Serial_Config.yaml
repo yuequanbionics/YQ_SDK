@@ -101,3 +101,35 @@ config:
       485_Enable:
         GPIO_DE_Port: GPIOC
         GPIO_DE_Pin: GPIO_PIN_8
+
+  Serial_General_Config: &Serial_General_Config
+    Serial_CH: USART1
+    Serial_menu: 1
+    Serial_EN: true
+    Serial_Baud: 115200
+    Serial_ID: 200
+    WordLength: UART_WORDLENGTH_8B
+
+  Serial_1_DMA_Config: &Serial_1_DMA_Config
+    GPIO_AF: GPIO_AF7_USART1
+    Serial_interrupt: USART1_IRQn
+    TX_DMA: DMA_REQUEST_USART1_TX
+    RX_DMA: DMA_REQUEST_USART1_RX
+    TX_DMA_STREAM: DMA1_Stream1
+    RX_DMA_STREAM: DMA1_Stream0
+
+  Serial_4_DMA_Config: &Serial_4_DMA_Config
+    GPIO_AF: GPIO_AF8_UART4
+    Serial_interrupt: UART4_IRQn
+    TX_DMA: DMA_REQUEST_UART4_TX
+    RX_DMA: DMA_REQUEST_UART4_RX
+    TX_DMA_STREAM: DMA1_Stream3
+    RX_DMA_STREAM: DMA1_Stream2
+
+  Serial_5_DMA_Config: &Serial_5_DMA_Config
+    GPIO_AF: GPIO_AF8_UART5
+    Serial_interrupt: UART5_IRQn
+    TX_DMA: DMA_REQUEST_UART5_TX
+    RX_DMA: DMA_REQUEST_UART5_RX
+    TX_DMA_STREAM: DMA1_Stream1
+    RX_DMA_STREAM: DMA1_Stream0

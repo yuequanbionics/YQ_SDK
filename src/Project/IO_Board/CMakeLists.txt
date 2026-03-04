@@ -29,9 +29,9 @@ if(${OUT})
 
         pthread
         -Wl,--no-as-needed 
-        ${YAML_CPP_LIB}      
-        -Wl,--as-needed  
-        spdlog_global 
+        ${YAML_CPP_LIB}
+        spdlog_global
+        -Wl,--as-needed
     )
 endif()
 

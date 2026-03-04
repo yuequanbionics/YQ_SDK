@@ -2,7 +2,7 @@ Base_Node:
   - Name: Main_Switch_Board
     Range_Name: Motor
     DeviceType: Switch_Board # Motor_Device IMU_Device Key_Device Switch_Board Custom_Device
-    Id: 120
+    Id: 101
     # Rec_Id_Offest: [1536, 1024]
     CH: Head_Flag_CH0
     IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN

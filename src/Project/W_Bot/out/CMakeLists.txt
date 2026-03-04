@@ -1,7 +1,7 @@
 # --------------------------
-# 编译 W_Bot_demo 可执行文件
+# 编译 W_Bot_Out 可执行文件
 # --------------------------
-set(EXE_NAME W_Bot_demo)
+set(EXE_NAME W_Bot_Out)
 NAME_TO_VAR("PROJECT" "-${EXE_NAME}" OUT)
 if(${OUT})
     # 添加可执行文件+源文件
@@ -23,6 +23,8 @@ if(${OUT})
         Motor_Device_TaiHu
         Led_Device
         Uart_Custom_Dome_Device
+        Motor_Device_BenMo
+        IMU_Device_YuanJi
     )
 
     config_debug_mode(${EXE_NAME})
@@ -35,6 +37,8 @@ if(${OUT})
         Motor_Device_TaiHu
         Led_Device
         Uart_Custom_Dome_Device
+        Motor_Device_BenMo
+        IMU_Device_YuanJi
 
         pthread
         -Wl,--no-as-needed 

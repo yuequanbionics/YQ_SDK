@@ -95,24 +95,9 @@ public:
     */
     int Motor_Stop(shared_ptr<Device_class> Device_P);
 
-    /**
-     * @brief 位置控制
-     * @param Angle         运动角度
-     * @param Speed_Angle_S 运动速度
-     * @param Acceleration  运动加速度
-     * @param Deceleration  运动减速度
-     * @param Set_Lock      设置锁
-    */
     int Send_MIT_PD_Control_Data(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
 
-    /**
-     * @brief 位置控制
-     * @param Rad           运动弧度
-     * @param Speed_Rad_S   运动速度
-     * @param Acceleration  运动加速度
-     * @param Deceleration  运动减速度
-     * @param Set_Lock      设置锁
-    */
+
     int Send_MIT_PD_Control_Data_(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Acceleration, float Deceleration);
     
     /**

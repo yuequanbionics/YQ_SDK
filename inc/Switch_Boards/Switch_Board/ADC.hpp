@@ -65,12 +65,20 @@ struct ADC_Instance_Config
     // ADC模式
     uint32_t ADC_Mode;
     // 该ADC的所有通道配置
-    std::vector<ADC_Channel_Config> ADC_ChannelConfig;
+    //std::vector<ADC_Channel_Config> ADC_ChannelConfig;
+    ADC_Channel_Config ADC_ChannelConfig[2];
 };
 
 struct Global_ADC_Config
 {
-    std::vector<ADC_Instance_Config> ADC_Config;
+    // Head
+	u16 Can_Id;
+	u16 Len;
+	u16 Flag;
+
+	u8 Cmd;
+    //std::vector<ADC_Instance_Config> ADC_Config;
+    ADC_Instance_Config ADC_Config[3];
 };
 
 class ADC : private Robot_Hardware

@@ -22,9 +22,18 @@ sudo docker info
 
 systemctl status docker
 
-sudo docker load -i config/docker_img/ubuntu20_04.tar
-sudo docker load -i config/docker_img/ubuntu22_04.tar
-sudo docker load -i config/docker_img/ubuntu24_04.tar
+sudo apt-get install -y git-lfs
+cd ./third_party
+git clone https://www.modelscope.cn/tokolll/Docker.git
+cd ./Docker
+git lfs install
+git config lfs.concurrenttransfers 10
+git lfs pull
+cd ../..
+
+sudo docker load -i ./third_party/Docker/ubuntu20_04.tar
+sudo docker load -i ./third_party/Docker/ubuntu22_04.tar
+sudo docker load -i ./third_party/Docker/ubuntu24_04.tar
 
 # docker save -o /home/user/docker_images/myapp_v1.0.tar myapp:1.0
 

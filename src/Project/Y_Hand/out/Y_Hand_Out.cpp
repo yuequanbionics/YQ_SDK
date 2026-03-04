@@ -225,7 +225,7 @@ int hand_pretighten(float F, uint32_t time_ms)
 #ifndef HAVE_ROS
 int main(int argc, char* argv[])
 #else
-int hardware_init(string ADDR)
+int hardware_init(string ADDR, string Config)
 #endif
 {
     Test_Robot = new Robot_Hardware();
@@ -239,8 +239,17 @@ int hardware_init(string ADDR)
     filesystem::path dir_path = exe_path.parent_path();
     std::cout << "程序所在目录: " << dir_path << std::endl;
     string ADDR = dir_path.string() + "/../config/YAML/Y_Hand/out/TOP.yaml";
+    string Config = "None";
+//     string Config = R"(
+// PC_IP: 192.168.3.245
+// SN: asdf1234567
+// Boards:
+//   - Id: 101
+//     IP: 192.168.3.105
+//     # Port: 19001
+// )";
 #endif
-    if(Test_Robot->Init_TOP(ADDR) != 0)
+    if(Test_Robot->Init_TOP(ADDR, Config) != 0)
     { 
         cout << "Init_ERR" << endl;
         return -1;

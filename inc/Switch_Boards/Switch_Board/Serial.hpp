@@ -28,6 +28,8 @@ class Serial : private Robot_Hardware
         int Set_Serial_menu(shared_ptr<Device_class> Device_P, u16 menu);
         int Set_Serial_ID(shared_ptr<Device_class> Device_P, u16 ID);
         int Set_Serial_DMA_Stream(shared_ptr<Device_class> Device_P, u32 dma_stream_tx, u32 dma_stream_rx);
+        int Set_485_Port(shared_ptr<Device_class> Device_P, u32 Port);
+        int Set_485_Pin(shared_ptr<Device_class> Device_P, u32 Pin);
         
 };
 
@@ -49,6 +51,8 @@ enum Serial_Config_Data{
     Serial_menu,
     Serial_ID,
     Serial_DMA_Stream,
+    Serial_485_Port,
+    Serial_485_Pin,
 };
 
 #endif

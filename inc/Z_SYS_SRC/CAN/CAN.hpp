@@ -380,6 +380,7 @@ typedef struct
 	u32 BOOT_MENU;
 	int OTA_BAG_LEN;
 	int Heart_Beat_NUM;
+	long SN;
 
 	bool FLAG_UDP_RUN;
 	bool Heart_Beat_RUN;

@@ -1,0 +1,24 @@
+DriverVersion: 0.0.1
+
+# Log_Path: log_dir
+# Log_Name: name
+Log_Max_Size: 5
+# Debug_Level: debug
+# Debug_Level: info
+# Debug_Level: warn
+# Debug_Level: err
+# Debug_Level: critical
+# Debug_Level: _off
+
+Name: Motor
+SN_MOD: ABCD1234567
+PC_IP: &PC_IP 192.168.3.245
+Broadcast_IP: 192.168.3.255
+
+import:
+  Motor_Config0: "config.yaml"
+
+  map_config: "../../Device_Config/IO_Map.yaml"
+  Motor_Config: "../../Device_Config/MZ_Motor_Config.yaml"
+
+  Motors: "Motor_Test.yaml"

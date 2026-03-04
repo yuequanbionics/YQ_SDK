@@ -61,6 +61,11 @@ class C_GPIO : private Robot_Hardware
 public:
     int Get_Yaml_And_Init(const shared_ptr<Device_class>& Device, const YAML::Node& One_Node);
 
+    void Get_Buttons_Value(const shared_ptr<Device_class> &Device, int *Res);
+
+    void Set_GPIOx_To_Input_Mode(const shared_ptr<Device_class> &Device, GPIO_TypeDef *GPIOx, u32 GPIOx_Pin);
+    u8 Get_GPIOx_Value(const GPIO_TypeDef *GPIOx, u32 GPIOx_Pin);
+
     void GPIOx_Init(const shared_ptr<Device_class>& Device, GPIO_TypeDef *GPIOx, const GPIO_InitTypeDef *GPIO_Init_Struct);
     int GPIOx_Read(const shared_ptr<Device_class>& Device, GPIO_TypeDef* GPIOx, u32 GPIOx_Pin, u32 timeout);
     int GPIOx_Call_Back(const volatile u8* Can_Frame);

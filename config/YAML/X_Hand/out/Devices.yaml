@@ -66,6 +66,12 @@ config:
         DeviceList:
           --: *MotorS_0
 
+  Sensor_Custom: &Sensor_Custom
+    - Name: Tactile_Sensor
+      DeviceType: Tactile_Sensor_Custom
+      Id: 200
+      CH: Head_Flag_Switch_CH14
+
 Base_Node: 
   - Name: Main_Switch_Board
     Range_Name: X_Hand
@@ -81,7 +87,19 @@ Base_Node:
 
     DeviceConfig:
       PrintMcuTaskStack: false
-      Serial_S: *Serial_4_Config
+      # Serial_S: *Serial_4_Config
+      Serial_S:
+        - Serial_CH: UART4
+          Serial_menu: 4
+          Serial_Baud: 921600
+          <<: *Serial_General_Config
+          Stm_Tx_Rx_GPIO:
+            Tx_GPIO: GPIOD
+            Rx_GPIO: GPIOD
+            Tx_GPIO_PIN: GPIO_PIN_1
+            Rx_GPIO_PIN: GPIO_PIN_0
+          Other_Config:
+            <<: *Serial_4_DMA_Config
 
     child:
       --: *Auto_Set_Id_DeviceS0

@@ -48,7 +48,15 @@ int init_time_step = 1000 * 1000 / 500;
 float Pos_Offest[6] = {0, 0, 0, 0, 0, 0};
 float Motor_Mirror[6] = {-1, -1, 1, 1, 1, 1};
 // float Motor_K[6] = {1, 1, 1, 1, 1, 1};
-float Motor_K[6] = {3103 - 20, 421.953 - 5, 3779.49 - 20, 3833.81 - 20, 3739.36 - 20, 3780.85 - 20};
+// float Motor_K[6] = {3103 - 20, 421.953 - 5, 3779.49 - 20, 3833.81 - 20, 3739.36 - 20, 3780.85 - 20};
+float Motor_K[6] = {\
+2462.73 - 100,\
+465.147,\
+4207.49 - 200,\
+4292.93 - 200,\
+4163.54 - 200,\
+4137.34 - 200,\
+};
 
 X_hand_Send_Data Send_Datas[6];
 X_hand_FB FB_Datas[6];
@@ -164,31 +172,31 @@ void X_hand_Init(void) {
     }
 
     // 收
-    Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror * -0.3, kp, kd);
-    Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror *  0.3, kp, kd);
-    Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror *  0.3, kp, kd);
-    Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror *  0.3, kp, kd);
-    Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror *  0.3, kp, kd);
+    Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror * -0.5, kp, kd);
+    Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror *  0.5, kp, kd);
+    Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror *  0.5, kp, kd);
+    Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror *  0.5, kp, kd);
+    Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror *  0.5, kp, kd);
     X_Hand->Send_Buff_Data();
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
     // 放
-    Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror *  0.2, kp, kd);
-    Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * -0.2, kp, kd);
-    Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * -0.2, kp, kd);
-    Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * -0.2, kp, kd);
-    Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror * -0.2, kp, kd);
+    Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror *  0.5, kp, kd);
+    Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * -0.5, kp, kd);
+    Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * -0.5, kp, kd);
+    Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * -0.5, kp, kd);
+    Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror * -0.5, kp, kd);
     X_Hand->Send_Buff_Data();
     std::this_thread::sleep_for(std::chrono::milliseconds(25));
 
     while (1) {
         // 放
-        Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror *  0.1, kp, kd);
-        Motor_2_Control->Send_MIT_PD_Control_Data(Motor_2_D, 0, 0, mirror *  0.1, kp, kd);
-        Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * -0.1, kp, kd);
-        Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * -0.1, kp, kd);
-        Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * -0.1, kp, kd);
-        Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror * -0.1, kp, kd);
+        Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror *  0.15, kp, kd);
+        Motor_2_Control->Send_MIT_PD_Control_Data(Motor_2_D, 0, 0, mirror *  0.15, kp, kd);
+        Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * -0.15, kp, kd);
+        Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * -0.15, kp, kd);
+        Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * -0.15, kp, kd);
+        Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror * -0.15, kp, kd);
         X_Hand->Send_Buff_Data();
         usleep(init_time_step);
         Get_FB();
@@ -256,7 +264,7 @@ void Tactile_Sensor_Init(void) {
 #ifndef HAVE_ROS
 int main(int argc, char* argv[])
 #else
-int hardware_init(string ADDR)
+int hardware_init(string ADDR, string Config)
 #endif
 {
     X_Hand = new Robot_Hardware();
@@ -269,8 +277,17 @@ int hardware_init(string ADDR)
     filesystem::path exe_path = filesystem::canonical("/proc/self/exe");
     filesystem::path dir_path = exe_path.parent_path();
     string ADDR = dir_path.string() + "/../config/YAML/X_Hand/out/TOP.yaml";
+    string Config = "None";
+//     string Config = R"(
+// PC_IP: 192.168.3.245
+// SN: asdf1234567
+// Boards:
+//   - Id: 101
+//     IP: 192.168.3.105
+//     # Port: 19001
+// )";
 #endif
-    if (X_Hand->Init_TOP(ADDR) != 0) {
+    if(X_Hand->Init_TOP(ADDR, Config) != 0){
         cout << "Init_ERR" << endl;
         return -1;
     }
@@ -310,8 +327,8 @@ int hardware_init(string ADDR)
             Send_Datas[i].P = 0.5 + test;
             Send_Datas[i].V = 0;
             Send_Datas[i].F = 0;
-            Send_Datas[i].KP = 500;
-            Send_Datas[i].KD = 5;
+            Send_Datas[i].KP = 0;
+            Send_Datas[i].KD = 0;
         }
         Send_Datas[0].P = 0.5/4 + test/4;
         Send_Datas[1].P = 0.5/2 + test/2;
@@ -321,7 +338,7 @@ int hardware_init(string ADDR)
         Get_FB();
 
         for (int i = 0; i < 6; i++) {
-            cout << "num: " << i << " " << FB_Datas[i].P << endl;
+            cout << "num: " << i << " " << abs(FB_Datas[i].V*100) << endl;
         }
     }
 #endif

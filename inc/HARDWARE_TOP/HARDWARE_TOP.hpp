@@ -48,7 +48,7 @@ public:
     shared_ptr<std::map<std::string, Err_Level>> Error_Map;
     int (*Error_FB)(shared_ptr<Device_class> Device, std::string Info, Err_Level Level);
 
-    YAML::Node Base_Node;
+    YAML::Node Yaml_Node;
     YAML::Node This_Node;
 
     u32 IS_Online_In_Init;

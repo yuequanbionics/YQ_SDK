@@ -7,7 +7,7 @@ SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 # 自动补全函数定义
 # --------------------------
 _tool_completion() {
-    local commands=("make" "clean" "Dmake" "init_install" "completion" "menu_config" "ipconfig" "set_id" "make_config" "make_third" "build_out" "OTA" "INIT")  
+    local commands=("make" "clean" "Dmake" "init_install" "completion" "menu_config" "ipconfig" "set_id" "set_sn" "make_config" "make_third" "build_out" "OTA" "INIT")  
     local cur=${COMP_WORDS[COMP_CWORD]}
     if [ $COMP_CWORD -eq 1 ]; then
         COMPREPLY=($(compgen -W "${commands[*]}" -- "$cur"))
@@ -50,6 +50,7 @@ usage() {
     echo "  make_third   编译第三方库" 
     echo "  ipconfig     设置网卡IP"  
     echo "  set_id       设置设备ID"  
+    echo "  set_sn       设置设备SN"  
     echo "  build_out    构建输出版" 
     echo "  OTA          设备OTA升级"  
     echo "  INIT         设备初始化"  
@@ -402,7 +403,7 @@ WantedBy=default.target"
                 fi
                 ;;
             4)
-                sudo apt install -y build-essential cmake libboost-all-dev htop tmux net-tools gparted
+                sudo apt install -y build-essential cmake libboost-all-dev htop tmux net-tools gparted expect
                 ;;
             *)
                 # 处理无效输入
@@ -502,6 +503,50 @@ WantedBy=default.target"
         fi
         ;;
 
+    set_sn)
+        ARCH=$(uname -m)
+        # 第一步:让用户选择操作类型(1=switch,2=slave)
+        while true; do
+            echo -e "请选择操作设备类型:"
+            echo "1 - 配置 Switch Board"
+            echo "2 - 配置 Can Slave"
+            read -p "请输入选择(1/2):" type_choice
+
+            # 校验输入是否为 1 或 2
+            if [ "$type_choice" = "1" ]; then
+                func_type="switch"  # 对应程序需要的 switch 参数
+                break
+            elif [ "$type_choice" = "2" ]; then
+                func_type="slave"   # 对应程序需要的 slave 参数
+                break
+            else
+                echo "❌ 输入错误!仅支持输入 1 或 2,请重新选择。"
+            fi
+        done
+
+        # 第二步:让用户输入
+        read -p "请输入 $func_type 对应的 SN:" sn_input
+
+        # 第三步:根据架构调用对应的 Set_SN 程序,并传入参数
+        echo -e "\n✅ 准备执行:配置 $func_type,SN=$sn_input,架构=$ARCH"
+        if [ "$ARCH" = "x86_64" ]; then
+            ./bin/Tool/x86/Set_SN "$func_type" "$sn_input"
+        elif [ "$ARCH" = "aarch64" ]; then
+            ./bin/Tool/arm64/Set_SN "$func_type" "$sn_input"
+        else
+            echo "❌ 错误:不支持的架构 $ARCH"
+            exit 1
+        fi
+
+        # 检查程序执行结果,提示用户是否成功
+        if [ $? -eq 0 ]; then
+            echo -e "\n✅ $func_type 配置完成!"
+        else
+            echo -e "\n❌ $func_type 配置失败,请检查设备连接或参数是否正确。"
+            exit 1
+        fi
+        ;;
+
     completion)
         echo "===== 配置自动补全 ====="
         
@@ -532,7 +577,7 @@ WantedBy=default.target"
 cat >> "$bashrc_file" <<EOF
 # ${script_name} 自动补全配置
 _tool_completion() {
-    local commands=("make" "clean" "Dmake" "init_install" "completion" "menu_config" "ipconfig" "set_id" "make_config" "make_third" "build_out" "OTA" "INIT")  
+    local commands=("make" "clean" "Dmake" "init_install" "completion" "menu_config" "ipconfig" "set_id" "set_sn" "make_config" "make_third" "build_out" "OTA" "INIT")  
     local cur=\${COMP_WORDS[COMP_CWORD]}
     if [ \$COMP_CWORD -eq 1 ]; then
         COMPREPLY=(\$(compgen -W "\${commands[*]}" -- "\$cur"))
@@ -596,6 +641,31 @@ EOF
         ;;
 
     build_out)
+        menu_config_path=./bin/Tool/x86/menu_config
+        export TERMINFO="$SCRIPT_DIR/third_party/lib/install-x86_64/share/terminfo"
+
+        # 检查配置工具是否存在且可执行
+        if [ ! -f $menu_config_path ]; then
+            echo "错误:未找到 $menu_config_path 文件"
+            exit 1
+        fi
+        if [ ! -x $menu_config_path ]; then
+            echo "错误: $menu_config_path 没有执行权限,尝试添加权限..."
+            chmod +x $menu_config_path || {
+                echo "添加执行权限失败,请手动执行 chmod +x $menu_config_path"
+                exit 1
+            }
+        fi
+        
+        # 执行配置菜单
+        $menu_config_path
+        
+        # 检查配置后文件是否生成
+        if [ ! -f "config.txt" ]; then
+            echo "错误:配置菜单执行后仍未生成 config.txt 文件"
+            exit 1
+        fi
+
         if ! command -v conda &> /dev/null; then
             echo -e "\033[31m错误:未检测到 Conda 安装！\033[0m"
             echo -e "请先安装 Conda"
@@ -610,6 +680,8 @@ EOF
         fi
 
         echo -e "\033[32m✅ Conda 及 sdk 环境检测通过，开始执行 build_out 操作...\033[0m"
+
+        echo "1" | ./Tool.sh Dmake
         
         conda run -n sdk --no-capture-output python ./script/python/Tool/build_out.py
         ;;
