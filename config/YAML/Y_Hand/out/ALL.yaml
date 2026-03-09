@@ -1,4 +1,4 @@
-DriverVersion: 0.0.0
+DriverVersion: 0.0.1
 Log_Max_Size: 5
 Name: Motor
 PC_IP: &1 192.168.3.245
@@ -13,24 +13,82 @@ config:
       Set_Config_In_Init: &7 false
       Set_Pid_Config_In_Init: &8 false
       Motor_Cal_In_Init: &9 false
+  - FD_Can_2M_4M:
+      Can_EN: &10 true
+      Can_FrameFormat: &11 FDCAN_FRAME_FD_BRS
+      Can_Mode: &12 FDCAN_MODE_NORMAL
+      Can_AutoRetransmission: &13 true
+      Can_TransmitPause: &14 false
+      Can_ProtocolException: &15 false
+      Can_Nominal_Prescaler: &16 1
+      Can_Nominal_SyncJumpWidth: &17 9
+      Can_Nominal_TimeSeg1: &18 30
+      Can_Nominal_TimeSeg2: &19 9
+      Can_Data_Prescaler: &20 1
+      Can_Data_SyncJumpWidth: &21 4
+      Can_Data_TimeSeg1: &22 15
+      Can_Data_TimeSeg2: &23 4
+      Can_StdFiltersNbr: &24 4
+      Can_ExtFiltersNbr: &25 4
+      Can_RxFifo0ElmtsNbr: &26 16
+      Can_RxFifo0ElmtSize: &27 FDCAN_DATA_BYTES_12
+      Can_RxFifo1ElmtsNbr: &28 0
+      Can_RxFifo1ElmtSize: &29 FDCAN_DATA_BYTES_12
+      Can_RxBuffersNbr: &30 16
+      Can_RxBufferSize: &31 FDCAN_DATA_BYTES_12
+      Can_TxEventsNbr: &32 2
+      Can_TxBuffersNbr: &33 3
+      Can_TxFifoQueueElmtsNbr: &34 13
+      Can_TxFifoQueueMode: &35 FDCAN_TX_FIFO_OPERATION
+      Can_TxElmtSize: &36 FDCAN_DATA_BYTES_12
+      Can_Set_Complete: &37 true
+  - Classic_Can_1M:
+      Can_EN: true
+      Can_FrameFormat: FDCAN_FRAME_CLASSIC
+      Can_Mode: FDCAN_MODE_NORMAL
+      Can_AutoRetransmission: true
+      Can_TransmitPause: false
+      Can_ProtocolException: false
+      Can_Nominal_Prescaler: 2
+      Can_Nominal_SyncJumpWidth: 9
+      Can_Nominal_TimeSeg1: 30
+      Can_Nominal_TimeSeg2: 9
+      Can_Data_Prescaler: 1
+      Can_Data_SyncJumpWidth: 4
+      Can_Data_TimeSeg1: 15
+      Can_Data_TimeSeg2: 4
+      Can_StdFiltersNbr: 4
+      Can_ExtFiltersNbr: 4
+      Can_RxFifo0ElmtsNbr: 16
+      Can_RxFifo0ElmtSize: FDCAN_DATA_BYTES_12
+      Can_RxFifo1ElmtsNbr: 0
+      Can_RxFifo1ElmtSize: FDCAN_DATA_BYTES_12
+      Can_RxBuffersNbr: 16
+      Can_RxBufferSize: FDCAN_DATA_BYTES_12
+      Can_TxEventsNbr: 2
+      Can_TxBuffersNbr: 3
+      Can_TxFifoQueueElmtsNbr: 13
+      Can_TxFifoQueueMode: FDCAN_TX_FIFO_OPERATION
+      Can_TxElmtSize: FDCAN_DATA_BYTES_12
+      Can_Set_Complete: true
   - Init_Config:
-      Save_All_Config: &10 false
-      Motor_EN_In_Init: &11 true
-      Set_Zero_In_Init: &12 false
-      Set_Config_In_Init: &13 false
-      Set_Pid_Config_In_Init: &14 false
-      Motor_Cal_In_Init: &15 false
+      Save_All_Config: &38 false
+      Motor_EN_In_Init: &39 true
+      Set_Zero_In_Init: &40 false
+      Set_Config_In_Init: &41 false
+      Set_Pid_Config_In_Init: &42 false
+      Motor_Cal_In_Init: &43 false
   - MZ_10MM_Motor_default_config:
       Motor_Set_Zero_Offest: 0.0
       Motor_Mod: Motor_MIT_Control
       Motor_Heart_Beat: 0
       Motor_Pole_Pairs: 1
-      Motor_AB_Mirror: false
+      Motor_AB_Mirror: true
       Motor_current_sample_offset: 10
       Dead_Time: 0
       V_IC_MU_FORCE: 200
       IC_MU_SPEED: 1
-      V_rated: 300
+      V_rated: 700
       DI_I_MAX: 0.4
       I_Hardware_Max: 2
       Current_Amplifier_Gain: 15
@@ -48,80 +106,80 @@ config:
       Electricity_Q_OUT_MAX: 0.9
       Electricity_Q_Integration_MAX: 0.9
   - MZ_13MM_Motor_default_config:
-      Motor_Set_Zero_Offest: &16 0.0
-      Motor_Mod: &17 Motor_MIT_Control
-      Motor_Heart_Beat: &18 0
-      Motor_Pole_Pairs: &19 1
-      Motor_AB_Mirror: &20 false
-      Motor_current_sample_offset: &21 10
-      Dead_Time: &22 0
-      V_IC_MU_FORCE: &23 200
-      IC_MU_SPEED: &24 1
-      V_rated: &25 300
-      DI_I_MAX: &26 0.5
-      I_Hardware_Max: &27 2
-      Current_Amplifier_Gain: &28 10
-      Motor_CMD_I_To_Force_K: &29 1.0
-      Ceil_Temperature_Alarm_Th: &30 70
-      Ceil_Temperature_Protect_Th: &31 90
-      Gear_Ratio: &32 54
-      Gear_multiple: &33 10
-      Electricity_D_P: &34 200000
-      Electricity_D_I: &35 20000
-      Electricity_D_OUT_MAX: &36 0.90
-      Electricity_D_Integration_MAX: &37 0.90
-      Electricity_Q_P: &38 200000
-      Electricity_Q_I: &39 20000
-      Electricity_Q_OUT_MAX: &40 0.90
-      Electricity_Q_Integration_MAX: &41 0.90
-      Save_All_Config: *10
-      Motor_EN_In_Init: *11
-      Set_Zero_In_Init: *12
-      Set_Config_In_Init: *13
-      Set_Pid_Config_In_Init: *14
-      Motor_Cal_In_Init: *15
-  - cat_motor_device_config: &42
+      Motor_Set_Zero_Offest: &44 0.0
+      Motor_Mod: &45 Motor_MIT_Control
+      Motor_Heart_Beat: &46 0
+      Motor_Pole_Pairs: &47 1
+      Motor_AB_Mirror: &48 false
+      Motor_current_sample_offset: &49 10
+      Dead_Time: &50 0
+      V_IC_MU_FORCE: &51 200
+      IC_MU_SPEED: &52 1
+      V_rated: &53 500
+      DI_I_MAX: &54 0.5
+      I_Hardware_Max: &55 2
+      Current_Amplifier_Gain: &56 15
+      Motor_CMD_I_To_Force_K: &57 1.0
+      Ceil_Temperature_Alarm_Th: &58 70
+      Ceil_Temperature_Protect_Th: &59 90
+      Gear_Ratio: &60 54
+      Gear_multiple: &61 10
+      Electricity_D_P: &62 200000
+      Electricity_D_I: &63 20000
+      Electricity_D_OUT_MAX: &64 0.90
+      Electricity_D_Integration_MAX: &65 0.90
+      Electricity_Q_P: &66 200000
+      Electricity_Q_I: &67 20000
+      Electricity_Q_OUT_MAX: &68 0.90
+      Electricity_Q_Integration_MAX: &69 0.90
+      Save_All_Config: *38
+      Motor_EN_In_Init: *39
+      Set_Zero_In_Init: *40
+      Set_Config_In_Init: *41
+      Set_Pid_Config_In_Init: *42
+      Motor_Cal_In_Init: *43
+  - cat_motor_device_config: &70
       Save_All_Config: *4
       Motor_EN_In_Init: *5
       Set_Zero_In_Init: *6
       Set_Config_In_Init: *7
       Set_Pid_Config_In_Init: *8
       Motor_Cal_In_Init: *9
-      Motor_Set_Zero_Offest: *16
-      Motor_Mod: *17
-      Motor_Heart_Beat: *18
-      Motor_Pole_Pairs: *19
-      Motor_AB_Mirror: *20
-      Motor_current_sample_offset: *21
-      Dead_Time: *22
-      V_IC_MU_FORCE: *23
-      IC_MU_SPEED: *24
-      V_rated: *25
-      DI_I_MAX: *26
-      I_Hardware_Max: *27
-      Current_Amplifier_Gain: *28
-      Motor_CMD_I_To_Force_K: *29
-      Ceil_Temperature_Alarm_Th: *30
-      Ceil_Temperature_Protect_Th: *31
-      Gear_Ratio: *32
-      Gear_multiple: *33
-      Electricity_D_P: *34
-      Electricity_D_I: *35
-      Electricity_D_OUT_MAX: *36
-      Electricity_D_Integration_MAX: *37
-      Electricity_Q_P: *38
-      Electricity_Q_I: *39
-      Electricity_Q_OUT_MAX: *40
-      Electricity_Q_Integration_MAX: *41
+      Motor_Set_Zero_Offest: *44
+      Motor_Mod: *45
+      Motor_Heart_Beat: *46
+      Motor_Pole_Pairs: *47
+      Motor_AB_Mirror: *48
+      Motor_current_sample_offset: *49
+      Dead_Time: *50
+      V_IC_MU_FORCE: *51
+      IC_MU_SPEED: *52
+      V_rated: *53
+      DI_I_MAX: *54
+      I_Hardware_Max: *55
+      Current_Amplifier_Gain: *56
+      Motor_CMD_I_To_Force_K: *57
+      Ceil_Temperature_Alarm_Th: *58
+      Ceil_Temperature_Protect_Th: *59
+      Gear_Ratio: *60
+      Gear_multiple: *61
+      Electricity_D_P: *62
+      Electricity_D_I: *63
+      Electricity_D_OUT_MAX: *64
+      Electricity_D_Integration_MAX: *65
+      Electricity_Q_P: *66
+      Electricity_Q_I: *67
+      Electricity_Q_OUT_MAX: *68
+      Electricity_Q_Integration_MAX: *69
   - Motor_Config_Normal_0:
-      DeviceType: &43 Motor_Device
-      CH: &44 Head_Flag_Switch_CH1
-      IO_Mod: &45 Main_CMD_IO_Mod_CAN_ONLY
+      DeviceType: &71 Motor_Device
+      CH: &72 Head_Flag_Switch_CH1
+      IO_Mod: &73 Main_CMD_IO_Mod_CAN_ONLY
   - Motor_Config_Normal_1:
-      DeviceType: &46 Motor_Device
-      CH: &47 Head_Flag_Switch_CH2
-      IO_Mod: &48 Main_CMD_IO_Mod_CAN_ONLY
-  - Led_Device_Config: &49
+      DeviceType: &74 Motor_Device
+      CH: &75 Head_Flag_Switch_CH2
+      IO_Mod: &76 Main_CMD_IO_Mod_CAN_ONLY
+  - Led_Device_Config: &77
       Led_Start_En: true
       Led_Num: 20
       Tim_index: 1
@@ -165,214 +223,214 @@ config:
         - [0, 0, 125]
         - [0, 0, 125]
   - Led_Belt_Config:
-      - &50
+      - &78
         Name: Led_GoGo
         DeviceType: Led_Device
         Id: 301
         CH: Head_Flag_Switch_CH1
         IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
         Detect: false
-        DeviceConfig: *49
+        DeviceConfig: *77
   - MotorS_0:
-      - &51
+      - &79
         Name: Motor_1
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *43
-        CH: *44
-        IO_Mod: *45
-      - &52
+        DeviceConfig: *70
+        DeviceType: *71
+        CH: *72
+        IO_Mod: *73
+      - &80
         Name: Motor_2
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *43
-        CH: *44
-        IO_Mod: *45
-      - &53
+        DeviceConfig: *70
+        DeviceType: *71
+        CH: *72
+        IO_Mod: *73
+      - &81
         Name: Motor_3
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *43
-        CH: *44
-        IO_Mod: *45
-      - &54
+        DeviceConfig: *70
+        DeviceType: *71
+        CH: *72
+        IO_Mod: *73
+      - &82
         Name: Motor_4
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *43
-        CH: *44
-        IO_Mod: *45
-      - &55
+        DeviceConfig: *70
+        DeviceType: *71
+        CH: *72
+        IO_Mod: *73
+      - &83
         Name: Motor_5
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *43
-        CH: *44
-        IO_Mod: *45
-      - &56
+        DeviceConfig: *70
+        DeviceType: *71
+        CH: *72
+        IO_Mod: *73
+      - &84
         Name: Motor_6
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *43
-        CH: *44
-        IO_Mod: *45
-      - &57
+        DeviceConfig: *70
+        DeviceType: *71
+        CH: *72
+        IO_Mod: *73
+      - &85
         Name: Motor_7
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *43
-        CH: *44
-        IO_Mod: *45
-      - &58
+        DeviceConfig: *70
+        DeviceType: *71
+        CH: *72
+        IO_Mod: *73
+      - &86
         Name: Motor_8
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *43
-        CH: *44
-        IO_Mod: *45
-      - &59
+        DeviceConfig: *70
+        DeviceType: *71
+        CH: *72
+        IO_Mod: *73
+      - &87
         Name: Motor_9
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *43
-        CH: *44
-        IO_Mod: *45
-      - &60
+        DeviceConfig: *70
+        DeviceType: *71
+        CH: *72
+        IO_Mod: *73
+      - &88
         Name: Motor_10
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *43
-        CH: *44
-        IO_Mod: *45
-      - &61
+        DeviceConfig: *70
+        DeviceType: *71
+        CH: *72
+        IO_Mod: *73
+      - &89
         Name: Motor_11
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *43
-        CH: *44
-        IO_Mod: *45
-      - &62
+        DeviceConfig: *70
+        DeviceType: *71
+        CH: *72
+        IO_Mod: *73
+      - &90
         Name: Motor_12
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *43
-        CH: *44
-        IO_Mod: *45
-      - &63
+        DeviceConfig: *70
+        DeviceType: *71
+        CH: *72
+        IO_Mod: *73
+      - &91
         Name: Motor_13
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *43
-        CH: *44
-        IO_Mod: *45
-      - &64
+        DeviceConfig: *70
+        DeviceType: *71
+        CH: *72
+        IO_Mod: *73
+      - &92
         Name: Motor_14
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *43
-        CH: *44
-        IO_Mod: *45
+        DeviceConfig: *70
+        DeviceType: *71
+        CH: *72
+        IO_Mod: *73
   - MotorS_1:
-      - &65
+      - &93
         Name: Motor_15
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *46
-        CH: *47
-        IO_Mod: *48
-      - &66
+        DeviceConfig: *70
+        DeviceType: *74
+        CH: *75
+        IO_Mod: *76
+      - &94
         Name: Motor_16
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *46
-        CH: *47
-        IO_Mod: *48
-      - &67
+        DeviceConfig: *70
+        DeviceType: *74
+        CH: *75
+        IO_Mod: *76
+      - &95
         Name: Motor_17
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *46
-        CH: *47
-        IO_Mod: *48
-      - &68
+        DeviceConfig: *70
+        DeviceType: *74
+        CH: *75
+        IO_Mod: *76
+      - &96
         Name: Motor_18
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *46
-        CH: *47
-        IO_Mod: *48
-      - &69
+        DeviceConfig: *70
+        DeviceType: *74
+        CH: *75
+        IO_Mod: *76
+      - &97
         Name: Motor_19
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *46
-        CH: *47
-        IO_Mod: *48
-      - &70
+        DeviceConfig: *70
+        DeviceType: *74
+        CH: *75
+        IO_Mod: *76
+      - &98
         Name: Motor_20
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *46
-        CH: *47
-        IO_Mod: *48
-      - &71
+        DeviceConfig: *70
+        DeviceType: *74
+        CH: *75
+        IO_Mod: *76
+      - &99
         Name: Motor_21
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *46
-        CH: *47
-        IO_Mod: *48
-      - &72
+        DeviceConfig: *70
+        DeviceType: *74
+        CH: *75
+        IO_Mod: *76
+      - &100
         Name: Motor_22
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *46
-        CH: *47
-        IO_Mod: *48
-      - &73
+        DeviceConfig: *70
+        DeviceType: *74
+        CH: *75
+        IO_Mod: *76
+      - &101
         Name: Motor_23
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *46
-        CH: *47
-        IO_Mod: *48
-      - &74
+        DeviceConfig: *70
+        DeviceType: *74
+        CH: *75
+        IO_Mod: *76
+      - &102
         Name: Motor_24
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *46
-        CH: *47
-        IO_Mod: *48
-      - &75
+        DeviceConfig: *70
+        DeviceType: *74
+        CH: *75
+        IO_Mod: *76
+      - &103
         Name: Motor_25
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *46
-        CH: *47
-        IO_Mod: *48
-      - &76
+        DeviceConfig: *70
+        DeviceType: *74
+        CH: *75
+        IO_Mod: *76
+      - &104
         Name: Motor_26
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *46
-        CH: *47
-        IO_Mod: *48
-      - &77
+        DeviceConfig: *70
+        DeviceType: *74
+        CH: *75
+        IO_Mod: *76
+      - &105
         Name: Motor_27
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *46
-        CH: *47
-        IO_Mod: *48
-      - &78
+        DeviceConfig: *70
+        DeviceType: *74
+        CH: *75
+        IO_Mod: *76
+      - &106
         Name: Motor_28
         Id: 1
-        DeviceConfig: *42
-        DeviceType: *46
-        CH: *47
-        IO_Mod: *48
+        DeviceConfig: *70
+        DeviceType: *74
+        CH: *75
+        IO_Mod: *76
   - Auto_Set_Id_DeviceS0:
-      - &79
+      - &107
         Name: Auto_Set_Id_0
         DeviceType: Auto_Set_Id
         Detect: false
@@ -385,22 +443,22 @@ config:
           Save_Id: *3
           Time_Out_Ms: 1000
           DeviceList:
-            - *51
-            - *52
-            - *53
-            - *54
-            - *55
-            - *56
-            - *57
-            - *58
-            - *59
-            - *60
-            - *61
-            - *62
-            - *63
-            - *64
+            - *79
+            - *80
+            - *81
+            - *82
+            - *83
+            - *84
+            - *85
+            - *86
+            - *87
+            - *88
+            - *89
+            - *90
+            - *91
+            - *92
   - Auto_Set_Id_DeviceS1:
-      - &80
+      - &108
         Name: Auto_Set_Id_1
         DeviceType: Auto_Set_Id
         Detect: false
@@ -413,20 +471,20 @@ config:
           Save_Id: *3
           Time_Out_Ms: 1000
           DeviceList:
-            - *65
-            - *66
-            - *67
-            - *68
-            - *69
-            - *70
-            - *71
-            - *72
-            - *73
-            - *74
-            - *75
-            - *76
-            - *77
-            - *78
+            - *93
+            - *94
+            - *95
+            - *96
+            - *97
+            - *98
+            - *99
+            - *100
+            - *101
+            - *102
+            - *103
+            - *104
+            - *105
+            - *106
 Timer_Test_Config:
   - Timer_Instance: TIM3
     Timer_En: true
@@ -444,7 +502,7 @@ Timer_Test_Config:
       Timer_ChX_GPIO: GPIOC
       Timer_ChX_Pin: GPIO_PIN_6
       Timer_ChX_GPIO_Alternate: GPIO_AF2_TIM3
-Timer_WS2812B_Config: &81
+Timer_WS2812B_Config:
   - Timer_Instance: TIM17
     Timer_En: true
     Timer_Index: 1
@@ -561,8 +619,8 @@ Tim_17_WS2812B_Config:
       Timer_Ch_DMA_FIFOMode: DMA_FIFOMODE_DISABLE
       Timer_Ch_DMA_Handle_index: TIM_DMA_ID_CC1
 Tim17_Head_Config:
-  Timer_Instance: TIM17
-  Timer_En: true
+  Timer_Instance: &109 TIM17
+  Timer_En: &110 true
   Timer_Index: 1
   Prescaler: 0
   CounterMode: TIM_COUNTERMODE_UP
@@ -570,25 +628,25 @@ Tim17_Head_Config:
 Tim_Ch1_Config:
   Timer_ChX: 1
   Timer_ChX_OutMode: DMA
-  Timer_ChX_OCMode: TIM_OCMODE_PWM2
-  Timer_ChX_Pulse: 0
-  Timer_ChX_OCPolarity: TIM_OCPOLARITY_LOW
-  Timer_ChX_OCFastMode: TIM_OCFAST_DISABLE
-  Timer_ChX_GPIO: GPIOB
-  Timer_ChX_Pin: GPIO_PIN_9
-  Timer_ChX_GPIO_Alternate: GPIO_AF1_TIM17
+  Timer_ChX_OCMode: &111 TIM_OCMODE_PWM2
+  Timer_ChX_Pulse: &112 0
+  Timer_ChX_OCPolarity: &113 TIM_OCPOLARITY_LOW
+  Timer_ChX_OCFastMode: &114 TIM_OCFAST_DISABLE
+  Timer_ChX_GPIO: &115 GPIOB
+  Timer_ChX_Pin: &116 GPIO_PIN_9
+  Timer_ChX_GPIO_Alternate: &117 GPIO_AF1_TIM17
 Tim_Ch_DMA1_Config:
   Timer_Ch_DMA_Instance: DMA2_Stream0
-  Timer_Ch_DMA_Request: DMA_REQUEST_TIM17_CH1
-  Timer_Ch_DMA_Direction: DMA_MEMORY_TO_PERIPH
-  Timer_Ch_DMA_PeriphInc: DMA_PINC_DISABLE
-  Timer_Ch_DMA_MemInc: DMA_MINC_ENABLE
-  Timer_Ch_DMA_PeriphDataAlignment: DMA_PDATAALIGN_HALFWORD
-  Timer_Ch_DMA_MemDataAlignment: DMA_MDATAALIGN_HALFWORD
-  Timer_Ch_DMA_Mode: DMA_NORMAL
-  Timer_Ch_DMA_Priority: DMA_PRIORITY_MEDIUM
-  Timer_Ch_DMA_FIFOMode: DMA_FIFOMODE_DISABLE
-  Timer_Ch_DMA_Handle_index: TIM_DMA_ID_CC1
+  Timer_Ch_DMA_Request: &118 DMA_REQUEST_TIM17_CH1
+  Timer_Ch_DMA_Direction: &119 DMA_MEMORY_TO_PERIPH
+  Timer_Ch_DMA_PeriphInc: &120 DMA_PINC_DISABLE
+  Timer_Ch_DMA_MemInc: &121 DMA_MINC_ENABLE
+  Timer_Ch_DMA_PeriphDataAlignment: &122 DMA_PDATAALIGN_HALFWORD
+  Timer_Ch_DMA_MemDataAlignment: &123 DMA_MDATAALIGN_HALFWORD
+  Timer_Ch_DMA_Mode: &124 DMA_NORMAL
+  Timer_Ch_DMA_Priority: &125 DMA_PRIORITY_MEDIUM
+  Timer_Ch_DMA_FIFOMode: &126 DMA_FIFOMODE_DISABLE
+  Timer_Ch_DMA_Handle_index: &127 TIM_DMA_ID_CC1
 Base_Node:
   - Name: Main_Switch_Board
     Range_Name: Motor
@@ -604,36 +662,123 @@ Base_Node:
     DeviceConfig:
       PrintMcuTaskStack: false
       Save_to_Flash: false
-      Timer_S: *81
+      Can_S:
+        - Can_Instance: 1
+          Can_EN: *10
+          Can_FrameFormat: *11
+          Can_Mode: *12
+          Can_AutoRetransmission: *13
+          Can_TransmitPause: *14
+          Can_ProtocolException: *15
+          Can_Nominal_Prescaler: *16
+          Can_Nominal_SyncJumpWidth: *17
+          Can_Nominal_TimeSeg1: *18
+          Can_Nominal_TimeSeg2: *19
+          Can_Data_Prescaler: *20
+          Can_Data_SyncJumpWidth: *21
+          Can_Data_TimeSeg1: *22
+          Can_Data_TimeSeg2: *23
+          Can_StdFiltersNbr: *24
+          Can_ExtFiltersNbr: *25
+          Can_RxFifo0ElmtsNbr: *26
+          Can_RxFifo0ElmtSize: *27
+          Can_RxFifo1ElmtsNbr: *28
+          Can_RxFifo1ElmtSize: *29
+          Can_RxBuffersNbr: *30
+          Can_RxBufferSize: *31
+          Can_TxEventsNbr: *32
+          Can_TxBuffersNbr: *33
+          Can_TxFifoQueueElmtsNbr: *34
+          Can_TxFifoQueueMode: *35
+          Can_TxElmtSize: *36
+          Can_Set_Complete: *37
+        - Can_Instance: 2
+          Can_EN: *10
+          Can_FrameFormat: *11
+          Can_Mode: *12
+          Can_AutoRetransmission: *13
+          Can_TransmitPause: *14
+          Can_ProtocolException: *15
+          Can_Nominal_Prescaler: *16
+          Can_Nominal_SyncJumpWidth: *17
+          Can_Nominal_TimeSeg1: *18
+          Can_Nominal_TimeSeg2: *19
+          Can_Data_Prescaler: *20
+          Can_Data_SyncJumpWidth: *21
+          Can_Data_TimeSeg1: *22
+          Can_Data_TimeSeg2: *23
+          Can_StdFiltersNbr: *24
+          Can_ExtFiltersNbr: *25
+          Can_RxFifo0ElmtsNbr: *26
+          Can_RxFifo0ElmtSize: *27
+          Can_RxFifo1ElmtsNbr: *28
+          Can_RxFifo1ElmtSize: *29
+          Can_RxBuffersNbr: *30
+          Can_RxBufferSize: *31
+          Can_TxEventsNbr: *32
+          Can_TxBuffersNbr: *33
+          Can_TxFifoQueueElmtsNbr: *34
+          Can_TxFifoQueueMode: *35
+          Can_TxElmtSize: *36
+          Can_Set_Complete: *37
+      Timer_S:
+        - Timer_Index: 1
+          Prescaler: 0
+          CounterMode: TIM_COUNTERMODE_UP
+          Period: 311
+          Tim_CHX:
+            Timer_ChX: 1
+            Timer_ChX_OutMode: DMA
+            DMA_Config:
+              Timer_Ch_DMA_Instance: DMA2_Stream0
+              Timer_Ch_DMA_Request: *118
+              Timer_Ch_DMA_Direction: *119
+              Timer_Ch_DMA_PeriphInc: *120
+              Timer_Ch_DMA_MemInc: *121
+              Timer_Ch_DMA_PeriphDataAlignment: *122
+              Timer_Ch_DMA_MemDataAlignment: *123
+              Timer_Ch_DMA_Mode: *124
+              Timer_Ch_DMA_Priority: *125
+              Timer_Ch_DMA_FIFOMode: *126
+              Timer_Ch_DMA_Handle_index: *127
+            Timer_ChX_OCMode: *111
+            Timer_ChX_Pulse: *112
+            Timer_ChX_OCPolarity: *113
+            Timer_ChX_OCFastMode: *114
+            Timer_ChX_GPIO: *115
+            Timer_ChX_Pin: *116
+            Timer_ChX_GPIO_Alternate: *117
+          Timer_Instance: *109
+          Timer_En: *110
     child:
-      - *50
-      - *79
-      - *51
-      - *52
-      - *53
-      - *54
-      - *55
-      - *56
-      - *57
-      - *58
-      - *59
-      - *60
-      - *61
-      - *62
-      - *63
-      - *64
-      - *80
-      - *65
-      - *66
-      - *67
-      - *68
-      - *69
-      - *70
-      - *71
-      - *72
-      - *73
-      - *74
-      - *75
-      - *76
-      - *77
       - *78
+      - *107
+      - *79
+      - *80
+      - *81
+      - *82
+      - *83
+      - *84
+      - *85
+      - *86
+      - *87
+      - *88
+      - *89
+      - *90
+      - *91
+      - *92
+      - *108
+      - *93
+      - *94
+      - *95
+      - *96
+      - *97
+      - *98
+      - *99
+      - *100
+      - *101
+      - *102
+      - *103
+      - *104
+      - *105
+      - *106

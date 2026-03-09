@@ -36,6 +36,7 @@
 #define Normal_Mode         0
 #define Set_Status_To_Zero  1
 #define Set_Status_To_Offest  2
+#define Error_Code  3
 
 enum Eyou_CS_Data{
     Write_4_Byte_Data = 0x23,
@@ -82,6 +83,7 @@ private:
 public:
     double Eyou_Motor_Speed_Now = 0.0;
     double Eyou_Motor_Pos_Now = 0.0;
+    float motor_pos = 0.0;
     int Get_Eyou_Custom_Motor_Device_Data_From_Yaml_And_Init(shared_ptr<Device_class> Device, YAML::Node One_Node);
     int Eyou_Custom_Motor_Top_Frame_Analyze(volatile u8 *Can_Frame);
     
@@ -96,10 +98,8 @@ public:
     int Motor_Stop(shared_ptr<Device_class> Device_P);
 
     int Send_MIT_PD_Control_Data(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
-
-
     int Send_MIT_PD_Control_Data_(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Acceleration, float Deceleration);
-    
+    int Send_MIT_PD_Control_Data_old(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
     /**
      * @brief 写零点与偏执
      * @param offest 0为设置零点
@@ -117,12 +117,20 @@ public:
      * @brief 设置Eyou电机的ID
     */
     int Set_ID(shared_ptr<Device_class> Device_P, u8 new_id);
+    void Read_KP_Data(shared_ptr<Device_class> Device_P);
+    void Read_KI_Data(shared_ptr<Device_class> Device_P);
+    void Write_KP_Data(shared_ptr<Device_class> Device_P, uint16_t data);
+    void Write_KI_Data(shared_ptr<Device_class> Device_P, uint16_t data);
+
+    void Get_Error(shared_ptr<Device_class> Device_P);
+    void Write_set_perr_max(shared_ptr<Device_class> Device_P, u8 *data);
 
 private:
     std::shared_ptr<Device_class> s_device;
     int Call_Back_Status = 0;
     int Write_Flag = 0;
     int Motor_Reduction_Ratio = 0;
+    uint16_t Eyou_Kp = 0;
     float Speed_Angle_S = 0.0;
     float Acceleration = 0.0;
     float Deceleration = 0.0;

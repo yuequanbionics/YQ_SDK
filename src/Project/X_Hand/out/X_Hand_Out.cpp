@@ -172,31 +172,31 @@ void X_hand_Init(void) {
     }
 
     // 收
-    Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror * -0.5, kp, kd);
-    Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror *  0.5, kp, kd);
-    Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror *  0.5, kp, kd);
-    Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror *  0.5, kp, kd);
-    Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror *  0.5, kp, kd);
+    Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror * -0.5f, kp, kd);
+    Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror *  0.5f, kp, kd);
+    Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror *  0.5f, kp, kd);
+    Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror *  0.5f, kp, kd);
+    Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror *  0.5f, kp, kd);
     X_Hand->Send_Buff_Data();
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
     // 放
-    Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror *  0.5, kp, kd);
-    Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * -0.5, kp, kd);
-    Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * -0.5, kp, kd);
-    Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * -0.5, kp, kd);
-    Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror * -0.5, kp, kd);
+    Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror *  0.5f, kp, kd);
+    Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * -0.5f, kp, kd);
+    Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * -0.5f, kp, kd);
+    Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * -0.5f, kp, kd);
+    Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror * -0.5f, kp, kd);
     X_Hand->Send_Buff_Data();
     std::this_thread::sleep_for(std::chrono::milliseconds(25));
 
-    while (1) {
+    while (true) {
         // 放
-        Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror *  0.15, kp, kd);
-        Motor_2_Control->Send_MIT_PD_Control_Data(Motor_2_D, 0, 0, mirror *  0.15, kp, kd);
-        Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * -0.15, kp, kd);
-        Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * -0.15, kp, kd);
-        Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * -0.15, kp, kd);
-        Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror * -0.15, kp, kd);
+        Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror *  0.15f, kp, kd);
+        Motor_2_Control->Send_MIT_PD_Control_Data(Motor_2_D, 0, 0, mirror *  0.15f, kp, kd);
+        Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * -0.15f, kp, kd);
+        Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * -0.15f, kp, kd);
+        Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * -0.15f, kp, kd);
+        Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror * -0.15f, kp, kd);
         X_Hand->Send_Buff_Data();
         usleep(init_time_step);
         Get_FB();
@@ -276,7 +276,7 @@ int hardware_init(string ADDR, string Config)
 #ifndef HAVE_ROS
     filesystem::path exe_path = filesystem::canonical("/proc/self/exe");
     filesystem::path dir_path = exe_path.parent_path();
-    string ADDR = dir_path.string() + "/../config/YAML/X_Hand/out/TOP.yaml";
+    string ADDR = dir_path.string() + "/../config/YAML/X_Hand/out/mz_1.0/TOP.yaml";
     string Config = "None";
 //     string Config = R"(
 // PC_IP: 192.168.3.245
@@ -287,7 +287,7 @@ int hardware_init(string ADDR, string Config)
 //     # Port: 19001
 // )";
 #endif
-    if(X_Hand->Init_TOP(ADDR, Config) != 0){
+    if (X_Hand->Init_TOP(ADDR, Config) != 0) {
         cout << "Init_ERR" << endl;
         return -1;
     }
@@ -300,13 +300,13 @@ int hardware_init(string ADDR, string Config)
     Motor_6_D = X_Hand->Get_Device_For_Name("Motor_6");
     Tactile_Sensor_D = X_Hand->Get_Device_For_Name("Tactile_Sensor");
 
-    Motor_1_Control = (Motor*)X_Hand->Get_Control_Class(Motor_1_D);
-    Motor_2_Control = (Motor*)X_Hand->Get_Control_Class(Motor_2_D);
-    Motor_3_Control = (Motor*)X_Hand->Get_Control_Class(Motor_3_D);
-    Motor_4_Control = (Motor*)X_Hand->Get_Control_Class(Motor_4_D);
-    Motor_5_Control = (Motor*)X_Hand->Get_Control_Class(Motor_5_D);
-    Motor_6_Control = (Motor*)X_Hand->Get_Control_Class(Motor_6_D);
-    Tactile_Sensor_Control = (Hw_Pressure_Sensor*)X_Hand->Get_Control_Class(Tactile_Sensor_D);
+    Motor_1_Control = static_cast<Motor *>(X_Hand->Get_Control_Class(Motor_1_D));
+    Motor_2_Control = static_cast<Motor *>(X_Hand->Get_Control_Class(Motor_2_D));
+    Motor_3_Control = static_cast<Motor *>(X_Hand->Get_Control_Class(Motor_3_D));
+    Motor_4_Control = static_cast<Motor *>(X_Hand->Get_Control_Class(Motor_4_D));
+    Motor_5_Control = static_cast<Motor *>(X_Hand->Get_Control_Class(Motor_5_D));
+    Motor_6_Control = static_cast<Motor *>(X_Hand->Get_Control_Class(Motor_6_D));
+    Tactile_Sensor_Control = static_cast<Hw_Pressure_Sensor *>(X_Hand->Get_Control_Class(Tactile_Sensor_D));
 
     X_hand_Init();
 
@@ -314,31 +314,32 @@ int hardware_init(string ADDR, string Config)
 
 #ifndef HAVE_ROS
 
-    float loop_time_step = 1000 * 1000 / 500;
+    constexpr __useconds_t loop_time_step = 1000 * 1000 / 500;
     int times = 0;
     float test = 0.5;
-    while (1) {
+    // ReSharper disable once CppDFAEndlessLoop
+    while (true) {
         if (times % 500 * 2 == 0) {
             test = -test;
         }
         times++;
 
         for (int i = 0; i < 6; i++) {
-            Send_Datas[i].P = 0.5 + test;
+            Send_Datas[i].P = 0.5f + test;
             Send_Datas[i].V = 0;
             Send_Datas[i].F = 0;
-            Send_Datas[i].KP = 0;
-            Send_Datas[i].KD = 0;
+            Send_Datas[i].KP = 500;
+            Send_Datas[i].KD = 10;
         }
-        Send_Datas[0].P = 0.5/4 + test/4;
-        Send_Datas[1].P = 0.5/2 + test/2;
+        Send_Datas[0].P = 0.5f/4 + test/4;
+        Send_Datas[1].P = 0.5f/2 + test/2;
 
         Send();
         usleep(loop_time_step);
         Get_FB();
 
         for (int i = 0; i < 6; i++) {
-            cout << "num: " << i << " " << abs(FB_Datas[i].V*100) << endl;
+            cout << "num: " << i << " " << abs(FB_Datas[i].V * 100) << endl;
         }
     }
 #endif

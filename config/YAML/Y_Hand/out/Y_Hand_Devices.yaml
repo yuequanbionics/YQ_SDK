@@ -291,6 +291,12 @@ Base_Node:
     DeviceConfig:
       PrintMcuTaskStack: false
       Save_to_Flash: false   # 置 true 表示将 Can 配置写入 flash
+      Can_S: 
+        - Can_Instance: 1
+          <<: *FD_Can_2M_4M
+        - Can_Instance: 2
+          <<: *FD_Can_2M_4M
+
       # Timer_S: *Timer_WS2812B_Config
       Timer_S: 
         - Timer_Index: 1

@@ -280,8 +280,7 @@ int hardware_init(string ADDR, string Config)
     IMU_Device_T1->Start_AHRS_Mod_And_Init(IMU_Device_1);
     usleep(100);
     IMU_Device_T2->Start_AHRS_Mod_And_Init(IMU_Device_2);
-
-
+    
 #ifdef W_BOT_ACTION
     float SetPos = 0.0f;
     float ARmSetPos = 0.0f;
@@ -366,20 +365,24 @@ int hardware_init(string ADDR, string Config)
     // Led_Device_Chassis_Ptr ->Led_Set_Every_Color(Led_Chassis_Devices,  1, 1, 11, &RGB_Datas[0]);
     // Led_Device_Shoulder_Ptr->Led_Set_Every_Color(Led_Shoulder_Devices, 1, 1, 11, &RGB_Datas[1]);
 
-    Classis_Motor_T1->Send_MIT_PD_Control_Data(Classis_Motor_1, 0.0f, 60.0f, 0.0f, 0.0f, 0.0f);
-    Classis_Motor_T2->Send_MIT_PD_Control_Data(Classis_Motor_2, 0.0f, -60.0f, 0.0f, 0.0f, 0.0f);
+    // Classis_Motor_T1->Send_MIT_PD_Control_Data(Classis_Motor_1, 0.0f, 60.0f, 0.0f, 0.0f, 0.0f);
+    // Classis_Motor_T2->Send_MIT_PD_Control_Data(Classis_Motor_2, 0.0f, -60.0f, 0.0f, 0.0f, 0.0f);
 
+    // Lower_Limbs_Motor_Ankel_Ctl->Read_KP_Data(Lower_Limbs_Motor_Ankel);
     thread eyou_th(Eyou_Thread);
-    eyou_th.join();
 
     while (1)
     {
-        
+        // Lower_Limbs_Motor_Ankel_Ctl->Read_KP_Data(Lower_Limbs_Motor_Ankel);
+        // usleep(1000);
 
-        // Lower_Limbs_Motor_Waist_Yaw_Ctl ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Yaw,     5  , 1, 1, 1, 1);
-        // Lower_Limbs_Motor_Waist_Roll_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Roll,    3  , 1, 1, 1, 1);
-        // Lower_Limbs_Motor_Knee_Ctl      ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Knee,          -20, 1, 1, 1, 1);
-        // Lower_Limbs_Motor_Hip_Ctl       ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Hip,           11 , 1, 1, 1, 1);
+        // Lower_Limbs_Motor_Ankel_Ctl ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel,     0  , 1, 1, 1, 1);
+        // usleep(10000);
+        Lower_Limbs_Motor_Ankel_Ctl ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel,     2.1, 1, 1, 1, 1);
+        // usleep(1000);
+        Lower_Limbs_Motor_Waist_Roll_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Roll,    2.1  , 1, 1, 1, 1);
+        Lower_Limbs_Motor_Knee_Ctl      ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Knee,          2.1, 1, 1, 1, 1);
+        Lower_Limbs_Motor_Hip_Ctl       ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Hip,           2.1 , 1, 1, 1, 1);
         // Lower_Limbs_Motor_Ankel_Ctl     ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel,         10 , 1, 1, 1, 1);
 
         // Lower_Limbs_Motor_Waist_Yaw_Ctl ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Yaw,     0, 1, 1, 1, 1);
@@ -395,11 +398,20 @@ int hardware_init(string ADDR, string Config)
         // Lower_Limbs_Motor_Ankel_Ctl     ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel,         W_Bot_OD_Set.Eyou_Ankel , Eyou_Speed, 1, Eyou_Acc, Eyou_Dec);
 
         // Lower_Limbs_Motor_Waist_Yaw_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Yaw, &W_Bot_OD_Get.Eyou_Yaw, &Eyou_Speed, &qqqq);
-        // Lower_Limbs_Motor_Knee_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Knee, &W_Bot_OD_Get.Eyou_Knee, &Eyou_Speed, &qqqq);
-        // Lower_Limbs_Motor_Waist_Roll_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Roll, &W_Bot_OD_Get.Eyou_Roll, &Eyou_Speed, &qqqq);
-        // Lower_Limbs_Motor_Hip_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Hip, &W_Bot_OD_Get.Eyou_Hip, &Eyou_Speed, &qqqq);
-        // Lower_Limbs_Motor_Ankel_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Ankel, &W_Bot_OD_Get.Eyou_Ankel, &Eyou_Speed, &qqqq);
-        // usleep(100);
+        Lower_Limbs_Motor_Knee_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Knee, &W_Bot_OD_Get.Eyou_Knee, &Eyou_Speed, &qqqq);
+        Lower_Limbs_Motor_Waist_Roll_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Roll, &W_Bot_OD_Get.Eyou_Roll, &Eyou_Speed, &qqqq);
+        Lower_Limbs_Motor_Hip_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Hip, &W_Bot_OD_Get.Eyou_Hip, &Eyou_Speed, &qqqq);
+        Lower_Limbs_Motor_Ankel_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Ankel, &W_Bot_OD_Get.Eyou_Ankel, &Eyou_Speed, &qqqq);
+        printf("%f\r\n", W_Bot_OD_Get.Eyou_Hip);
+        printf("%f\r\n", W_Bot_OD_Get.Eyou_Knee);
+        printf("%f\r\n", W_Bot_OD_Get.Eyou_Roll);
+        printf("%f\r\n", W_Bot_OD_Get.Eyou_Ankel);
+
+        usleep(1000);
+
+        // Lower_Limbs_Motor_Ankel_Ctl->Get_Error(Lower_Limbs_Motor_Ankel);
+        // usleep(1000);
+
 
         // TaiHu_Device_T1->Send_MIT_PD_Control_Data(TaiHu_Device_1,W_Bot_OD_Set.left_shoulder_pitch,0.0f, 0.0f, 0.0f, 0.0f);
         // TaiHu_Device_T2->Send_MIT_PD_Control_Data(TaiHu_Device_2,W_Bot_OD_Set.left_shoulder_roll,0.0f, 0.0f, 0.0f, 0.0f);

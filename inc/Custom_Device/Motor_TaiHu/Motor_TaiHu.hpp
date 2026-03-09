@@ -16,7 +16,7 @@ typedef struct
 
 	// DATA
 	u8 Cmd;
-	u32 Data;
+	int32_t Data;
 } CMD_Data_TaiHu;
 
 typedef struct
@@ -42,8 +42,13 @@ enum Command : uint8_t
     CMD_SET_POS_VALUE = 0x1E,     // 位置控制
     CMD_SET_CAN_ID = 0x2E,        // 设置CAN ID
     CMD_SAVE_TO_FLASH = 0x0E,     // 保存到flash
+    CMD_SET_VEL_KP = 0x29,        // 设置速度环Kp
+    CMD_SET_VEL_KI = 0x2A,        // 设置速度环Ki
     CMD_SET_POS_KP = 0x2B,        // 设置位置环Kp
-    CMD_SET_POS_KD = 0x2D         // 设置位置环Kd
+    CMD_SET_POS_KD = 0x2D,        // 设置位置环Kd
+    CMD_SET_CUR_KP = 0x83,        // 设置电流环Kp
+    CMD_SET_CUR_KI = 0x84         // 设置电流环Ki
+
 };
 
 #define Motor_Device_Init_TaiHu  [](shared_ptr<Device_class> Device, YAML::Node *Node) -> int\
@@ -91,7 +96,7 @@ public:
      * @brief 设置电机零点及位置偏置值 调整电机反馈的 0 位置在机械上对应的点位。设置偏移的时候，把原先的偏移值和当前位置累加
      * @param offest 偏置值
     */
-    int Set_Zero(shared_ptr<Device_class> Device_P, float offest);
+    int Set_Pos_Offset(shared_ptr<Device_class> Device_P, float offest);
 
 
     /**
@@ -138,14 +143,44 @@ public:
      * @param kp 比例增益
      */
 
-    int Set_Pos_KP(shared_ptr<Device_class> device, float kp);
+    int Set_Pos_KP(shared_ptr<Device_class> device, int kp);
 
     /**
      * @brief 设置位置环KD
      * @param kd 微分增益
      */
 
-    int Set_Pos_KD(shared_ptr<Device_class> device, float kd);
+    int Set_Pos_KD(shared_ptr<Device_class> device, int kd);
+
+     /**
+     * @brief 设置速度环KP
+     * @param kp 比例增益
+     */
+
+    int Set_Vel_KP(shared_ptr<Device_class> device, int kp);
+
+    /**
+     * @brief 设置速度环KI
+     * @param ki 积分增益
+     */
+
+    int Set_Vel_KI(shared_ptr<Device_class> device, int ki);
+
+    /**
+     * @brief 设置电流环KD
+     * @param kd 微分增益
+     */
+
+    int Set_Cur_KP(shared_ptr<Device_class> device, int kp);
+
+     /**
+     * @brief 设置电流环Ki
+     * @param ki 积分增益
+     */
+
+    int Set_Cur_KI(shared_ptr<Device_class> device, int ki);
+
+
 
 
     /**
@@ -168,11 +203,6 @@ public:
     int Save_To_Flash(shared_ptr<Device_class> device);
 
 
-
-    int offset_flag = 0;          // 零点偏移标志位
-    uint32_t reduction_ratio_data = 0; // 减速比
-    uint32_t Forward_Vel_data = 0;      // 正转速度
-    uint32_t Backward_Vel_data = 0;     // 反转速度
 
 
 

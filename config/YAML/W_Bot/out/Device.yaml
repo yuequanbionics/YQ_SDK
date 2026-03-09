@@ -104,7 +104,7 @@ config:
       Id: 11
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *taihu_motor_5060_custom_device_config
+      DeviceConfig: *TaiHu_5060_Motor_config
 
       # 左肩翻滚
     - Name: left_shoulder_roll
@@ -112,7 +112,7 @@ config:
       Id: 12
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *taihu_motor_6070_custom_device_config
+      DeviceConfig: *TaiHu_5060_Motor_config
 
       # 左肩偏航
     - Name: left_shoulder_yaw
@@ -120,7 +120,7 @@ config:
       Id: 13
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *taihu_motor_6070_custom_device_config
+      DeviceConfig: *TaiHu_5060_Motor_config
 
       # 左肩肘部
     - Name: left_elbow
@@ -128,7 +128,7 @@ config:
       Id: 14
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *taihu_motor_6070_custom_device_config
+      DeviceConfig: *TaiHu_5060_Motor_config
 
       # 左肩手腕偏航
     - Name: left_wrist_yaw
@@ -136,7 +136,7 @@ config:
       Id: 15
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *taihu_motor_6070_custom_device_config
+      DeviceConfig: *TaiHu_5060_Motor_config
 
       # 左肩手腕俯仰
     - Name: left_wrist_pitch
@@ -144,7 +144,7 @@ config:
       Id: 16
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *taihu_motor_6070_custom_device_config
+      DeviceConfig: *TaiHu_5060_Motor_config
 
       # 左肩手腕翻滚
     - Name: left_wrist_roll
@@ -152,22 +152,21 @@ config:
       Id: 17
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *taihu_motor_6070_custom_device_config
+      DeviceConfig: *TaiHu_5060_Motor_config
 
     - Name: head_pitch
-      DeviceType: TaiHu_Custom_Motor
-      Id: 1
-      CH: Head_Flag_Switch_CH1
-      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *TaiHu_6070_Motor_config
-
-    - Name: head_yaw
       DeviceType: TaiHu_Custom_Motor
       Id: 2
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *TaiHu_6070_Motor_config
+      DeviceConfig: *TaiHu_5060_Motor_config
 
+    - Name: head_yaw
+      DeviceType: TaiHu_Custom_Motor
+      Id: 1
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: *TaiHu_5060_Motor_config
   #--------------
   # @brief  TaiHu电机 右臂
   #--------------
@@ -178,15 +177,14 @@ config:
       Id: 21
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *taihu_motor_5060_custom_device_config
-
+      DeviceConfig: *TaiHu_5060_Motor_config
       # 右肩翻滚
     - Name: right_shoulder_roll
       DeviceType: TaiHu_Custom_Motor
       Id: 22
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *taihu_motor_6070_custom_device_config
+      DeviceConfig: *TaiHu_5060_Motor_config
 
       # 右肩偏航
     - Name: right_shoulder_yaw
@@ -194,7 +192,7 @@ config:
       Id: 23
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *taihu_motor_6070_custom_device_config
+      DeviceConfig: *TaiHu_5060_Motor_config
 
       # 右肩肘部
     - Name: right_elbow
@@ -202,23 +200,21 @@ config:
       Id: 24
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *taihu_motor_6070_custom_device_config
-
+      DeviceConfig: *TaiHu_5060_Motor_config
       # 右肩手腕偏航
     - Name: right_wrist_yaw
       DeviceType: TaiHu_Custom_Motor
       Id: 25
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *taihu_motor_6070_custom_device_config
-
+      DeviceConfig: *TaiHu_5060_Motor_config
       # 右肩手腕俯仰
     - Name: right_wrist_pitch
       DeviceType: TaiHu_Custom_Motor
       Id: 26
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *taihu_motor_6070_custom_device_config
+      DeviceConfig: *TaiHu_5060_Motor_config
 
       # 右肩手腕翻滚
     - Name: right_wrist_roll
@@ -226,7 +222,7 @@ config:
       Id: 27
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *taihu_motor_6070_custom_device_config
+      DeviceConfig: *TaiHu_5060_Motor_config
 
   #--------------
   # @brief  本末电机 设备
