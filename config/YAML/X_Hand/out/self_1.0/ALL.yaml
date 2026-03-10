@@ -1,0 +1,409 @@
+DriverVersion: 0.0.0
+Log_Max_Size: 5
+Name: Motor
+PC_IP: &1 192.168.3.245
+Broadcast_IP: 192.168.3.255
+config:
+  - "null": &2 true
+  - "null": &3 true
+  - Usr_Motor_Init_Config:
+      Save_All_Config: &4 true
+      Motor_EN_In_Init: &5 false
+      Set_Zero_In_Init: &6 false
+      Set_Config_In_Init: &7 true
+      Set_Pid_Config_In_Init: &8 true
+      Motor_Cal_In_Init: &9 true
+  - Serial_1_Config:
+      - Serial_CH: USART1
+        Serial_menu: 1
+        Serial_EN: true
+        Serial_Baud: 115200
+        Serial_ID: 200
+        WordLength: UART_WORDLENGTH_8B
+        Stm_Tx_Rx_GPIO:
+          Tx_GPIO: GPIOA
+          Rx_GPIO: GPIOA
+          Tx_GPIO_PIN: GPIO_PIN_9
+          Rx_GPIO_PIN: GPIO_PIN_10
+        Other_Config:
+          GPIO_AF: GPIO_AF7_USART1
+          Serial_interrupt: USART1_IRQn
+          TX_DMA: DMA_REQUEST_USART1_TX
+          RX_DMA: DMA_REQUEST_USART1_RX
+          TX_DMA_STREAM: DMA1_Stream1
+          RX_DMA_STREAM: DMA1_Stream0
+  - Serial_1_SCS0009_Config:
+      - Serial_CH: USART1
+        Serial_menu: 1
+        Serial_EN: true
+        Serial_Baud: 1000000
+        Serial_ID: 200
+        WordLength: UART_WORDLENGTH_8B
+        Stm_Tx_Rx_GPIO:
+          Tx_GPIO: GPIOA
+          Rx_GPIO: GPIOA
+          Tx_GPIO_PIN: GPIO_PIN_9
+          Rx_GPIO_PIN: GPIO_PIN_10
+        Other_Config:
+          GPIO_AF: GPIO_AF7_USART1
+          Serial_interrupt: USART1_IRQn
+          TX_DMA: DMA_REQUEST_USART1_TX
+          RX_DMA: DMA_REQUEST_USART1_RX
+          TX_DMA_STREAM: DMA1_Stream1
+          RX_DMA_STREAM: DMA1_Stream0
+  - Serial_4_SCS0009_Config:
+      - Serial_CH: UART4
+        Serial_menu: 4
+        Serial_EN: true
+        Serial_Baud: 1000000
+        Serial_ID: 200
+        WordLength: UART_WORDLENGTH_8B
+        Stm_Tx_Rx_GPIO:
+          Tx_GPIO: GPIOD
+          Rx_GPIO: GPIOD
+          Tx_GPIO_PIN: GPIO_PIN_1
+          Rx_GPIO_PIN: GPIO_PIN_0
+        Other_Config:
+          GPIO_AF: GPIO_AF8_UART4
+          Serial_interrupt: UART4_IRQn
+          TX_DMA: DMA_REQUEST_UART4_TX
+          RX_DMA: DMA_REQUEST_UART4_RX
+          TX_DMA_STREAM: DMA1_Stream3
+          RX_DMA_STREAM: DMA1_Stream2
+  - Serial_4_Config:
+      - Serial_CH: UART4
+        Serial_menu: 4
+        Serial_EN: true
+        Serial_Baud: 921600
+        Serial_ID: 200
+        WordLength: UART_WORDLENGTH_8B
+        Stm_Tx_Rx_GPIO:
+          Tx_GPIO: GPIOD
+          Rx_GPIO: GPIOD
+          Tx_GPIO_PIN: GPIO_PIN_1
+          Rx_GPIO_PIN: GPIO_PIN_0
+        Other_Config:
+          GPIO_AF: GPIO_AF8_UART4
+          Serial_interrupt: UART4_IRQn
+          TX_DMA: DMA_REQUEST_UART4_TX
+          RX_DMA: DMA_REQUEST_UART4_RX
+          TX_DMA_STREAM: DMA1_Stream3
+          RX_DMA_STREAM: DMA1_Stream2
+  - Serial_485_Config:
+      - Serial_CH: UART5
+        Serial_menu: 5
+        Serial_EN: true
+        Serial_Baud: 115200
+        Serial_ID: 200
+        WordLength: UART_WORDLENGTH_8B
+        Stm_Tx_Rx_GPIO:
+          Tx_GPIO: GPIOC
+          Rx_GPIO: GPIOD
+          Tx_GPIO_PIN: GPIO_PIN_12
+          Rx_GPIO_PIN: GPIO_PIN_2
+        Other_Config:
+          GPIO_AF: GPIO_AF8_UART5
+          Serial_interrupt: UART5_IRQn
+          TX_DMA: DMA_REQUEST_UART5_TX
+          RX_DMA: DMA_REQUEST_UART5_RX
+          TX_DMA_STREAM: DMA1_Stream1
+          RX_DMA_STREAM: DMA1_Stream0
+        485_Enable:
+          GPIO_DE_Port: GPIOC
+          GPIO_DE_Pin: GPIO_PIN_8
+  - Serial_General_Config:
+      Serial_CH: USART1
+      Serial_menu: 1
+      Serial_EN: &10 true
+      Serial_Baud: 115200
+      Serial_ID: &11 200
+      WordLength: &12 UART_WORDLENGTH_8B
+  - Serial_1_DMA_Config:
+      GPIO_AF: GPIO_AF7_USART1
+      Serial_interrupt: USART1_IRQn
+      TX_DMA: DMA_REQUEST_USART1_TX
+      RX_DMA: DMA_REQUEST_USART1_RX
+      TX_DMA_STREAM: DMA1_Stream1
+      RX_DMA_STREAM: DMA1_Stream0
+  - Serial_4_DMA_Config: &13
+      GPIO_AF: GPIO_AF8_UART4
+      Serial_interrupt: UART4_IRQn
+      TX_DMA: DMA_REQUEST_UART4_TX
+      RX_DMA: DMA_REQUEST_UART4_RX
+      TX_DMA_STREAM: DMA1_Stream3
+      RX_DMA_STREAM: DMA1_Stream2
+  - Serial_5_DMA_Config:
+      GPIO_AF: GPIO_AF8_UART5
+      Serial_interrupt: UART5_IRQn
+      TX_DMA: DMA_REQUEST_UART5_TX
+      RX_DMA: DMA_REQUEST_UART5_RX
+      TX_DMA_STREAM: DMA1_Stream1
+      RX_DMA_STREAM: DMA1_Stream0
+  - Init_Config: &14
+      Save_All_Config: false
+      Motor_EN_In_Init: true
+      Set_Zero_In_Init: false
+      Set_Config_In_Init: false
+      Set_Pid_Config_In_Init: false
+      Motor_Cal_In_Init: false
+  - Self_10MM_Motor_default_config:
+      Motor_Set_Zero_Offest: &15 0.0
+      Motor_Mod: &16 Motor_MIT_Control
+      Motor_Heart_Beat: &17 0
+      Motor_Pole_Pairs: &18 1
+      Motor_AB_Mirror: &19 true
+      Motor_current_sample_offset: &20 10
+      Dead_Time: &21 0
+      V_IC_MU_FORCE: &22 200
+      IC_MU_SPEED: &23 1
+      V_rated: &24 700
+      DI_I_MAX: &25 1.0
+      I_Hardware_Max: &26 2
+      Current_Amplifier_Gain: &27 15
+      Motor_CMD_I_To_Force_K: &28 1.0
+      Ceil_Temperature_Alarm_Th: &29 90
+      Ceil_Temperature_Protect_Th: &30 100
+      Gear_Ratio: &31 22
+      Gear_multiple: &32 50
+      Electricity_D_P: &33 200000
+      Electricity_D_I: &34 20000
+      Electricity_D_OUT_MAX: &35 0.9
+      Electricity_D_Integration_MAX: &36 0.9
+      Electricity_Q_P: &37 200000
+      Electricity_Q_I: &38 20000
+      Electricity_Q_OUT_MAX: &39 0.9
+      Electricity_Q_Integration_MAX: &40 0.9
+  - Self_13MM_Motor_default_config:
+      <<: *14
+      Motor_Set_Zero_Offest: 0.0
+      Motor_Mod: Motor_MIT_Control
+      Motor_Heart_Beat: 0
+      Motor_Pole_Pairs: 1
+      Motor_AB_Mirror: true
+      Motor_current_sample_offset: 10
+      Dead_Time: 0
+      V_IC_MU_FORCE: 200
+      IC_MU_SPEED: 1
+      V_rated: 500
+      DI_I_MAX: 0.5
+      I_Hardware_Max: 2
+      Current_Amplifier_Gain: 15
+      Motor_CMD_I_To_Force_K: 1.0
+      Ceil_Temperature_Alarm_Th: 70
+      Ceil_Temperature_Protect_Th: 90
+      Gear_Ratio: 54
+      Gear_multiple: 10
+      Electricity_D_P: 200000
+      Electricity_D_I: 20000
+      Electricity_D_OUT_MAX: 0.90
+      Electricity_D_Integration_MAX: 0.90
+      Electricity_Q_P: 200000
+      Electricity_Q_I: 20000
+      Electricity_Q_OUT_MAX: 0.90
+      Electricity_Q_Integration_MAX: 0.90
+  - cat_motor_device_config: &41
+      Save_All_Config: *4
+      Motor_EN_In_Init: *5
+      Set_Zero_In_Init: *6
+      Set_Config_In_Init: *7
+      Set_Pid_Config_In_Init: *8
+      Motor_Cal_In_Init: *9
+      Motor_Set_Zero_Offest: *15
+      Motor_Mod: *16
+      Motor_Heart_Beat: *17
+      Motor_Pole_Pairs: *18
+      Motor_AB_Mirror: *19
+      Motor_current_sample_offset: *20
+      Dead_Time: *21
+      V_IC_MU_FORCE: *22
+      IC_MU_SPEED: *23
+      V_rated: *24
+      DI_I_MAX: *25
+      I_Hardware_Max: *26
+      Current_Amplifier_Gain: *27
+      Motor_CMD_I_To_Force_K: *28
+      Ceil_Temperature_Alarm_Th: *29
+      Ceil_Temperature_Protect_Th: *30
+      Gear_Ratio: *31
+      Gear_multiple: *32
+      Electricity_D_P: *33
+      Electricity_D_I: *34
+      Electricity_D_OUT_MAX: *35
+      Electricity_D_Integration_MAX: *36
+      Electricity_Q_P: *37
+      Electricity_Q_I: *38
+      Electricity_Q_OUT_MAX: *39
+      Electricity_Q_Integration_MAX: *40
+  - Motor_Config_Normal_0:
+      DeviceType: &42 Motor_Device
+      CH: &43 Head_Flag_Switch_CH2
+      IO_Mod: &44 Main_CMD_IO_Mod_CAN_ONLY
+  - MotorS_0:
+      - &45
+        Name: Motor_1
+        Id: 1
+        DeviceConfig:
+          DI_I_MAX: 0.4
+          Gear_multiple: 20
+          Save_All_Config: *4
+          Motor_EN_In_Init: *5
+          Set_Zero_In_Init: *6
+          Set_Config_In_Init: *7
+          Set_Pid_Config_In_Init: *8
+          Motor_Cal_In_Init: *9
+          Motor_Set_Zero_Offest: *15
+          Motor_Mod: *16
+          Motor_Heart_Beat: *17
+          Motor_Pole_Pairs: *18
+          Motor_AB_Mirror: *19
+          Motor_current_sample_offset: *20
+          Dead_Time: *21
+          V_IC_MU_FORCE: *22
+          IC_MU_SPEED: *23
+          V_rated: *24
+          I_Hardware_Max: *26
+          Current_Amplifier_Gain: *27
+          Motor_CMD_I_To_Force_K: *28
+          Ceil_Temperature_Alarm_Th: *29
+          Ceil_Temperature_Protect_Th: *30
+          Gear_Ratio: *31
+          Electricity_D_P: *33
+          Electricity_D_I: *34
+          Electricity_D_OUT_MAX: *35
+          Electricity_D_Integration_MAX: *36
+          Electricity_Q_P: *37
+          Electricity_Q_I: *38
+          Electricity_Q_OUT_MAX: *39
+          Electricity_Q_Integration_MAX: *40
+        DeviceType: *42
+        CH: *43
+        IO_Mod: *44
+      - &46
+        Name: Motor_2
+        Id: 1
+        DeviceConfig:
+          DI_I_MAX: 0.4
+          Gear_multiple: 4
+          Save_All_Config: *4
+          Motor_EN_In_Init: *5
+          Set_Zero_In_Init: *6
+          Set_Config_In_Init: *7
+          Set_Pid_Config_In_Init: *8
+          Motor_Cal_In_Init: *9
+          Motor_Set_Zero_Offest: *15
+          Motor_Mod: *16
+          Motor_Heart_Beat: *17
+          Motor_Pole_Pairs: *18
+          Motor_AB_Mirror: *19
+          Motor_current_sample_offset: *20
+          Dead_Time: *21
+          V_IC_MU_FORCE: *22
+          IC_MU_SPEED: *23
+          V_rated: *24
+          I_Hardware_Max: *26
+          Current_Amplifier_Gain: *27
+          Motor_CMD_I_To_Force_K: *28
+          Ceil_Temperature_Alarm_Th: *29
+          Ceil_Temperature_Protect_Th: *30
+          Gear_Ratio: *31
+          Electricity_D_P: *33
+          Electricity_D_I: *34
+          Electricity_D_OUT_MAX: *35
+          Electricity_D_Integration_MAX: *36
+          Electricity_Q_P: *37
+          Electricity_Q_I: *38
+          Electricity_Q_OUT_MAX: *39
+          Electricity_Q_Integration_MAX: *40
+        DeviceType: *42
+        CH: *43
+        IO_Mod: *44
+      - &47
+        Name: Motor_3
+        Id: 1
+        DeviceConfig: *41
+        DeviceType: *42
+        CH: *43
+        IO_Mod: *44
+      - &48
+        Name: Motor_4
+        Id: 1
+        DeviceConfig: *41
+        DeviceType: *42
+        CH: *43
+        IO_Mod: *44
+      - &49
+        Name: Motor_5
+        Id: 1
+        DeviceConfig: *41
+        DeviceType: *42
+        CH: *43
+        IO_Mod: *44
+      - &50
+        Name: Motor_6
+        Id: 1
+        DeviceConfig: *41
+        DeviceType: *42
+        CH: *43
+        IO_Mod: *44
+  - Auto_Set_Id_DeviceS0:
+      - &51
+        Name: Auto_Set_Id_0
+        DeviceType: Auto_Set_Id
+        Detect: false
+        Id: 1
+        CH: Head_Flag_Switch_CH2
+        IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+        DeviceConfig:
+          Run_Set: *2
+          Start_Id: 10
+          Save_Id: *3
+          Time_Out_Ms: 1000
+          DeviceList:
+            - *45
+            - *46
+            - *47
+            - *48
+            - *49
+            - *50
+  - Sensor_Custom:
+      - &52
+        Name: Tactile_Sensor
+        DeviceType: Tactile_Sensor_Custom
+        Id: 200
+        CH: Head_Flag_Switch_CH14
+Base_Node:
+  - Name: Main_Switch_Board
+    Range_Name: X_Hand
+    DeviceType: Switch_Board
+    Id: 101
+    CH: Head_Flag_CH0
+    IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
+    PC_IP: *1
+    IP: 192.168.3.101
+    Port: 15100
+    Up_Data_Speed: 1000
+    Heart_Beat: false
+    DeviceConfig:
+      PrintMcuTaskStack: false
+      Serial_S:
+        - Serial_CH: UART4
+          Serial_menu: 4
+          Serial_Baud: 921600
+          Stm_Tx_Rx_GPIO:
+            Tx_GPIO: GPIOD
+            Rx_GPIO: GPIOD
+            Tx_GPIO_PIN: GPIO_PIN_1
+            Rx_GPIO_PIN: GPIO_PIN_0
+          Other_Config: *13
+          Serial_EN: *10
+          Serial_ID: *11
+          WordLength: *12
+    child:
+      - *51
+      - *45
+      - *46
+      - *47
+      - *48
+      - *49
+      - *50
+      - *52

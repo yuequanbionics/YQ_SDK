@@ -314,9 +314,11 @@ int hardware_init(string ADDR, string Config)
 
 #ifndef HAVE_ROS
 
-    constexpr __useconds_t loop_time_step = 1000 * 1000 / 500;
+    constexpr __useconds_t loop_time_step = 3000 * 1000 / 500;
     int times = 0;
     float test = 0.5;
+
+#if 0
     // ReSharper disable once CppDFAEndlessLoop
     while (true) {
         if (times % 500 * 2 == 0) {
@@ -328,8 +330,8 @@ int hardware_init(string ADDR, string Config)
             Send_Datas[i].P = 0.5f + test;
             Send_Datas[i].V = 0;
             Send_Datas[i].F = 0;
-            Send_Datas[i].KP = 500;
-            Send_Datas[i].KD = 10;
+            Send_Datas[i].KP = 500;     // 800
+            Send_Datas[i].KD = 10;      // 20
         }
         Send_Datas[0].P = 0.5f/4 + test/4;
         Send_Datas[1].P = 0.5f/2 + test/2;
@@ -342,6 +344,71 @@ int hardware_init(string ADDR, string Config)
             cout << "num: " << i << " " << abs(FB_Datas[i].V * 100) << endl;
         }
     }
+#endif
+
+#if 1
+    // ReSharper disable once CppDFAEndlessLoop
+    while (true) {
+        /* ------------------- 收 ------------------- */
+        /* 拇指 */
+        for (int i = 0; i < 2; i++) {
+            Send_Datas[i].P = 0.5f + test;
+            Send_Datas[i].V = 0;
+            Send_Datas[i].F = 0;
+            Send_Datas[i].KP = 800;
+            Send_Datas[i].KD = 5;
+        }
+        Send_Datas[0].P = 0.5f/4 + test/4;
+        Send_Datas[1].P = 1.2f/2 + test/2;
+
+        Send();
+        usleep(2000000);
+
+        /* 四指 */
+        for (int i = 2; i < 6; i++) {
+            Send_Datas[i].P = 0.5f + test;
+            Send_Datas[i].V = 0;
+            Send_Datas[i].F = 0;
+            Send_Datas[i].KP = 800;     // 800
+            Send_Datas[i].KD = 5;      // 20
+        }
+        Send();
+        usleep(4000000);
+
+        /* ------------------- 放 ------------------- */
+        test *= -1;
+
+        /* 四指 */
+        for (int i = 2; i < 6; i++) {
+            Send_Datas[i].P = 0.5f + test;
+            Send_Datas[i].V = 0;
+            Send_Datas[i].F = 0;
+            Send_Datas[i].KP = 800;     // 800
+            Send_Datas[i].KD = 5;      // 20
+        }
+        Send();
+        usleep(2000000);
+
+        /* 拇指 */
+        // for (int i = 0; i < 2; i++) {
+        //     Send_Datas[i].P = 0.5f + test;
+        //     Send_Datas[i].V = 0;
+        //     Send_Datas[i].F = 0;
+        //     Send_Datas[i].KP = 800;
+        //     Send_Datas[i].KD = 20;
+        // }
+        // Send_Datas[0].P = 0.5f/4 + test/4;
+        // Send_Datas[1].P = 1.2f/2 + test/2;
+        // Send();
+        usleep(1000000);
+
+        test *= -1;
+
+    }
+#endif
+
+
+
 #endif
 
     return 0;
