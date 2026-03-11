@@ -318,7 +318,8 @@ int hardware_init(string ADDR, string Config)
     int times = 0;
     float test = 0.5;
 
-#if 0
+    /* ------------------- 反复握拳 ------------------- */
+#if 1
     // ReSharper disable once CppDFAEndlessLoop
     while (true) {
         if (times % 500 * 2 == 0) {
@@ -346,7 +347,9 @@ int hardware_init(string ADDR, string Config)
     }
 #endif
 
-#if 1
+    /* ------------------- 四指握力动作 ------------------- */
+    // 需要把 yaml 电流放开 DI_I_MAX: 2.0
+#if 0
     // ReSharper disable once CppDFAEndlessLoop
     while (true) {
         /* ------------------- 收 ------------------- */

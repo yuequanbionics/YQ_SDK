@@ -1,0 +1,16 @@
+# X_Hand 协议驱动 + wang_guan_kun 示例 专用配置
+# 仅包含主板，通过 X_Hand_Protocol 以 CAN ID 0x201~0x206 控制 6 路电机，无需 Motor_Device 等子设备
+
+# 有SN非0
+DriverVersion: 0.0.0 
+
+Log_Max_Size: 5
+
+Name: X_Hand_Protocol
+PC_IP: &PC_IP 192.168.3.245
+Broadcast_IP: 192.168.3.255
+
+import:
+  # Motor_Config0: "config.yaml"
+  Can_Config : "../../Device_Config/Can_Config.yaml"
+  Motors: "Devices.yaml"

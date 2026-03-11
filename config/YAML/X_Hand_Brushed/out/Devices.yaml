@@ -1,0 +1,53 @@
+# X_Hand M1 协议驱动：每电机一个实例，CanId 在 YAML 中配置，发送时使用该 ID
+# 左手 6 电机对应 CAN ID 0x201~0x206（thumb_cmc, index, middle, ring, pinky, thumb_mcp）
+
+config:
+  X_Hand_Config_Normal_0: &X_Hand_Config_Normal_0
+    DeviceType: X_Hand_Protocol_Device_Custom
+    CH: Head_Flag_Switch_CH1
+    IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+
+  X_Hand_Protocol_DeviceS0: &X_Hand_Protocol_DeviceS0
+    - Name: X_Hand_Protocol_1
+      Id: 1
+      <<: *X_Hand_Config_Normal_0
+
+    - Name: X_Hand_Protocol_2
+      Id: 2
+      <<: *X_Hand_Config_Normal_0
+
+    - Name: X_Hand_Protocol_3
+      Id: 3
+      <<: *X_Hand_Config_Normal_0
+
+    - Name: X_Hand_Protocol_4
+      Id: 4
+      <<: *X_Hand_Config_Normal_0
+
+    - Name: X_Hand_Protocol_5
+      Id: 5
+      <<: *X_Hand_Config_Normal_0
+
+    - Name: X_Hand_Protocol_6
+      Id: 6
+      <<: *X_Hand_Config_Normal_0
+
+Base_Node:
+  - Name: Main_Switch_Board
+    Range_Name: X_Hand_Protocol
+    DeviceType: Switch_Board
+    Id: 101
+    Rec_Id_Offest: [1024, 512]
+    CH: Head_Flag_CH0
+    IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
+    PC_IP: *PC_IP
+    IP: 192.168.3.101
+    Port: 15100
+    Up_Data_Speed: 1000
+    DeviceConfig:
+      Can_S:
+        - Can_Instance: 1
+          <<: *Classic_Can_1M
+
+    child:
+      --: *X_Hand_Protocol_DeviceS0

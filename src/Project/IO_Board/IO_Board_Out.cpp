@@ -25,13 +25,24 @@ int W_IO[32];
 #ifndef HAVE_ROS
 int main(int argc, char* argv[])
 #else
+Test_Robot = new Robot_Hardware();
+Test_Robot->Add_Device_Type(Switch_Board_Type, Switch_Board_Device_Init, Switch_Board_Device_CallBack_F, Switch_Board_Device_Delete_F);
+
+/* ------------- Switch Board ------------- */
+const shared_ptr<Device_class> Main_Switch_Board = Test_Robot->Get_Device_For_Name("Main_Switch_Board");
+Main_B *Main_Switch_Board_Control = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Main_Switch_Board));
+
+void ROS_Get_GPIOx_Status(void) {
+    Main_Switch_Board_Control->m_GPIO.Get_Buttons_Value(Main_Switch_Board, R_IO);
+}
+
 int hardware_init(string ADDR, string Config)
 #endif
 {
+    #ifndef HAVE_ROS
     Test_Robot = new Robot_Hardware();
     Test_Robot->Add_Device_Type(Switch_Board_Type, Switch_Board_Device_Init, Switch_Board_Device_CallBack_F, Switch_Board_Device_Delete_F);
 
-#ifndef HAVE_ROS
     filesystem::path exe_path = filesystem::canonical("/proc/self/exe");  
     filesystem::path dir_path = exe_path.parent_path();
     std::cout << "程序所在目录: " << dir_path << std::endl;
@@ -45,7 +56,7 @@ int hardware_init(string ADDR, string Config)
     //     IP: 192.168.3.105
     //     # Port: 19001
     // )";
-#endif
+    #endif
     if(Test_Robot->Init_TOP(ADDR) != 0)
     { 
         cout << "Init_ERR" << endl;
@@ -56,9 +67,11 @@ int hardware_init(string ADDR, string Config)
     // Test_Robot->OTA_GO(ADDR_OTA);
     // return 0;
 
+#ifndef HAVE_ROS
     /* ------------- Switch Board ------------- */
     const shared_ptr<Device_class> Main_Switch_Board = Test_Robot->Get_Device_For_Name("Main_Switch_Board");
     Main_B *Main_Switch_Board_Control = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Main_Switch_Board));
+#endif
 
     /* ------------- GPIO 配置 ------------- */
     // 方式一: 直接初始化
