@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -13,7 +13,7 @@
 
 #include <cstdio>
 
-namespace spdlog {
+namespace my_spdlog {
 
 // public methods
 SPDLOG_INLINE logger::logger(const logger &other)
@@ -39,7 +39,7 @@ SPDLOG_INLINE logger &logger::operator=(logger other) SPDLOG_NOEXCEPT {
     return *this;
 }
 
-SPDLOG_INLINE void logger::swap(spdlog::logger &other) SPDLOG_NOEXCEPT {
+SPDLOG_INLINE void logger::swap(my_spdlog::logger &other) SPDLOG_NOEXCEPT {
     name_.swap(other.name_);
     sinks_.swap(other.sinks_);
 
@@ -121,7 +121,7 @@ SPDLOG_INLINE std::shared_ptr<logger> logger::clone(std::string logger_name) {
 }
 
 // protected methods
-SPDLOG_INLINE void logger::log_it_(const spdlog::details::log_msg &log_msg,
+SPDLOG_INLINE void logger::log_it_(const my_spdlog::details::log_msg &log_msg,
                                    bool log_enabled,
                                    bool traceback_enabled) {
     if (log_enabled) {
@@ -195,4 +195,4 @@ SPDLOG_INLINE void logger::err_handler_(const std::string &msg) const {
 #endif
     }
 }
-}  // namespace spdlog
+}  // namespace my_spdlog

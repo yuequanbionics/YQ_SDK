@@ -45,15 +45,15 @@ static void test_single_print(std::function<void(std::string const &)> do_log,
     REQUIRE((expected_time_generated - record->TimeGenerated) <= 3u);
 
     std::string message_in_log(((char *)record + record->StringOffset));
-    REQUIRE(message_in_log == expected_contents + spdlog::details::os::default_eol);
+    REQUIRE(message_in_log == expected_contents + my_spdlog::details::os::default_eol);
 }
 
 TEST_CASE("eventlog", "[eventlog]") {
-    using namespace spdlog;
+    using namespace my_spdlog;
 
     auto test_sink = std::make_shared<sinks::win_eventlog_sink_mt>(TEST_SOURCE);
 
-    spdlog::logger test_logger("eventlog", test_sink);
+    my_spdlog::logger test_logger("eventlog", test_sink);
     test_logger.set_level(level::trace);
 
     test_sink->set_pattern("%v");

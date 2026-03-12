@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -6,7 +6,7 @@
 #include <spdlog/common.h>
 #include <string>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace details {
 struct SPDLOG_API log_msg {
     log_msg() = default;
@@ -33,7 +33,7 @@ struct SPDLOG_API log_msg {
     string_view_t payload;
 };
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog
 
 #ifdef SPDLOG_HEADER_ONLY
     #include "log_msg-inl.h"

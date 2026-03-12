@@ -6,11 +6,11 @@
 
 #define TEST_FILENAME "test_logs/file_helper_test.txt"
 
-using spdlog::details::file_helper;
+using my_spdlog::details::file_helper;
 
 static void write_with_helper(file_helper &helper, size_t howmany) {
-    spdlog::memory_buf_t formatted;
-    spdlog::fmt_lib::format_to(std::back_inserter(formatted), "{}", std::string(howmany, '1'));
+    my_spdlog::memory_buf_t formatted;
+    my_spdlog::fmt_lib::format_to(std::back_inserter(formatted), "{}", std::string(howmany, '1'));
     helper.write(formatted);
     helper.flush();
 }
@@ -19,14 +19,14 @@ TEST_CASE("file_helper_filename", "[file_helper::filename()]") {
     prepare_logdir();
 
     file_helper helper;
-    spdlog::filename_t target_filename = SPDLOG_FILENAME_T(TEST_FILENAME);
+    my_spdlog::filename_t target_filename = SPDLOG_FILENAME_T(TEST_FILENAME);
     helper.open(target_filename);
     REQUIRE(helper.filename() == target_filename);
 }
 
 TEST_CASE("file_helper_size", "[file_helper::size()]") {
     prepare_logdir();
-    spdlog::filename_t target_filename = SPDLOG_FILENAME_T(TEST_FILENAME);
+    my_spdlog::filename_t target_filename = SPDLOG_FILENAME_T(TEST_FILENAME);
     size_t expected_size = 123;
     {
         file_helper helper;
@@ -39,7 +39,7 @@ TEST_CASE("file_helper_size", "[file_helper::size()]") {
 
 TEST_CASE("file_helper_reopen", "[file_helper::reopen()]") {
     prepare_logdir();
-    spdlog::filename_t target_filename = SPDLOG_FILENAME_T(TEST_FILENAME);
+    my_spdlog::filename_t target_filename = SPDLOG_FILENAME_T(TEST_FILENAME);
     file_helper helper;
     helper.open(target_filename);
     write_with_helper(helper, 12);
@@ -50,7 +50,7 @@ TEST_CASE("file_helper_reopen", "[file_helper::reopen()]") {
 
 TEST_CASE("file_helper_reopen2", "[file_helper::reopen(false)]") {
     prepare_logdir();
-    spdlog::filename_t target_filename = SPDLOG_FILENAME_T(TEST_FILENAME);
+    my_spdlog::filename_t target_filename = SPDLOG_FILENAME_T(TEST_FILENAME);
     size_t expected_size = 14;
     file_helper helper;
     helper.open(target_filename);
@@ -60,15 +60,15 @@ TEST_CASE("file_helper_reopen2", "[file_helper::reopen(false)]") {
     REQUIRE(helper.size() == expected_size);
 }
 
-static void test_split_ext(const spdlog::filename_t::value_type *fname,
-                           const spdlog::filename_t::value_type *expect_base,
-                           const spdlog::filename_t::value_type *expect_ext) {
-    spdlog::filename_t filename(fname);
-    spdlog::filename_t expected_base(expect_base);
-    spdlog::filename_t expected_ext(expect_ext);
+static void test_split_ext(const my_spdlog::filename_t::value_type *fname,
+                           const my_spdlog::filename_t::value_type *expect_base,
+                           const my_spdlog::filename_t::value_type *expect_ext) {
+    my_spdlog::filename_t filename(fname);
+    my_spdlog::filename_t expected_base(expect_base);
+    my_spdlog::filename_t expected_ext(expect_ext);
 
-    spdlog::filename_t basename;
-    spdlog::filename_t ext;
+    my_spdlog::filename_t basename;
+    my_spdlog::filename_t ext;
     std::tie(basename, ext) = file_helper::split_by_extension(filename);
     REQUIRE(basename == expected_base);
     REQUIRE(ext == expected_ext);
@@ -113,32 +113,32 @@ TEST_CASE("file_event_handlers", "[file_helper]") {
     enum class flags { before_open, after_open, before_close, after_close };
     prepare_logdir();
 
-    spdlog::filename_t test_filename = SPDLOG_FILENAME_T(TEST_FILENAME);
+    my_spdlog::filename_t test_filename = SPDLOG_FILENAME_T(TEST_FILENAME);
     // define event handles that update vector of flags when called
     std::vector<flags> events;
-    spdlog::file_event_handlers handlers;
-    handlers.before_open = [&](spdlog::filename_t filename) {
+    my_spdlog::file_event_handlers handlers;
+    handlers.before_open = [&](my_spdlog::filename_t filename) {
         REQUIRE(filename == test_filename);
         events.push_back(flags::before_open);
     };
-    handlers.after_open = [&](spdlog::filename_t filename, std::FILE *fstream) {
+    handlers.after_open = [&](my_spdlog::filename_t filename, std::FILE *fstream) {
         REQUIRE(filename == test_filename);
         REQUIRE(fstream);
         fputs("after_open\n", fstream);
         events.push_back(flags::after_open);
     };
-    handlers.before_close = [&](spdlog::filename_t filename, std::FILE *fstream) {
+    handlers.before_close = [&](my_spdlog::filename_t filename, std::FILE *fstream) {
         REQUIRE(filename == test_filename);
         REQUIRE(fstream);
         fputs("before_close\n", fstream);
         events.push_back(flags::before_close);
     };
-    handlers.after_close = [&](spdlog::filename_t filename) {
+    handlers.after_close = [&](my_spdlog::filename_t filename) {
         REQUIRE(filename == test_filename);
         events.push_back(flags::after_close);
     };
     {
-        spdlog::details::file_helper helper{handlers};
+        my_spdlog::details::file_helper helper{handlers};
         REQUIRE(events.empty());
 
         helper.open(test_filename);
@@ -159,11 +159,11 @@ TEST_CASE("file_event_handlers", "[file_helper]") {
 
 TEST_CASE("file_helper_open", "[file_helper]") {
     prepare_logdir();
-    spdlog::filename_t target_filename = SPDLOG_FILENAME_T(TEST_FILENAME);
+    my_spdlog::filename_t target_filename = SPDLOG_FILENAME_T(TEST_FILENAME);
     file_helper helper;
     helper.open(target_filename);
     helper.close();
 
     target_filename += SPDLOG_FILENAME_T("/invalid");
-    REQUIRE_THROWS_AS(helper.open(target_filename), spdlog::spdlog_ex);
+    REQUIRE_THROWS_AS(helper.open(target_filename), my_spdlog::spdlog_ex);
 }

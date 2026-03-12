@@ -4,10 +4,10 @@
  */
 #include "includes.h"
 
-using spdlog::details::os::create_dir;
-using spdlog::details::os::path_exists;
+using my_spdlog::details::os::create_dir;
+using my_spdlog::details::os::path_exists;
 
-bool try_create_dir(const spdlog::filename_t &path, const spdlog::filename_t &normalized_path) {
+bool try_create_dir(const my_spdlog::filename_t &path, const my_spdlog::filename_t &normalized_path) {
     auto rv = create_dir(path);
     REQUIRE(rv == true);
     return path_exists(normalized_path);
@@ -42,14 +42,14 @@ TEST_CASE("create_dir", "[create_dir]") {
 
 TEST_CASE("create_invalid_dir", "[create_dir]") {
     REQUIRE(create_dir(SPDLOG_FILENAME_T("")) == false);
-    REQUIRE(create_dir(spdlog::filename_t{}) == false);
+    REQUIRE(create_dir(my_spdlog::filename_t{}) == false);
 #ifdef __linux__
     REQUIRE(create_dir("/proc/spdlog-utest") == false);
 #endif
 }
 
 TEST_CASE("dir_name", "[create_dir]") {
-    using spdlog::details::os::dir_name;
+    using my_spdlog::details::os::dir_name;
     REQUIRE(dir_name(SPDLOG_FILENAME_T("")).empty());
     REQUIRE(dir_name(SPDLOG_FILENAME_T("dir")).empty());
 
@@ -104,12 +104,12 @@ std::wstring get_full_path(const std::wstring &relative_folder_path) {
     return result > 0 && result < MAX_PATH ? std::wstring(full_path) : std::wstring();
 }
 
-spdlog::filename_t::value_type find_non_existing_drive() {
+my_spdlog::filename_t::value_type find_non_existing_drive() {
     for (char drive = 'A'; drive <= 'Z'; ++drive) {
         std::string root_path = std::string(1, drive) + ":\\";
         UINT drive_type = GetDriveTypeA(root_path.c_str());
         if (drive_type == DRIVE_NO_ROOT_DIR) {
-            return static_cast<spdlog::filename_t::value_type>(drive);
+            return static_cast<my_spdlog::filename_t::value_type>(drive);
         }
     }
     return '\0';  // No available drive found
@@ -131,7 +131,7 @@ TEST_CASE("create_abs_path2", "[create_dir]") {
 
 TEST_CASE("non_existing_drive", "[create_dir]") {
     prepare_logdir();
-    spdlog::filename_t path;
+    my_spdlog::filename_t path;
 
     auto non_existing_drive = find_non_existing_drive();
     path += non_existing_drive;

@@ -15,7 +15,7 @@
 extern "C" {
 #endif // __cplusplus
 
-/* Optional: Enable interface for spdlog to replace UglyLogging */
+/* Optional: Enable interface for my_spdlog to replace UglyLogging */
 // #define SPDLOG_LOGGING
 
 enum ugly_loglevel {

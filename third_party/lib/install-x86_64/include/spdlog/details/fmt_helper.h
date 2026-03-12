@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 #pragma once
 
@@ -14,11 +14,11 @@
 #endif
 
 // Some fmt helpers to efficiently format and pad ints and strings
-namespace spdlog {
+namespace my_spdlog {
 namespace details {
 namespace fmt_helper {
 
-inline void append_string_view(spdlog::string_view_t view, memory_buf_t &dest) {
+inline void append_string_view(my_spdlog::string_view_t view, memory_buf_t &dest) {
     auto *buf_ptr = view.data();
     dest.append(buf_ptr, buf_ptr + view.size());
 }
@@ -138,4 +138,4 @@ inline ToDuration time_fraction(log_clock::time_point tp) {
 
 }  // namespace fmt_helper
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog

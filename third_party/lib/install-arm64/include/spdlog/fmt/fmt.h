@@ -7,7 +7,7 @@
 
 //
 // Include a bundled header-only copy of fmtlib or an external one.
-// By default spdlog include its own copy.
+// By default my_spdlog include its own copy.
 //
 #include <spdlog/tweakme.h>
 

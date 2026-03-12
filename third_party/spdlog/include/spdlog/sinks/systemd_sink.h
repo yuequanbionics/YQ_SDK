@@ -14,7 +14,7 @@
 #endif
 #include <systemd/sd-journal.h>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace sinks {
 
 /**
@@ -26,13 +26,13 @@ public:
     systemd_sink(std::string ident = "", bool enable_formatting = false)
         : ident_{std::move(ident)},
           enable_formatting_{enable_formatting},
-          syslog_levels_{{/* spdlog::level::trace      */ LOG_DEBUG,
-                          /* spdlog::level::debug      */ LOG_DEBUG,
-                          /* spdlog::level::info       */ LOG_INFO,
-                          /* spdlog::level::warn       */ LOG_WARNING,
-                          /* spdlog::level::err        */ LOG_ERR,
-                          /* spdlog::level::critical   */ LOG_CRIT,
-                          /* spdlog::level::off        */ LOG_INFO}} {}
+          syslog_levels_{{/* my_spdlog::level::trace      */ LOG_DEBUG,
+                          /* my_spdlog::level::debug      */ LOG_DEBUG,
+                          /* my_spdlog::level::info       */ LOG_INFO,
+                          /* my_spdlog::level::warn       */ LOG_WARNING,
+                          /* my_spdlog::level::err        */ LOG_ERR,
+                          /* my_spdlog::level::critical   */ LOG_CRIT,
+                          /* my_spdlog::level::off        */ LOG_INFO}} {}
 
     ~systemd_sink() override {}
 
@@ -105,17 +105,17 @@ using systemd_sink_st = systemd_sink<details::null_mutex>;
 }  // namespace sinks
 
 // Create and register a syslog logger
-template <typename Factory = spdlog::synchronous_factory>
+template <typename Factory = my_spdlog::synchronous_factory>
 inline std::shared_ptr<logger> systemd_logger_mt(const std::string &logger_name,
                                                  const std::string &ident = "",
                                                  bool enable_formatting = false) {
     return Factory::template create<sinks::systemd_sink_mt>(logger_name, ident, enable_formatting);
 }
 
-template <typename Factory = spdlog::synchronous_factory>
+template <typename Factory = my_spdlog::synchronous_factory>
 inline std::shared_ptr<logger> systemd_logger_st(const std::string &logger_name,
                                                  const std::string &ident = "",
                                                  bool enable_formatting = false) {
     return Factory::template create<sinks::systemd_sink_st>(logger_name, ident, enable_formatting);
 }
-}  // namespace spdlog
+}  // namespace my_spdlog

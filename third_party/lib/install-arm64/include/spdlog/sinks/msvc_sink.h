@@ -1,4 +1,4 @@
-// Copyright(c) 2016 Alexander Dalshov & spdlog contributors.
+// Copyright(c) 2016 Alexander Dalshov & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -22,7 +22,7 @@ extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char *l
     #endif
 extern "C" __declspec(dllimport) int __stdcall IsDebuggerPresent();
 
-namespace spdlog {
+namespace my_spdlog {
 namespace sinks {
 /*
  * MSVC sink (logging using OutputDebugStringA)
@@ -63,6 +63,6 @@ using windebug_sink_mt = msvc_sink_mt;
 using windebug_sink_st = msvc_sink_st;
 
 }  // namespace sinks
-}  // namespace spdlog
+}  // namespace my_spdlog
 
 #endif

@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -72,7 +72,7 @@
 
 // If building with std::format, can just use constexpr, otherwise if building with fmt
 // SPDLOG_CONSTEXPR_FUNC needs to be set the same as FMT_CONSTEXPR to avoid situations where
-// a constexpr function in spdlog could end up calling a non-constexpr function in fmt
+// a constexpr function in my_spdlog could end up calling a non-constexpr function in fmt
 // depending on the compiler
 // If fmt determines it can't use constexpr, we should inline the function instead
 #ifdef SPDLOG_USE_STD_FORMAT
@@ -108,7 +108,7 @@
     #define SPDLOG_TRY
     #define SPDLOG_THROW(ex)                               \
         do {                                               \
-            printf("spdlog fatal error: %s\n", ex.what()); \
+            printf("my_spdlog fatal error: %s\n", ex.what()); \
             std::abort();                                  \
         } while (0)
     #define SPDLOG_CATCH_STD
@@ -120,7 +120,7 @@
         }
 #endif
 
-namespace spdlog {
+namespace my_spdlog {
 
 class formatter;
 
@@ -253,13 +253,13 @@ enum level_enum : int {
     n_levels
 };
 
-#define SPDLOG_LEVEL_NAME_TRACE spdlog::string_view_t("trace", 5)
-#define SPDLOG_LEVEL_NAME_DEBUG spdlog::string_view_t("debug", 5)
-#define SPDLOG_LEVEL_NAME_INFO spdlog::string_view_t("info", 4)
-#define SPDLOG_LEVEL_NAME_WARNING spdlog::string_view_t("warning", 7)
-#define SPDLOG_LEVEL_NAME_ERROR spdlog::string_view_t("error", 5)
-#define SPDLOG_LEVEL_NAME_CRITICAL spdlog::string_view_t("critical", 8)
-#define SPDLOG_LEVEL_NAME_OFF spdlog::string_view_t("off", 3)
+#define SPDLOG_LEVEL_NAME_TRACE my_spdlog::string_view_t("trace", 5)
+#define SPDLOG_LEVEL_NAME_DEBUG my_spdlog::string_view_t("debug", 5)
+#define SPDLOG_LEVEL_NAME_INFO my_spdlog::string_view_t("info", 4)
+#define SPDLOG_LEVEL_NAME_WARNING my_spdlog::string_view_t("warning", 7)
+#define SPDLOG_LEVEL_NAME_ERROR my_spdlog::string_view_t("error", 5)
+#define SPDLOG_LEVEL_NAME_CRITICAL my_spdlog::string_view_t("critical", 8)
+#define SPDLOG_LEVEL_NAME_OFF my_spdlog::string_view_t("off", 3)
 
 #if !defined(SPDLOG_LEVEL_NAMES)
     #define SPDLOG_LEVEL_NAMES                                                                  \
@@ -276,9 +276,9 @@ enum level_enum : int {
         { "T", "D", "I", "W", "E", "C", "O" }
 #endif
 
-SPDLOG_API const string_view_t &to_string_view(spdlog::level::level_enum l) SPDLOG_NOEXCEPT;
-SPDLOG_API const char *to_short_c_str(spdlog::level::level_enum l) SPDLOG_NOEXCEPT;
-SPDLOG_API spdlog::level::level_enum from_str(const std::string &name) SPDLOG_NOEXCEPT;
+SPDLOG_API const string_view_t &to_string_view(my_spdlog::level::level_enum l) SPDLOG_NOEXCEPT;
+SPDLOG_API const char *to_short_c_str(my_spdlog::level::level_enum l) SPDLOG_NOEXCEPT;
+SPDLOG_API my_spdlog::level::level_enum from_str(const std::string &name) SPDLOG_NOEXCEPT;
 
 }  // namespace level
 
@@ -342,23 +342,23 @@ namespace details {
 
 // to_string_view
 
-SPDLOG_CONSTEXPR_FUNC spdlog::string_view_t to_string_view(const memory_buf_t &buf)
+SPDLOG_CONSTEXPR_FUNC my_spdlog::string_view_t to_string_view(const memory_buf_t &buf)
     SPDLOG_NOEXCEPT {
-    return spdlog::string_view_t{buf.data(), buf.size()};
+    return my_spdlog::string_view_t{buf.data(), buf.size()};
 }
 
-SPDLOG_CONSTEXPR_FUNC spdlog::string_view_t to_string_view(spdlog::string_view_t str)
+SPDLOG_CONSTEXPR_FUNC my_spdlog::string_view_t to_string_view(my_spdlog::string_view_t str)
     SPDLOG_NOEXCEPT {
     return str;
 }
 
 #if defined(SPDLOG_WCHAR_FILENAMES) || defined(SPDLOG_WCHAR_TO_UTF8_SUPPORT)
-SPDLOG_CONSTEXPR_FUNC spdlog::wstring_view_t to_string_view(const wmemory_buf_t &buf)
+SPDLOG_CONSTEXPR_FUNC my_spdlog::wstring_view_t to_string_view(const wmemory_buf_t &buf)
     SPDLOG_NOEXCEPT {
-    return spdlog::wstring_view_t{buf.data(), buf.size()};
+    return my_spdlog::wstring_view_t{buf.data(), buf.size()};
 }
 
-SPDLOG_CONSTEXPR_FUNC spdlog::wstring_view_t to_string_view(spdlog::wstring_view_t str)
+SPDLOG_CONSTEXPR_FUNC my_spdlog::wstring_view_t to_string_view(my_spdlog::wstring_view_t str)
     SPDLOG_NOEXCEPT {
     return str;
 }
@@ -399,7 +399,7 @@ constexpr T conditional_static_cast(U value) {
 }
 
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog
 
 #ifdef SPDLOG_HEADER_ONLY
     #include "common-inl.h"

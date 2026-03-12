@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -16,7 +16,7 @@
 // Distribution sink (mux). Stores a vector of sinks which get called when log
 // is called
 
-namespace spdlog {
+namespace my_spdlog {
 namespace sinks {
 
 template <typename Mutex>
@@ -62,10 +62,10 @@ protected:
     }
 
     void set_pattern_(const std::string &pattern) override {
-        set_formatter_(details::make_unique<spdlog::pattern_formatter>(pattern));
+        set_formatter_(details::make_unique<my_spdlog::pattern_formatter>(pattern));
     }
 
-    void set_formatter_(std::unique_ptr<spdlog::formatter> sink_formatter) override {
+    void set_formatter_(std::unique_ptr<my_spdlog::formatter> sink_formatter) override {
         base_sink<Mutex>::formatter_ = std::move(sink_formatter);
         for (auto &sub_sink : sinks_) {
             sub_sink->set_formatter(base_sink<Mutex>::formatter_->clone());
@@ -78,4 +78,4 @@ using dist_sink_mt = dist_sink<std::mutex>;
 using dist_sink_st = dist_sink<details::null_mutex>;
 
 }  // namespace sinks
-}  // namespace spdlog
+}  // namespace my_spdlog

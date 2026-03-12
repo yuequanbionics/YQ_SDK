@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -21,7 +21,7 @@
     #pragma comment(lib, "AdvApi32.lib")
 #endif
 
-namespace spdlog {
+namespace my_spdlog {
 namespace details {
 class udp_client {
     static constexpr int TX_BUFFER_SIZE = 1024 * 10;
@@ -95,4 +95,4 @@ public:
     }
 };
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog

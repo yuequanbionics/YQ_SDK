@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -7,7 +7,7 @@
     #include <spdlog/details/log_msg_buffer.h>
 #endif
 
-namespace spdlog {
+namespace my_spdlog {
 namespace details {
 
 SPDLOG_INLINE log_msg_buffer::log_msg_buffer(const log_msg &orig_msg)
@@ -51,4 +51,4 @@ SPDLOG_INLINE void log_msg_buffer::update_string_views() {
 }
 
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog

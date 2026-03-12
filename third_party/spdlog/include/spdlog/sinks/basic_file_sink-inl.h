@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -10,7 +10,7 @@
 #include <spdlog/common.h>
 #include <spdlog/details/os.h>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace sinks {
 
 template <typename Mutex>
@@ -45,4 +45,4 @@ SPDLOG_INLINE void basic_file_sink<Mutex>::flush_() {
 }
 
 }  // namespace sinks
-}  // namespace spdlog
+}  // namespace my_spdlog

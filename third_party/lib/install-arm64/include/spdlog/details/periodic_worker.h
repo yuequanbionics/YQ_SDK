@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -15,7 +15,7 @@
 #include <functional>
 #include <mutex>
 #include <thread>
-namespace spdlog {
+namespace my_spdlog {
 namespace details {
 
 class SPDLOG_API periodic_worker {
@@ -51,7 +51,7 @@ private:
     std::condition_variable cv_;
 };
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog
 
 #ifdef SPDLOG_HEADER_ONLY
     #include "periodic_worker-inl.h"

@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace sinks {
 /*
  * Ring buffer sink
@@ -68,4 +68,4 @@ using ringbuffer_sink_st = ringbuffer_sink<details::null_mutex>;
 
 }  // namespace sinks
 
-}  // namespace spdlog
+}  // namespace my_spdlog

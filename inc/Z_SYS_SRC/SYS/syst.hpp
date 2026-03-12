@@ -80,57 +80,57 @@ std::string trim_file_path(const std::string& full_path);
 
 // error 日志宏：红色标记
 #define LOG_ERROR(...) \
-    spdlog::get("LOG")->error(FG_RED "{}" COLOR_RESET, \
+    my_spdlog::get("LOG")->error(FG_RED "{}" COLOR_RESET, \
                   fmt::format(__VA_ARGS__))
 
 // critical 日志宏：红色标记
 #define LOG_CRITICAL(...) \
-    spdlog::get("LOG")->critical(FG_YELLOW "[{}:{}]:\n" COLOR_RESET FG_RED "*-*-*-*-*-*-* {}" COLOR_RESET, \
+    my_spdlog::get("LOG")->critical(FG_YELLOW "[{}:{}]:\n" COLOR_RESET FG_RED "*-*-*-*-*-*-* {}" COLOR_RESET, \
                  trim_file_path(__FILE__), __LINE__, \
                  fmt::format(__VA_ARGS__))
 
 // warn 日志宏：黄色标记
 #define LOG_WARN(...) \
-    spdlog::get("LOG")->warn(FG_YELLOW "{}" COLOR_RESET, \
+    my_spdlog::get("LOG")->warn(FG_YELLOW "{}" COLOR_RESET, \
                  fmt::format(__VA_ARGS__))
 
 // debug 日志宏：蓝色标记
 #define LOG_DEBUG(...) \
-    spdlog::get("LOG")->debug(FG_BLUE "{}" COLOR_RESET, \
+    my_spdlog::get("LOG")->debug(FG_BLUE "{}" COLOR_RESET, \
                   fmt::format(__VA_ARGS__))
 
 // info 日志宏：白色标记
 #define LOG_INFO(...) \
-    spdlog::get("LOG")->info("{}", \
+    my_spdlog::get("LOG")->info("{}", \
                   fmt::format(__VA_ARGS__))
 
 
 
 
 #define LOG_INFO_COLOR(COLOR, ...) \
-    spdlog::get("LOG")->info(COLOR "{}" COLOR_RESET, \
+    my_spdlog::get("LOG")->info(COLOR "{}" COLOR_RESET, \
                   fmt::format(__VA_ARGS__))
  
 #define LOG_INFO_2COLOR(COLOR1, COLOR2, DATA1, DATA2) \
-    spdlog::get("LOG")->info(COLOR1 "{}" COLOR_RESET COLOR2 "{}" COLOR_RESET, \
+    my_spdlog::get("LOG")->info(COLOR1 "{}" COLOR_RESET COLOR2 "{}" COLOR_RESET, \
                   DATA1, DATA2)
  
 #define LOG_INFO_3COLOR(COLOR1, COLOR2, COLOR3, DATA1, DATA2, DATA3) \
-    spdlog::get("LOG")->info(COLOR1 "{}" COLOR_RESET COLOR2 "{}" COLOR_RESET COLOR3 "{}" COLOR_RESET, \
+    my_spdlog::get("LOG")->info(COLOR1 "{}" COLOR_RESET COLOR2 "{}" COLOR_RESET COLOR3 "{}" COLOR_RESET, \
                   DATA1, DATA2, DATA3)
 
 #define LOG_INFO_4COLOR(COLOR1, COLOR2, COLOR3, COLOR4, DATA1, DATA2, DATA3, DATA4) \
-    spdlog::get("LOG")->info(COLOR1 "{}" COLOR_RESET COLOR2 "{}" COLOR_RESET COLOR3 "{}" COLOR_RESET COLOR4 "{}" COLOR_RESET, \
+    my_spdlog::get("LOG")->info(COLOR1 "{}" COLOR_RESET COLOR2 "{}" COLOR_RESET COLOR3 "{}" COLOR_RESET COLOR4 "{}" COLOR_RESET, \
                   DATA1, DATA2, DATA3, DATA4)
 
 
 
 #define LOG_ERROR_COLOR(COLOR, ...) \
-    spdlog::get("LOG")->error(COLOR "{}" COLOR_RESET, \
+    my_spdlog::get("LOG")->error(COLOR "{}" COLOR_RESET, \
                   fmt::format(__VA_ARGS__))
 
 #define LOG_ERROR_2COLOR(COLOR1, COLOR2, DATA1, DATA2) \
-    spdlog::get("LOG")->error(COLOR1 "{}" COLOR_RESET COLOR2 "{}" COLOR_RESET, \
+    my_spdlog::get("LOG")->error(COLOR1 "{}" COLOR_RESET COLOR2 "{}" COLOR_RESET, \
                   DATA1, DATA2)
 
 

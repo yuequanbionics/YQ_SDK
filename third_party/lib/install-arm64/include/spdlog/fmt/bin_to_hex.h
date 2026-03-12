@@ -31,12 +31,12 @@
 // Examples:
 //
 // std::vector<char> v(200, 0x0b);
-// logger->info("Some buffer {}", spdlog::to_hex(v));
+// logger->info("Some buffer {}", my_spdlog::to_hex(v));
 // char buf[128];
-// logger->info("Some buffer {:X}", spdlog::to_hex(std::begin(buf), std::end(buf)));
-// logger->info("Some buffer {:X}", spdlog::to_hex(std::begin(buf), std::end(buf), 16));
+// logger->info("Some buffer {:X}", my_spdlog::to_hex(std::begin(buf), std::end(buf)));
+// logger->info("Some buffer {:X}", my_spdlog::to_hex(std::begin(buf), std::end(buf), 16));
 
-namespace spdlog {
+namespace my_spdlog {
 namespace details {
 
 template <typename It>
@@ -90,7 +90,7 @@ inline details::dump_info<It> to_hex(const It range_begin,
     return details::dump_info<It>(range_begin, range_end, size_per_line);
 }
 
-}  // namespace spdlog
+}  // namespace my_spdlog
 
 namespace
 #ifdef SPDLOG_USE_STD_FORMAT
@@ -101,7 +101,7 @@ namespace
 {
 
 template <typename T>
-struct formatter<spdlog::details::dump_info<T>, char> {
+struct formatter<my_spdlog::details::dump_info<T>, char> {
     char delimiter = ' ';
     bool put_newlines = true;
     bool put_delimiters = true;
@@ -142,7 +142,7 @@ struct formatter<spdlog::details::dump_info<T>, char> {
 
     // format the given bytes range as hex
     template <typename FormatContext, typename Container>
-    auto format(const spdlog::details::dump_info<Container> &the_range,
+    auto format(const my_spdlog::details::dump_info<Container> &the_range,
                 FormatContext &ctx) const -> decltype(ctx.out()) {
         SPDLOG_CONSTEXPR const char *hex_upper = "0123456789ABCDEF";
         SPDLOG_CONSTEXPR const char *hex_lower = "0123456789abcdef";
@@ -217,7 +217,7 @@ struct formatter<spdlog::details::dump_info<T>, char> {
         *inserter++ = '\n';
 
         if (put_positions) {
-            spdlog::fmt_lib::format_to(inserter, SPDLOG_FMT_STRING("{:04X}: "), pos);
+            my_spdlog::fmt_lib::format_to(inserter, SPDLOG_FMT_STRING("{:04X}: "), pos);
         }
     }
 };

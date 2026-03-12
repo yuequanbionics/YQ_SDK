@@ -8,7 +8,7 @@
 #endif
 
 void prepare_logdir() {
-    spdlog::drop_all();
+    my_spdlog::drop_all();
 #ifdef _WIN32
     system("rmdir /S /Q test_logs");
 #else
@@ -40,7 +40,7 @@ std::size_t count_lines(const std::string &filename) {
 }
 
 void require_message_count(const std::string &filename, const std::size_t messages) {
-    if (strlen(spdlog::details::os::default_eol) == 0) {
+    if (strlen(my_spdlog::details::os::default_eol) == 0) {
         REQUIRE(count_lines(filename) == 1);
     } else {
         REQUIRE(count_lines(filename) == messages);

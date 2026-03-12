@@ -4,7 +4,7 @@
 //
 
 //
-// bench.cpp : spdlog benchmarks
+// bench.cpp : my_spdlog benchmarks
 //
 #include "spdlog/spdlog.h"
 #include "spdlog/async.h"
@@ -27,11 +27,11 @@
 
 using namespace std;
 using namespace std::chrono;
-using namespace spdlog;
-using namespace spdlog::sinks;
+using namespace my_spdlog;
+using namespace my_spdlog::sinks;
 using namespace utils;
 
-void bench_mt(int howmany, std::shared_ptr<spdlog::logger> log, int thread_count);
+void bench_mt(int howmany, std::shared_ptr<my_spdlog::logger> log, int thread_count);
 
 #ifdef _MSC_VER
     #pragma warning(push)
@@ -51,14 +51,14 @@ int count_lines(const char *filename) {
 }
 
 void verify_file(const char *filename, int expected_count) {
-    spdlog::info("Verifying {} to contain {} line..", filename, expected_count);
+    my_spdlog::info("Verifying {} to contain {} line..", filename, expected_count);
     auto count = count_lines(filename);
     if (count != expected_count) {
-        spdlog::error("Test failed. {} has {} lines instead of {}", filename, count,
+        my_spdlog::error("Test failed. {} has {} lines instead of {}", filename, count,
                       expected_count);
         exit(1);
     }
-    spdlog::info("Line count OK ({})\n", count);
+    my_spdlog::info("Line count OK ({})\n", count);
 }
 
 #ifdef _MSC_VER
@@ -72,9 +72,9 @@ int main(int argc, char *argv[]) {
     int iters = 3;
 
     try {
-        spdlog::set_pattern("[%^%l%$] %v");
+        my_spdlog::set_pattern("[%^%l%$] %v");
         if (argc == 1) {
-            spdlog::info("Usage: {} <message_count> <threads> <q_size> <iterations>", argv[0]);
+            my_spdlog::info("Usage: {} <message_count> <threads> <q_size> <iterations>", argv[0]);
             return 0;
         }
 
@@ -83,52 +83,52 @@ int main(int argc, char *argv[]) {
         if (argc > 3) {
             queue_size = atoi(argv[3]);
             if (queue_size > 500000) {
-                spdlog::error("Max queue size allowed: 500,000");
+                my_spdlog::error("Max queue size allowed: 500,000");
                 exit(1);
             }
         }
 
         if (argc > 4) iters = atoi(argv[4]);
 
-        auto slot_size = sizeof(spdlog::details::async_msg);
-        spdlog::info("-------------------------------------------------");
-        spdlog::info("Messages     : {:L}", howmany);
-        spdlog::info("Threads      : {:L}", threads);
-        spdlog::info("Queue        : {:L} slots", queue_size);
-        spdlog::info("Queue memory : {:L} x {:L} = {:L} KB ", queue_size, slot_size,
+        auto slot_size = sizeof(my_spdlog::details::async_msg);
+        my_spdlog::info("-------------------------------------------------");
+        my_spdlog::info("Messages     : {:L}", howmany);
+        my_spdlog::info("Threads      : {:L}", threads);
+        my_spdlog::info("Queue        : {:L} slots", queue_size);
+        my_spdlog::info("Queue memory : {:L} x {:L} = {:L} KB ", queue_size, slot_size,
                      (queue_size * slot_size) / 1024);
-        spdlog::info("Total iters  : {:L}", iters);
-        spdlog::info("-------------------------------------------------");
+        my_spdlog::info("Total iters  : {:L}", iters);
+        my_spdlog::info("-------------------------------------------------");
 
         const char *filename = "logs/basic_async.log";
-        spdlog::info("");
-        spdlog::info("*********************************");
-        spdlog::info("Queue Overflow Policy: block");
-        spdlog::info("*********************************");
+        my_spdlog::info("");
+        my_spdlog::info("*********************************");
+        my_spdlog::info("Queue Overflow Policy: block");
+        my_spdlog::info("*********************************");
         for (int i = 0; i < iters; i++) {
             auto tp = std::make_shared<details::thread_pool>(queue_size, 1);
-            auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(filename, true);
+            auto file_sink = std::make_shared<my_spdlog::sinks::basic_file_sink_mt>(filename, true);
             auto logger = std::make_shared<async_logger>(
                 "async_logger", std::move(file_sink), std::move(tp), async_overflow_policy::block);
             bench_mt(howmany, std::move(logger), threads);
             // verify_file(filename, howmany);
         }
 
-        spdlog::info("");
-        spdlog::info("*********************************");
-        spdlog::info("Queue Overflow Policy: overrun");
-        spdlog::info("*********************************");
+        my_spdlog::info("");
+        my_spdlog::info("*********************************");
+        my_spdlog::info("Queue Overflow Policy: overrun");
+        my_spdlog::info("*********************************");
         // do same test but discard oldest if queue is full instead of blocking
         filename = "logs/basic_async-overrun.log";
         for (int i = 0; i < iters; i++) {
             auto tp = std::make_shared<details::thread_pool>(queue_size, 1);
-            auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(filename, true);
+            auto file_sink = std::make_shared<my_spdlog::sinks::basic_file_sink_mt>(filename, true);
             auto logger =
                 std::make_shared<async_logger>("async_logger", std::move(file_sink), std::move(tp),
                                                async_overflow_policy::overrun_oldest);
             bench_mt(howmany, std::move(logger), threads);
         }
-        spdlog::shutdown();
+        my_spdlog::shutdown();
     } catch (std::exception &ex) {
         std::cerr << "Error: " << ex.what() << std::endl;
         perror("Last error");
@@ -137,13 +137,13 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-void thread_fun(std::shared_ptr<spdlog::logger> logger, int howmany) {
+void thread_fun(std::shared_ptr<my_spdlog::logger> logger, int howmany) {
     for (int i = 0; i < howmany; i++) {
         logger->info("Hello logger: msg number {}", i);
     }
 }
 
-void bench_mt(int howmany, std::shared_ptr<spdlog::logger> logger, int thread_count) {
+void bench_mt(int howmany, std::shared_ptr<my_spdlog::logger> logger, int thread_count) {
     using std::chrono::high_resolution_clock;
     vector<std::thread> threads;
     auto start = high_resolution_clock::now();
@@ -164,5 +164,5 @@ void bench_mt(int howmany, std::shared_ptr<spdlog::logger> logger, int thread_co
 
     auto delta = high_resolution_clock::now() - start;
     auto delta_d = duration_cast<duration<double>>(delta).count();
-    spdlog::info("Elapsed: {} secs\t {:L}/sec", delta_d, int(howmany / delta_d));
+    my_spdlog::info("Elapsed: {} secs\t {:L}/sec", delta_d, int(howmany / delta_d));
 }

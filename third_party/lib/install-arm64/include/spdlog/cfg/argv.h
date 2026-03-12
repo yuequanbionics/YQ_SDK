@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -17,7 +17,7 @@
 // turn off all logging except for logger1 and logger2:
 // example.exe "SPDLOG_LEVEL=off,logger1=debug,logger2=info"
 
-namespace spdlog {
+namespace my_spdlog {
 namespace cfg {
 
 // search for SPDLOG_LEVEL= in the args and use it to init the levels
@@ -37,4 +37,4 @@ inline void load_argv_levels(int argc, char **argv) {
 }
 
 }  // namespace cfg
-}  // namespace spdlog
+}  // namespace my_spdlog

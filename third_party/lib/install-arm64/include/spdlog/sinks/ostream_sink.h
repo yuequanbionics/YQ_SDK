@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -9,7 +9,7 @@
 #include <mutex>
 #include <ostream>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace sinks {
 template <typename Mutex>
 class ostream_sink final : public base_sink<Mutex> {
@@ -40,4 +40,4 @@ using ostream_sink_mt = ostream_sink<std::mutex>;
 using ostream_sink_st = ostream_sink<details::null_mutex>;
 
 }  // namespace sinks
-}  // namespace spdlog
+}  // namespace my_spdlog

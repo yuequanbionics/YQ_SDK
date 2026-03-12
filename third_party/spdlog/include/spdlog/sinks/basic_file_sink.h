@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -11,7 +11,7 @@
 #include <mutex>
 #include <string>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace sinks {
 /*
  * Trivial file sink with single file as target
@@ -41,7 +41,7 @@ using basic_file_sink_st = basic_file_sink<details::null_mutex>;
 //
 // factory functions
 //
-template <typename Factory = spdlog::synchronous_factory>
+template <typename Factory = my_spdlog::synchronous_factory>
 inline std::shared_ptr<logger> basic_logger_mt(const std::string &logger_name,
                                                const filename_t &filename,
                                                bool truncate = false,
@@ -50,7 +50,7 @@ inline std::shared_ptr<logger> basic_logger_mt(const std::string &logger_name,
                                                                event_handlers);
 }
 
-template <typename Factory = spdlog::synchronous_factory>
+template <typename Factory = my_spdlog::synchronous_factory>
 inline std::shared_ptr<logger> basic_logger_st(const std::string &logger_name,
                                                const filename_t &filename,
                                                bool truncate = false,
@@ -59,7 +59,7 @@ inline std::shared_ptr<logger> basic_logger_st(const std::string &logger_name,
                                                                event_handlers);
 }
 
-}  // namespace spdlog
+}  // namespace my_spdlog
 
 #ifdef SPDLOG_HEADER_ONLY
     #include "basic_file_sink-inl.h"

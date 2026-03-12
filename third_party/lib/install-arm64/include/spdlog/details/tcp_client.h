@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -20,7 +20,7 @@
 
 #include <string>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace details {
 class tcp_client {
     int socket_ = -1;
@@ -199,4 +199,4 @@ public:
     }
 };
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog

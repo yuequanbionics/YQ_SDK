@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -15,7 +15,7 @@
 #include <string>
 #include <utility>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace cfg {
 namespace helpers {
 
@@ -103,4 +103,4 @@ SPDLOG_INLINE void load_levels(const std::string &input) {
 
 }  // namespace helpers
 }  // namespace cfg
-}  // namespace spdlog
+}  // namespace my_spdlog

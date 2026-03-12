@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -10,7 +10,7 @@
 #include <mutex>
 #include <string>
 
-namespace spdlog {
+namespace my_spdlog {
 
 // callbacks type
 typedef std::function<void(const details::log_msg &msg)> custom_log_callback;
@@ -41,16 +41,16 @@ using callback_sink_st = callback_sink<details::null_mutex>;
 //
 // factory functions
 //
-template <typename Factory = spdlog::synchronous_factory>
+template <typename Factory = my_spdlog::synchronous_factory>
 inline std::shared_ptr<logger> callback_logger_mt(const std::string &logger_name,
                                                   const custom_log_callback &callback) {
     return Factory::template create<sinks::callback_sink_mt>(logger_name, callback);
 }
 
-template <typename Factory = spdlog::synchronous_factory>
+template <typename Factory = my_spdlog::synchronous_factory>
 inline std::shared_ptr<logger> callback_logger_st(const std::string &logger_name,
                                                   const custom_log_callback &callback) {
     return Factory::template create<sinks::callback_sink_st>(logger_name, callback);
 }
 
-}  // namespace spdlog
+}  // namespace my_spdlog

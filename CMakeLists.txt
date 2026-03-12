@@ -299,7 +299,7 @@ find_library(YAML_CPP_LIB
 # --------------------------
 add_library(spdlog_global SHARED IMPORTED)
 set_target_properties(spdlog_global PROPERTIES
-    IMPORTED_LOCATION "${THIRD_PARTY_INSTALL_DIR}/lib/libspdlog.so"
+    IMPORTED_LOCATION "${THIRD_PARTY_INSTALL_DIR}/lib/libspdlogs.so"
     INTERFACE_INCLUDE_DIRECTORIES "${THIRD_PARTY_INSTALL_DIR}/include/spdlog"
 )
 add_compile_definitions(SPDLOG_COMPILED_LIB)
@@ -385,6 +385,7 @@ endfunction()
     import_shared_library(IMU_Device_YuanJi)
     import_shared_library(Custom_Motor_Device_DaMiao)
     import_shared_library(Auto_Set_Id)
+    import_shared_library(X_Hand_Protocol)
     import_shared_library(Switch_Board)
     import_shared_library(485_Device)
     import_shared_library(Uart_Custom_Dome_Device)
@@ -394,7 +395,7 @@ endfunction()
     import_shared_library(Motor_Interpolation)
 # script auto end -> lib_add
 
-# 设置整个项目的编译输出路径
+# 设置整个项目的编译输出路径 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_ROOT}/bin)
 
 # 编译子项目

@@ -9,14 +9,14 @@
 #include "spdlog/pattern_formatter.h"
 
 void bench_formatter(benchmark::State &state, std::string pattern) {
-    auto formatter = spdlog::details::make_unique<spdlog::pattern_formatter>(pattern);
-    spdlog::memory_buf_t dest;
+    auto formatter = my_spdlog::details::make_unique<my_spdlog::pattern_formatter>(pattern);
+    my_spdlog::memory_buf_t dest;
     std::string logger_name = "logger-name";
     const char *text =
         "Hello. This is some message with length of 80                                   ";
 
-    spdlog::source_loc source_loc{"a/b/c/d/myfile.cpp", 123, "some_func()"};
-    spdlog::details::log_msg msg(source_loc, logger_name, spdlog::level::info, text);
+    my_spdlog::source_loc source_loc{"a/b/c/d/myfile.cpp", 123, "some_func()"};
+    my_spdlog::details::log_msg msg(source_loc, logger_name, my_spdlog::level::info, text);
 
     for (auto _ : state) {
         dest.clear();
@@ -54,9 +54,9 @@ void bench_formatters() {
 }
 
 int main(int argc, char *argv[]) {
-    spdlog::set_pattern("[%^%l%$] %v");
+    my_spdlog::set_pattern("[%^%l%$] %v");
     if (argc != 2) {
-        spdlog::error("Usage: {} <pattern> (or \"all\" to bench all)", argv[0]);
+        my_spdlog::error("Usage: {} <pattern> (or \"all\" to bench all)", argv[0]);
         exit(1);
     }
 

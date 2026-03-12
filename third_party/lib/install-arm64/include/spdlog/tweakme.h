@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -21,14 +21,14 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 // Uncomment if source location logging is not needed.
-// This will prevent spdlog from using __FILE__, __LINE__ and SPDLOG_FUNCTION
+// This will prevent my_spdlog from using __FILE__, __LINE__ and SPDLOG_FUNCTION
 //
 // #define SPDLOG_NO_SOURCE_LOC
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
 // Uncomment if thread id logging is not needed (i.e. no %t in the log pattern).
-// This will prevent spdlog from querying the thread id on each log call.
+// This will prevent my_spdlog from querying the thread id on each log call.
 //
 // WARNING: If the log pattern contains thread id (i.e, %t) while this flag is
 // on, zero will be logged as thread id.
@@ -37,7 +37,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// Uncomment to prevent spdlog from using thread local storage.
+// Uncomment to prevent my_spdlog from using thread local storage.
 //
 // WARNING: if your program forks, UNCOMMENT this flag to prevent undefined
 // thread ids in the children logs.
@@ -46,7 +46,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// Uncomment to avoid spdlog's usage of atomic log levels
+// Uncomment to avoid my_spdlog's usage of atomic log levels
 // Use only if your code never modifies a logger's log levels concurrently by
 // different threads.
 //
@@ -74,8 +74,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// Uncomment to use your own copy of the fmt library instead of spdlog's copy.
-// In this case spdlog will try to include <fmt/format.h> so set your -I flag
+// Uncomment to use your own copy of the fmt library instead of my_spdlog's copy.
+// In this case my_spdlog will try to include <fmt/format.h> so set your -I flag
 // accordingly.
 //
 // #define SPDLOG_FMT_EXTERNAL

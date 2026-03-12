@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -16,7 +16,7 @@
 #include <condition_variable>
 #include <mutex>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace details {
 
 template <typename T>
@@ -170,8 +170,8 @@ private:
     std::mutex queue_mutex_;
     std::condition_variable push_cv_;
     std::condition_variable pop_cv_;
-    spdlog::details::circular_q<T> q_;
+    my_spdlog::details::circular_q<T> q_;
     std::atomic<size_t> discard_counter_{0};
 };
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog

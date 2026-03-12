@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -10,14 +10,14 @@
 #include <spdlog/details/os.h>
 #include <spdlog/pattern_formatter.h>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace sinks {
 
 template <typename ConsoleMutex>
 SPDLOG_INLINE ansicolor_sink<ConsoleMutex>::ansicolor_sink(FILE *target_file, color_mode mode)
     : target_file_(target_file),
       mutex_(ConsoleMutex::mutex()),
-      formatter_(details::make_unique<spdlog::pattern_formatter>())
+      formatter_(details::make_unique<my_spdlog::pattern_formatter>())
 
 {
     set_color_mode_(mode);
@@ -71,12 +71,12 @@ SPDLOG_INLINE void ansicolor_sink<ConsoleMutex>::flush() {
 template <typename ConsoleMutex>
 SPDLOG_INLINE void ansicolor_sink<ConsoleMutex>::set_pattern(const std::string &pattern) {
     std::lock_guard<mutex_t> lock(mutex_);
-    formatter_ = std::unique_ptr<spdlog::formatter>(new pattern_formatter(pattern));
+    formatter_ = std::unique_ptr<my_spdlog::formatter>(new pattern_formatter(pattern));
 }
 
 template <typename ConsoleMutex>
 SPDLOG_INLINE void ansicolor_sink<ConsoleMutex>::set_formatter(
-    std::unique_ptr<spdlog::formatter> sink_formatter) {
+    std::unique_ptr<my_spdlog::formatter> sink_formatter) {
     std::lock_guard<mutex_t> lock(mutex_);
     formatter_ = std::move(sink_formatter);
 }
@@ -139,4 +139,4 @@ SPDLOG_INLINE ansicolor_stderr_sink<ConsoleMutex>::ansicolor_stderr_sink(color_m
     : ansicolor_sink<ConsoleMutex>(stderr, mode) {}
 
 }  // namespace sinks
-}  // namespace spdlog
+}  // namespace my_spdlog

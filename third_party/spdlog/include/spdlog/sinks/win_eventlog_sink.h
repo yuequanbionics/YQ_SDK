@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 // Writing to Windows Event Log requires the registry entries below to be present, with the
@@ -43,7 +43,7 @@ Windows Registry Editor Version 5.00
 #include <string>
 #include <vector>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace sinks {
 
 namespace win_eventlog {
@@ -257,4 +257,4 @@ using win_eventlog_sink_mt = win_eventlog::win_eventlog_sink<std::mutex>;
 using win_eventlog_sink_st = win_eventlog::win_eventlog_sink<details::null_mutex>;
 
 }  // namespace sinks
-}  // namespace spdlog
+}  // namespace my_spdlog

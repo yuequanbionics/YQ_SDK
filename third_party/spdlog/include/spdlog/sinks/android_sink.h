@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -22,7 +22,7 @@
         #define SPDLOG_ANDROID_RETRIES 2
     #endif
 
-namespace spdlog {
+namespace my_spdlog {
 namespace sinks {
 
 /*
@@ -33,7 +33,7 @@ namespace sinks {
 template <typename Mutex, int BufferID = log_id::LOG_ID_MAIN>
 class android_sink final : public base_sink<Mutex> {
 public:
-    explicit android_sink(std::string tag = "spdlog", bool use_raw_msg = false)
+    explicit android_sink(std::string tag = "my_spdlog", bool use_raw_msg = false)
         : tag_(std::move(tag)),
           use_raw_msg_(use_raw_msg) {}
 
@@ -85,19 +85,19 @@ private:
         return __android_log_buf_write(ID, prio, tag, text);
     }
 
-    static android_LogPriority convert_to_android_(spdlog::level::level_enum level) {
+    static android_LogPriority convert_to_android_(my_spdlog::level::level_enum level) {
         switch (level) {
-            case spdlog::level::trace:
+            case my_spdlog::level::trace:
                 return ANDROID_LOG_VERBOSE;
-            case spdlog::level::debug:
+            case my_spdlog::level::debug:
                 return ANDROID_LOG_DEBUG;
-            case spdlog::level::info:
+            case my_spdlog::level::info:
                 return ANDROID_LOG_INFO;
-            case spdlog::level::warn:
+            case my_spdlog::level::warn:
                 return ANDROID_LOG_WARN;
-            case spdlog::level::err:
+            case my_spdlog::level::err:
                 return ANDROID_LOG_ERROR;
-            case spdlog::level::critical:
+            case my_spdlog::level::critical:
                 return ANDROID_LOG_FATAL;
             default:
                 return ANDROID_LOG_DEFAULT;
@@ -120,18 +120,18 @@ using android_sink_buf_st = android_sink<details::null_mutex, BufferId>;
 
 // Create and register android syslog logger
 
-template <typename Factory = spdlog::synchronous_factory>
+template <typename Factory = my_spdlog::synchronous_factory>
 inline std::shared_ptr<logger> android_logger_mt(const std::string &logger_name,
-                                                 const std::string &tag = "spdlog") {
+                                                 const std::string &tag = "my_spdlog") {
     return Factory::template create<sinks::android_sink_mt>(logger_name, tag);
 }
 
-template <typename Factory = spdlog::synchronous_factory>
+template <typename Factory = my_spdlog::synchronous_factory>
 inline std::shared_ptr<logger> android_logger_st(const std::string &logger_name,
-                                                 const std::string &tag = "spdlog") {
+                                                 const std::string &tag = "my_spdlog") {
     return Factory::template create<sinks::android_sink_st>(logger_name, tag);
 }
 
-}  // namespace spdlog
+}  // namespace my_spdlog
 
 #endif  // __ANDROID__

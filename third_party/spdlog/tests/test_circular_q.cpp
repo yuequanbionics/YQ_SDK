@@ -1,7 +1,7 @@
 #include "includes.h"
 #include "spdlog/details/circular_q.h"
 
-using q_type = spdlog::details::circular_q<size_t>;
+using q_type = my_spdlog::details::circular_q<size_t>;
 TEST_CASE("test_size", "[circular_q]") {
     const size_t q_size = 4;
     q_type q(q_size);

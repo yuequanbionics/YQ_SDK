@@ -3,11 +3,11 @@
 #include "spdlog/async.h"
 
 TEST_CASE("bactrace1", "[bactrace]") {
-    using spdlog::sinks::test_sink_st;
+    using my_spdlog::sinks::test_sink_st;
     auto test_sink = std::make_shared<test_sink_st>();
     size_t backtrace_size = 5;
 
-    spdlog::logger logger("test-backtrace", test_sink);
+    my_spdlog::logger logger("test-backtrace", test_sink);
     logger.set_pattern("%v");
     logger.enable_backtrace(backtrace_size);
 
@@ -29,11 +29,11 @@ TEST_CASE("bactrace1", "[bactrace]") {
 }
 
 TEST_CASE("bactrace-empty", "[bactrace]") {
-    using spdlog::sinks::test_sink_st;
+    using my_spdlog::sinks::test_sink_st;
     auto test_sink = std::make_shared<test_sink_st>();
     size_t backtrace_size = 5;
 
-    spdlog::logger logger("test-backtrace", test_sink);
+    my_spdlog::logger logger("test-backtrace", test_sink);
     logger.set_pattern("%v");
     logger.enable_backtrace(backtrace_size);
     logger.dump_backtrace();
@@ -41,15 +41,15 @@ TEST_CASE("bactrace-empty", "[bactrace]") {
 }
 
 TEST_CASE("bactrace-async", "[bactrace]") {
-    using spdlog::sinks::test_sink_mt;
+    using my_spdlog::sinks::test_sink_mt;
     auto test_sink = std::make_shared<test_sink_mt>();
-    using spdlog::details::os::sleep_for_millis;
+    using my_spdlog::details::os::sleep_for_millis;
 
     size_t backtrace_size = 5;
 
-    spdlog::init_thread_pool(120, 1);
-    auto logger = std::make_shared<spdlog::async_logger>("test-bactrace-async", test_sink,
-                                                         spdlog::thread_pool());
+    my_spdlog::init_thread_pool(120, 1);
+    auto logger = std::make_shared<my_spdlog::async_logger>("test-bactrace-async", test_sink,
+                                                         my_spdlog::thread_pool());
     logger->set_pattern("%v");
     logger->enable_backtrace(backtrace_size);
 

@@ -1,9 +1,9 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
 
-namespace spdlog {
+namespace my_spdlog {
 class logger;
 class formatter;
 
@@ -15,4 +15,4 @@ namespace level {
 enum level_enum : int;
 }
 
-}  // namespace spdlog
+}  // namespace my_spdlog

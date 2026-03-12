@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -21,7 +21,7 @@
 // kafka header
 #include <librdkafka/rdkafkacpp.h>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace sinks {
 
 struct kafka_sink_config {
@@ -88,32 +88,32 @@ private:
 };
 
 using kafka_sink_mt = kafka_sink<std::mutex>;
-using kafka_sink_st = kafka_sink<spdlog::details::null_mutex>;
+using kafka_sink_st = kafka_sink<my_spdlog::details::null_mutex>;
 
 }  // namespace sinks
 
-template <typename Factory = spdlog::synchronous_factory>
+template <typename Factory = my_spdlog::synchronous_factory>
 inline std::shared_ptr<logger> kafka_logger_mt(const std::string &logger_name,
-                                               spdlog::sinks::kafka_sink_config config) {
+                                               my_spdlog::sinks::kafka_sink_config config) {
     return Factory::template create<sinks::kafka_sink_mt>(logger_name, config);
 }
 
-template <typename Factory = spdlog::synchronous_factory>
+template <typename Factory = my_spdlog::synchronous_factory>
 inline std::shared_ptr<logger> kafka_logger_st(const std::string &logger_name,
-                                               spdlog::sinks::kafka_sink_config config) {
+                                               my_spdlog::sinks::kafka_sink_config config) {
     return Factory::template create<sinks::kafka_sink_st>(logger_name, config);
 }
 
-template <typename Factory = spdlog::async_factory>
-inline std::shared_ptr<spdlog::logger> kafka_logger_async_mt(
-    std::string logger_name, spdlog::sinks::kafka_sink_config config) {
+template <typename Factory = my_spdlog::async_factory>
+inline std::shared_ptr<my_spdlog::logger> kafka_logger_async_mt(
+    std::string logger_name, my_spdlog::sinks::kafka_sink_config config) {
     return Factory::template create<sinks::kafka_sink_mt>(logger_name, config);
 }
 
-template <typename Factory = spdlog::async_factory>
-inline std::shared_ptr<spdlog::logger> kafka_logger_async_st(
-    std::string logger_name, spdlog::sinks::kafka_sink_config config) {
+template <typename Factory = my_spdlog::async_factory>
+inline std::shared_ptr<my_spdlog::logger> kafka_logger_async_st(
+    std::string logger_name, my_spdlog::sinks::kafka_sink_config config) {
     return Factory::template create<sinks::kafka_sink_st>(logger_name, config);
 }
 
-}  // namespace spdlog
+}  // namespace my_spdlog

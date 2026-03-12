@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -17,11 +17,11 @@
 // thread pool have different copy).
 //
 // Usage example:
-// spdlog::mdc::put("mdc_key_1", "mdc_value_1");
-// spdlog::info("Hello, {}", "World!");  // => [2024-04-26 02:08:05.040] [info]
+// my_spdlog::mdc::put("mdc_key_1", "mdc_value_1");
+// my_spdlog::info("Hello, {}", "World!");  // => [2024-04-26 02:08:05.040] [info]
 // [mdc_key_1:mdc_value_1] Hello, World!
 
-namespace spdlog {
+namespace my_spdlog {
 class SPDLOG_API mdc {
 public:
     using mdc_map_t = std::map<std::string, std::string>;
@@ -49,4 +49,4 @@ public:
     }
 };
 
-}  // namespace spdlog
+}  // namespace my_spdlog

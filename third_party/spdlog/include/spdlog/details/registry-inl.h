@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -27,7 +27,7 @@
 #include <string>
 #include <unordered_map>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace details {
 
 SPDLOG_INLINE registry::registry()
@@ -41,7 +41,7 @@ SPDLOG_INLINE registry::registry()
     #endif
 
     const char *default_logger_name = "";
-    default_logger_ = std::make_shared<spdlog::logger>(default_logger_name, std::move(color_sink));
+    default_logger_ = std::make_shared<my_spdlog::logger>(default_logger_name, std::move(color_sink));
     loggers_[default_logger_name] = default_logger_;
 
 #endif  // SPDLOG_DISABLE_DEFAULT_LOGGER
@@ -95,9 +95,9 @@ SPDLOG_INLINE std::shared_ptr<logger> registry::default_logger() {
 }
 
 // Return raw ptr to the default logger.
-// To be used directly by the spdlog default api (e.g. spdlog::info)
+// To be used directly by the my_spdlog default api (e.g. my_spdlog::info)
 // This make the default API faster, but cannot be used concurrently with set_default_logger().
-// e.g do not call set_default_logger() from one thread while calling spdlog::info() from another.
+// e.g do not call set_default_logger() from one thread while calling my_spdlog::info() from another.
 SPDLOG_INLINE logger *registry::get_default_raw() { return default_logger_.get(); }
 
 // set default logger.
@@ -267,4 +267,4 @@ SPDLOG_INLINE void registry::register_or_replace_(std::shared_ptr<logger> new_lo
 }
 
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog

@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -13,7 +13,7 @@
 // Store log messages in circular buffer.
 // Useful for storing debug data in case of error/warning happens.
 
-namespace spdlog {
+namespace my_spdlog {
 namespace details {
 class SPDLOG_API backtracer {
     mutable std::mutex mutex_;
@@ -38,7 +38,7 @@ public:
 };
 
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog
 
 #ifdef SPDLOG_HEADER_ONLY
     #include "backtracer-inl.h"

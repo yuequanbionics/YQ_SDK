@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -13,12 +13,12 @@
 #include <thread>
 #include <vector>
 
-namespace spdlog {
+namespace my_spdlog {
 class async_logger;
 
 namespace details {
 
-using async_logger_ptr = std::shared_ptr<spdlog::async_logger>;
+using async_logger_ptr = std::shared_ptr<my_spdlog::async_logger>;
 
 enum class async_msg_type { log, flush, terminate };
 
@@ -110,7 +110,7 @@ private:
 };
 
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog
 
 #ifdef SPDLOG_HEADER_ONLY
     #include "thread_pool-inl.h"

@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -68,11 +68,11 @@
     #define __has_feature(x) 0  // Compatibility with non-clang compilers.
 #endif
 
-namespace spdlog {
+namespace my_spdlog {
 namespace details {
 namespace os {
 
-SPDLOG_INLINE spdlog::log_clock::time_point now() SPDLOG_NOEXCEPT {
+SPDLOG_INLINE my_spdlog::log_clock::time_point now() SPDLOG_NOEXCEPT {
 #if defined __linux__ && defined SPDLOG_CLOCK_COARSE
     timespec ts;
     ::clock_gettime(CLOCK_REALTIME_COARSE, &ts);
@@ -602,4 +602,4 @@ SPDLOG_INLINE bool fwrite_bytes(const void *ptr, const size_t n_bytes, FILE *fp)
 
 }  // namespace os
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog

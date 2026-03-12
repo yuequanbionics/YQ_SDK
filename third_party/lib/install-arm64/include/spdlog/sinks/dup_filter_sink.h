@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -22,7 +22,7 @@
 //     int main() {
 //         auto dup_filter = std::make_shared<dup_filter_sink_st>(std::chrono::seconds(5),
 //         level::info); dup_filter->add_sink(std::make_shared<stdout_color_sink_mt>());
-//         spdlog::logger l("logger", dup_filter);
+//         my_spdlog::logger l("logger", dup_filter);
 //         l.info("Hello");
 //         l.info("Hello");
 //         l.info("Hello");
@@ -34,7 +34,7 @@
 //       [2019-06-25 17:50:56.512] [logger] [info] Skipped 3 duplicate messages..
 //       [2019-06-25 17:50:56.512] [logger] [info] Different Hello
 
-namespace spdlog {
+namespace my_spdlog {
 namespace sinks {
 template <typename Mutex>
 class dup_filter_sink : public dist_sink<Mutex> {
@@ -48,7 +48,7 @@ protected:
     log_clock::time_point last_msg_time_;
     std::string last_msg_payload_;
     size_t skip_counter_ = 0;
-    level::level_enum skipped_msg_log_level_ = spdlog::level::level_enum::off;
+    level::level_enum skipped_msg_log_level_ = my_spdlog::level::level_enum::off;
 
     void sink_it_(const details::log_msg &msg) override {
         bool filtered = filter_(msg);
@@ -88,4 +88,4 @@ using dup_filter_sink_mt = dup_filter_sink<std::mutex>;
 using dup_filter_sink_st = dup_filter_sink<details::null_mutex>;
 
 }  // namespace sinks
-}  // namespace spdlog
+}  // namespace my_spdlog

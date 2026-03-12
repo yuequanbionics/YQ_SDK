@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -18,7 +18,7 @@
 #include <string>
 #include <unordered_map>
 
-namespace spdlog {
+namespace my_spdlog {
 class logger;
 
 namespace details {
@@ -37,9 +37,9 @@ public:
     std::shared_ptr<logger> default_logger();
 
     // Return raw ptr to the default logger.
-    // To be used directly by the spdlog default api (e.g. spdlog::info)
+    // To be used directly by the my_spdlog default api (e.g. my_spdlog::info)
     // This make the default API faster, but cannot be used concurrently with set_default_logger().
-    // e.g do not call set_default_logger() from one thread while calling spdlog::info() from
+    // e.g do not call set_default_logger() from one thread while calling my_spdlog::info() from
     // another.
     logger *get_default_raw();
 
@@ -113,7 +113,7 @@ private:
     std::unordered_map<std::string, std::shared_ptr<logger>> loggers_;
     log_levels log_levels_;
     std::unique_ptr<formatter> formatter_;
-    spdlog::level::level_enum global_log_level_ = level::info;
+    my_spdlog::level::level_enum global_log_level_ = level::info;
     level::level_enum flush_level_ = level::off;
     err_handler err_handler_;
     std::shared_ptr<thread_pool> tp_;
@@ -124,7 +124,7 @@ private:
 };
 
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog
 
 #ifdef SPDLOG_HEADER_ONLY
     #include "registry-inl.h"

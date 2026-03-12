@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -15,7 +15,7 @@
 #include <string>
 #include <tuple>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace details {
 
 SPDLOG_INLINE file_helper::file_helper(const file_event_handlers &event_handlers)
@@ -148,4 +148,4 @@ SPDLOG_INLINE std::tuple<filename_t, filename_t> file_helper::split_by_extension
 }
 
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog

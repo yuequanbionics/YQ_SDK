@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -10,7 +10,7 @@
 #include <cassert>
 #include <spdlog/common.h>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace details {
 
 SPDLOG_INLINE thread_pool::thread_pool(size_t q_max_items,
@@ -20,7 +20,7 @@ SPDLOG_INLINE thread_pool::thread_pool(size_t q_max_items,
     : q_(q_max_items) {
     if (threads_n == 0 || threads_n > 1000) {
         throw_spdlog_ex(
-            "spdlog::thread_pool(): invalid threads_n param (valid "
+            "my_spdlog::thread_pool(): invalid threads_n param (valid "
             "range is 1-1000)");
     }
     for (size_t i = 0; i < threads_n; i++) {
@@ -122,4 +122,4 @@ bool SPDLOG_INLINE thread_pool::process_next_msg_() {
 }
 
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog

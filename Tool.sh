@@ -684,7 +684,7 @@ EOF
         # 1-20.04, 2-22.04, 3-24.04
         # 不上 ROS, 20.04 编出来支持 20.04, 22.04, 24.04
         # 上 ROS, 20.04 编出来后在 22.04 上跑不了, 24.04 正常, 用 22.04 编出来理论上 24.04 也能用, 但不支持 20.04, 故上 ROS 选 2
-        echo "2" | ./Tool.sh Dmake
+        echo "1" | ./Tool.sh Dmake
 
         conda run -n sdk --no-capture-output python ./script/python/Tool/build_out.py
         ;;

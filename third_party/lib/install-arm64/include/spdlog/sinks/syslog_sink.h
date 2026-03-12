@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -11,7 +11,7 @@
 #include <string>
 #include <syslog.h>
 
-namespace spdlog {
+namespace my_spdlog {
 namespace sinks {
 /**
  * Sink that write to syslog using the `syscall()` library call.
@@ -21,13 +21,13 @@ class syslog_sink : public base_sink<Mutex> {
 public:
     syslog_sink(std::string ident, int syslog_option, int syslog_facility, bool enable_formatting)
         : enable_formatting_{enable_formatting},
-          syslog_levels_{{/* spdlog::level::trace      */ LOG_DEBUG,
-                          /* spdlog::level::debug      */ LOG_DEBUG,
-                          /* spdlog::level::info       */ LOG_INFO,
-                          /* spdlog::level::warn       */ LOG_WARNING,
-                          /* spdlog::level::err        */ LOG_ERR,
-                          /* spdlog::level::critical   */ LOG_CRIT,
-                          /* spdlog::level::off        */ LOG_INFO}},
+          syslog_levels_{{/* my_spdlog::level::trace      */ LOG_DEBUG,
+                          /* my_spdlog::level::debug      */ LOG_DEBUG,
+                          /* my_spdlog::level::info       */ LOG_INFO,
+                          /* my_spdlog::level::warn       */ LOG_WARNING,
+                          /* my_spdlog::level::err        */ LOG_ERR,
+                          /* my_spdlog::level::critical   */ LOG_CRIT,
+                          /* my_spdlog::level::off        */ LOG_INFO}},
           ident_{std::move(ident)} {
         // set ident to be program name if empty
         ::openlog(ident_.empty() ? nullptr : ident_.c_str(), syslog_option, syslog_facility);
@@ -62,7 +62,7 @@ protected:
     bool enable_formatting_ = false;
 
     //
-    // Simply maps spdlog's log level to syslog priority level.
+    // Simply maps my_spdlog's log level to syslog priority level.
     //
     virtual int syslog_prio_from_level(const details::log_msg &msg) const {
         return syslog_levels_.at(static_cast<levels_array::size_type>(msg.level));
@@ -82,7 +82,7 @@ using syslog_sink_st = syslog_sink<details::null_mutex>;
 }  // namespace sinks
 
 // Create and register a syslog logger
-template <typename Factory = spdlog::synchronous_factory>
+template <typename Factory = my_spdlog::synchronous_factory>
 inline std::shared_ptr<logger> syslog_logger_mt(const std::string &logger_name,
                                                 const std::string &syslog_ident = "",
                                                 int syslog_option = 0,
@@ -92,7 +92,7 @@ inline std::shared_ptr<logger> syslog_logger_mt(const std::string &logger_name,
                                                            syslog_facility, enable_formatting);
 }
 
-template <typename Factory = spdlog::synchronous_factory>
+template <typename Factory = my_spdlog::synchronous_factory>
 inline std::shared_ptr<logger> syslog_logger_st(const std::string &logger_name,
                                                 const std::string &syslog_ident = "",
                                                 int syslog_option = 0,
@@ -101,4 +101,4 @@ inline std::shared_ptr<logger> syslog_logger_st(const std::string &logger_name,
     return Factory::template create<sinks::syslog_sink_st>(logger_name, syslog_ident, syslog_option,
                                                            syslog_facility, enable_formatting);
 }
-}  // namespace spdlog
+}  // namespace my_spdlog

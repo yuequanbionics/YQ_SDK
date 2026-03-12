@@ -1,4 +1,4 @@
-// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
+// Copyright(c) 2015-present, Gabi Melman & my_spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
@@ -7,7 +7,7 @@
 #include <utility>
 // null, no cost dummy "mutex" and dummy "atomic" int
 
-namespace spdlog {
+namespace my_spdlog {
 namespace details {
 struct null_mutex {
     void lock() const {}
@@ -32,4 +32,4 @@ struct null_atomic_int {
 };
 
 }  // namespace details
-}  // namespace spdlog
+}  // namespace my_spdlog
