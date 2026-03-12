@@ -5,8 +5,8 @@ set(EXE_NAME IO_Board)
 NAME_TO_VAR("PROJECT" "-${EXE_NAME}" OUT)
 if(${OUT})
     # 添加可执行文件+源文件
-    add_executable(${EXE_NAME} 
-        ./IO_Board_Out.cpp
+    add_executable(${EXE_NAME}
+            out/IO_Board_Out.cpp
     )
 
     target_include_directories(${EXE_NAME} PUBLIC
