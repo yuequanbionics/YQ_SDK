@@ -250,6 +250,9 @@ class Motor_BM_M1502D : private Robot_Hardware {
     /*  @brief 机械零位标定设置 */
     int Set_Zero_Calibration(std::shared_ptr<Device_class> Device_P);
 
+    /******************** PI参数设置接口 ******************** */
+    int Set_Speed_PI_Data(std::shared_ptr<Device_class> Device_P, const u8* data);
+
     /***********************************************状态获取*******************************************************
     /**
      * @brief 获取电机故障状态
