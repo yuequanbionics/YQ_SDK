@@ -63,8 +63,6 @@ int hardware_init(string ADDR, string Config)
     //     IP: 192.168.3.105
     //     # Port: 19001
     // )";
-    #else
-    init_robot_hardware();
     #endif
 
     /* 2. ------------- 初始化 TOP 配置 ------------- */
