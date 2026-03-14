@@ -66,7 +66,7 @@ int hardware_init(string ADDR, string Config)
     #endif
 
     /* 2. ------------- 初始化 TOP 配置 ------------- */
-    if(Test_Robot->Init_TOP(ADDR) != 0)
+    if(Test_Robot->Init_TOP(ADDR, Config) != 0)
     { 
         cout << "Init_ERR" << endl;
         return -1;
