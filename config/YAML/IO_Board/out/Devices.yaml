@@ -1,5 +1,5 @@
 Base_Node: 
-  - Name: Main_Switch_Board
+  - Name: IO_Board
     Range_Name: Motor
     DeviceType: Switch_Board # Motor_Device IMU_Device Key_Device Switch_Board Custom_Device
     Id: 101

@@ -4,7 +4,7 @@ Name: Motor
 PC_IP: &1 192.168.3.245
 Broadcast_IP: 192.168.3.255
 Base_Node:
-  - Name: Main_Switch_Board
+  - Name: IO_Board
     Range_Name: Motor
     DeviceType: Switch_Board
     Id: 101

@@ -26,8 +26,8 @@ Robot_Hardware *Test_Robot;
 shared_ptr<Device_class> IO_Board;
 Main_B *IO_Board_Control;
 
-int R_IO[32];
-int W_IO[32];
+u8 R_IO[32];
+u8 W_IO[32];
 
 #ifndef HAVE_ROS
 int main(int argc, char* argv[])
@@ -83,6 +83,7 @@ int hardware_init(string ADDR, string Config)
 
 
     /* ------------- GPIO 配置 ------------- */
+#if 0
     // 方式一: 直接初始化
     GPIO_InitTypeDef GPIO_Init_Struct = {};
     GPIO_Init_Struct.Pin = GPIO_PIN_10;
@@ -93,6 +94,14 @@ int hardware_init(string ADDR, string Config)
 
     // 方式二: 调用现有接口(仅配置为输入模式)
     IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, GPIOA, GPIO_PIN_9);
+#endif
+
+    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, GPIOD, GPIO_PIN_1);  // A6
+    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, GPIOD, GPIO_PIN_2);  // A5
+    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, GPIOD, GPIO_PIN_3);  // A4
+    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, GPIOD, GPIO_PIN_4);  // A3
+    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, GPIOD, GPIO_PIN_5);  // A2
+    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, GPIOD, GPIO_PIN_6);  // A1
 
 
     // IO_Board_Control->m_GPIO.GPIOx_Read(IO_Board, GPIOA, GPIO_PIN_10, 1000);
@@ -105,7 +114,8 @@ int hardware_init(string ADDR, string Config)
     // ReSharper disable CppDFAEndlessLoop
     while (true)
     // ReSharper restore CppDFAEndlessLoop
-    {   
+    {
+#if 0
         // IO_Board_Control->m_GPIO.GPIOx_Read(IO_Board, GPIOA, GPIO_PIN_10, 1000);
         // IO_Board_Control->m_GPIO.GPIOx_Read(IO_Board, GPIOA, GPIO_PIN_9, 1000);
 
@@ -114,6 +124,18 @@ int hardware_init(string ADDR, string Config)
         cout << "PA10: " << R_IO[9]  << endl;
         cout << "PA9 : " << R_IO[10] << endl;
         cout << "--------" << endl;
+#endif
+
+        IO_Board_Control->m_GPIO.Get_Buttons_Value(IO_Board, R_IO);
+
+        cout << "A1: " << static_cast<int>(R_IO[1])  << endl;
+        cout << "A2: " << static_cast<int>(R_IO[2])  << endl;
+        cout << "A3: " << static_cast<int>(R_IO[3])  << endl;
+        cout << "A4: " << static_cast<int>(R_IO[4])  << endl;
+        cout << "A5: " << static_cast<int>(R_IO[5])  << endl;
+        cout << "A6: " << static_cast<int>(R_IO[6])  << endl;
+        cout << "--------" << endl;
+
         usleep(1000);
     }
 #endif
