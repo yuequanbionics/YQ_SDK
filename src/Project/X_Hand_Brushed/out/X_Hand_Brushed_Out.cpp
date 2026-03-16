@@ -12,7 +12,7 @@
 #include <thread>
 
 #include "Auto_Set_Id.hpp"
-#include "Custom_Device/X_Hand_Brushed/X_Hand_Protocol.hpp"
+#include "X_Hand_Protocol.hpp"
 #include "HARDWARE_TOP.hpp"
 #include "Switch_Board.hpp"
 #include "syst.hpp"
@@ -58,9 +58,6 @@ int main(int argc, char* argv[])
 int hardware_init(string ADDR, string Config)
 #endif
 {
-    (void)argc;
-    (void)argv;
-
     robot = new Robot_Hardware();
     robot->Add_Device_Type(Switch_Board_Type, Switch_Board_Device_Init,
                           Switch_Board_Device_CallBack_F, Switch_Board_Device_Delete_F);
@@ -72,10 +69,10 @@ int hardware_init(string ADDR, string Config)
 #ifndef HAVE_ROS                         
     filesystem::path exe_path = filesystem::canonical("/proc/self/exe");
     filesystem::path dir_path = exe_path.parent_path();
-    string top_yaml = dir_path.string() + "/../config/YAML/X_Hand_Brushed/out/TOP.yaml";
-    string config_str = "None";
+    string ADDR = dir_path.string() + "/../config/YAML/X_Hand_Brushed/out/TOP.yaml";
+    string Config = "None";
 #endif
-    if (robot->Init_TOP(top_yaml, config_str) != 0) {
+    if (robot->Init_TOP(ADDR, Config) != 0) {
         cout << "Init_ERR" << endl;
         return -1;
     }
