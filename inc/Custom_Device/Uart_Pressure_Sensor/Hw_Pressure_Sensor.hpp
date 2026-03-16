@@ -1,14 +1,11 @@
 #ifndef HW_PRESSURE_SENSOR_H_
 #define HW_PRESSURE_SENSOR_H_
 
-#include <array>
 #include <atomic>
-#include <condition_variable>
 #include <functional>
 #include <map>
 #include <memory>
 #include <mutex>
-#include <queue>
 #include <thread>
 #include <vector>
 
@@ -27,12 +24,6 @@
 #define HW_LITTLE_FINGER_ID 0x05  // 小拇指
 #define HW_PALM_CENTER_ID 0x06    // 掌心
 #define HW_PALM_BACK_ID 0x07      // 掌背
-
-// 手指部位详细传感器定义
-#define HW_THUMB_TIP 0x12       // 大拇指指端
-#define HW_THUMB_DISTAL 0x14    // 大拇指远节
-#define HW_THUMB_MIDDLE 0x16    // 大拇指中节
-#define HW_THUMB_PROXIMAL 0x18  // 大拇指近节
 
 // 信道定义
 #define HW_CHANNEL_DEVICE_INFO 0x01  // 设备信息
@@ -81,7 +72,7 @@ struct Hw_Pressure_Sensor_Frame {
 };
 #pragma pack(pop)
 
-// 传感器设备状态（用于监控，不影响发送）
+// 传感器设备状态（用于监控）
 struct Sensor_Device_Status {
     bool online;                   // 设备是否在线
     uint64_t last_response_time;   // 最后响应时间
@@ -139,6 +130,40 @@ struct ResponseTimeStats {
     }
 };
 
+typedef struct Serial_Data {
+    // Head
+    u16 Can_Id;
+    u16 Len;
+    u16 Flag;
+
+    // DATA
+    u8 data[1024];
+} Serial_Data;
+
+// 初始化宏定义
+#define Hw_Pressure_Sensor_Init                                               \
+    [](std::shared_ptr<Device_class> Device, YAML::Node* Node) -> int {       \
+        Hw_Pressure_Sensor* sensor = new Hw_Pressure_Sensor();                \
+        Device->Device_Private_Class = (void*)sensor;                         \
+        if (Node != nullptr)                                                  \
+            return sensor->Hw_Pressure_Sensor_Data_From_Yaml_And_Init(Device, \
+                                                                      *Node); \
+        else                                                                  \
+            return 0;                                                         \
+    }
+
+#define Hw_Pressure_Sensor_CallBack_F                              \
+    [](shared_ptr<Device_class> Device, u8* Msg) -> int {          \
+        return ((Hw_Pressure_Sensor*)Device->Device_Private_Class) \
+            ->Hw_Pressure_Sensor_Frame_Analyze(Msg);               \
+    }
+
+#define Hw_Pressure_Sensor_Delete_F                         \
+    [](void* Device_Private_Class) {                        \
+        delete ((Hw_Pressure_Sensor*)Device_Private_Class); \
+        Device_Private_Class = nullptr;                     \
+    }
+
 // 触觉传感器控制类
 class Hw_Pressure_Sensor : private Robot_Hardware {
    public:
@@ -188,25 +213,13 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
     /* 停止周期性数据采集 */
     int Stop_Periodic_Data_Collection();
 
-    /* 单次采集所有传感器数据 */
-    int Collect_All_Sensors_Data(std::shared_ptr<Device_class> Device_P);
-
     // ========== 数据存储和查询接口 ==========
     /**
-     * @brief 获取指定传感器的最新数据
+     * @brief 获取指定传感器的存储数据
      * @param sensor_id 传感器ID
-     * @return Sensor_Data_Result 包含查询结果的结构体
+     * @return 数据向量
      */
-    Sensor_Data_Result Get_Latest_Sensor_Data(u8 sensor_id);
-
-    /**
-     * @brief 获取所有传感器的数据
-     * @return std::map<u8, Sensor_Data_Result> 传感器ID到数据的映射
-     */
-    std::map<u8, Sensor_Data_Result> Get_All_Sensors_Data();
-
-    /* 清空所有存储的数据 */
-    void Clear_All_Stored_Data();
+    std::vector<u16> Get_Stored_Sensor_Data(u8 sensor_id);
 
     /**
      * @brief 获取数据存储统计信息
@@ -239,28 +252,6 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
      * @return 状态统计字符串
      */
     std::string Get_Status_Statistics();
-
-    // ========== 数据存储方法 ==========
-    /**
-     * @brief 存储传感器数据到字典
-     * @param sensor_id 传感器ID
-     * @param data 传感器数据
-     */
-    void Store_Sensor_Data(u8 sensor_id, const std::vector<u16>& data);
-
-    /**
-     * @brief 获取指定传感器的存储数据
-     * @param sensor_id 传感器ID
-     * @return 数据向量
-     */
-    std::vector<u16> Get_Stored_Sensor_Data(u8 sensor_id);
-
-    /**
-     * @brief 检查传感器是否有存储数据
-     * @param sensor_id 传感器ID
-     * @return 是否有数据
-     */
-    bool Has_Stored_Data(u8 sensor_id);
 
    public:
     // 回调函数指针
@@ -318,6 +309,14 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
     uint64_t Get_Current_Time_Ms();
 
     /**
+     * @brief 如果传感器离线，清空其存储的数据
+     * @param sensor_id 传感器ID
+     */
+    void Clear_Sensor_Data_If_Offline(u8 sensor_id);
+
+    void Check_And_Recover_Offline_Sensor(u8 sensor_id);
+
+    /**
      * @brief 打印十六进制数据
      * @param data 数据指针
      * @param length 数据长度
@@ -331,21 +330,20 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
     u8 Quick_Extract_Sensor_ID(const u8* data, u16 length);
 
     /**
-     * @brief 异步数据解析处理
+     * @brief 存储传感器数据到字典
      */
-    void Start_Async_Parse_Thread();
-    void Stop_Async_Parse_Thread();
-    void Async_Parse_Worker();
+    void Store_Sensor_Data(u8 sensor_id, const std::vector<u16>& data);
 
     // 成员变量
     std::atomic<bool> periodic_collection_active_{false};
     std::atomic<u32> collection_interval_{20};
     std::atomic<u32> response_timeout_ms_{5};
-    std::atomic<uint64_t> last_frame_timestamp_{0};
+    std::atomic<uint64_t> last_request_timestamp_{0};
+    std::array<int, 8> consecutive_timeout_count_;  // 连续超时计数
 
     // 状态管理（需要锁保护）
     std::mutex status_mutex_;
-    std::map<u8, Sensor_Device_Status> device_status_;  // 设备状态映射表（仅用于监控）
+    std::map<u8, Sensor_Device_Status> device_status_;  // 设备状态映射表
 
     // 数据存储
     std::mutex data_mutex_;
@@ -357,54 +355,12 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
     // 原子响应标志（无锁操作）
     std::array<AtomicResponseFlag, 8> atomic_response_flags_;  // 索引1-6对应传感器ID1-6
 
-    // 异步解析队列
-    std::mutex parse_queue_mutex_;
-    std::condition_variable parse_condition_;
-    std::queue<std::pair<u8, std::vector<u8>>> parse_queue_;  // <sensor_id, frame_data>
-    std::thread parse_thread_;
-    std::atomic<bool> parse_thread_active_{false};
-
     std::map<u8, ResponseTimeStats> response_time_stats_;
     std::mutex stats_mutex_;
-    std::atomic<uint64_t> last_request_timestamp_{0};
 
     // 回调函数
     std::function<void(u8 sensor_id, const std::vector<u16>& data)> data_callback_;
     std::function<void(u8 sensor_id, u8 cmd, const std::vector<u8>& data)> device_info_callback_;
 };
-
-// 初始化宏定义
-#define Hw_Pressure_Sensor_Init                                               \
-    [](std::shared_ptr<Device_class> Device, YAML::Node* Node) -> int {       \
-        Hw_Pressure_Sensor* sensor = new Hw_Pressure_Sensor();                \
-        Device->Device_Private_Class = (void*)sensor;                         \
-        if (Node != nullptr)                                                  \
-            return sensor->Hw_Pressure_Sensor_Data_From_Yaml_And_Init(Device, \
-                                                                      *Node); \
-        else                                                                  \
-            return 0;                                                         \
-    }
-
-#define Hw_Pressure_Sensor_CallBack_F                              \
-    [](shared_ptr<Device_class> Device, u8* Msg) -> int {          \
-        return ((Hw_Pressure_Sensor*)Device->Device_Private_Class) \
-            ->Hw_Pressure_Sensor_Frame_Analyze(Msg);               \
-    }
-
-#define Hw_Pressure_Sensor_Delete_F                         \
-    [](void* Device_Private_Class) {                        \
-        delete ((Hw_Pressure_Sensor*)Device_Private_Class); \
-        Device_Private_Class = nullptr;                     \
-    }
-
-typedef struct Serial_Data {
-    // Head
-    u16 Can_Id;
-    u16 Len;
-    u16 Flag;
-
-    // DATA
-    u8 data[1024];
-} Serial_Data;
 
 #endif  // HW_PRESSURE_SENSOR_H_
