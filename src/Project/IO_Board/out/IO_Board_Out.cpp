@@ -26,6 +26,11 @@ Robot_Hardware *Test_Robot;
 shared_ptr<Device_class> IO_Board;
 Main_B *IO_Board_Control;
 
+
+/* Local function declaration */
+void Get_Buttons_State(const shared_ptr<Device_class>& Device, u8 *Res);
+
+
 u8 R_IO[32];
 u8 W_IO[32];
 
@@ -54,15 +59,16 @@ int hardware_init(string ADDR, string Config)
     filesystem::path dir_path = exe_path.parent_path();
     std::cout << "程序所在目录: " << dir_path << std::endl;
     string ADDR = dir_path.string() + "/../config/YAML/IO_Board/out/TOP.yaml";
-    string Config = "None";
-    //     string Config = R"(
-    // PC_IP: 192.168.3.245
-    // SN: asdf1234567
-    // Boards:
-    //   - Id: 101
-    //     IP: 192.168.3.105
-    //     # Port: 19001
-    // )";
+    // string Config = "None";
+        string Config = R"(
+    PC_IP: 192.168.3.245
+    SN: asdf1234567
+    Boards:
+      - Id: 101
+
+        IP: 192.168.3.243
+        # Port: 19001
+    )";
     #endif
 
     /* 2. ------------- 初始化 TOP 配置 ------------- */
@@ -126,7 +132,7 @@ int hardware_init(string ADDR, string Config)
         cout << "--------" << endl;
 #endif
 
-        IO_Board_Control->m_GPIO.Get_Buttons_Value(IO_Board, R_IO);
+        Get_Buttons_State(IO_Board, R_IO);
 
         cout << "A1: " << static_cast<int>(R_IO[1])  << endl;
         cout << "A2: " << static_cast<int>(R_IO[2])  << endl;
@@ -142,3 +148,38 @@ int hardware_init(string ADDR, string Config)
 
     return 0;
 }
+
+
+void Get_Buttons_State(const shared_ptr<Device_class>& Device, u8 *Res)
+{
+    if (IO_Board_Control == nullptr || Device == nullptr || Res == nullptr)
+    {
+        cout << "Fun Get_Buttons_State() param invalid.";
+        return;
+    }
+
+    IO_Board_Control->m_GPIO.GPIOx_Read(Device, GPIOD, GPIO_PIN_6,  1000);
+    usleep(2000);
+    Res[1] = IO_Board_Control->m_GPIO.Get_GPIOx_Value(GPIOD, GPIO_PIN_6);
+
+    IO_Board_Control->m_GPIO.GPIOx_Read(Device, GPIOD, GPIO_PIN_5,  1000);
+    usleep(2000);
+    Res[2] = IO_Board_Control->m_GPIO.Get_GPIOx_Value(GPIOD, GPIO_PIN_5);
+
+    IO_Board_Control->m_GPIO.GPIOx_Read(Device, GPIOD, GPIO_PIN_4,  1000);
+    usleep(2000);
+    Res[3] = IO_Board_Control->m_GPIO.Get_GPIOx_Value(GPIOD, GPIO_PIN_4);
+
+    IO_Board_Control->m_GPIO.GPIOx_Read(Device, GPIOD, GPIO_PIN_3,  1000);
+    usleep(2000);
+    Res[4] = IO_Board_Control->m_GPIO.Get_GPIOx_Value(GPIOD, GPIO_PIN_3);
+
+    IO_Board_Control->m_GPIO.GPIOx_Read(Device, GPIOD, GPIO_PIN_2,  1000);
+    usleep(2000);
+    Res[5] = IO_Board_Control->m_GPIO.Get_GPIOx_Value(GPIOD, GPIO_PIN_2);
+
+    IO_Board_Control->m_GPIO.GPIOx_Read(Device, GPIOD, GPIO_PIN_1,  1000);
+    usleep(2000);
+    Res[6] = IO_Board_Control->m_GPIO.Get_GPIOx_Value(GPIOD, GPIO_PIN_1);
+}
+

@@ -1,4 +1,4 @@
-DriverVersion: 0.0.0
+DriverVersion: 0.0.1
 Log_Max_Size: 5
 Name: Motor
 PC_IP: &1 192.168.3.245

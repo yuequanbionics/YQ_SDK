@@ -4,15 +4,73 @@ Name: Motor
 PC_IP: &1 192.168.3.245
 Broadcast_IP: 192.168.3.255
 config:
-  - "null": &2 true
-  - "null": &3 true
+  - "null": &2 false
+  - "null": &3 false
   - Usr_Motor_Init_Config:
-      Save_All_Config: &4 true
-      Motor_EN_In_Init: &5 false
+      Save_All_Config: &4 false
+      Motor_EN_In_Init: &5 true
       Set_Zero_In_Init: &6 false
-      Set_Config_In_Init: &7 true
-      Set_Pid_Config_In_Init: &8 true
-      Motor_Cal_In_Init: &9 true
+      Set_Config_In_Init: &7 false
+      Set_Pid_Config_In_Init: &8 false
+      Motor_Cal_In_Init: &9 false
+  - FD_Can_2M_4M:
+      Can_EN: true
+      Can_FrameFormat: FDCAN_FRAME_FD_BRS
+      Can_Mode: FDCAN_MODE_NORMAL
+      Can_AutoRetransmission: true
+      Can_TransmitPause: false
+      Can_ProtocolException: false
+      Can_Nominal_Prescaler: 1
+      Can_Nominal_SyncJumpWidth: 9
+      Can_Nominal_TimeSeg1: 30
+      Can_Nominal_TimeSeg2: 9
+      Can_Data_Prescaler: 1
+      Can_Data_SyncJumpWidth: 4
+      Can_Data_TimeSeg1: 15
+      Can_Data_TimeSeg2: 4
+      Can_StdFiltersNbr: 4
+      Can_ExtFiltersNbr: 4
+      Can_RxFifo0ElmtsNbr: 32
+      Can_RxFifo0ElmtSize: FDCAN_DATA_BYTES_12
+      Can_RxFifo1ElmtsNbr: 0
+      Can_RxFifo1ElmtSize: FDCAN_DATA_BYTES_12
+      Can_RxBuffersNbr: 16
+      Can_RxBufferSize: FDCAN_DATA_BYTES_12
+      Can_TxEventsNbr: 0
+      Can_TxBuffersNbr: 0
+      Can_TxFifoQueueElmtsNbr: 16
+      Can_TxFifoQueueMode: FDCAN_TX_FIFO_OPERATION
+      Can_TxElmtSize: FDCAN_DATA_BYTES_12
+      Can_Set_Complete: true
+  - Classic_Can_1M:
+      Can_EN: true
+      Can_FrameFormat: FDCAN_FRAME_CLASSIC
+      Can_Mode: FDCAN_MODE_NORMAL
+      Can_AutoRetransmission: true
+      Can_TransmitPause: false
+      Can_ProtocolException: false
+      Can_Nominal_Prescaler: 2
+      Can_Nominal_SyncJumpWidth: 9
+      Can_Nominal_TimeSeg1: 30
+      Can_Nominal_TimeSeg2: 9
+      Can_Data_Prescaler: 1
+      Can_Data_SyncJumpWidth: 4
+      Can_Data_TimeSeg1: 15
+      Can_Data_TimeSeg2: 4
+      Can_StdFiltersNbr: 4
+      Can_ExtFiltersNbr: 4
+      Can_RxFifo0ElmtsNbr: 32
+      Can_RxFifo0ElmtSize: FDCAN_DATA_BYTES_12
+      Can_RxFifo1ElmtsNbr: 0
+      Can_RxFifo1ElmtSize: FDCAN_DATA_BYTES_12
+      Can_RxBuffersNbr: 16
+      Can_RxBufferSize: FDCAN_DATA_BYTES_12
+      Can_TxEventsNbr: 0
+      Can_TxBuffersNbr: 0
+      Can_TxFifoQueueElmtsNbr: 16
+      Can_TxFifoQueueMode: FDCAN_TX_FIFO_OPERATION
+      Can_TxElmtSize: FDCAN_DATA_BYTES_12
+      Can_Set_Complete: true
   - Init_Config:
       Save_All_Config: &10 false
       Motor_EN_In_Init: &11 true
