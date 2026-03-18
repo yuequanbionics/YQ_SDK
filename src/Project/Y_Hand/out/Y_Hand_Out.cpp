@@ -225,7 +225,7 @@ int hand_pretighten(float F, uint32_t time_ms)
 #ifndef HAVE_ROS
 int main(int argc, char* argv[])
 #else
-int hardware_init(string ADDR, string Config)
+int hardware_init(const string& ADDR, const string& Config)
 #endif
 {
     Test_Robot = new Robot_Hardware();

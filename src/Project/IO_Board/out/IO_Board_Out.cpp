@@ -44,10 +44,10 @@ void ROS_Get_GPIOx_Status() {
         cerr << "Error: IO_Board Device not initialized before calling ROS_Get_GPIOx_Status!" << endl;
         return;
     }
-    IO_Board_Control->m_GPIO.Get_Buttons_Value(IO_Board, R_IO);
+    Get_Buttons_State(IO_Board, R_IO);
 }
 
-int hardware_init(string ADDR, string Config)
+int hardware_init(const string& ADDR, const string& Config)
 #endif
 {
     /* 1. ------------- 初始化硬件对象 ------------- */
@@ -125,7 +125,7 @@ int hardware_init(string ADDR, string Config)
         // IO_Board_Control->m_GPIO.GPIOx_Read(IO_Board, GPIOA, GPIO_PIN_10, 1000);
         // IO_Board_Control->m_GPIO.GPIOx_Read(IO_Board, GPIOA, GPIO_PIN_9, 1000);
 
-        IO_Board_Control->m_GPIO.Get_Buttons_Value(IO_Board, R_IO);
+        Get_Buttons_State(IO_Board, R_IO);;
 
         cout << "PA10: " << R_IO[9]  << endl;
         cout << "PA9 : " << R_IO[10] << endl;

@@ -28,12 +28,13 @@ config:
     Motor_AB_Mirror: true
     Motor_current_sample_offset: 10
 
-    Dead_Time: 0
+    MD_K: 10
+    Dead_Time: 1
     V_IC_MU_FORCE: 200
     IC_MU_SPEED: 1
     V_rated: 700
 
-    DI_I_MAX: 2.0 # 2.0
+    DI_I_MAX: 1.0            
     I_Hardware_Max: 2
     Current_Amplifier_Gain: 15
     Motor_CMD_I_To_Force_K: 1.0
@@ -67,7 +68,8 @@ config:
     Motor_AB_Mirror: true
     Motor_current_sample_offset: 10
 
-    Dead_Time: 0
+    MD_K: 20
+    Dead_Time: 1
     V_IC_MU_FORCE: 200
     IC_MU_SPEED: 1
     V_rated: 500

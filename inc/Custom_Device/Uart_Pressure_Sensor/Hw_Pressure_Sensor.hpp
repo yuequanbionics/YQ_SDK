@@ -104,32 +104,6 @@ struct Sensor_Data_Result {
     std::string error_message;  // 错误信息
 };
 
-// 原子响应标志结构
-struct AtomicResponseFlag {
-    std::atomic<bool> received{false};
-    std::atomic<uint64_t> timestamp{0};
-    // std::vector<u16> data;  // 直接存储数据,避免回调中的锁
-};
-
-struct ResponseTimeStats {
-    uint64_t min_time = UINT64_MAX;
-    uint64_t max_time = 0;
-    uint64_t total_time = 0;
-    uint32_t count = 0;
-    uint32_t timeout_count = 0;
-
-    void Update(uint64_t response_time) {
-        if (response_time < min_time) min_time = response_time;
-        if (response_time > max_time) max_time = response_time;
-        total_time += response_time;
-        count++;
-    }
-
-    uint64_t AverageTime() const {
-        return count > 0 ? total_time / count : 0;
-    }
-};
-
 typedef struct Serial_Data {
     // Head
     u16 Can_Id;
@@ -166,6 +140,9 @@ typedef struct Serial_Data {
 
 // 触觉传感器控制类
 class Hw_Pressure_Sensor : private Robot_Hardware {
+   private:
+    bool async_mode = false;  // 是否启用异步采集模式，默认为false，同步模式
+
    public:
     /* 构造函数 */
     Hw_Pressure_Sensor(void);
@@ -289,15 +266,6 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
     /* 解析设备信息 */
     void Parse_Device_Info(const Hw_Pressure_Sensor_Frame& frame);
 
-    /**
-     * @brief 等待传感器响应（同步模式）
-     * @param sensor_id 传感器ID
-     * @param request_time 请求时间戳
-     * @param timeout_ms 超时时间（毫秒）
-     * @return 是否收到响应
-     */
-    bool Wait_For_Response(u8 sensor_id, uint64_t timeout_ms);
-
     // ========== 设备状态管理 ==========
     /* 记录设备请求发送 */
     void Record_Device_Request(u8 sensor_id);
@@ -338,8 +306,6 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
     std::atomic<bool> periodic_collection_active_{false};
     std::atomic<u32> collection_interval_{20};
     std::atomic<u32> response_timeout_ms_{5};
-    std::atomic<uint64_t> last_request_timestamp_{0};
-    std::array<int, 8> consecutive_timeout_count_;  // 连续超时计数
 
     // 状态管理（需要锁保护）
     std::mutex status_mutex_;
@@ -350,13 +316,13 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
     std::map<u8, std::vector<u16>> sensor_data_map_;  // 传感器数据字典
     std::map<u8, uint64_t> data_timestamp_map_;       // 数据时间戳字典
 
-    std::thread collection_thread_;
-
-    // 原子响应标志（无锁操作）
-    std::array<AtomicResponseFlag, 8> atomic_response_flags_;  // 索引1-6对应传感器ID1-6
-
-    std::map<u8, ResponseTimeStats> response_time_stats_;
-    std::mutex stats_mutex_;
+    // --- 异步采集 ---
+    std::mutex collection_mutex_;                    // 采集状态变量
+    std::atomic<int> current_sensor_index_{-1};      // 当前应发送请求的传感器索引
+    std::atomic<bool> waiting_for_response_{false};  // 是否正在等待上一个传感器的响应
+    std::vector<u8> sensor_collection_order_;        // 传感器轮询顺序
+    std::map<u8, bool> sensor_response_received_;    // 传感器响应到达标志
+    // --- 异步采集 ---
 
     // 回调函数
     std::function<void(u8 sensor_id, const std::vector<u16>& data)> data_callback_;

@@ -29,7 +29,8 @@ config:
     Motor_AB_Mirror: false
     Motor_current_sample_offset: 10
 
-    Dead_Time: 0
+    MD_K: 10
+    Dead_Time: 1
     V_IC_MU_FORCE: 200
     IC_MU_SPEED: 1
     V_rated: 700
@@ -68,7 +69,8 @@ config:
     Motor_AB_Mirror: false
     Motor_current_sample_offset: 10
 
-    Dead_Time: 0
+    MD_K: 10
+    Dead_Time: 1
     V_IC_MU_FORCE: 200
     IC_MU_SPEED: 1
     V_rated: 500

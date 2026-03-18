@@ -264,7 +264,7 @@ void Tactile_Sensor_Init(void) {
 #ifndef HAVE_ROS
 int main(int argc, char* argv[])
 #else
-int hardware_init(string ADDR, string Config)
+int hardware_init(const string& ADDR, const string& Config)
 #endif
 {
     X_Hand = new Robot_Hardware();
