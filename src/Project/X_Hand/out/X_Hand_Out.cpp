@@ -276,11 +276,11 @@ int hardware_init(const string& ADDR, const string& Config)
 #ifndef HAVE_ROS
     filesystem::path exe_path = filesystem::canonical("/proc/self/exe");
     filesystem::path dir_path = exe_path.parent_path();
-    string ADDR = dir_path.string() + "/../config/YAML/X_Hand/out/mz_1.0/TOP.yaml";
+    string ADDR = dir_path.string() + "/../config/YAML/X_Hand/out/mz_g_1.0/TOP.yaml";
     // string Config = "None";
     string Config = R"(
 PC_IP: 192.168.3.245
-SN: 1X1T2603005M
+SN: 1X1T2603005MG
 Boards:
   - Id: 101
     IP: 192.168.3.105

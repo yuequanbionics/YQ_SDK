@@ -2,6 +2,7 @@ config:
   cat_motor_device_config: &cat_motor_device_config
     <<: *Usr_Motor_Init_Config
     <<: *MZ_10MM_Motor_default_config
+    Gear_multiple: 40
 
   Motor_Config_Normal_0: &Motor_Config_Normal_0
     DeviceType: Motor_Device 
@@ -15,7 +16,7 @@ config:
       DeviceConfig: 
         <<: *cat_motor_device_config
         DI_I_MAX: 0.4
-        Gear_multiple: 20
+        Gear_multiple: 16
         
     - Name: Motor_2
       Id: 1
