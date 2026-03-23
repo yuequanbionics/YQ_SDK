@@ -164,7 +164,12 @@ private:
     std::shared_ptr<Device_class> s_device;
     int Call_Back_Status = 0;
     int Write_Flag = 0;
+    /* 减速比 */
     int Motor_Reduction_Ratio = 0;
+
+    /* 编码器输出分辨率 */
+    float Encoder_Res = 0.0f;
+    
     uint16_t Eyou_Kp = 0;
     float Speed_Angle_S = 0.0;
     float Acceleration = 0.0;

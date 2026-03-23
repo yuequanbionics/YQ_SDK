@@ -11,8 +11,9 @@ config:
 
     Eyou_Motor_Set_Reduction_Ratio: 121
     Eyou_Motor_Set_Offest: 60
-    Eyou_Motor_Set_Speed: 5
+    Eyou_Motor_Set_Speed: 18
     Ecvyou_Motor_dxfKp: 10240
+    Eyou_Motor_Encoder_Res: 65536.0
     # Eyou_Motor_Set_Acceleration: 1
     # Eyou_Motor_Set_Deceleration: 1
 
@@ -21,10 +22,20 @@ config:
 
     Eyou_Motor_Set_Reduction_Ratio: 121
     Eyou_Motor_Set_Offest: 30
-    Eyou_Motor_Set_Speed: 5
+    Eyou_Motor_Set_Speed: 18
     Ecvyou_Motor_dxfKp: 10240
+    Eyou_Motor_Encoder_Res: 65536.0
     # Eyou_Motor_Set_Acceleration: 1
     # Eyou_Motor_Set_Deceleration: 1
+
+  Eyou_Motor_PHU20_config: &Eyou_Motor_PHU20_config
+    <<: *Eyou_Init_Config 
+
+    Eyou_Motor_Set_Reduction_Ratio: 121
+    Eyou_Motor_Set_Offest: 30
+    Eyou_Motor_Set_Speed: 18
+    Ecvyou_Motor_dxfKp: 10240
+    Eyou_Motor_Encoder_Res: 524288.0
 
 
   

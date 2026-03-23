@@ -5,6 +5,7 @@
 #include <thread>
 
 #include "Auto_Set_Id.hpp"
+#include "Battery_BMS_V2.hpp"
 #include "Custom_TOP.hpp"
 #include "Eyou_Motor_TOP.hpp"
 #include "HARDWARE_TOP.hpp"
@@ -116,6 +117,14 @@ shared_ptr<Device_class> TaiHu_Device_16;
 shared_ptr<Device_class> Classis_Motor_1;
 shared_ptr<Device_class> Classis_Motor_2;
 
+/**
+ * @brief 电池
+ */
+shared_ptr<Device_class> Battery_BMS_V2_1;
+shared_ptr<Device_class> Battery_BMS_V2_2;
+shared_ptr<Device_class> Battery_BMS_V2_3;
+shared_ptr<Device_class> Battery_BMS_V2_4;
+
 shared_ptr<Device_class> IMU_Device_1;
 shared_ptr<Device_class> IMU_Device_2;
 
@@ -153,6 +162,16 @@ IMU_YuanJi* IMU_Device_T2;
 Motor_BM_M1502D* Classis_Motor_T1;
 Motor_BM_M1502D* Classis_Motor_T2;
 
+BMS_V2_Protocol* Battery_BMS_V2_T1;
+BMS_V2_Protocol* Battery_BMS_V2_T2;
+BMS_V2_Protocol* Battery_BMS_V2_T3;
+BMS_V2_Protocol* Battery_BMS_V2_T4;
+
+BMS_Consolidated_Data current_data_1;  // 电池数据
+BMS_Consolidated_Data current_data_2;  // 电池数据
+BMS_Consolidated_Data current_data_3;  // 电池数据
+BMS_Consolidated_Data current_data_4;  // 电池数据
+
 float jia_pos[3];
 void Eyou_Thread(void) {
     while (1) {
@@ -169,6 +188,34 @@ void Eyou_Thread(void) {
     }
 }
 
+void Battery_BMS_V2_Init(void) {
+    if (Battery_BMS_V2_T1->Start_Data_Collection(Battery_BMS_V2_1, 1000) != 0) {
+        cout << "❌ 数据采集线程启动失败" << endl;
+        return;
+    }
+    if (Battery_BMS_V2_T2->Start_Data_Collection(Battery_BMS_V2_2, 1000) != 0) {
+        cout << "❌ 数据采集线程启动失败" << endl;
+        return;
+    }
+    if (Battery_BMS_V2_T3->Start_Data_Collection(Battery_BMS_V2_3, 1000) != 0) {
+        cout << "❌ 数据采集线程启动失败" << endl;
+        return;
+    }
+    if (Battery_BMS_V2_T4->Start_Data_Collection(Battery_BMS_V2_4, 1000) != 0) {
+        cout << "❌ 数据采集线程启动失败" << endl;
+        return;
+    }
+
+    sleep(2);  // 等待数据采集线程启动
+
+    // this_thread::sleep_for(std::chrono::milliseconds(350));
+
+    current_data_1 = Battery_BMS_V2_T1->Get_Consolidated_Data();
+    current_data_2 = Battery_BMS_V2_T2->Get_Consolidated_Data();
+    current_data_3 = Battery_BMS_V2_T3->Get_Consolidated_Data();
+    current_data_4 = Battery_BMS_V2_T4->Get_Consolidated_Data();
+}
+
 #ifndef HAVE_ROS
 int main(int argc, char* argv[])
 #else
@@ -182,6 +229,7 @@ int hardware_init(const string& ADDR, const string& Config)
     Test_Robot->Add_Device_Type("YuanJi_Custom_IMU", IMU_YuanJi_Init, IMU_YuanJi_CallBack_F, IMU_YuanJi_Delete_F);
     Test_Robot->Add_Device_Type(Led_Device_TYPE, Led_Device_Init, Led_Device_CallBack_F, Led_Device_Delete_F);
     Test_Robot->Add_Device_Type(BenMo_Custom_Motor_Type, Motor_Device_Init_BM_M1502D, Motor_Device_CallBack_BM_M1502D, Motor_Device_Delete_BM_M1502D);
+    Test_Robot->Add_Device_Type(Battery_BMS_V2_Custom_Type, Battery_BMS_V2_Device_Init, Battery_BMS_V2_Device_CallBack, Battery_BMS_V2_Device_Delete);
     // Test_Robot->Add_Device_Type(Auto_Set_Id_Type, Auto_Set_Id_Init, Auto_Set_Id_CallBack_F, Auto_Set_Id_Delete_F);
 
 #ifndef HAVE_ROS
@@ -238,6 +286,11 @@ int hardware_init(const string& ADDR, const string& Config)
     Classis_Motor_1 = Test_Robot->Get_Device_For_Name("BenMo_Motor");
     Classis_Motor_2 = Test_Robot->Get_Device_For_Name("BenMo_Motor1");
 
+    Battery_BMS_V2_1 = Test_Robot->Get_Device_For_Name("Battery_BMS_V2_1");
+    Battery_BMS_V2_2 = Test_Robot->Get_Device_For_Name("Battery_BMS_V2_2");
+    Battery_BMS_V2_3 = Test_Robot->Get_Device_For_Name("Battery_BMS_V2_3");
+    Battery_BMS_V2_4 = Test_Robot->Get_Device_For_Name("Battery_BMS_V2_4");
+
     Main_B* Main_Switch_Board_Control = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Main_Switch_Board));
     Main_B* Waist_Main_Switch_Board_Control = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Waist_Main_Switch_Board));
     Main_B* Chassis_Main_Switch_Board_Control = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Chassis_Main_Switch_Board));
@@ -274,9 +327,16 @@ int hardware_init(const string& ADDR, const string& Config)
     Classis_Motor_T1 = static_cast<Motor_BM_M1502D*>(Test_Robot->Get_Control_Class(Classis_Motor_1));
     Classis_Motor_T2 = static_cast<Motor_BM_M1502D*>(Test_Robot->Get_Control_Class(Classis_Motor_2));
 
+    Battery_BMS_V2_T1 = static_cast<BMS_V2_Protocol*>(Test_Robot->Get_Control_Class(Battery_BMS_V2_1));
+    Battery_BMS_V2_T2 = static_cast<BMS_V2_Protocol*>(Test_Robot->Get_Control_Class(Battery_BMS_V2_2));
+    Battery_BMS_V2_T3 = static_cast<BMS_V2_Protocol*>(Test_Robot->Get_Control_Class(Battery_BMS_V2_3));
+    Battery_BMS_V2_T4 = static_cast<BMS_V2_Protocol*>(Test_Robot->Get_Control_Class(Battery_BMS_V2_4));
+
     IMU_Device_T1->Start_AHRS_Mod_And_Init(IMU_Device_1);
     usleep(100);
     IMU_Device_T2->Start_AHRS_Mod_And_Init(IMU_Device_2);
+
+    Battery_BMS_V2_Init();
 
 #ifdef W_BOT_ACTION
     float SetPos = 0.0f;

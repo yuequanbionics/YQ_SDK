@@ -35,12 +35,13 @@ config:
     IC_MU_SPEED: 1
     V_rated: 700
 
-    DI_I_MAX: 0.4            
+    DI_I_MAX: 2.0           
     I_Hardware_Max: 2
     Current_Amplifier_Gain: 15
     Motor_CMD_I_To_Force_K: 1.0
-    Ceil_Temperature_Alarm_Th: 90   # 电机过温告警阈值
-    Ceil_Temperature_Protect_Th: 100 # 电机过温保护阈值
+    Ceil_Temperature_Alarm_Th: 90     # 电机过温告警阈值
+    Ceil_Temperature_Protect_Th: 100  # 电机过温保护阈值
+    NTC_Bx: 3950                      # 热敏电阻 B 值
 
     Gear_Ratio: 27.16875
     Gear_multiple: 50
@@ -79,8 +80,9 @@ config:
     I_Hardware_Max: 2
     Current_Amplifier_Gain: 15
     Motor_CMD_I_To_Force_K: 1.0
-    Ceil_Temperature_Alarm_Th: 70   # 电机过温告警阈值
-    Ceil_Temperature_Protect_Th: 90 # 电机过温保护阈值
+    Ceil_Temperature_Alarm_Th: 70     # 电机过温告警阈值
+    Ceil_Temperature_Protect_Th: 90   # 电机过温保护阈值
+    NTC_Bx: 3950                      # 热敏电阻 B 值
 
     Gear_Ratio: 54
     Gear_multiple: 10

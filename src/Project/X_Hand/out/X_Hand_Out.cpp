@@ -277,15 +277,15 @@ int hardware_init(const string& ADDR, const string& Config)
     filesystem::path exe_path = filesystem::canonical("/proc/self/exe");
     filesystem::path dir_path = exe_path.parent_path();
     string ADDR = dir_path.string() + "/../config/YAML/X_Hand/out/mz_1.0/TOP.yaml";
-    string Config = "None";
-//     string Config = R"(
-// PC_IP: 192.168.3.245
-// SN: asdf1234567
-// Boards:
-//   - Id: 101
-//     IP: 192.168.3.105
-//     # Port: 19001
-// )";
+    // string Config = "None";
+    string Config = R"(
+PC_IP: 192.168.3.245
+SN: 1X1T2603005M
+Boards:
+  - Id: 101
+    IP: 192.168.3.105
+    # Port: 19001
+)";
 #endif
     if (X_Hand->Init_TOP(ADDR, Config) != 0) {
         cout << "Init_ERR" << endl;

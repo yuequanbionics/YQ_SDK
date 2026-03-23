@@ -19,7 +19,6 @@ import:
   Timer_Config: "Timer_Config.yaml"
   Can_Config : "../../Device_Config/Can_Config.yaml"
   Motor_Config: "../../Device_Config/TaiHu_Config.yaml"
-  BM_Motor_Config: "../../Device_Config/BM_Motor_Config.yaml"
   Motor_Config0: "config.yaml"
   Motors: "Device.yaml"
 

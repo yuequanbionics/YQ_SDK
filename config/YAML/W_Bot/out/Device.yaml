@@ -40,6 +40,18 @@ config:
     <<: *BM_M1502D_Motor8_config
 
   #--------------
+  # @brief 长虹电池相关配置
+  #--------------
+  ch_battery_v2_1_custom_device_config: &ch_battery_v2_1_custom_device_config
+    <<: *Battery_BMS_V2_1_config
+  ch_battery_v2_2_custom_device_config: &ch_battery_v2_2_custom_device_config
+    <<: *Battery_BMS_V2_2_config
+  ch_battery_v2_3_custom_device_config: &ch_battery_v2_3_custom_device_config
+    <<: *Battery_BMS_V2_3_config
+  ch_battery_v2_4_custom_device_config: &ch_battery_v2_4_custom_device_config
+    <<: *Battery_BMS_V2_4_config
+  
+  #--------------
   # @brief  Eyou电机 腰部
   #--------------
   Eyou_Motor_Yaw: &Eyou_Motor_Yaw
@@ -243,6 +255,39 @@ config:
       DeviceConfig: *bm_m1502d_Motor_4_custom_device_config
 
   #--------------
+  # @brief  长虹电池 设备
+  #--------------
+  Battery_BMS_V2_Knee_Device: &Battery_BMS_V2_Knee_Device
+    - Name: Battery_BMS_V2_1
+      DeviceType: Battery_BMS_V2_Custom
+      Id: 1
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: *ch_battery_v2_1_custom_device_config
+
+    - Name: Battery_BMS_V2_2
+      DeviceType: Battery_BMS_V2_Custom
+      Id: 2
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: *ch_battery_v2_2_custom_device_config
+
+  Battery_BMS_V2_Device: &Battery_BMS_V2_Device
+    - Name: Battery_BMS_V2_3
+      DeviceType: Battery_BMS_V2_Custom
+      Id: 3
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: *ch_battery_v2_3_custom_device_config
+
+    - Name: Battery_BMS_V2_4
+      DeviceType: Battery_BMS_V2_Custom
+      Id: 4
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: *ch_battery_v2_4_custom_device_config
+
+  #--------------
   # @brief  灯带设备
   #--------------
   Tape_Lights_Device: &Tape_Lights_Device
@@ -404,6 +449,7 @@ Base_Node:
       --: *Eyou_Motor_Hip
       --: *Eyou_Motor_Knee
       --: *Eyou_Motor_Ankel
+      --: *Battery_BMS_V2_Knee_Device
 
   - Name: Chassis_Main_Switch_Board
     Range_Name: W_Bot
@@ -443,6 +489,7 @@ Base_Node:
       --: *Led_Belt_Chassis_Config
       --: *Tape_Cha_IMU_Device
       --: *BenMo_Motor_Chassis_Wheel
+      --: *Battery_BMS_V2_Device
 
 
 

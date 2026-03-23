@@ -376,6 +376,7 @@ function(import_shared_library TARGET_NAME)
 endfunction()
 
 # script auto start -> lib_add
+    import_shared_library(Battery_BMS_V2_Device)
     import_shared_library(Motor_Device)
     import_shared_library(Pressure_Sensor_Custom_Device)
     import_shared_library(Battery_BMS_Device)

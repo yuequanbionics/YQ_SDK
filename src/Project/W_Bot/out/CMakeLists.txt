@@ -24,6 +24,7 @@ if(${OUT})
         Led_Device
         Uart_Custom_Dome_Device
         Motor_Device_BenMo
+        Battery_BMS_V2_Device
         IMU_Device_YuanJi
     )
 
@@ -38,6 +39,7 @@ if(${OUT})
         Led_Device
         Uart_Custom_Dome_Device
         Motor_Device_BenMo
+        Battery_BMS_V2_Device
         IMU_Device_YuanJi
 
         pthread
