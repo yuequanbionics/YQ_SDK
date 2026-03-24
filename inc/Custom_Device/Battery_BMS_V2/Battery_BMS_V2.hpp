@@ -170,20 +170,20 @@ typedef struct {
     // 0x01 电池基本信息
     uint8_t cell_count;         // 电池单体数
     uint8_t ntc_count;          // NTC数量
-    uint8_t nominal_capacity;   // 电池标称容量（单位：0.1AH）
-    uint16_t software_version;  // BMS软件版本号（单位：0.01）
-    uint16_t hardware_version;  // BMS硬件版本号（单位：0.01）
+    float nominal_capacity;   // 电池标称容量（单位：0.1AH）
+    float software_version;  // BMS软件版本号（单位：0.01）
+    float hardware_version;  // BMS硬件版本号（单位：0.01）
 
     // 0x02 电池能源信息
-    uint16_t total_voltage;  // 总电压（单位：0.01V）
-    int16_t current;         // 电流（有符号，单位：0.01A）
+    float total_voltage;  // 总电压（单位：0.01V）
+    float current;         // 电流（有符号，单位：0.01A）
     uint8_t soc;             // SOC（单位：1%）
-    uint16_t soh;            // SOH（单位：0.1%）
+    float soh;            // SOH（单位：0.1%）
 
     // 0x03 电池容量温度信息
-    uint16_t actual_capacity;  // 电池实际容量（单位：0.01AH）
+    float actual_capacity;  // 电池实际容量（单位：0.01AH）
     uint16_t cycle_count;      // 循环次数
-    int16_t cell_temperature;  // 电芯温度（有符号，单位：0.01℃）
+    float cell_temperature;  // 电芯温度（有符号，单位：0.01℃）
     int8_t mos_temperature;    // MOS温度（有符号，单位：1℃）
 
     // 0x04 电池状态信息
@@ -195,9 +195,9 @@ typedef struct {
     uint8_t system_status;             // 系统状态（0空闲 1充电 2放电）
 
     // 0x05 电池最高最低电压信息
-    uint16_t max_cell_voltage;  // 单体最高电压（单位：0.001V）
+    float max_cell_voltage;  // 单体最高电压（单位：0.001V）
     uint8_t max_cell_index;     // 单体最高电压序号
-    uint16_t min_cell_voltage;  // 单体最低电压（单位：0.001V）
+    float min_cell_voltage;  // 单体最低电压（单位：0.001V）
     uint8_t min_cell_index;     // 单体最低电压序号
 
     // 0x06 告警&保护信息
@@ -243,7 +243,7 @@ typedef struct {
     uint8_t protect_reserved;
 
     // 0x0A~0x0E 单体电压详细信息（最多15节）
-    uint16_t cell_voltages[15];  // 单体电压数组（单位：0.001V）
+    float cell_voltages[15];  // 单体电压数组（单位：0.001V）
 
     // 0x0F 电池UID信息
     uint32_t uid;  // 32位电池唯一UID

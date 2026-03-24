@@ -15,6 +15,7 @@ config:
     Eyou_Motor_Set_Offest: 60
     Eyou_Motor_Set_Speed: 18
     Ecvyou_Motor_dxfKp: 10240
+    Eyou_Motor_Encoder_Res: 65536.0
 
   Eyou_Motor_PH25_config: &Eyou_Motor_PH25_config
     <<: *Eyou_Init_Config 
@@ -23,6 +24,7 @@ config:
     Eyou_Motor_Set_Offest: 30
     Eyou_Motor_Set_Speed: 18
     Ecvyou_Motor_dxfKp: 10240
+    Eyou_Motor_Encoder_Res: 65536.0
 
   #--------------
   # @brief 钛虎电机相关配置
@@ -163,25 +165,25 @@ config:
   Battery_BMS_1_config: &Battery_BMS_V2_1_config
     <<: *Battery_BMS_V2_Base_Config
 
-    BMS_CAN_ID: 0x402  # 电机ID范围0x102 ~ 0x7FE
+    BMS_CAN_ID: 0x401  # 电机ID范围0x102 ~ 0x7FE
 
   # 电池-2配置  
   Battery_BMS_2_config: &Battery_BMS_V2_2_config
     <<: *Battery_BMS_V2_Base_Config
 
-    BMS_CAN_ID: 0x403
+    BMS_CAN_ID: 0x402
 
   # 电池-3配置
   Battery_BMS_3_config: &Battery_BMS_V2_3_config
     <<: *Battery_BMS_V2_Base_Config
 
-    BMS_CAN_ID: 0x404
+    BMS_CAN_ID: 0x403
 
   # 电池-4配置
   Battery_BMS_4_config: &Battery_BMS_V2_4_config
     <<: *Battery_BMS_V2_Base_Config
 
-    BMS_CAN_ID: 0x405
+    BMS_CAN_ID: 0x404
 
   #--------------
   # @brief W-Bot灯带相关配置

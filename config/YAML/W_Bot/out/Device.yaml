@@ -257,7 +257,7 @@ config:
   #--------------
   # @brief  长虹电池 设备
   #--------------
-  Battery_BMS_V2_Knee_Device: &Battery_BMS_V2_Knee_Device
+  Battery_BMS_V2_Device: &Battery_BMS_V2_Device
     - Name: Battery_BMS_V2_1
       DeviceType: Battery_BMS_V2_Custom
       Id: 1
@@ -272,7 +272,7 @@ config:
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *ch_battery_v2_2_custom_device_config
 
-  Battery_BMS_V2_Device: &Battery_BMS_V2_Device
+  Battery_BMS_V2_Knee_Device: &Battery_BMS_V2_Knee_Device
     - Name: Battery_BMS_V2_3
       DeviceType: Battery_BMS_V2_Custom
       Id: 3

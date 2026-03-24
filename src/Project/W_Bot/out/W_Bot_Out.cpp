@@ -189,6 +189,18 @@ void Eyou_Thread(void) {
 }
 
 void Battery_BMS_V2_Init(void) {
+    // 启动信息
+    cout << "===== BMS V2.2协议测试程序启动 =====" << endl;
+    cout << "BMS设备CAN ID: 0x" << hex << Battery_BMS_V2_T1->Get_BMS_CAN_ID() << dec << endl;
+
+    // 唤醒BMS设备（如果处于低功耗模式）
+    if (Battery_BMS_V2_T1->Is_Low_Power_Mode()) {
+        cout << "检测到BMS处于低功耗模式,正在唤醒..." << endl;
+        if (Battery_BMS_V2_T1->Wake_Up_BMS(Battery_BMS_V2_1) != 0) {
+            cout << "BMS唤醒失败,程序退出" << endl;
+        }
+    }
+
     if (Battery_BMS_V2_T1->Start_Data_Collection(Battery_BMS_V2_1, 1000) != 0) {
         cout << "❌ 数据采集线程启动失败" << endl;
         return;
