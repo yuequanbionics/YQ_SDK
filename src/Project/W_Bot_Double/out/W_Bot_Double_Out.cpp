@@ -5,13 +5,12 @@
 #include <thread>
 
 #include "Auto_Set_Id.hpp"
-#include "Battery_BMS_V2.hpp"
 #include "Custom_TOP.hpp"
-#include "Eyou_Motor_TOP.hpp"
+// #include "Eyou_Motor_TOP.hpp"
 #include "HARDWARE_TOP.hpp"
-#include "IMU_YuanJi.hpp"
-#include "Led_Device.hpp"
-#include "Motor_BM_M1502D.hpp"
+// #include "IMU_YuanJi.hpp"
+// #include "Led_Device.hpp"
+// #include "Motor_BM_M1502D.hpp"
 #include "Motor_TOP.hpp"
 #include "Motor_TaiHu.hpp"
 #include "Switch_Board.hpp"
@@ -31,12 +30,12 @@ float ppppos = 0;
 
 int opasopa = 1000;
 
-typedef struct W_Bot_Out_Data {
-    float Eyou_Yaw;
-    float Eyou_Roll;
-    float Eyou_Hip;
-    float Eyou_Knee;
-    float Eyou_Ankel;
+typedef struct W_Bot_Double_Out_Data {
+    // float Eyou_Yaw;
+    // float Eyou_Roll;
+    // float Eyou_Hip;
+    // float Eyou_Knee;
+    // float Eyou_Ankel;
 
     float left_shoulder_pitch;
     float left_shoulder_roll;
@@ -57,13 +56,13 @@ typedef struct W_Bot_Out_Data {
     float head_pitch;
     float head_yaw;
 
-} W_Bot_Out_Data;
+} W_Bot_Double_Out_Data;
 
 /**
  * @brief W_Bot数据结构体
  */
-W_Bot_Out_Data W_Bot_OD_Get;
-W_Bot_Out_Data W_Bot_OD_Set;
+W_Bot_Double_Out_Data W_Bot_OD_Get;
+W_Bot_Double_Out_Data W_Bot_OD_Set;
 
 Robot_Hardware* Test_Robot;
 
@@ -72,20 +71,20 @@ Robot_Hardware* Test_Robot;
  */
 RGB_Data RGB_Datas[2];
 
-/**
- * @brief 灯带设备
- */
-shared_ptr<Device_class> Led_Shoulder_Devices;
-shared_ptr<Device_class> Led_Chassis_Devices;
-/**
- * @brief 下肢电机
- */
-shared_ptr<Device_class> Lower_Limbs_Motor_Waist_Roll;
-shared_ptr<Device_class> Lower_Limbs_Motor_Waist_Yaw;
-shared_ptr<Device_class> Lower_Limbs_Motor_Knee;
-shared_ptr<Device_class> Lower_Limbs_Motor_Hip;
-shared_ptr<Device_class> Lower_Limbs_Motor_Ankel;
-shared_ptr<Device_class> Lower_Limbs_Motor_Ankel_Right;
+// /**
+//  * @brief 灯带设备
+//  */
+// shared_ptr<Device_class> Led_Shoulder_Devices;
+// shared_ptr<Device_class> Led_Chassis_Devices;
+// /**
+//  * @brief 下肢电机
+//  */
+// shared_ptr<Device_class> Lower_Limbs_Motor_Waist_Roll;
+// shared_ptr<Device_class> Lower_Limbs_Motor_Waist_Yaw;
+// shared_ptr<Device_class> Lower_Limbs_Motor_Knee;
+// shared_ptr<Device_class> Lower_Limbs_Motor_Hip;
+// shared_ptr<Device_class> Lower_Limbs_Motor_Ankel;
+// shared_ptr<Device_class> Lower_Limbs_Motor_Ankel_Right;
 /**
  * @brief 左臂电机
  */
@@ -111,28 +110,20 @@ shared_ptr<Device_class> TaiHu_Device_14;
  */
 shared_ptr<Device_class> TaiHu_Device_15;
 shared_ptr<Device_class> TaiHu_Device_16;
-/**
- * @brief 底盘轮子
- */
-shared_ptr<Device_class> Classis_Motor_1;
-shared_ptr<Device_class> Classis_Motor_2;
+// /**
+//  * @brief 底盘轮子
+//  */
+// shared_ptr<Device_class> Classis_Motor_1;
+// shared_ptr<Device_class> Classis_Motor_2;
 
-/**
- * @brief 电池
- */
-shared_ptr<Device_class> Battery_BMS_V2_1;
-shared_ptr<Device_class> Battery_BMS_V2_2;
-shared_ptr<Device_class> Battery_BMS_V2_3;
-shared_ptr<Device_class> Battery_BMS_V2_4;
+// shared_ptr<Device_class> IMU_Device_1;
+// shared_ptr<Device_class> IMU_Device_2;
 
-shared_ptr<Device_class> IMU_Device_1;
-shared_ptr<Device_class> IMU_Device_2;
-
-Eyou_Motor* Lower_Limbs_Motor_Waist_Roll_Ctl;
-Eyou_Motor* Lower_Limbs_Motor_Waist_Yaw_Ctl;
-Eyou_Motor* Lower_Limbs_Motor_Knee_Ctl;
-Eyou_Motor* Lower_Limbs_Motor_Hip_Ctl;
-Eyou_Motor* Lower_Limbs_Motor_Ankel_Ctl;
+// Eyou_Motor* Lower_Limbs_Motor_Waist_Roll_Ctl;
+// Eyou_Motor* Lower_Limbs_Motor_Waist_Yaw_Ctl;
+// Eyou_Motor* Lower_Limbs_Motor_Knee_Ctl;
+// Eyou_Motor* Lower_Limbs_Motor_Hip_Ctl;
+// Eyou_Motor* Lower_Limbs_Motor_Ankel_Ctl;
 
 Motor_TaiHu* TaiHu_Device_T1;
 Motor_TaiHu* TaiHu_Device_T2;
@@ -153,92 +144,53 @@ Motor_TaiHu* TaiHu_Device_T14;
 Motor_TaiHu* TaiHu_Device_T15;
 Motor_TaiHu* TaiHu_Device_T16;
 
-Led_Device* Led_Device_Shoulder_Ptr;
-Led_Device* Led_Device_Chassis_Ptr;
+// Led_Device* Led_Device_Shoulder_Ptr;
+// Led_Device* Led_Device_Chassis_Ptr;
 
-IMU_YuanJi* IMU_Device_T1;
-IMU_YuanJi* IMU_Device_T2;
+// IMU_YuanJi* IMU_Device_T1;
+// IMU_YuanJi* IMU_Device_T2;
 
-Motor_BM_M1502D* Classis_Motor_T1;
-Motor_BM_M1502D* Classis_Motor_T2;
-
-BMS_V2_Protocol* Battery_BMS_V2_T1;
-BMS_V2_Protocol* Battery_BMS_V2_T2;
-BMS_V2_Protocol* Battery_BMS_V2_T3;
-BMS_V2_Protocol* Battery_BMS_V2_T4;
+// Motor_BM_M1502D* Classis_Motor_T1;
+// Motor_BM_M1502D* Classis_Motor_T2;
 
 float jia_pos[3];
-void Eyou_Thread(void) {
-    while (1) {
-        Lower_Limbs_Motor_Ankel_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Ankel, &jia_pos[0], &jia_pos[1], &jia_pos[2]);
-        usleep(500);
-        Lower_Limbs_Motor_Knee_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Knee, &jia_pos[0], &jia_pos[1], &jia_pos[2]);
-        usleep(500);
-        Lower_Limbs_Motor_Hip_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Hip, &jia_pos[0], &jia_pos[1], &jia_pos[2]);
-        usleep(500);
-        Lower_Limbs_Motor_Waist_Roll_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Roll, &jia_pos[0], &jia_pos[1], &jia_pos[2]);
-        usleep(500);
-        Lower_Limbs_Motor_Waist_Yaw_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Yaw, &jia_pos[0], &jia_pos[1], &jia_pos[2]);
-        usleep(400000);
-    }
-}
+// void Eyou_Thread(void) {
+//     while (1) {
+//         Lower_Limbs_Motor_Ankel_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Ankel, &jia_pos[0], &jia_pos[1], &jia_pos[2]);
+//         usleep(500);
+//         Lower_Limbs_Motor_Knee_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Knee, &jia_pos[0], &jia_pos[1], &jia_pos[2]);
+//         usleep(500);
+//         Lower_Limbs_Motor_Hip_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Hip, &jia_pos[0], &jia_pos[1], &jia_pos[2]);
+//         usleep(500);
+//         Lower_Limbs_Motor_Waist_Roll_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Roll, &jia_pos[0], &jia_pos[1], &jia_pos[2]);
+//         usleep(500);
+//         Lower_Limbs_Motor_Waist_Yaw_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Yaw, &jia_pos[0], &jia_pos[1], &jia_pos[2]);
+//         usleep(400000);
+//     }
+// }
 
-void Battery_BMS_V2_Init(void) {
-    // 启动信息
-    cout << "===== BMS V2.2协议测试程序启动 =====" << endl;
-    cout << "BMS设备CAN ID: 0x" << hex << Battery_BMS_V2_T1->Get_BMS_CAN_ID() << dec << endl;
-
-    // 唤醒BMS设备（如果处于低功耗模式）
-    if (Battery_BMS_V2_T1->Is_Low_Power_Mode()) {
-        cout << "检测到BMS处于低功耗模式,正在唤醒..." << endl;
-        if (Battery_BMS_V2_T1->Wake_Up_BMS(Battery_BMS_V2_1) != 0) {
-            cout << "BMS唤醒失败,程序退出" << endl;
-        }
-    }
-
-    if (Battery_BMS_V2_T1->Start_Data_Collection(Battery_BMS_V2_1, 1000) != 0) {
-        cout << "❌ 数据采集线程启动失败" << endl;
-        return;
-    }
-    if (Battery_BMS_V2_T2->Start_Data_Collection(Battery_BMS_V2_2, 1000) != 0) {
-        cout << "❌ 数据采集线程启动失败" << endl;
-        return;
-    }
-    if (Battery_BMS_V2_T3->Start_Data_Collection(Battery_BMS_V2_3, 1000) != 0) {
-        cout << "❌ 数据采集线程启动失败" << endl;
-        return;
-    }
-    if (Battery_BMS_V2_T4->Start_Data_Collection(Battery_BMS_V2_4, 1000) != 0) {
-        cout << "❌ 数据采集线程启动失败" << endl;
-        return;
-    }
-
-    sleep(2);  // 等待数据采集线程启动
-
-    // this_thread::sleep_for(std::chrono::milliseconds(350));
-}
+// #define W_BOT_ACTION
 
 #ifndef HAVE_ROS
 int main(int argc, char* argv[])
 #else
-int hardware_init(const string& ADDR, const string& Config)
+int hardware_init(string ADDR, string Config)
 #endif
 {
     Test_Robot = new Robot_Hardware();
     Test_Robot->Add_Device_Type(Switch_Board_Type, Switch_Board_Device_Init, Switch_Board_Device_CallBack_F, Switch_Board_Device_Delete_F);
-    Test_Robot->Add_Device_Type("Eyou_Custom_Motor_TOP", Eyou_Custom_Motor_Device_Init, Eyou_Custom_Motor_Device_CallBack_F, Eyou_Custom_Motor_Device_Delete_F);
+    // Test_Robot->Add_Device_Type("Eyou_Custom_Motor_TOP", Eyou_Custom_Motor_Device_Init, Eyou_Custom_Motor_Device_CallBack_F, Eyou_Custom_Motor_Device_Delete_F);
     Test_Robot->Add_Device_Type("TaiHu_Custom_Motor", Motor_Device_Init_TaiHu, Motor_Device_CallBack_TaiHu, Motor_Device_Delete_TaiHu);
-    Test_Robot->Add_Device_Type("YuanJi_Custom_IMU", IMU_YuanJi_Init, IMU_YuanJi_CallBack_F, IMU_YuanJi_Delete_F);
-    Test_Robot->Add_Device_Type(Led_Device_TYPE, Led_Device_Init, Led_Device_CallBack_F, Led_Device_Delete_F);
-    Test_Robot->Add_Device_Type(BenMo_Custom_Motor_Type, Motor_Device_Init_BM_M1502D, Motor_Device_CallBack_BM_M1502D, Motor_Device_Delete_BM_M1502D);
-    Test_Robot->Add_Device_Type(Battery_BMS_V2_Custom_Type, Battery_BMS_V2_Device_Init, Battery_BMS_V2_Device_CallBack, Battery_BMS_V2_Device_Delete);
+    // Test_Robot->Add_Device_Type("YuanJi_Custom_IMU", IMU_YuanJi_Init, IMU_YuanJi_CallBack_F, IMU_YuanJi_Delete_F);
+    // Test_Robot->Add_Device_Type(Led_Device_TYPE, Led_Device_Init, Led_Device_CallBack_F, Led_Device_Delete_F);
+    // Test_Robot->Add_Device_Type(BenMo_Custom_Motor_Type, Motor_Device_Init_BM_M1502D, Motor_Device_CallBack_BM_M1502D, Motor_Device_Delete_BM_M1502D);
     // Test_Robot->Add_Device_Type(Auto_Set_Id_Type, Auto_Set_Id_Init, Auto_Set_Id_CallBack_F, Auto_Set_Id_Delete_F);
 
 #ifndef HAVE_ROS
     filesystem::path exe_path = filesystem::canonical("/proc/self/exe");
     filesystem::path dir_path = exe_path.parent_path();
     std::cout << "程序所在目录: " << dir_path << std::endl;
-    string ADDR = dir_path.string() + "/../config/YAML/W_Bot/out/TOP.yaml";
+    string ADDR = dir_path.string() + "/../config/YAML/W_Bot_Double/out/TOP.yaml";
     string Config = "None";
 #endif
     if (Test_Robot->Init_TOP(ADDR, Config) != 0) {
@@ -251,14 +203,14 @@ int hardware_init(const string& ADDR, const string& Config)
     // return 0;
 
     const shared_ptr<Device_class> Main_Switch_Board = Test_Robot->Get_Device_For_Name("Main_Switch_Board");
-    const shared_ptr<Device_class> Waist_Main_Switch_Board = Test_Robot->Get_Device_For_Name("Waist_Main_Switch_Board");
-    const shared_ptr<Device_class> Chassis_Main_Switch_Board = Test_Robot->Get_Device_For_Name("Chassis_Main_Switch_Board");
+    // const shared_ptr<Device_class> Waist_Main_Switch_Board = Test_Robot->Get_Device_For_Name("Waist_Main_Switch_Board");
+    // const shared_ptr<Device_class> Chassis_Main_Switch_Board = Test_Robot->Get_Device_For_Name("Chassis_Main_Switch_Board");
 
-    Lower_Limbs_Motor_Waist_Roll = Test_Robot->Get_Device_For_Name("Eyou_Waist_Roll");
-    Lower_Limbs_Motor_Waist_Yaw = Test_Robot->Get_Device_For_Name("Eyou_Waist_Yaw");
-    Lower_Limbs_Motor_Knee = Test_Robot->Get_Device_For_Name("Eyou_Knee");
-    Lower_Limbs_Motor_Hip = Test_Robot->Get_Device_For_Name("Eyou_Hip");
-    Lower_Limbs_Motor_Ankel = Test_Robot->Get_Device_For_Name("Eyou_Ankel");
+    // Lower_Limbs_Motor_Waist_Roll = Test_Robot->Get_Device_For_Name("Eyou_Waist_Roll");
+    // Lower_Limbs_Motor_Waist_Yaw = Test_Robot->Get_Device_For_Name("Eyou_Waist_Yaw");
+    // Lower_Limbs_Motor_Knee = Test_Robot->Get_Device_For_Name("Eyou_Knee");
+    // Lower_Limbs_Motor_Hip = Test_Robot->Get_Device_For_Name("Eyou_Hip");
+    // Lower_Limbs_Motor_Ankel = Test_Robot->Get_Device_For_Name("Eyou_Ankel");
 
     TaiHu_Device_1 = Test_Robot->Get_Device_For_Name("left_shoulder_pitch");
     TaiHu_Device_2 = Test_Robot->Get_Device_For_Name("left_shoulder_roll");
@@ -279,29 +231,24 @@ int hardware_init(const string& ADDR, const string& Config)
     TaiHu_Device_15 = Test_Robot->Get_Device_For_Name("head_pitch");
     TaiHu_Device_16 = Test_Robot->Get_Device_For_Name("head_yaw");
 
-    Led_Shoulder_Devices = Test_Robot->Get_Device_For_Name("Led_GoGo");
-    Led_Chassis_Devices = Test_Robot->Get_Device_For_Name("Led_Chassis_GoGo");
+    // Led_Shoulder_Devices = Test_Robot->Get_Device_For_Name("Led_GoGo");
+    // Led_Chassis_Devices = Test_Robot->Get_Device_For_Name("Led_Chassis_GoGo");
 
-    IMU_Device_1 = Test_Robot->Get_Device_For_Name("YuanJi_IMU1");
-    IMU_Device_2 = Test_Robot->Get_Device_For_Name("YuanJi_IMU2");
+    // IMU_Device_1 = Test_Robot->Get_Device_For_Name("YuanJi_IMU1");
+    // IMU_Device_2 = Test_Robot->Get_Device_For_Name("YuanJi_IMU2");
 
-    Classis_Motor_1 = Test_Robot->Get_Device_For_Name("BenMo_Motor");
-    Classis_Motor_2 = Test_Robot->Get_Device_For_Name("BenMo_Motor1");
-
-    Battery_BMS_V2_1 = Test_Robot->Get_Device_For_Name("Battery_BMS_V2_1");
-    Battery_BMS_V2_2 = Test_Robot->Get_Device_For_Name("Battery_BMS_V2_2");
-    Battery_BMS_V2_3 = Test_Robot->Get_Device_For_Name("Battery_BMS_V2_3");
-    Battery_BMS_V2_4 = Test_Robot->Get_Device_For_Name("Battery_BMS_V2_4");
+    // Classis_Motor_1 = Test_Robot->Get_Device_For_Name("BenMo_Motor");
+    // Classis_Motor_2 = Test_Robot->Get_Device_For_Name("BenMo_Motor1");
 
     Main_B* Main_Switch_Board_Control = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Main_Switch_Board));
-    Main_B* Waist_Main_Switch_Board_Control = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Waist_Main_Switch_Board));
-    Main_B* Chassis_Main_Switch_Board_Control = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Chassis_Main_Switch_Board));
+    // Main_B* Waist_Main_Switch_Board_Control = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Waist_Main_Switch_Board));
+    // Main_B* Chassis_Main_Switch_Board_Control = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Chassis_Main_Switch_Board));
 
-    Lower_Limbs_Motor_Waist_Roll_Ctl = static_cast<Eyou_Motor*>(Test_Robot->Get_Control_Class(Lower_Limbs_Motor_Waist_Roll));
-    Lower_Limbs_Motor_Waist_Yaw_Ctl = static_cast<Eyou_Motor*>(Test_Robot->Get_Control_Class(Lower_Limbs_Motor_Waist_Yaw));
-    Lower_Limbs_Motor_Knee_Ctl = static_cast<Eyou_Motor*>(Test_Robot->Get_Control_Class(Lower_Limbs_Motor_Knee));
-    Lower_Limbs_Motor_Hip_Ctl = static_cast<Eyou_Motor*>(Test_Robot->Get_Control_Class(Lower_Limbs_Motor_Hip));
-    Lower_Limbs_Motor_Ankel_Ctl = static_cast<Eyou_Motor*>(Test_Robot->Get_Control_Class(Lower_Limbs_Motor_Ankel));
+    // Lower_Limbs_Motor_Waist_Roll_Ctl = static_cast<Eyou_Motor*>(Test_Robot->Get_Control_Class(Lower_Limbs_Motor_Waist_Roll));
+    // Lower_Limbs_Motor_Waist_Yaw_Ctl = static_cast<Eyou_Motor*>(Test_Robot->Get_Control_Class(Lower_Limbs_Motor_Waist_Yaw));
+    // Lower_Limbs_Motor_Knee_Ctl = static_cast<Eyou_Motor*>(Test_Robot->Get_Control_Class(Lower_Limbs_Motor_Knee));
+    // Lower_Limbs_Motor_Hip_Ctl = static_cast<Eyou_Motor*>(Test_Robot->Get_Control_Class(Lower_Limbs_Motor_Hip));
+    // Lower_Limbs_Motor_Ankel_Ctl = static_cast<Eyou_Motor*>(Test_Robot->Get_Control_Class(Lower_Limbs_Motor_Ankel));
 
     TaiHu_Device_T1 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_1));
     TaiHu_Device_T2 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_2));
@@ -320,25 +267,18 @@ int hardware_init(const string& ADDR, const string& Config)
     TaiHu_Device_T15 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_15));
     TaiHu_Device_T16 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_16));
 
-    Led_Device_Shoulder_Ptr = (Led_Device*)Test_Robot->Get_Control_Class(Led_Shoulder_Devices);
-    Led_Device_Chassis_Ptr = (Led_Device*)Test_Robot->Get_Control_Class(Led_Chassis_Devices);
+    // Led_Device_Shoulder_Ptr = (Led_Device*)Test_Robot->Get_Control_Class(Led_Shoulder_Devices);
+    // Led_Device_Chassis_Ptr = (Led_Device*)Test_Robot->Get_Control_Class(Led_Chassis_Devices);
 
-    IMU_Device_T1 = static_cast<IMU_YuanJi*>(Test_Robot->Get_Control_Class(IMU_Device_1));
-    IMU_Device_T2 = static_cast<IMU_YuanJi*>(Test_Robot->Get_Control_Class(IMU_Device_2));
+    // IMU_Device_T1 = static_cast<IMU_YuanJi*>(Test_Robot->Get_Control_Class(IMU_Device_1));
+    // IMU_Device_T2 = static_cast<IMU_YuanJi*>(Test_Robot->Get_Control_Class(IMU_Device_2));
 
-    Classis_Motor_T1 = static_cast<Motor_BM_M1502D*>(Test_Robot->Get_Control_Class(Classis_Motor_1));
-    Classis_Motor_T2 = static_cast<Motor_BM_M1502D*>(Test_Robot->Get_Control_Class(Classis_Motor_2));
+    // Classis_Motor_T1 = static_cast<Motor_BM_M1502D*>(Test_Robot->Get_Control_Class(Classis_Motor_1));
+    // Classis_Motor_T2 = static_cast<Motor_BM_M1502D*>(Test_Robot->Get_Control_Class(Classis_Motor_2));
 
-    Battery_BMS_V2_T1 = static_cast<BMS_V2_Protocol*>(Test_Robot->Get_Control_Class(Battery_BMS_V2_1));
-    Battery_BMS_V2_T2 = static_cast<BMS_V2_Protocol*>(Test_Robot->Get_Control_Class(Battery_BMS_V2_2));
-    Battery_BMS_V2_T3 = static_cast<BMS_V2_Protocol*>(Test_Robot->Get_Control_Class(Battery_BMS_V2_3));
-    Battery_BMS_V2_T4 = static_cast<BMS_V2_Protocol*>(Test_Robot->Get_Control_Class(Battery_BMS_V2_4));
-
-    IMU_Device_T1->Start_AHRS_Mod_And_Init(IMU_Device_1);
-    usleep(100);
-    IMU_Device_T2->Start_AHRS_Mod_And_Init(IMU_Device_2);
-
-    Battery_BMS_V2_Init();
+    // IMU_Device_T1->Start_AHRS_Mod_And_Init(IMU_Device_1);
+    // usleep(100);
+    // IMU_Device_T2->Start_AHRS_Mod_And_Init(IMU_Device_2);
 
 #ifdef W_BOT_ACTION
     float SetPos = 0.0f;
@@ -391,16 +331,16 @@ int hardware_init(const string& ADDR, const string& Config)
     }
 
     // while(1){
-    usleep(350);
-    Lower_Limbs_Motor_Ankel_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel, ppppos, 1, 1, 1, 1);
-    usleep(350);
-    Lower_Limbs_Motor_Knee_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Knee, ppppos, 1, 1, 1, 1);
-    usleep(350);
-    Lower_Limbs_Motor_Hip_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Hip, ppppos, 1, 1, 1, 1);
-    usleep(350);
-    Lower_Limbs_Motor_Waist_Roll_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Roll, ppppos, 1, 1, 1, 1);
-    usleep(350);
-    Lower_Limbs_Motor_Waist_Yaw_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Yaw, ppppos, 1, 1, 1, 1);
+    // usleep(350);
+    // Lower_Limbs_Motor_Ankel_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel, ppppos, 1, 1, 1, 1);
+    // usleep(350);
+    // Lower_Limbs_Motor_Knee_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Knee, ppppos, 1, 1, 1, 1);
+    // usleep(350);
+    // Lower_Limbs_Motor_Hip_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Hip, ppppos, 1, 1, 1, 1);
+    // usleep(350);
+    // Lower_Limbs_Motor_Waist_Roll_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Roll, ppppos, 1, 1, 1, 1);
+    // usleep(350);
+    // Lower_Limbs_Motor_Waist_Yaw_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Yaw, ppppos, 1, 1, 1, 1);
 
     // ppppos = -ppppos;
     // }
@@ -425,7 +365,7 @@ int hardware_init(const string& ADDR, const string& Config)
     // Classis_Motor_T2->Send_MIT_PD_Control_Data(Classis_Motor_2, 0.0f, -60.0f, 0.0f, 0.0f, 1.0f);
 
     // Lower_Limbs_Motor_Ankel_Ctl->Read_KP_Data(Lower_Limbs_Motor_Ankel);
-    thread eyou_th(Eyou_Thread);
+    // thread eyou_th(Eyou_Thread);
 
     while (1) {
         // Lower_Limbs_Motor_Ankel_Ctl->Read_KP_Data(Lower_Limbs_Motor_Ankel);
@@ -433,11 +373,11 @@ int hardware_init(const string& ADDR, const string& Config)
 
         // Lower_Limbs_Motor_Ankel_Ctl ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel,     0  , 1, 1, 1, 1);
         // usleep(10000);
-        Lower_Limbs_Motor_Ankel_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel, 2.1, 1, 1, 1, 1);
-        // usleep(1000);
-        Lower_Limbs_Motor_Waist_Roll_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Roll, 2.1, 1, 1, 1, 1);
-        Lower_Limbs_Motor_Knee_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Knee, 2.1, 1, 1, 1, 1);
-        Lower_Limbs_Motor_Hip_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Hip, 2.1, 1, 1, 1, 1);
+        // Lower_Limbs_Motor_Ankel_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel, 2.1, 1, 1, 1, 1);
+        // // usleep(1000);
+        // Lower_Limbs_Motor_Waist_Roll_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Roll, 2.1, 1, 1, 1, 1);
+        // Lower_Limbs_Motor_Knee_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Knee, 2.1, 1, 1, 1, 1);
+        // Lower_Limbs_Motor_Hip_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Hip, 2.1, 1, 1, 1, 1);
         // Lower_Limbs_Motor_Ankel_Ctl     ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel,         10 , 1, 1, 1, 1);
 
         // Lower_Limbs_Motor_Waist_Yaw_Ctl ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Yaw,     0, 1, 1, 1, 1);
@@ -453,14 +393,14 @@ int hardware_init(const string& ADDR, const string& Config)
         // Lower_Limbs_Motor_Ankel_Ctl     ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel,         W_Bot_OD_Set.Eyou_Ankel , Eyou_Speed, 1, Eyou_Acc, Eyou_Dec);
 
         // Lower_Limbs_Motor_Waist_Yaw_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Yaw, &W_Bot_OD_Get.Eyou_Yaw, &Eyou_Speed, &qqqq);
-        Lower_Limbs_Motor_Knee_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Knee, &W_Bot_OD_Get.Eyou_Knee, &Eyou_Speed, &qqqq);
-        Lower_Limbs_Motor_Waist_Roll_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Roll, &W_Bot_OD_Get.Eyou_Roll, &Eyou_Speed, &qqqq);
-        Lower_Limbs_Motor_Hip_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Hip, &W_Bot_OD_Get.Eyou_Hip, &Eyou_Speed, &qqqq);
-        Lower_Limbs_Motor_Ankel_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Ankel, &W_Bot_OD_Get.Eyou_Ankel, &Eyou_Speed, &qqqq);
-        printf("%f\r\n", W_Bot_OD_Get.Eyou_Hip);
-        printf("%f\r\n", W_Bot_OD_Get.Eyou_Knee);
-        printf("%f\r\n", W_Bot_OD_Get.Eyou_Roll);
-        printf("%f\r\n", W_Bot_OD_Get.Eyou_Ankel);
+        // Lower_Limbs_Motor_Knee_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Knee, &W_Bot_OD_Get.Eyou_Knee, &Eyou_Speed, &qqqq);
+        // Lower_Limbs_Motor_Waist_Roll_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Roll, &W_Bot_OD_Get.Eyou_Roll, &Eyou_Speed, &qqqq);
+        // Lower_Limbs_Motor_Hip_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Hip, &W_Bot_OD_Get.Eyou_Hip, &Eyou_Speed, &qqqq);
+        // Lower_Limbs_Motor_Ankel_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Ankel, &W_Bot_OD_Get.Eyou_Ankel, &Eyou_Speed, &qqqq);
+        // printf("%f\r\n", W_Bot_OD_Get.Eyou_Hip);
+        // printf("%f\r\n", W_Bot_OD_Get.Eyou_Knee);
+        // printf("%f\r\n", W_Bot_OD_Get.Eyou_Roll);
+        // printf("%f\r\n", W_Bot_OD_Get.Eyou_Ankel);
 
         usleep(1000);
 

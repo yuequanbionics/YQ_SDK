@@ -1,0 +1,161 @@
+config:
+  #--------------
+  # @brief Eyou电机相关配置
+  #--------------
+  Eyou_Motor_Init_Config: &Eyou_Init_Config
+    Eyou_Motor_EN_In_Init: true
+    Set_Zero_In_Init: false
+    Eyou_Motor_Zero_Write: false
+    Eyou_Motor_Config: true
+
+  Eyou_Motor_PH20_config: &Eyou_Motor_PH20_config
+    <<: *Eyou_Init_Config 
+
+    Eyou_Motor_Set_Reduction_Ratio: 121
+    Eyou_Motor_Set_Offest: 60
+    Eyou_Motor_Set_Speed: 18
+    Ecvyou_Motor_dxfKp: 40960
+
+  Eyou_Motor_PH25_config: &Eyou_Motor_PH25_config
+    <<: *Eyou_Init_Config 
+
+    Eyou_Motor_Set_Reduction_Ratio: 121
+    Eyou_Motor_Set_Offest: 30
+    Eyou_Motor_Set_Speed: 18
+    Ecvyou_Motor_dxfKp: 40960
+
+  #--------------
+  # @brief 钛虎电机相关配置
+  #--------------
+  TaiHu_Motor_Init_Config: &TaiHu_Init_Config
+    TaiHu_Motor_Config: true
+    TaiHu_Config_Save_Flash: false
+
+  TaiHu_6070_Motor_config: &TaiHu_6070_Motor_config
+    <<: *TaiHu_Init_Config 
+
+    TaiHu_Reduction_Ratio: 101
+    TaiHu_Pos_Offest: 0
+    TaiHu_Forward_Vel: 7000
+    TaiHu_Backward_vel: -7000
+    TaiHu_Pos_Kp: 1200
+    TaiHu_Pos_Kd: 500
+    TaiHu_Vel_Kp: 600
+    TaiHu_Vel_Ki: 300
+    TaiHu_Cur_Kp: 3542
+    TaiHu_Cur_Ki: 2510
+
+  TaiHu_5060_Motor_config: &TaiHu_5060_Motor_config
+    <<: *TaiHu_Init_Config 
+
+    TaiHu_Reduction_Ratio: 101
+    TaiHu_Pos_Offest: 0
+    TaiHu_Forward_Vel: 7000
+    TaiHu_Backward_vel: -7000
+    TaiHu_Pos_Kp: 1200
+    TaiHu_Pos_Kd: 500
+    TaiHu_Vel_Kp: 600
+    TaiHu_Vel_Ki: 300
+    TaiHu_Cur_Kp: 3542
+    TaiHu_Cur_Ki: 2510
+
+  TaiHu_4052_Motor_config: &TaiHu_4052_Motor_config
+    <<: *TaiHu_Init_Config 
+
+    TaiHu_Reduction_Ratio: 101
+    TaiHu_Pos_Offest: 0
+    TaiHu_Forward_Vel: 7000
+    TaiHu_Backward_vel: -7000
+    TaiHu_Pos_Kp: 1200
+    TaiHu_Pos_Kd: 500
+    TaiHu_Vel_Kp: 600
+    TaiHu_Vel_Ki: 300
+    TaiHu_Cur_Kp: 3542
+    TaiHu_Cur_Ki: 2510
+
+  TaiHu_3040_Motor_config: &TaiHu_3040_Motor_config
+    <<: *TaiHu_Init_Config 
+
+    TaiHu_Reduction_Ratio: 101
+    TaiHu_Pos_Offest: 0
+    TaiHu_Forward_Vel: 7000
+    TaiHu_Backward_vel: -7000
+    TaiHu_Pos_Kp: 1200
+    TaiHu_Pos_Kd: 500
+    TaiHu_Vel_Kp: 600
+    TaiHu_Vel_Ki: 300
+    TaiHu_Cur_Kp: 3542
+    TaiHu_Cur_Ki: 2510
+
+  #--------------
+  # @brief 本末电机相关配置
+  #--------------
+  BM_M1502D_Motor_Config: &BM_M1502D_Base_Config
+    BM_Motor_EN_In_Init: true
+    BM_Set_Zero_In_Init: false
+    BM_Motor_Zero_Write: false
+    BM_Motor_Config: true
+    BM_Control_Mode: 2  # 控制模式：1=电流环，2=速度环，3=位置环 (上电需要重新设置)
+    BM_Feedback_Mode: 10 # 反馈模式：10=10ms主动上报 (上电需要重新设置)
+
+  # 电机1配置
+  BM_M1502D_Motor1_config: &BM_M1502D_Motor1_config
+    <<: *BM_M1502D_Base_Config
+
+    BM_Motor_ID: 1  # 电机ID范围1-8
+
+  # 电机2配置  
+  BM_M1502D_Motor2_config: &BM_M1502D_Motor2_config
+    <<: *BM_M1502D_Base_Config
+
+    BM_Motor_ID: 2
+
+  # 电机3配置
+  BM_M1502D_Motor3_config: &BM_M1502D_Motor3_config
+    <<: *BM_M1502D_Base_Config
+
+    BM_Motor_ID: 3
+
+  # 电机4配置
+  BM_M1502D_Motor4_config: &BM_M1502D_Motor4_config
+    <<: *BM_M1502D_Base_Config
+
+    BM_Motor_ID: 4
+
+  # 电机5配置
+  BM_M1502D_Motor5_config: &BM_M1502D_Motor5_config
+    <<: *BM_M1502D_Base_Config
+
+    BM_Motor_ID: 5
+
+  # 电机6配置
+  BM_M1502D_Motor6_config: &BM_M1502D_Motor6_config
+    <<: *BM_M1502D_Base_Config
+
+    BM_Motor_ID: 6
+
+  # 电机7配置
+  BM_M1502D_Motor7_config: &BM_M1502D_Motor7_config
+    <<: *BM_M1502D_Base_Config
+
+    BM_Motor_ID: 7
+
+  # 电机8配置
+  BM_M1502D_Motor8_config: &BM_M1502D_Motor8_config
+    <<: *BM_M1502D_Base_Config
+
+    BM_Motor_ID: 8
+
+  #--------------
+  # @brief W-Bot灯带相关配置
+  #--------------
+  Led_Device_Config: &Led_Device_Config
+    Led_Start_En: true
+    Led_Num: 18
+    Tim_index: 1
+    Tim_ch: 1
+    Led_R: 100
+    Led_G: 100
+    Led_B: 0
+
+

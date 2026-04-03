@@ -1,0 +1,35 @@
+config:
+  Timer_WS2812B_Config: &Timer_WS2812B_Config
+    - Timer_Instance: TIM17
+      Timer_En: true
+      Timer_Index: 1
+      Prescaler: 0
+      CounterMode: TIM_COUNTERMODE_UP
+      Period: 311
+
+      Tim_CHX:
+        Timer_ChX: 1
+        Timer_ChX_OutMode: DMA
+        Timer_ChX_OCMode: TIM_OCMODE_PWM2
+        Timer_ChX_Pulse:  0
+        Timer_ChX_OCPolarity: TIM_OCPOLARITY_LOW
+        Timer_ChX_OCFastMode: TIM_OCFAST_DISABLE
+        Timer_ChX_GPIO: GPIOB
+        Timer_ChX_Pin: GPIO_PIN_9
+        Timer_ChX_GPIO_Alternate: GPIO_AF1_TIM17
+        DMA_Config:
+            Timer_Ch_DMA_Instance: DMA2_Stream0
+            Timer_Ch_DMA_Request: DMA_REQUEST_TIM17_CH1
+            Timer_Ch_DMA_Direction: DMA_MEMORY_TO_PERIPH
+            Timer_Ch_DMA_PeriphInc: DMA_PINC_DISABLE
+            Timer_Ch_DMA_MemInc:  DMA_MINC_ENABLE
+            Timer_Ch_DMA_PeriphDataAlignment: DMA_PDATAALIGN_HALFWORD
+            Timer_Ch_DMA_MemDataAlignment:  DMA_MDATAALIGN_HALFWORD
+            Timer_Ch_DMA_Mode:  DMA_NORMAL
+            Timer_Ch_DMA_Priority:  DMA_PRIORITY_MEDIUM
+            Timer_Ch_DMA_FIFOMode:  DMA_FIFOMODE_DISABLE
+            Timer_Ch_DMA_Handle_index:  TIM_DMA_ID_CC1
+
+
+
+

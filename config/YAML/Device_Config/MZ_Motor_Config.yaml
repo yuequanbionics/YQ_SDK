@@ -87,7 +87,6 @@ config:
     Gear_Ratio: 54
     Gear_multiple: 10
 
-
     #Pid_Config
     Electricity_D_P: 200000
     Electricity_D_I: 20000

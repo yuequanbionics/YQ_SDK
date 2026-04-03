@@ -73,7 +73,7 @@ config:
     Dead_Time: 1
     V_IC_MU_FORCE: 200
     IC_MU_SPEED: 1
-    V_rated: 500
+    V_rated: 400
 
     DI_I_MAX: 0.5                 
     I_Hardware_Max: 2
@@ -85,7 +85,6 @@ config:
 
     Gear_Ratio: 54
     Gear_multiple: 10
-
 
     #Pid_Config
     Electricity_D_P: 200000

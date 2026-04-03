@@ -72,6 +72,10 @@ config:
       DeviceType: Tactile_Sensor_Custom
       Id: 200
       CH: Head_Flag_Switch_CH14
+      DeviceConfig:
+          Hw_Pressure_Sensor_Async: false  # 关闭异步采集模式
+          Hw_Pressure_Sensor_Collection_Interval: 50  # 采集间隔，单位ms(同步模式有效)
+          Hw_Pressure_Sensor_Response_Timeout: 50  # 响应超时时间，单位ms（同步模式有效）
 
 Base_Node: 
   - Name: Main_Switch_Board
@@ -88,6 +92,11 @@ Base_Node:
 
     DeviceConfig:
       PrintMcuTaskStack: false
+      Can_S:
+       - Can_Instance: 1
+         <<: *FD_Can_2M_4M
+       - Can_Instance: 2
+         <<: *FD_Can_2M_4M
       # Serial_S: *Serial_4_Config
       Serial_S:
         - Serial_CH: UART4

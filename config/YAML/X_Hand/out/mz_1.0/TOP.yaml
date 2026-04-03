@@ -16,6 +16,7 @@ Broadcast_IP: 192.168.3.255
 
 import:
   Sensor_Config: "../../../Device_Config/Serial_Config.yaml"
+  Can_Config: "../../../Device_Config/Can_Config.yaml"
   Motor_Config0: "config.yaml"
   Motor_Config1: "../../../Device_Config/MZ_Motor_Config.yaml"
   Motors: "Devices.yaml"

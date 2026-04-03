@@ -322,6 +322,9 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
     std::atomic<bool> waiting_for_response_{false};  // 是否正在等待上一个传感器的响应
     std::vector<u8> sensor_collection_order_;        // 传感器轮询顺序
     std::map<u8, bool> sensor_response_received_;    // 传感器响应到达标志
+
+    // 存储每个传感器最后请求时间
+    std::map<u8, uint64_t> last_request_time_;
     // --- 异步采集 ---
 
     // 回调函数

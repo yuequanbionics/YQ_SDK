@@ -20,16 +20,16 @@ config:
       Can_StdFiltersNbr: 4
       Can_ExtFiltersNbr: 4
       Can_RxFifo0ElmtsNbr: 32
-      Can_RxFifo0ElmtSize: FDCAN_DATA_BYTES_12
+      Can_RxFifo0ElmtSize: FDCAN_DATA_BYTES_64
       Can_RxFifo1ElmtsNbr: 0
-      Can_RxFifo1ElmtSize: FDCAN_DATA_BYTES_12
-      Can_RxBuffersNbr: 16
-      Can_RxBufferSize: FDCAN_DATA_BYTES_12
+      Can_RxFifo1ElmtSize: FDCAN_DATA_BYTES_64
+      Can_RxBuffersNbr: 0
+      Can_RxBufferSize: FDCAN_DATA_BYTES_64
       Can_TxEventsNbr: 0
       Can_TxBuffersNbr: 0
       Can_TxFifoQueueElmtsNbr: 16
       Can_TxFifoQueueMode: FDCAN_TX_FIFO_OPERATION
-      Can_TxElmtSize: FDCAN_DATA_BYTES_12
+      Can_TxElmtSize: FDCAN_DATA_BYTES_64
       Can_Set_Complete: true  # 每路 CAN 必须要有且为 true, 否则主控不会写入寄存器
 
   FD_Can_1M_5M: &FD_Can_1M_5M
@@ -51,16 +51,16 @@ config:
       Can_StdFiltersNbr: 4
       Can_ExtFiltersNbr: 4
       Can_RxFifo0ElmtsNbr: 32
-      Can_RxFifo0ElmtSize: FDCAN_DATA_BYTES_12
+      Can_RxFifo0ElmtSize: FDCAN_DATA_BYTES_64
       Can_RxFifo1ElmtsNbr: 0
-      Can_RxFifo1ElmtSize: FDCAN_DATA_BYTES_12
-      Can_RxBuffersNbr: 16
-      Can_RxBufferSize: FDCAN_DATA_BYTES_12
+      Can_RxFifo1ElmtSize: FDCAN_DATA_BYTES_64
+      Can_RxBuffersNbr: 0
+      Can_RxBufferSize: FDCAN_DATA_BYTES_64
       Can_TxEventsNbr: 0
       Can_TxBuffersNbr: 0
       Can_TxFifoQueueElmtsNbr: 16
       Can_TxFifoQueueMode: FDCAN_TX_FIFO_OPERATION
-      Can_TxElmtSize: FDCAN_DATA_BYTES_12
+      Can_TxElmtSize: FDCAN_DATA_BYTES_64
       Can_Set_Complete: true  # 每路 CAN 必须要有且为 true, 否则主控不会写入寄存器
 
 
@@ -84,14 +84,14 @@ config:
       Can_StdFiltersNbr: 4
       Can_ExtFiltersNbr: 4
       Can_RxFifo0ElmtsNbr: 32
-      Can_RxFifo0ElmtSize: FDCAN_DATA_BYTES_12
+      Can_RxFifo0ElmtSize: FDCAN_DATA_BYTES_64
       Can_RxFifo1ElmtsNbr: 0
-      Can_RxFifo1ElmtSize: FDCAN_DATA_BYTES_12
-      Can_RxBuffersNbr: 16
-      Can_RxBufferSize: FDCAN_DATA_BYTES_12
+      Can_RxFifo1ElmtSize: FDCAN_DATA_BYTES_64
+      Can_RxBuffersNbr: 0
+      Can_RxBufferSize: FDCAN_DATA_BYTES_64
       Can_TxEventsNbr: 0
       Can_TxBuffersNbr: 0
       Can_TxFifoQueueElmtsNbr: 16
       Can_TxFifoQueueMode: FDCAN_TX_FIFO_OPERATION
-      Can_TxElmtSize: FDCAN_DATA_BYTES_12
+      Can_TxElmtSize: FDCAN_DATA_BYTES_64
       Can_Set_Complete: true  # 每路 CAN 必须要有且为 true, 否则主控不会写入寄存器

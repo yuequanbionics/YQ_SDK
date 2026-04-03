@@ -16,6 +16,7 @@ Broadcast_IP: 192.168.3.255
 
 import:
   Motor_Config1: "../../Device_Config/MZ_Motor_Config.yaml"
+  Can_Config : "../../Device_Config/Can_Config.yaml"
   Timer_Config:  "../../Device_Config/Timer_Config.yaml"
   Motors: "Y_Hand_Devices.yaml"
 
