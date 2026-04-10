@@ -49,13 +49,13 @@ float Pos_Offest[6] = {0, 0, 0, 0, 0, 0};
 float Motor_Mirror[6] = {-1, -1, 1, 1, 1, 1};
 // float Motor_K[6] = {1, 1, 1, 1, 1, 1};
 // float Motor_K[6] = {3103 - 20, 421.953 - 5, 3779.49 - 20, 3833.81 - 20, 3739.36 - 20, 3780.85 - 20};
-float Motor_K[6] = {\
-2462.73 - 100,\
-465.147,\
-4207.49 - 200,\
-4292.93 - 200,\
-4163.54 - 200,\
-4137.34 - 200,\
+float Motor_K[6] = {
+    2462.73 - 100,
+    465.147,
+    4207.49 - 200,
+    4292.93 - 200,
+    4163.54 - 200,
+    4137.34 - 200,
 };
 
 X_hand_Send_Data Send_Datas[6];
@@ -173,15 +173,15 @@ void X_hand_Init(void) {
 
     // 收
     Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror * -0.5f, kp, kd);
-    Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror *  0.5f, kp, kd);
-    Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror *  0.5f, kp, kd);
-    Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror *  0.5f, kp, kd);
-    Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror *  0.5f, kp, kd);
+    Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * 0.5f, kp, kd);
+    Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * 0.5f, kp, kd);
+    Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * 0.5f, kp, kd);
+    Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror * 0.5f, kp, kd);
     X_Hand->Send_Buff_Data();
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
     // 放
-    Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror *  0.5f, kp, kd);
+    Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror * 0.5f, kp, kd);
     Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * -0.5f, kp, kd);
     Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * -0.5f, kp, kd);
     Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * -0.5f, kp, kd);
@@ -191,8 +191,8 @@ void X_hand_Init(void) {
 
     while (true) {
         // 放
-        Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror *  0.15f, kp, kd);
-        Motor_2_Control->Send_MIT_PD_Control_Data(Motor_2_D, 0, 0, mirror *  0.15f, kp, kd);
+        Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror * 0.15f, kp, kd);
+        Motor_2_Control->Send_MIT_PD_Control_Data(Motor_2_D, 0, 0, mirror * 0.15f, kp, kd);
         Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * -0.15f, kp, kd);
         Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * -0.15f, kp, kd);
         Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * -0.15f, kp, kd);
@@ -235,29 +235,33 @@ void X_hand_Init(void) {
 }
 
 void Tactile_Sensor_Init(void) {
-    static const vector<u8> sensor_ids = {HW_THUMB_ID, HW_INDEX_FINGER_ID, HW_MIDDLE_FINGER_ID, HW_RING_FINGER_ID, HW_LITTLE_FINGER_ID, HW_PALM_CENTER_ID};
-
     if (Tactile_Sensor_Control->Start_Periodic_Data_Collection(Tactile_Sensor_D, 40)) {
         cout << " Tactile Sensor Init Failed" << endl;
         return;
     }  // 50ms
 
     this_thread::sleep_for(std::chrono::milliseconds(350));
+}
 
-    bool all_sensors_ok = true;
+void Tactile_Sensor_Get_Data(void) {
+    static const vector<u8> sensor_ids = {HW_THUMB_ID, HW_INDEX_FINGER_ID, HW_MIDDLE_FINGER_ID, HW_RING_FINGER_ID, HW_LITTLE_FINGER_ID, HW_PALM_CENTER_ID};
 
     for (u8 sensor_id : sensor_ids) {
         vector<u16> data = Tactile_Sensor_Control->Get_Stored_Sensor_Data(sensor_id);  // 读取传感器数据
-        if (data.empty()) {
-            // cout << "sensor ID " << static_cast<int>(sensor_id) << " empty data" << endl;
-            all_sensors_ok = false;
-        } else {
+        if (!data.empty()) {
             g_sensor_data[sensor_id] = data;
-            // cout << "sensor ID " << static_cast<int>(sensor_id) << " data size : " << data.size() << endl;
+
+            cout << "已存储 " << g_sensor_data[sensor_id].size() << " 个数据点: [";
+            for (size_t i = 0; i < g_sensor_data[sensor_id].size(); ++i) {
+                cout << g_sensor_data[sensor_id][i];
+                if (i < g_sensor_data[sensor_id].size() - 1) {
+                    cout << ", ";
+                }
+            }
+            cout << "]" << endl;
+        } else {
+            cout << "数据为空或未收到数据。" << endl;
         }
-    }
-    if (!all_sensors_ok) {
-        cout << "warning: some sensors failed to init" << endl;
     }
 }
 
@@ -300,13 +304,13 @@ Boards:
     Motor_6_D = X_Hand->Get_Device_For_Name("Motor_6");
     Tactile_Sensor_D = X_Hand->Get_Device_For_Name("Tactile_Sensor");
 
-    Motor_1_Control = static_cast<Motor *>(X_Hand->Get_Control_Class(Motor_1_D));
-    Motor_2_Control = static_cast<Motor *>(X_Hand->Get_Control_Class(Motor_2_D));
-    Motor_3_Control = static_cast<Motor *>(X_Hand->Get_Control_Class(Motor_3_D));
-    Motor_4_Control = static_cast<Motor *>(X_Hand->Get_Control_Class(Motor_4_D));
-    Motor_5_Control = static_cast<Motor *>(X_Hand->Get_Control_Class(Motor_5_D));
-    Motor_6_Control = static_cast<Motor *>(X_Hand->Get_Control_Class(Motor_6_D));
-    Tactile_Sensor_Control = static_cast<Hw_Pressure_Sensor *>(X_Hand->Get_Control_Class(Tactile_Sensor_D));
+    Motor_1_Control = static_cast<Motor*>(X_Hand->Get_Control_Class(Motor_1_D));
+    Motor_2_Control = static_cast<Motor*>(X_Hand->Get_Control_Class(Motor_2_D));
+    Motor_3_Control = static_cast<Motor*>(X_Hand->Get_Control_Class(Motor_3_D));
+    Motor_4_Control = static_cast<Motor*>(X_Hand->Get_Control_Class(Motor_4_D));
+    Motor_5_Control = static_cast<Motor*>(X_Hand->Get_Control_Class(Motor_5_D));
+    Motor_6_Control = static_cast<Motor*>(X_Hand->Get_Control_Class(Motor_6_D));
+    Tactile_Sensor_Control = static_cast<Hw_Pressure_Sensor*>(X_Hand->Get_Control_Class(Tactile_Sensor_D));
 
     X_hand_Init();
 
@@ -331,11 +335,11 @@ Boards:
             Send_Datas[i].P = 0.5f + test;
             Send_Datas[i].V = 0;
             Send_Datas[i].F = 0;
-            Send_Datas[i].KP = 500;     // 800
-            Send_Datas[i].KD = 10;      // 20
+            Send_Datas[i].KP = 500;  // 800
+            Send_Datas[i].KD = 10;   // 20
         }
-        Send_Datas[0].P = 0.5f/4 + test/4;
-        Send_Datas[1].P = 0.5f/2 + test/2;
+        Send_Datas[0].P = 0.5f / 4 + test / 4;
+        Send_Datas[1].P = 0.5f / 2 + test / 2;
 
         Send();
         usleep(loop_time_step);
@@ -344,9 +348,9 @@ Boards:
         for (int i = 0; i < 6; i++) {
             cout << "num: " << i << " " << abs(FB_Datas[i].V * 100) << endl;
         }
+        // Tactile_Sensor_Get_Data();
     }
 #endif
-
     /* ------------------- 四指握力动作 ------------------- */
     // 需要把 yaml 电流放开 DI_I_MAX: 2.0
 #if 0
@@ -409,8 +413,6 @@ Boards:
 
     }
 #endif
-
-
 
 #endif
 

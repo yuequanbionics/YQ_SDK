@@ -18,7 +18,7 @@
 
 #define Motor_Device_CallBack_F    [](shared_ptr<Device_class> Device, u8 *Msg) -> int\
                                     {\
-                                        return ((Motor *)Device->Device_Private_Class)->Motor_Top_Frame_Analyze(Msg);\
+                                        return ((Motor *)Device->Device_Private_Class)->Motor_Top_Frame_Analyze(Device, Msg);\
                                     }\
 
 #define Motor_Device_Delete_F  [](void *Device_Private_Class)\
@@ -50,9 +50,10 @@ public:
     int Get_Motor_FB_Data(const shared_ptr<Device_class>& Device_P, float *P, float *V, float *F, float temp[2], u16 *error);
 
     int Get_Motor_Device_Data_From_Yaml_And_Init(const shared_ptr<Device_class>& Device, YAML::Node One_Node);
-    int Motor_Top_Frame_Analyze(volatile u8 *Can_Frame);
+    int Motor_Top_Frame_Analyze(const shared_ptr<Device_class>& Device, volatile u8 *Can_Frame) const;
 
     static bool Range_Check(int64_t target, const string &str);
+    static void Motor_Add_Err(const shared_ptr<Device_class>& Device_P, const string& Error_string, Err_Level Level);
 
 public:
     shared_ptr<GaussianFilter1D> V_filter= make_shared<GaussianFilter1D>(15, 5);

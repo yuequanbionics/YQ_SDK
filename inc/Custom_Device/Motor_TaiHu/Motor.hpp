@@ -109,6 +109,7 @@ enum Motor_CMD_Data_Enum
 	Motor_CMD_Coil_Temp_Alarm_Threshold,
 	Motor_CMD_Coil_Temp_Protect_Threshold,
 	Motor_CMD_NTC_Bx,
+	Motor_CMD_Error_Report
 };
 
 enum Motor_CONTROL_MOD
@@ -120,6 +121,12 @@ enum Motor_CONTROL_MOD
 	Motor_Speed_Control = 14,
 	
 	Motor_MOD_END = 100,
+};
+
+enum Motor_Error_Code
+{
+	Motor_Overtemp_Alarm = 1,
+	Motor_Overtemp_Protect,
 };
 
 typedef struct
