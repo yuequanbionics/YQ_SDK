@@ -1,115 +1,64 @@
-config:
-  ADC_Config: &ADC_Config
-    # - ADC_Instance: ADC1
+
+  config:
+  ADC_Global_Default: &ADC_Global_Default
+    ADC_ClockPrescaler: ADC_CLOCK_ASYNC_DIV2
+    ADC_Resolution: ADC_RESOLUTION_16B
+    ADC_ScanConvMode: ADC_SCAN_ENABLE
+    ADC_EOCSelection: ADC_EOC_SINGLE_CONV
+    ADC_LowPowerAutoWait: DISABLE
+    ADC_ContinuousConvMode: DISABLE
+    ADC_DiscontinuousConvMode: DISABLE
+    ADC_ExternalTrigConv: ADC_SOFTWARE_START
+    ADC_ExternalTrigConvEdge: ADC_EXTERNALTRIGCONVEDGE_NONE
+    ADC_ConversionDataManagement: ADC_CONVERSIONDATA_DR
+    ADC_Overrun: ADC_OVR_DATA_OVERWRITTEN
+    ADC_LeftBitShift: ADC_LEFTBITSHIFT_NONE
+    ADC_OversamplingMode: DISABLE
+    ADC_Oversampling_Ratio: 1
+    ADC_NbrOfConversion: 2
+
+  # 通道默认配置（所有通道共用）
+  ADC_Channel_Default: &ADC_Channel_Default
+    ADC_SamplingTime: ADC_SAMPLETIME_16CYCLES_5
+    ADC_SingleDiff: ADC_SINGLE_ENDED
+    ADC_OffsetNumber: ADC_OFFSET_NONE
+    ADC_Offset: 0
+    ADC_OffsetSignedSaturation: DISABLE
+
+
+  ADC_Config:
     - ADC_Instance: 1
-      ADC_EN: 1
-      ADC_ClockPrescaler: ADC_CLOCK_ASYNC_DIV2
-      ADC_Resolution: ADC_RESOLUTION_16B
-      ADC_ScanConvMode: ADC_SCAN_ENABLE
-      ADC_EOCSelection: ADC_EOC_SINGLE_CONV
-      ADC_LowPowerAutoWait: DISABLE
-      ADC_ContinuousConvMode: DISABLE
-      ADC_NbrOfConversion: 2
-      ADC_DiscontinuousConvMode: DISABLE
-      ADC_ExternalTrigConv: ADC_SOFTWARE_START
-      ADC_ExternalTrigConvEdge: ADC_EXTERNALTRIGCONVEDGE_NONE
-      ADC_ConversionDataManagement: ADC_CONVERSIONDATA_DR
-      ADC_Overrun: ADC_OVR_DATA_OVERWRITTEN
-      ADC_LeftBitShift: ADC_LEFTBITSHIFT_NONE
-      ADC_OversamplingMode: DISABLE
-      ADC_Oversampling.Ratio: 1
-      ADC_Mode: ADC_MODE_INDEPENDENT
+      <<: *ADC_Global_Default
+      ADC_NbrOfConversion: 1           #采样次数            
       ADC_ChannelConfig:
-        - ADC_Channel: ADC_CHANNEL_2
-          ADC_Rank: ADC_REGULAR_RANK_1
-          ADC_SamplingTime: ADC_SAMPLETIME_16CYCLES_5
-          ADC_SingleDiff: ADC_SINGLE_ENDED
-          ADC_OffsetNumber: ADC_OFFSET_NONE
-          ADC_Offset: 0
-          ADC_OffsetSignedSaturation: DISABLE
+        - <<: *ADC_Channel_Default      
+          ADC_Channel: ADC_CHANNEL_2   #通道号   
+          ADC_Rank: ADC_REGULAR_RANK_1 #采样顺序
 
-        - ADC_Channel: ADC_CHANNEL_3
-          ADC_Rank: ADC_REGULAR_RANK_2
-          ADC_SamplingTime: ADC_SAMPLETIME_16CYCLES_5
-          ADC_SingleDiff: ADC_SINGLE_ENDED
-          ADC_OffsetNumber: ADC_OFFSET_NONE
-          ADC_Offset: 0
-          ADC_OffsetSignedSaturation: DISABLE
+        # - <<: *ADC_Channel_Default
+        #   ADC_Channel: ADC_CHANNEL_3
+        #   ADC_Rank: ADC_REGULAR_RANK_2
 
-    # - ADC_Instance: ADC2
-    - ADC_Instance: 2
-      ADC_EN: 1
-      ADC_ClockPrescaler: ADC_CLOCK_ASYNC_DIV2
-      ADC_Resolution: ADC_RESOLUTION_16B
-      ADC_ScanConvMode: ADC_SCAN_ENABLE
-      ADC_EOCSelection: ADC_EOC_SINGLE_CONV
-      ADC_LowPowerAutoWait: DISABLE
-      ADC_ContinuousConvMode: DISABLE
-      ADC_NbrOfConversion: 2
-      ADC_DiscontinuousConvMode: DISABLE
-      ADC_ExternalTrigConv: ADC_SOFTWARE_START
-      ADC_ExternalTrigConvEdge: ADC_EXTERNALTRIGCONVEDGE_NONE
-      ADC_ConversionDataManagement: ADC_CONVERSIONDATA_DR
-      ADC_Overrun: ADC_OVR_DATA_OVERWRITTEN
-      ADC_LeftBitShift: ADC_LEFTBITSHIFT_NONE
-      ADC_OversamplingMode: DISABLE
-      ADC_Oversampling.Ratio: 1
-      ADC_Mode: ADC_MODE_INDEPENDENT
-      ADC_ChannelConfig:
-        - ADC_Channel: ADC_CHANNEL_2
-          ADC_Rank: ADC_REGULAR_RANK_1
-          ADC_SamplingTime: ADC_SAMPLETIME_16CYCLES_5
-          ADC_SingleDiff: ADC_SINGLE_ENDED
-          ADC_OffsetNumber: ADC_OFFSET_NONE
-          ADC_Offset: 0
-          ADC_OffsetSignedSaturation: DISABLE
+    # - ADC_Instance: 2
+    #   <<: *ADC_Global_Default
+    #   ADC_NbrOfConversion: 2
+    #   ADC_ChannelConfig:
+    #     - <<: *ADC_Channel_Default
+    #       ADC_Channel: ADC_CHANNEL_2
+    #       ADC_Rank: ADC_REGULAR_RANK_1
 
-        - ADC_Channel: ADC_CHANNEL_3
-          ADC_Rank: ADC_REGULAR_RANK_2
-          ADC_SamplingTime: ADC_SAMPLETIME_16CYCLES_5
-          ADC_SingleDiff: ADC_SINGLE_ENDED
-          ADC_OffsetNumber: ADC_OFFSET_NONE
-          ADC_Offset: 0
-          ADC_OffsetSignedSaturation: DISABLE
+    #     - <<: *ADC_Channel_Default
+    #       ADC_Channel: ADC_CHANNEL_3
+    #       ADC_Rank: ADC_REGULAR_RANK_2
 
-    # - ADC_Instance: ADC3
-    - ADC_Instance: 3
-      ADC_EN: 1
-      ADC_ClockPrescaler: ADC_CLOCK_ASYNC_DIV2
-      ADC_Resolution: ADC_RESOLUTION_16B
-      ADC_ScanConvMode: ADC_SCAN_ENABLE
-      ADC_EOCSelection: ADC_EOC_SINGLE_CONV
-      ADC_LowPowerAutoWait: DISABLE
-      ADC_ContinuousConvMode: DISABLE
-      ADC_NbrOfConversion: 2
-      ADC_DiscontinuousConvMode: DISABLE
-      ADC_ExternalTrigConv: ADC_SOFTWARE_START
-      ADC_ExternalTrigConvEdge: ADC_EXTERNALTRIGCONVEDGE_NONE
-      ADC_ConversionDataManagement: ADC_CONVERSIONDATA_DR
-      ADC_Overrun: ADC_OVR_DATA_OVERWRITTEN
-      ADC_LeftBitShift: ADC_LEFTBITSHIFT_NONE
-      ADC_OversamplingMode: DISABLE
-      ADC_Oversampling_Ratio: 1
-      ADC_Mode: ADC_MODE_INDEPENDENT
-      ADC_ChannelConfig:
-        - ADC_Channel: ADC_CHANNEL_2
-          ADC_Rank: ADC_REGULAR_RANK_1
-          ADC_SamplingTime: ADC_SAMPLETIME_16CYCLES_5
-          ADC_SingleDiff: ADC_SINGLE_ENDED
-          ADC_OffsetNumber: ADC_OFFSET_NONE
-          ADC_Offset: 0
-          ADC_OffsetSignedSaturation: DISABLE
+    # - ADC_Instance: 3
+    #   <<: *ADC_Global_Default
+    #   ADC_NbrOfConversion: 2
+    #   ADC_ChannelConfig:
+    #     - <<: *ADC_Channel_Default
+    #       ADC_Channel: ADC_CHANNEL_2
+    #       ADC_Rank: ADC_REGULAR_RANK_1
 
-        - ADC_Channel: ADC_CHANNEL_3
-          ADC_Rank: ADC_REGULAR_RANK_2
-          ADC_SamplingTime: ADC_SAMPLETIME_16CYCLES_5
-          ADC_SingleDiff: ADC_SINGLE_ENDED
-          ADC_OffsetNumber: ADC_OFFSET_NONE
-          ADC_Offset: 0
-          ADC_OffsetSignedSaturation: DISABLE
-
-  # ADC_GPIO_Config: &ADC_GPIO_Config
-  #   - ADC_Instance: ADC1
-  #     ADC_GPIO_EN: true
-  #     ADC_GPIO_Port: GPIOA
-  #     ADC_GPIO_Pin: GPIO_PIN_2
+    #     - <<: *ADC_Channel_Default
+    #       ADC_Channel: ADC_CHANNEL_3
+    #       ADC_Rank: ADC_REGULAR_RANK_2

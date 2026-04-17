@@ -72,7 +72,7 @@ int Init_One_UDP_Connect(UDP_Def* UDP_Def_Data, uint32_t IP, uint16_t PORT)
 
     if (n < 0)
     {
-        cerr << "bind error" << endl;
+        cerr << "bind error" << " port:" << PORT << endl;
         return -1;
     }
 

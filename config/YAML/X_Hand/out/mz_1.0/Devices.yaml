@@ -72,7 +72,7 @@ config:
       Id: 200
       CH: Head_Flag_Switch_CH14
       DeviceConfig:
-          Hw_Pressure_Sensor_Async: false  # 关闭异步采集模式
+          Hw_Pressure_Sensor_Async: true  # 开启异步采集模式
           Hw_Pressure_Sensor_Collection_Interval: 50  # 采集间隔，单位ms(同步模式有效)
           Hw_Pressure_Sensor_Response_Timeout: 50  # 响应超时时间，单位ms（同步模式有效）
 

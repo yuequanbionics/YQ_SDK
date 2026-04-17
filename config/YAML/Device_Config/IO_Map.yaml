@@ -1,7 +1,14 @@
 config:
   Maps_Default: &Maps_Default
+      # - Head_Flag_Switch_CH1: Head_Flag_Switch_CH2
+      # - Head_Flag_Switch_CH2: Head_Flag_Switch_CH1
+      # - Head_Flag_Switch_CH11: Head_Flag_Switch_CH12
+      # - Head_Flag_Switch_CH12: Head_Flag_Switch_CH11
+
       - Head_Flag_Switch_CH1: Head_Flag_CH0
       - Head_Flag_Switch_CH2: Head_Flag_CH0
+      - Head_Flag_Switch_CH11: Head_Flag_CH0
+      - Head_Flag_Switch_CH12: Head_Flag_CH0
 
   IO_Map_Default: &IO_Map_Default
     Send: true

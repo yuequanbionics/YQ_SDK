@@ -327,6 +327,11 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
     std::map<u8, uint64_t> last_request_time_;
     // --- 异步采集 ---
 
+    // --- 同步模式改进 ---
+    std::mutex sync_response_mutex_;                    // 同步模式响应保护锁
+    std::map<u8, bool> sync_sensor_response_received_;  // 同步模式下的传感器响应标志
+    // --- 同步模式改进 ---
+
     // 回调函数
     std::function<void(u8 sensor_id, const std::vector<u16>& data)> data_callback_;
     std::function<void(u8 sensor_id, u8 cmd, const std::vector<u8>& data)> device_info_callback_;

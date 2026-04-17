@@ -42,10 +42,11 @@ list(REMOVE_DUPLICATES INC_SUBDIRS)
 set(SYS_INC_DIR 
     ${INC_DIR} 
     ${INC_DIR}/HARDWARE_TOP 
-    ${INC_DIR}/Z_SYS_SRC/CAN 
+    ${INC_DIR}/Z_SYS_SRC/CAN
+    ${INC_DIR}/Z_SYS_SRC/Socket_CAN
     ${INC_DIR}/Custom 
     ${INC_DIR}/Z_SYS_SRC/SYS 
-    ${INC_DIR}/Z_SYS_SRC/UDP 
+    ${INC_DIR}/Z_SYS_SRC/UDP
     ${PROJECT_ROOT}/third_party/lib/install-x86_64/include
     ${PROJECT_ROOT}/third_party/lib/install-x86_64/include/yaml-cpp
 )
@@ -54,7 +55,8 @@ file(GLOB SYS_SRC_FILE
     ${SRC_DIR}/*.cpp
     ${SRC_DIR}/Z_SYS_SRC/UDP/*.cpp 
     ${SRC_DIR}/Z_SYS_SRC/CAN/*.cpp 
-    ${SRC_DIR}/Z_SYS_SRC/SYS/*.cpp 
+    ${SRC_DIR}/Z_SYS_SRC/SYS/*.cpp
+    ${SRC_DIR}/Z_SYS_SRC/Socket_CAN/*.cpp
 )
 
 # 输出项目结构信息
@@ -297,7 +299,13 @@ find_library(YAML_CPP_LIB
 # --------------------------
 # spdlog_global 配置
 # --------------------------
-add_library(spdlog_global SHARED IMPORTED)
+add_library(spdlog_global SHARED IMPORTED
+        "src/Project/X_Hand/Unconventional _Solution/fdcan_direct.cpp"
+        "inc/Unconventional_Solution/fdcan_direct.hpp"
+        inc/Z_SYS_SRC/Socket_CAN/Socket_CAN.hpp
+        inc/Switch_Boards/Switch_Board_Orin_CANFD/Switch_Board_Orin_CANFD.hpp
+        src/Switch_Boards/Switch_Board_Orin/Switch_Board_Orin.cpp
+        inc/Switch_Boards/Switch_Board_Orin/Switch_Board_Orin.hpp)
 set_target_properties(spdlog_global PROPERTIES
     IMPORTED_LOCATION "${THIRD_PARTY_INSTALL_DIR}/lib/libspdlogs.so"
     INTERFACE_INCLUDE_DIRECTORIES "${THIRD_PARTY_INSTALL_DIR}/include/spdlog"
@@ -376,6 +384,7 @@ function(import_shared_library TARGET_NAME)
 endfunction()
 
 # script auto start -> lib_add
+    import_shared_library(Power_Custom_Supply)
     import_shared_library(Battery_BMS_V2_Device)
     import_shared_library(Motor_Device)
     import_shared_library(Pressure_Sensor_Custom_Device)
@@ -388,6 +397,7 @@ endfunction()
     import_shared_library(Auto_Set_Id)
     import_shared_library(X_Hand_Protocol)
     import_shared_library(Switch_Board)
+    import_shared_library(Switch_Board_Orin)
     import_shared_library(485_Device)
     import_shared_library(Uart_Custom_Dome_Device)
     import_shared_library(Eyou_Custom_Motor_Device)

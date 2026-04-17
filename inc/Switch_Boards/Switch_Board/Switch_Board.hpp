@@ -5,6 +5,7 @@
 #include "FD_Can.hpp"
 #include "GPIO.hpp"
 #include "Timer.hpp"
+#include "ADC.hpp"
 
 #define Switch_Board_Type "Switch_Board"
 
@@ -36,6 +37,7 @@ public:
     FDCan   m_fdCan;
     C_GPIO  m_GPIO;
     Timer   Timers;
+    ADC     ADCs;
     
     int Get_Main_B_Device_Data_From_Yaml_And_Init(shared_ptr<Device_class> Device, YAML::Node One_Node);
     int Main_B_Top_Frame_Analyze(volatile u8 *Can_Frame);

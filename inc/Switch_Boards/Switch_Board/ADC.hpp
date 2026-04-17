@@ -66,7 +66,7 @@ struct ADC_Instance_Config
     uint32_t ADC_Mode;
     // 该ADC的所有通道配置
     //std::vector<ADC_Channel_Config> ADC_ChannelConfig;
-    ADC_Channel_Config ADC_ChannelConfig[2];
+    ADC_Channel_Config ADC_ChannelConfig[8];
 };
 
 struct Global_ADC_Config
@@ -78,14 +78,13 @@ struct Global_ADC_Config
 
 	u8 Cmd;
     //std::vector<ADC_Instance_Config> ADC_Config;
-    ADC_Instance_Config ADC_Config[3];
+    ADC_Instance_Config ADC_Config;
 };
 
 class ADC : private Robot_Hardware
 {
     public:
         int Get_Yaml_And_Init(const shared_ptr<Device_class>& Device, const YAML::Node& One_Node);
-        Global_ADC_Config globalConfig;
 };
 
 

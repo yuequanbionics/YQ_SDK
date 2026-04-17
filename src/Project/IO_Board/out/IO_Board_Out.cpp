@@ -17,8 +17,23 @@
 
 using namespace std;
 
-Robot_Hardware *Test_Robot;
 
+#define A1_PORT     GPIOD
+#define A2_PORT     GPIOD
+#define A3_PORT     GPIOD
+#define A4_PORT     GPIOD
+#define A5_PORT     GPIOD
+#define A6_PORT     GPIOD
+
+#define A1_PIN      GPIO_PIN_6
+#define A2_PIN      GPIO_PIN_5
+#define A3_PIN      GPIO_PIN_4
+#define A4_PIN      GPIO_PIN_3
+#define A5_PIN      GPIO_PIN_2
+#define A6_PIN      GPIO_PIN_1
+
+
+Robot_Hardware *Test_Robot;
 
 /**
  * @brief IO_Board 设备
@@ -102,12 +117,12 @@ int hardware_init(const string& ADDR, const string& Config)
     IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, GPIOA, GPIO_PIN_9);
 #endif
 
-    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, GPIOD, GPIO_PIN_1);  // A6
-    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, GPIOD, GPIO_PIN_2);  // A5
-    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, GPIOD, GPIO_PIN_3);  // A4
-    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, GPIOD, GPIO_PIN_4);  // A3
-    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, GPIOD, GPIO_PIN_5);  // A2
-    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, GPIOD, GPIO_PIN_6);  // A1
+    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, A6_PORT, A6_PIN);  // A6
+    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, A5_PORT, A5_PIN);  // A5
+    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, A4_PORT, A4_PIN);  // A4
+    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, A3_PORT, A3_PIN);  // A3
+    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, A2_PORT, A2_PIN);  // A2
+    IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, A1_PORT, A1_PIN);  // A1
 
 
     // IO_Board_Control->m_GPIO.GPIOx_Read(IO_Board, GPIOA, GPIO_PIN_10, 1000);

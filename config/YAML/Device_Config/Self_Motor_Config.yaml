@@ -40,7 +40,7 @@ config:
     Motor_CMD_I_To_Force_K: 1.0
     Ceil_Temperature_Alarm_Th: 90     # 电机过温告警阈值
     Ceil_Temperature_Protect_Th: 100  # 电机过温保护阈值
-    NTC_Bx: 3950                      # 热敏电阻 B 值
+    NTC_Bx: 4334                      # 热敏电阻 B 值
 
     Gear_Ratio: 22
     Gear_multiple: 50
@@ -81,7 +81,7 @@ config:
     Motor_CMD_I_To_Force_K: 1.0
     Ceil_Temperature_Alarm_Th: 70   # 电机过温告警阈值
     Ceil_Temperature_Protect_Th: 90 # 电机过温保护阈值
-    NTC_Bx: 3950                    # 热敏电阻 B 值
+    NTC_Bx: 4334                    # 热敏电阻 B 值
 
     Gear_Ratio: 54
     Gear_multiple: 10
