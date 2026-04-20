@@ -28,6 +28,7 @@ class Device_class
 {
 public:
     u16 Head_Flag_CHX; 
+    u16 Rec_Id_Offest[32];
     shared_ptr<string> Name;
     shared_ptr<string> Range_Name;
     shared_ptr<string> DeviceType;

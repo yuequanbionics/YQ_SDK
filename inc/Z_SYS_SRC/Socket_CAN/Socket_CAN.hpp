@@ -20,7 +20,8 @@ public:
     ~Socket_CanFD();
 
 
-    bool configCanFD(const char* can_instance, uint32_t bitrate, uint32_t d_bitrate);
+    bool configCanFD(const char* can_instance, uint32_t bitrate, uint32_t d_bitrate, float sample_point, float d_sample_point);
+    static bool getCanSamplePoint(const char* can_instance);
     bool openCanFD(const std::string& can_instance);
     bool send(uint32_t id, const uint8_t* data, uint8_t len) const;
     bool receive(uint32_t& id, uint8_t* data, uint8_t& len) const;

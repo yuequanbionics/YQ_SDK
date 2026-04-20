@@ -39,14 +39,21 @@
 class Main_B_Orin : private Robot_Hardware
 {
     public:
-    C_GPIO  m_GPIO;
-    Serial  Serials;
+    ~Main_B_Orin();
 
     int Get_Main_B_Orin_Device_Data_From_Yaml_And_Init(shared_ptr<Device_class> Device, YAML::Node One_Node);
     int Main_B_Orin_Top_Frame_Analyze(volatile u8* Can_Frame);
+    void canRecvThread(shared_ptr<Device_class> Device) const;
+
+    void startCanReceiveThread(shared_ptr<Device_class> Device);
+    void stopCanReceiveThread();
+
+private:
+    std::thread m_recv_thread;             // 接收线程
+    std::atomic<bool> m_running{false};  // 线程运行标志 (原子变量, 线程安全)
 };
 
 int Send_F_Orin_CanFD(shared_ptr<Device_class> Device, u8* Data);
-int Rec_F_Pr_Orin_CanFD(shared_ptr<Device_class> Device, u8* Data);
+int Can_Data_Analysis(shared_ptr<Device_class> Device, u8* Data);
 
 #endif //SDK_SWITCH_BOARD_ORIN_HPP
