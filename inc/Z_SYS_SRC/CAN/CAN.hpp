@@ -63,6 +63,7 @@ enum Main_CMD_EX_Enum
 	Debug_Printf_Data,
 	Debug_Printf_EN,
 	PrintAllTaskStack_EN,
+	IO_MAP,
 };
 
 enum Head_Flag_Enum

@@ -164,6 +164,7 @@ private:
     std::shared_ptr<Device_class> s_device;
     int Call_Back_Status = 0;
     int Write_Flag = 0;
+    u8 yuan_data[4] = {0};
     /* 减速比 */
     int Motor_Reduction_Ratio = 0;
 

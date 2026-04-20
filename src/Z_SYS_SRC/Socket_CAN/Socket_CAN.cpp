@@ -36,8 +36,8 @@ bool Socket_CanFD::configCanFD(const char* can_instance, const uint32_t bitrate,
     char cmd[256];
 
     cout << "=== 配置 " << can_instance << " ===" << endl;
-    cout << "仲裁波特率: " << bitrate / 1000 << "M" << endl;
-    cout << "数据波特率: " << d_bitrate / 1000 << "M" << endl;
+    cout << "仲裁波特率: " << bitrate / 1000 << "k" << endl;
+    cout << "数据波特率: " << d_bitrate / 1000 << "k" << endl;
 
     // 1. down
     snprintf(cmd, sizeof(cmd), "sudo ip link set %s down", can_instance);
@@ -45,7 +45,7 @@ bool Socket_CanFD::configCanFD(const char* can_instance, const uint32_t bitrate,
 
     // 2. 配置 CAN FD
     snprintf(cmd, sizeof(cmd),
-        "sudo ip link set %s type can bitrate %d d_bitrate %d fd on restart-ms 100",
+        "sudo ip link set %s type can bitrate %d dbitrate %d fd on restart-ms 100",
         can_instance, bitrate, d_bitrate);
     system(cmd);
 
@@ -77,7 +77,7 @@ bool Socket_CanFD::openCanFD(const std::string& can_instance)
     fcntl(m_socket, F_SETFL, flags | O_NONBLOCK);
     // ==========================================================
 
-    // 2. 必须启用 CAN FD 帧支持（不开启只能收8字节）
+    // 2. 必须启用 CAN FD 帧支持 (不开启只能收8字节 ) 
     const int can_fd_enable = 1;
     if (setsockopt(m_socket, SOL_CAN_RAW, CAN_RAW_FD_FRAMES,
                    &can_fd_enable, sizeof(can_fd_enable)) < 0) {
@@ -87,7 +87,7 @@ bool Socket_CanFD::openCanFD(const std::string& can_instance)
         return false;
                    }
 
-    // 3. 获取 CAN 接口索引（can0 / can1）
+    // 3. 获取 CAN 接口索引 (can0 / can1 ) 
     struct ifreq ifr{};
     std::memset(&ifr, 0, sizeof(ifr));
     std::strncpy(ifr.ifr_name, can_instance.c_str(), IFNAMSIZ - 1);
@@ -114,7 +114,7 @@ bool Socket_CanFD::openCanFD(const std::string& can_instance)
 
     // 5. 初始化成功
     m_initialized = true;
-    std::cout << "✅ CAN FD 初始化成功：" << can_instance << std::endl;
+    std::cout << "✅ CAN FD 初始化成功: " << can_instance << std::endl;
     return true;
 }
 
@@ -128,18 +128,34 @@ bool Socket_CanFD::openCanFD(const std::string& can_instance)
  */
 bool Socket_CanFD::send(const uint32_t id, const uint8_t* data, const uint8_t len) const
 {
-    if (!m_initialized || m_socket < 0 || len > 64)
+    // 1. 基础合法性检查
+    if (!m_initialized || m_socket < 0 || len == 0 || len > 64) {
+        printf("send参数错误: initialized=%d socket=%d len=%d\n", m_initialized, m_socket, len);
         return false;
+    }
 
+    // 2. 完整清零CAN FD帧 (关键! 杜绝脏数据) 
     struct canfd_frame frame = {};
+
+    // 3. 配置帧ID + 数据长度
     frame.can_id = id;
     frame.len    = len;
-    frame.flags  = CANFD_BRS; // 启用波特率切换
 
+    // 4. 关键: 必须同时设置 FDF(声明CAN FD帧) + BRS(波特率切换)
+    frame.flags  =  0x10 | 0x02; //CANFD_FDF | CANFD_BRS;
+
+    // 5. 拷贝数据
     memcpy(frame.data, data, len);
 
-    const auto ret = write(m_socket, &frame, sizeof(frame));
-    return ret == sizeof(frame);
+    // 6. 发送数据 + 错误打印 (定位失败原因 ) 
+    ssize_t ret = write(m_socket, &frame, sizeof(frame));
+    if (ret != sizeof(frame)) {
+        // 打印系统错误码, 一眼定位问题
+        printf("CAN FD发送失败! ret=%zd errno=%d: %s\n", ret, errno, strerror(errno));
+        return false;
+    }
+
+    return true;
 }
 
 /**

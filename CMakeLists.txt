@@ -43,7 +43,6 @@ set(SYS_INC_DIR
     ${INC_DIR} 
     ${INC_DIR}/HARDWARE_TOP 
     ${INC_DIR}/Z_SYS_SRC/CAN
-    ${INC_DIR}/Z_SYS_SRC/Socket_CAN
     ${INC_DIR}/Custom 
     ${INC_DIR}/Z_SYS_SRC/SYS 
     ${INC_DIR}/Z_SYS_SRC/UDP
@@ -56,7 +55,6 @@ file(GLOB SYS_SRC_FILE
     ${SRC_DIR}/Z_SYS_SRC/UDP/*.cpp 
     ${SRC_DIR}/Z_SYS_SRC/CAN/*.cpp 
     ${SRC_DIR}/Z_SYS_SRC/SYS/*.cpp
-    ${SRC_DIR}/Z_SYS_SRC/Socket_CAN/*.cpp
 )
 
 # 输出项目结构信息
@@ -388,7 +386,6 @@ endfunction()
     import_shared_library(Battery_BMS_V2_Device)
     import_shared_library(Motor_Device)
     import_shared_library(Pressure_Sensor_Custom_Device)
-    import_shared_library(Battery_BMS_Device)
     import_shared_library(HARDWARE_TOP)
     import_shared_library(Servo_Feetech_SCS0009)
     import_shared_library(Led_Device)
