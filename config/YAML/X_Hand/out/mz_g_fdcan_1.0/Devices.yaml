@@ -69,19 +69,24 @@ config:
 
 
 Base_Node: 
-  - Name: Switch_Board_Custom_Orin
+  - Name: Main_Switch_Board
     Range_Name: X_Hand
-    DeviceType: Switch_Board_Custom_Orin
+    DeviceType: Switch_Board 
     Id: 101
     CH: Head_Flag_CH0
+    IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
+    PC_IP: *PC_IP
+    IP: 192.168.3.101
+    Port: 15100
+    Up_Data_Speed: 1000
+    Heart_Beat: true
 
     DeviceConfig:
-      Socket_Can_Instance: can0
-      Socket_Can_Bitrate: 2000000
-      Socket_Can_Bitrate_Date: 2000000
-      Socket_Can_Sample_Point: 0.80
-      Socket_Can_D_Sample_Point: 0.80
       PrintMcuTaskStack: false
+      Can_S:
+       - Can_Instance: 1
+         <<: *FD_Can_2M_2M
+
 
     child:
       --: *Auto_Set_Id_DeviceS0

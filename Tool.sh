@@ -7,7 +7,7 @@ SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 # 自动补全函数定义
 # --------------------------
 _tool_completion() {
-    local commands=("make" "clean" "Dmake" "init_install" "completion" "menu_config" "ipconfig" "set_id" "set_sn" "make_config" "make_third" "build_out" "OTA" "INIT")  
+    local commands=("make" "clean" "Dmake" "init_install" "completion" "menu_config" "ipconfig" "set_id" "set_sn" "make_config" "make_third" "build_out" "OTA" "INIT" "batch_flashing")  
     local cur=${COMP_WORDS[COMP_CWORD]}
     if [ $COMP_CWORD -eq 1 ]; then
         COMPREPLY=($(compgen -W "${commands[*]}" -- "$cur"))
@@ -39,21 +39,22 @@ fi
 usage() {
     echo "Usage: $0 [option]"
     echo "Options:"
-    echo "  make         创建build目录并构建项目"
-    echo "  clean        删除build目录及内容"
-    echo "  Dmake        Docker环境下编译"
-    echo "  init_install 初始化安装"
-    echo "  autorun      配置自启动"
-    echo "  completion   配置自动补全功能(用户级,永久生效)"
-    echo "  menu_config  启动配置菜单)" 
-    echo "  make_config  切换编译配置文件" 
-    echo "  make_third   编译第三方库" 
-    echo "  ipconfig     设置网卡IP"  
-    echo "  set_id       设置设备ID"  
-    echo "  set_sn       设置设备SN"  
-    echo "  build_out    构建输出版" 
-    echo "  OTA          设备OTA升级"  
-    echo "  INIT         设备初始化"  
+    echo "  make            创建build目录并构建项目"
+    echo "  clean           删除build目录及内容"
+    echo "  Dmake           Docker环境下编译"
+    echo "  init_install    初始化安装"
+    echo "  autorun         配置自启动"
+    echo "  completion      配置自动补全功能(用户级,永久生效)"
+    echo "  menu_config     启动配置菜单" 
+    echo "  make_config     切换编译配置文件" 
+    echo "  make_third      编译第三方库" 
+    echo "  ipconfig        设置网卡IP"  
+    echo "  set_id          设置设备ID"  
+    echo "  set_sn          设置设备SN"  
+    echo "  build_out       构建输出版" 
+    echo "  OTA             设备OTA升级"  
+    echo "  INIT            设备初始化"  
+    echo "  batch_flashing  批量烧录"  
     exit 1
 }
 
@@ -403,7 +404,7 @@ WantedBy=default.target"
                 fi
                 ;;
             4)
-                sudo apt install -y build-essential cmake libboost-all-dev htop tmux net-tools gparted expect
+                sudo apt install -y build-essential cmake libboost-all-dev htop tmux net-tools gparted expect stlink-tools
                 ;;
             *)
                 # 处理无效输入
@@ -577,7 +578,7 @@ WantedBy=default.target"
 cat >> "$bashrc_file" <<EOF
 # ${script_name} 自动补全配置
 _tool_completion() {
-    local commands=("make" "clean" "Dmake" "init_install" "completion" "menu_config" "ipconfig" "set_id" "set_sn" "make_config" "make_third" "build_out" "OTA" "INIT")  
+    local commands=("make" "clean" "Dmake" "init_install" "completion" "menu_config" "ipconfig" "set_id" "set_sn" "make_config" "make_third" "build_out" "OTA" "INIT" "batch_flashing")  
     local cur=\${COMP_WORDS[COMP_CWORD]}
     if [ \$COMP_CWORD -eq 1 ]; then
         COMPREPLY=(\$(compgen -W "\${commands[*]}" -- "\$cur"))
@@ -695,6 +696,11 @@ EOF
 
     INIT)
         script/shell/Device_INIT.sh $2
+        ;;
+        
+    batch_flashing)
+        echo "===== 批量烧录程序 ====="
+        ./script/shell/batch_flashing.sh
         ;;
     *)
         echo "错误:未知命令 '$1'"

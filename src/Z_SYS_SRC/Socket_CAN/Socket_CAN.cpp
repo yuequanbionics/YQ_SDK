@@ -54,7 +54,7 @@ bool Socket_CanFD::configCanFD(const char* can_instance,
 
     // 2. 配置 CAN FD + 采样点
     snprintf(cmd, sizeof(cmd),
-        "sudo ip link set %s type can bitrate %d sample-point %.3f dbitrate %d dsample-point %.3f fd on restart-ms 100",
+        "sudo ip link set %s type can bitrate %d sample-point %.3f dbitrate %d dsample-point %.3f fd on berr-reporting off listen-only off restart-ms 0",
         can_instance, bitrate, sample_point, d_bitrate, d_sample_point);
     system(cmd);
 
@@ -62,7 +62,7 @@ bool Socket_CanFD::configCanFD(const char* can_instance,
     snprintf(cmd, sizeof(cmd), "sudo ip link set %s up", can_instance);
     system(cmd);
 
-    cout << can_instance << " 配置完成！\n" << endl;
+    cout << can_instance << " 配置完成!\n" << endl;
 
     // 配置完自动打印采样点
     getCanSamplePoint(can_instance);
@@ -95,7 +95,6 @@ bool Socket_CanFD::getCanSamplePoint(const char* can_instance)
     while (fgets(buffer, sizeof(buffer), fp) != nullptr) {
         // 查找并打印 仲裁段采样点
         if (strstr(buffer, "sample-point") != nullptr) {
-            // 去掉换行符, 干净输出
             buffer[strcspn(buffer, "\n")] = 0;
             cout << buffer << endl;
         }
@@ -126,11 +125,11 @@ bool Socket_CanFD::openCanFD(const std::string& can_instance)
     }
 
     // ====================== 开启非阻塞模式 ======================
-    // const int flags = fcntl(m_socket, F_GETFL, 0);
-    // fcntl(m_socket, F_SETFL, flags | O_NONBLOCK);
+    const int flags = fcntl(m_socket, F_GETFL, 0);
+    fcntl(m_socket, F_SETFL, flags | O_NONBLOCK);
     // ==========================================================
 
-    // 2. 必须启用 CAN FD 帧支持 (不开启只能收8字节 ) 
+    // 2. 必须启用 CAN FD 帧支持 (不开启只能收8字节 )
     const int can_fd_enable = 1;
     if (setsockopt(m_socket, SOL_CAN_RAW, CAN_RAW_FD_FRAMES,
                    &can_fd_enable, sizeof(can_fd_enable)) < 0) {
@@ -140,7 +139,7 @@ bool Socket_CanFD::openCanFD(const std::string& can_instance)
         return false;
                    }
 
-    // 3. 获取 CAN 接口索引 (can0 / can1 ) 
+    // 3. 获取 CAN 接口索引 (can0 / can1 )
     struct ifreq ifr{};
     std::memset(&ifr, 0, sizeof(ifr));
     std::strncpy(ifr.ifr_name, can_instance.c_str(), IFNAMSIZ - 1);
@@ -195,7 +194,7 @@ bool Socket_CanFD::send(const uint32_t id, const uint8_t* data, const uint8_t le
     frame.len    = len;
 
     // 4. 关键: 必须同时设置 FDF(声明CAN FD帧) + BRS(波特率切换)
-    frame.flags  =  0x10 | 0x02; // CANFD_FDF | CANFD_BRS; 旧内核不支持 CANFD_FDF 宏, 改用兼容写法
+    frame.flags  = 0x01; // CANFD_FDF | CANFD_BRS; 旧内核不支持 CANFD_FDF 宏, 改用兼容写法
 
     // 5. 拷贝数据
     memcpy(frame.data, data, len);
@@ -223,24 +222,64 @@ bool Socket_CanFD::receive(uint32_t& id, uint8_t* data, uint8_t& len) const
     if (!m_initialized || m_socket < 0 || !data)
         return false;
 
-    // 每 100ms 醒一次，不会永久卡死
-    struct pollfd fds = {.fd = m_socket, .events = POLLIN};
-    const int ret = poll(&fds, 1, 100);
+    struct pollfd fds{};
+    fds.fd = m_socket;
+    fds.events = POLLIN;
 
-    if (ret <= 0)
+    // 超时时间
+    int poll_ret = poll(&fds, 1, 100);
+
+    // poll 出错
+    if (poll_ret < 0) {
         return false;
+    }
 
-    struct canfd_frame frame;
+    // 超时 → 没数据
+    if (poll_ret == 0) {
+        return false;
+    }
+    
+    // 必须判断 POLLIN 事件 !!!
+    if (!(fds.revents & POLLIN)) {
+        return false;
+    }
+
+    // 真正有数据了，再 read
+    struct canfd_frame frame{};
     const ssize_t n = read(m_socket, &frame, sizeof(frame));
 
-    if (n != sizeof(frame))
+    if (n != sizeof(struct canfd_frame)) {
         return false;
+    }
 
-    id = frame.can_id;
+    id  = frame.can_id;
     len = std::min(frame.len, static_cast<uint8_t>(64));
     memcpy(data, frame.data, len);
+
     return true;
 }
+
+
+
+// bool Socket_CanFD::receive(uint32_t& id, uint8_t* data, uint8_t& len) const
+// {
+//     if (!m_initialized || m_socket < 0 || !data)
+//         return false;
+
+//     // ================= 直接读，不用 poll!=================
+//     struct canfd_frame frame{};
+//     ssize_t n = read(m_socket, &frame, sizeof(frame));
+
+//     if (n <= 0) {
+//         return false;
+//     }
+
+//     id  = frame.can_id;
+//     len = frame.len;
+//     memcpy(data, frame.data, len);
+
+//     return true;
+// }
 
 
 void Socket_CanFD::close()

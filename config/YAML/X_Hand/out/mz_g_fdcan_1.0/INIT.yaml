@@ -1,0 +1,35 @@
+DriverVersion: 0.0.0
+
+# Log_Path: log_dir
+# Log_Name: name
+Log_Max_Size: 5
+# Debug_Level: debug
+# Debug_Level: info
+# Debug_Level: warn
+# Debug_Level: err
+# Debug_Level: critical
+# Debug_Level: _off
+
+Name: Motor
+PC_IP: &PC_IP 192.168.3.245
+Broadcast_IP: 192.168.3.255
+
+import:
+  Can_Config: "../../../Device_Config/Can_Config.yaml"
+  Devices: "Devices_Init.yaml"
+
+config:
+  Maps_Default: &Maps_Default
+      - Head_Flag_Switch_CH1: Head_Flag_Switch_CH2
+      - Head_Flag_Switch_CH2: Head_Flag_Switch_CH1
+      # - Head_Flag_Switch_CH11: Head_Flag_Switch_CH12
+      # - Head_Flag_Switch_CH12: Head_Flag_Switch_CH11
+
+      # - Head_Flag_Switch_CH1: Head_Flag_CH0
+      # - Head_Flag_Switch_CH2: Head_Flag_CH0
+      # - Head_Flag_Switch_CH11: Head_Flag_CH0
+      # - Head_Flag_Switch_CH12: Head_Flag_CH0
+
+  IO_Map_Default: &IO_Map_Default
+    Send: true
+    Map: *Maps_Default

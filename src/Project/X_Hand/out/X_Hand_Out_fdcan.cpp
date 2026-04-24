@@ -6,7 +6,6 @@
 #include "HARDWARE_TOP.hpp"
 #include "Motor_TOP.hpp"
 #include "Switch_Board.hpp"
-#include "Switch_Board_Orin.hpp"
 #include "syst.hpp"
 
 using namespace std;
@@ -179,16 +178,13 @@ int hardware_init(const string& ADDR, const string& Config)
 {
     X_Hand = new Robot_Hardware();
     X_Hand->Add_Device_Type(Switch_Board_Type, Switch_Board_Device_Init, Switch_Board_Device_CallBack_F, Switch_Board_Device_Delete_F);
-    X_Hand->Add_Device_Type(Switch_Board_Orin_Type, Switch_Board_Orin_Device_Init,
-                                                    Switch_Board_Orin_Device_CallBack_F,
-                                                    Switch_Board_Device_Orin_Delete_F);
     X_Hand->Add_Device_Type(Motor_Device_Type, Motor_Device_Init, Motor_Device_CallBack_F, Motor_Device_Delete_F);
     X_Hand->Add_Device_Type(Auto_Set_Id_Type, Auto_Set_Id_Init, Auto_Set_Id_CallBack_F, Auto_Set_Id_Delete_F);
 
 #ifndef HAVE_ROS
     filesystem::path exe_path = filesystem::canonical("/proc/self/exe");
     filesystem::path dir_path = exe_path.parent_path();
-    string ADDR = dir_path.string() + "/../config/YAML/X_Hand/out/mz_g_orin_fdcan_1.0/TOP.yaml";
+    string ADDR = dir_path.string() + "/../config/YAML/X_Hand/out/mz_g_fdcan_1.0/TOP.yaml";
 #endif
     if (X_Hand->Init_TOP(ADDR) != 0) {
         cout << "Init_ERR" << endl;
@@ -240,9 +236,9 @@ int hardware_init(const string& ADDR, const string& Config)
         usleep(loop_time_step);
         Get_FB();
 
-        // for (int i = 0; i < 6; i++) {
-        //     cout << "num: " << i << " " << abs(FB_Datas[i].V * 100) << endl;
-        // }
+        for (int i = 0; i < 6; i++) {
+            cout << "num: " << i << " " << abs(FB_Datas[i].V * 100) << endl;
+        }
         // Tactile_Sensor_Get_Data();
     }
 #endif

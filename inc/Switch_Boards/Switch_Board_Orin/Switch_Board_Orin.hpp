@@ -8,6 +8,7 @@
 #include "Socket_CAN.hpp"
 #include "Serial.hpp"
 #include "GPIO.hpp"
+#include "CAN.hpp"
 
 #define Device_IS_Online_In_Init 1
 #define Device_IS_NO_Online 0

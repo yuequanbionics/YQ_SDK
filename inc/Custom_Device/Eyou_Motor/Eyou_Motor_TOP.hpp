@@ -137,7 +137,7 @@ public:
      * @brief 写零点与偏执
      * @param offest 0为设置零点
     */
-    int Set_Zero(shared_ptr<Device_class> Device_P);
+    int Set_Zero(shared_ptr<Device_class> Device_P, int en);
 
     int Set_Offest(shared_ptr<Device_class> Device_P, float Offest_Datasss);
 
