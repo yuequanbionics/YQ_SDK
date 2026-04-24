@@ -20,6 +20,17 @@ typedef struct
 } CMD_Data_TaiHu;
 
 typedef struct
+{
+	// Head
+	u16 Can_Id;
+	u16 Len;
+	u16 Flag;
+
+	// DATA
+	int64_t Data;
+} CMD_callback_TaiHu;
+
+typedef struct
 { 
 	// Head
 	u16 Can_Id;
@@ -38,7 +49,8 @@ enum Command : uint8_t
     CMD_GET_POS_VALUE = 0x08,     // 位置读取
     CMD_FORWARD_VEL = 0X24,       // 正转速度控制
     CMD_BACKWARD_VEL = 0X25,      // 反转速度控制
-    CMD_SET_ZERO = 0x53,          // 设置零点
+    CMD_SET_OFFSET = 0x53,        // 设置零点
+    CMD_GET_OFFSET = 0x54,        // 获取零点
     CMD_SET_POS_VALUE = 0x1E,     // 位置控制
     CMD_SET_CAN_ID = 0x2E,        // 设置CAN ID
     CMD_SAVE_TO_FLASH = 0x0E,     // 保存到flash
@@ -46,6 +58,7 @@ enum Command : uint8_t
     CMD_SET_VEL_KI = 0x2A,        // 设置速度环Ki
     CMD_SET_POS_KP = 0x2B,        // 设置位置环Kp
     CMD_SET_POS_KD = 0x2D,        // 设置位置环Kd
+    CMD_GET_CUR_VEL_POS = 0x41,   // 获取电流速度位置反馈
     CMD_SET_CUR_KP = 0x83,        // 设置电流环Kp
     CMD_SET_CUR_KI = 0x84         // 设置电流环Ki
 
@@ -76,10 +89,12 @@ enum Command : uint8_t
 class Motor_TaiHu : private Robot_Hardware
 {
 private:
-    float target_P = 0.0f;           // 目标位置
-    float target_V = 0.0f;           // 目标速度
-    float target_F = 0.0f;           // 目标电流
+    int32_t target_P = 0;           // 目标位置
+    int32_t target_V = 0;           // 目标速度
+    int32_t target_F = 0;           // 目标电流
+    int32_t pos_offset = 0;          // 位置偏置值(Cnt)
     float reduction_ratio = 0.0f;    // 减速比
+    
 
 
 
@@ -93,10 +108,17 @@ public:
     int Motor_EN(shared_ptr<Device_class> Device_P, int EN);
 
     /**
-     * @brief 设置电机零点及位置偏置值 调整电机反馈的 0 位置在机械上对应的点位。设置偏移的时候，把原先的偏移值和当前位置累加
-     * @param offest 偏置值
+     * @brief 设置电机位置偏置值 调整电机反馈的 0 位置在机械上对应的点位。
+     * @param offest 偏置值(Cnt)
     */
-    int Set_Pos_Offset(shared_ptr<Device_class> Device_P, float offest);
+    int Set_Pos_Offset(shared_ptr<Device_class> Device_P, int32_t offest);
+
+
+      /**
+     * @brief 获取电机位置偏置值
+     * @param offest 偏置值(Cnt)
+    */
+    int Get_Pos_Offset(shared_ptr<Device_class> Device_P, int32_t *offest);
 
 
     /**
