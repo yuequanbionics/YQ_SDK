@@ -385,71 +385,71 @@ config:
         <<: *Led_Device_Chassis_Config
 
 Base_Node: 
-  - Name: Main_Switch_Board
-    Range_Name: W_Bot
-    DeviceType: Switch_Board 
-    Id: 101
-    Rec_Id_Offest: [1408, 1024]
-    CH: Head_Flag_CH0
-    IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
-    PC_IP: *PC_IP
-    IP: 192.168.3.101
-    Port: 15101
-    Up_Data_Speed: 10000
-    # Save_Config: *Save_Main_Config
+  # - Name: Main_Switch_Board
+  #   Range_Name: W_Bot
+  #   DeviceType: Switch_Board 
+  #   Id: 101
+  #   Rec_Id_Offest: [1408, 1024]
+  #   CH: Head_Flag_CH0
+  #   IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
+  #   PC_IP: *PC_IP
+  #   IP: 192.168.3.101
+  #   Port: 15101
+  #   Up_Data_Speed: 10000
+  #   # Save_Config: *Save_Main_Config
 
-    DeviceConfig:
-      PrintMcuTaskStack: true
-      Serial_S:
-        - Serial_CH: USART1
-          Serial_menu: 1
-          Serial_Baud: 115200
-          <<: *Serial_General_Config
-          Stm_Tx_Rx_GPIO:
-            Tx_GPIO: GPIOA
-            Rx_GPIO: GPIOA
-            Tx_GPIO_PIN: GPIO_PIN_9
-            Rx_GPIO_PIN: GPIO_PIN_10
-          Other_Config:
-            <<: *Serial_1_DMA_Config
+  #   DeviceConfig:
+  #     PrintMcuTaskStack: true
+  #     Serial_S:
+  #       - Serial_CH: USART1
+  #         Serial_menu: 1
+  #         Serial_Baud: 115200
+  #         <<: *Serial_General_Config
+  #         Stm_Tx_Rx_GPIO:
+  #           Tx_GPIO: GPIOA
+  #           Rx_GPIO: GPIOA
+  #           Tx_GPIO_PIN: GPIO_PIN_9
+  #           Rx_GPIO_PIN: GPIO_PIN_10
+  #         Other_Config:
+  #           <<: *Serial_1_DMA_Config
 
-      Timer_S:  *Timer_WS2812B_Config
-      Can_S: 
-        - Can_Instance: 1
-          <<: *Classic_Can_1M
-        - Can_Instance: 2
-          <<: *Classic_Can_1M
+  #     Timer_S:  *Timer_WS2812B_Config
+  #     Can_S: 
+  #       - Can_Instance: 1
+  #         <<: *Classic_Can_1M
+  #       - Can_Instance: 2
+  #         <<: *Classic_Can_1M
 
-    child:
-      --: *Eyou_Motor_Yaw
-      --: *TaiHu_Motor_Left_Arm
-      --: *TaiHu_Motor_Right_Arm
-      --: *Led_Belt_Shoulder_Config
-      --: *Tape_Tho_IMU_Device
+  #   child:
+  #     --: *Eyou_Motor_Yaw
+  #     --: *TaiHu_Motor_Left_Arm
+  #     --: *TaiHu_Motor_Right_Arm
+  #     --: *Led_Belt_Shoulder_Config
+  #     --: *Tape_Tho_IMU_Device
 
 
-  - Name: Waist_Main_Switch_Board
-    Range_Name: W_Bot
-    DeviceType: Switch_Board 
-    Id: 102
-    Rec_Id_Offest: [1408, 1024]
-    CH: Head_Flag_CH0
-    IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
-    PC_IP: *PC_IP
-    IP: 192.168.3.102
-    Port: 15102
-    Up_Data_Speed: 2000
-    DeviceConfig:
-      Can_S: 
-        - Can_Instance: 2
-          <<: *Classic_Can_1M
+  # - Name: Waist_Main_Switch_Board
+  #   Range_Name: W_Bot
+  #   DeviceType: Switch_Board 
+  #   Id: 102
+  #   Rec_Id_Offest: [1408, 1024]
+  #   CH: Head_Flag_CH0
+  #   IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
+  #   PC_IP: *PC_IP
+  #   IP: 192.168.3.102
+  #   Port: 15102
+  #   Up_Data_Speed: 2000
+  #   DeviceConfig:
+  #     Can_S: 
+  #       - Can_Instance: 2
+  #         <<: *Classic_Can_1M
 
-    child:
-      --: *Eyou_Motor_Roll
-      --: *Eyou_Motor_Hip
-      --: *Eyou_Motor_Knee
-      --: *Eyou_Motor_Ankel
-      --: *Battery_BMS_V2_Knee_Device
+  #   child:
+  #     --: *Eyou_Motor_Roll
+  #     --: *Eyou_Motor_Hip
+  #     --: *Eyou_Motor_Knee
+  #     --: *Eyou_Motor_Ankel
+  #     --: *Battery_BMS_V2_Knee_Device
 
   - Name: Chassis_Main_Switch_Board
     Range_Name: W_Bot
@@ -463,7 +463,7 @@ Base_Node:
     Port: 15103
     Up_Data_Speed: 2000
     DeviceConfig:
-      PrintMcuTaskStack: true
+      PrintMcuTaskStack: false
       Serial_S:
         - Serial_CH: USART1
           Serial_menu: 1
@@ -490,6 +490,17 @@ Base_Node:
       --: *Tape_Cha_IMU_Device
       --: *BenMo_Motor_Chassis_Wheel
       --: *Battery_BMS_V2_Device
+
+      --: *Eyou_Motor_Roll
+      --: *Eyou_Motor_Hip
+      --: *Eyou_Motor_Knee
+      --: *Eyou_Motor_Ankel
+      --: *Battery_BMS_V2_Knee_Device
+      --: *Eyou_Motor_Yaw
+      --: *TaiHu_Motor_Left_Arm
+      --: *TaiHu_Motor_Right_Arm
+      --: *Led_Belt_Shoulder_Config
+      --: *Tape_Tho_IMU_Device
 
 
 

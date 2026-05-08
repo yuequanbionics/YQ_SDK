@@ -1,4 +1,8 @@
 config:
+  IO_Map_Usr: &IO_Map_Usr
+    Send: *IO_Map_Send
+    Map: *Maps_Default
+
   cat_motor_device_config: &cat_motor_device_config
     <<: *Usr_Motor_Init_Config
     <<: *MZ_10MM_Motor_default_config
@@ -88,6 +92,9 @@ Base_Node:
     Port: 15100
     Up_Data_Speed: 1000
     Heart_Beat: true
+    Save_Main_Config: *Save_Main_Configs
+    IO_Map:
+      <<: *IO_Map_Usr
 
     DeviceConfig:
       PrintMcuTaskStack: false

@@ -18,6 +18,7 @@ if(${OUT})
     add_dependencies(${EXE_NAME}
         HARDWARE_TOP
         Switch_Board
+        Switch_Board_Orin
         Motor_Device
         Auto_Set_Id
         Pressure_Sensor_Custom_Device
@@ -28,6 +29,7 @@ if(${OUT})
     target_link_libraries(${EXE_NAME} PRIVATE
         HARDWARE_TOP
         Switch_Board
+        Switch_Board_Orin
         Motor_Device
         Auto_Set_Id
         Pressure_Sensor_Custom_Device

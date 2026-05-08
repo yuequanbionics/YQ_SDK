@@ -102,7 +102,7 @@ config:
     - Name: left_shoulder_pitch
       DeviceType: TaiHu_Custom_Motor
       Id: 11
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
 
@@ -110,7 +110,7 @@ config:
     - Name: left_shoulder_roll
       DeviceType: TaiHu_Custom_Motor
       Id: 12
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
 
@@ -118,7 +118,7 @@ config:
     - Name: left_shoulder_yaw
       DeviceType: TaiHu_Custom_Motor
       Id: 13
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
 
@@ -126,7 +126,7 @@ config:
     - Name: left_elbow
       DeviceType: TaiHu_Custom_Motor
       Id: 14
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
 
@@ -134,7 +134,7 @@ config:
     - Name: left_wrist_yaw
       DeviceType: TaiHu_Custom_Motor
       Id: 15
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
 
@@ -142,7 +142,7 @@ config:
     - Name: left_wrist_pitch
       DeviceType: TaiHu_Custom_Motor
       Id: 16
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
 
@@ -150,21 +150,21 @@ config:
     - Name: left_wrist_roll
       DeviceType: TaiHu_Custom_Motor
       Id: 17
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
 
     - Name: head_pitch
       DeviceType: TaiHu_Custom_Motor
       Id: 2
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
 
     - Name: head_yaw
       DeviceType: TaiHu_Custom_Motor
       Id: 1
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
   #--------------
@@ -175,14 +175,14 @@ config:
     - Name: right_shoulder_pitch
       DeviceType: TaiHu_Custom_Motor
       Id: 21
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
       # 右肩翻滚
     - Name: right_shoulder_roll
       DeviceType: TaiHu_Custom_Motor
       Id: 22
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
 
@@ -190,7 +190,7 @@ config:
     - Name: right_shoulder_yaw
       DeviceType: TaiHu_Custom_Motor
       Id: 23
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
 
@@ -198,21 +198,21 @@ config:
     - Name: right_elbow
       DeviceType: TaiHu_Custom_Motor
       Id: 24
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
       # 右肩手腕偏航
     - Name: right_wrist_yaw
       DeviceType: TaiHu_Custom_Motor
       Id: 25
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
       # 右肩手腕俯仰
     - Name: right_wrist_pitch
       DeviceType: TaiHu_Custom_Motor
       Id: 26
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
 
@@ -220,7 +220,7 @@ config:
     - Name: right_wrist_roll
       DeviceType: TaiHu_Custom_Motor
       Id: 27
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *TaiHu_5060_Motor_config
 

@@ -7,6 +7,7 @@
 #include "Hw_Pressure_Sensor.hpp"
 #include "Motor_TOP.hpp"
 #include "Switch_Board.hpp"
+#include "Switch_Board_Orin.hpp"
 #include "syst.hpp"
 
 using namespace std;
@@ -26,7 +27,7 @@ Motor* Motor_3_Control;
 Motor* Motor_4_Control;
 Motor* Motor_5_Control;
 Motor* Motor_6_Control;
-Hw_Pressure_Sensor* Tactile_Sensor_Control;
+Hw_Pressure_Sensor* Tactile_Sensor_Control = nullptr;
 
 typedef struct X_hand_FB {
     float P;
@@ -273,6 +274,7 @@ int hardware_init(const string& ADDR, const string& Config)
 {
     X_Hand = new Robot_Hardware();
     X_Hand->Add_Device_Type(Switch_Board_Type, Switch_Board_Device_Init, Switch_Board_Device_CallBack_F, Switch_Board_Device_Delete_F);
+    X_Hand->Add_Device_Type(Switch_Board_Orin_Type, Switch_Board_Orin_Device_Init, Switch_Board_Orin_Device_CallBack_F, Switch_Board_Device_Orin_Delete_F);
     X_Hand->Add_Device_Type(Motor_Device_Type, Motor_Device_Init, Motor_Device_CallBack_F, Motor_Device_Delete_F);
     X_Hand->Add_Device_Type(Auto_Set_Id_Type, Auto_Set_Id_Init, Auto_Set_Id_CallBack_F, Auto_Set_Id_Delete_F);
     X_Hand->Add_Device_Type("Tactile_Sensor_Custom", Hw_Pressure_Sensor_Init, Hw_Pressure_Sensor_CallBack_F, Hw_Pressure_Sensor_Delete_F);
@@ -310,11 +312,14 @@ Boards:
     Motor_4_Control = static_cast<Motor*>(X_Hand->Get_Control_Class(Motor_4_D));
     Motor_5_Control = static_cast<Motor*>(X_Hand->Get_Control_Class(Motor_5_D));
     Motor_6_Control = static_cast<Motor*>(X_Hand->Get_Control_Class(Motor_6_D));
-    Tactile_Sensor_Control = static_cast<Hw_Pressure_Sensor*>(X_Hand->Get_Control_Class(Tactile_Sensor_D));
+
+    if (Tactile_Sensor_D != nullptr) {
+        Tactile_Sensor_Control = static_cast<Hw_Pressure_Sensor*>(X_Hand->Get_Control_Class(Tactile_Sensor_D));
+
+        Tactile_Sensor_Init();
+    }
 
     X_hand_Init();
-
-    Tactile_Sensor_Init();
 
 #ifndef HAVE_ROS
 

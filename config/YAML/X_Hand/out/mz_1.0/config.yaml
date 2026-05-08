@@ -2,6 +2,9 @@ config:
   : &Run_Auto_Set_Id false
   : &Auto_Set_Id_Save false
   
+  : &IO_Map_Send false
+  : &Save_Main_Configs false
+  
   Usr_Motor_Init_Config: &Usr_Motor_Init_Config
     Save_All_Config: false 
     Motor_EN_In_Init: true

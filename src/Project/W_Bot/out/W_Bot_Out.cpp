@@ -3,6 +3,10 @@
 #include <filesystem>
 #include <iostream>
 #include <thread>
+#include <chrono>
+#include <iomanip>
+#include <ctime>
+#include <math.h>
 
 #include "Auto_Set_Id.hpp"
 #include "Battery_BMS_V2.hpp"
@@ -16,10 +20,24 @@
 #include "Motor_TaiHu.hpp"
 #include "Switch_Board.hpp"
 #include "syst.hpp"
+#include <filesystem>
+#include "GPIO.hpp"
 
 using namespace std;
 
 // #define W_BOT_ACTION 1
+
+#define W_Bot_CB_P_N0       GPIOD
+// #define W_Bot_CB_P_N1    GPIOD
+// #define W_Bot_CB_P_N2    GPIOD
+// #define W_Bot_CB_P_N3    GPIOD
+
+#define W_Bot_CB_Pin_N0     GPIO_PIN_11
+// #define W_Bot_CB_Pin_N1     GPIO_PIN_11
+// #define W_Bot_CB_Pin_N2     GPIO_PIN_11
+// #define W_Bot_CB_Pin_N3     GPIO_PIN_11
+
+
 
 float Eyou_Speed = 1;
 float Eyou_Acc = 1;
@@ -56,7 +74,6 @@ typedef struct W_Bot_Out_Data {
 
     float head_pitch;
     float head_yaw;
-
 } W_Bot_Out_Data;
 
 /**
@@ -71,6 +88,10 @@ Robot_Hardware* Test_Robot;
  * @brief 灯带数据结构体
  */
 RGB_Data RGB_Datas[2];
+
+shared_ptr<Device_class> Main_Switch_Board;     
+shared_ptr<Device_class> Waist_Main_Switch_Board;
+shared_ptr<Device_class> Chassis_Main_Switch_Board;
 
 /**
  * @brief 灯带设备
@@ -128,6 +149,10 @@ shared_ptr<Device_class> Battery_BMS_V2_4;
 shared_ptr<Device_class> IMU_Device_1;
 shared_ptr<Device_class> IMU_Device_2;
 
+Main_B* Main_Switch_Board_Control;
+Main_B* Waist_Main_Switch_Board_Control;
+Main_B* Chassis_Main_Switch_Board_Control;
+
 Eyou_Motor* Lower_Limbs_Motor_Waist_Roll_Ctl;
 Eyou_Motor* Lower_Limbs_Motor_Waist_Yaw_Ctl;
 Eyou_Motor* Lower_Limbs_Motor_Knee_Ctl;
@@ -167,6 +192,8 @@ BMS_V2_Protocol* Battery_BMS_V2_T2;
 BMS_V2_Protocol* Battery_BMS_V2_T3;
 BMS_V2_Protocol* Battery_BMS_V2_T4;
 
+Main_B *IO_Board_Control;
+
 float jia_pos[3];
 void Eyou_Thread(void) {
     while (1) {
@@ -183,6 +210,27 @@ void Eyou_Thread(void) {
     }
 }
 
+// void Get_Collision_Bar_Gpio(const shared_ptr<Device_class>& Device, u8 *Res){
+//     if (Chassis_Main_Switch_Board_Control == nullptr || Device == nullptr || Res == nullptr)
+//     {
+//         cout << "Fun Get_Buttons_State() param invalid.";
+//         return;
+//     }
+//     Chassis_Main_Switch_Board_Control->m_GPIO.GPIOx_Read(Device, GPIOD, GPIO_PIN_11,  1000);
+//     usleep(2000);
+//     Res[0] = Chassis_Main_Switch_Board_Control->m_GPIO.Get_GPIOx_Value(GPIOD, GPIO_PIN_11);
+//     usleep(100000);
+// }
+
+
+// void Collision_Bar_IO_Thread(void){
+//     while(1){
+//         Get_Collision_Bar_Gpio(Chassis_Main_Switch_Board, W_Bot_OD_Get.Collision_Bar);
+//         // printf("%x, %x, %x, %x\r\n", Collision_Bar[0], Collision_Bar[1], Collision_Bar[2], Collision_Bar[3]);
+//     }
+// }
+
+
 void Battery_BMS_V2_Init(void) {
     // 启动信息
     cout << "===== BMS V2.2协议测试程序启动 =====" << endl;
@@ -192,7 +240,31 @@ void Battery_BMS_V2_Init(void) {
     if (Battery_BMS_V2_T1->Is_Low_Power_Mode()) {
         cout << "检测到BMS处于低功耗模式,正在唤醒..." << endl;
         if (Battery_BMS_V2_T1->Wake_Up_BMS(Battery_BMS_V2_1) != 0) {
-            cout << "BMS唤醒失败,程序退出" << endl;
+            cout << "BMS1 唤醒失败,程序退出" << endl;
+        }
+    }
+
+    // 唤醒BMS设备（如果处于低功耗模式）
+    if (Battery_BMS_V2_T2->Is_Low_Power_Mode()) {
+        cout << "检测到BMS处于低功耗模式,正在唤醒..." << endl;
+        if (Battery_BMS_V2_T2->Wake_Up_BMS(Battery_BMS_V2_2) != 0) {
+            cout << "BMS2 唤醒失败,程序退出" << endl;
+        }
+    }
+
+    // 唤醒BMS设备（如果处于低功耗模式）
+    if (Battery_BMS_V2_T3->Is_Low_Power_Mode()) {
+        cout << "检测到BMS处于低功耗模式,正在唤醒..." << endl;
+        if (Battery_BMS_V2_T3->Wake_Up_BMS(Battery_BMS_V2_3) != 0) {
+            cout << "BMS3 唤醒失败,程序退出" << endl;
+        }
+    }
+
+    // 唤醒BMS设备（如果处于低功耗模式）
+    if (Battery_BMS_V2_T4->Is_Low_Power_Mode()) {
+        cout << "检测到BMS处于低功耗模式,正在唤醒..." << endl;
+        if (Battery_BMS_V2_T4->Wake_Up_BMS(Battery_BMS_V2_4) != 0) {
+            cout << "BMS4 唤醒失败,程序退出" << endl;
         }
     }
 
@@ -240,6 +312,15 @@ int hardware_init(const string& ADDR, const string& Config)
     std::cout << "程序所在目录: " << dir_path << std::endl;
     string ADDR = dir_path.string() + "/../config/YAML/W_Bot/out/TOP.yaml";
     string Config = "None";
+    //     string Config = R"(
+    // PC_IP: 192.168.3.245
+    // SN: asdf1234567
+    // Boards:
+    //   - Id: 101
+
+    //     IP: 192.168.3.243
+    //     # Port: 19001
+    // )";
 #endif
     if (Test_Robot->Init_TOP(ADDR, Config) != 0) {
         cout << "Init_ERR" << endl;
@@ -250,9 +331,9 @@ int hardware_init(const string& ADDR, const string& Config)
     // Test_Robot->OTA_GO(ADDR_OTA);
     // return 0;
 
-    const shared_ptr<Device_class> Main_Switch_Board = Test_Robot->Get_Device_For_Name("Main_Switch_Board");
-    const shared_ptr<Device_class> Waist_Main_Switch_Board = Test_Robot->Get_Device_For_Name("Waist_Main_Switch_Board");
-    const shared_ptr<Device_class> Chassis_Main_Switch_Board = Test_Robot->Get_Device_For_Name("Chassis_Main_Switch_Board");
+    Main_Switch_Board         = Test_Robot->Get_Device_For_Name("Main_Switch_Board");
+    Waist_Main_Switch_Board   = Test_Robot->Get_Device_For_Name("Waist_Main_Switch_Board");
+    Chassis_Main_Switch_Board = Test_Robot->Get_Device_For_Name("Chassis_Main_Switch_Board");
 
     Lower_Limbs_Motor_Waist_Roll = Test_Robot->Get_Device_For_Name("Eyou_Waist_Roll");
     Lower_Limbs_Motor_Waist_Yaw = Test_Robot->Get_Device_For_Name("Eyou_Waist_Yaw");
@@ -293,9 +374,11 @@ int hardware_init(const string& ADDR, const string& Config)
     Battery_BMS_V2_3 = Test_Robot->Get_Device_For_Name("Battery_BMS_V2_3");
     Battery_BMS_V2_4 = Test_Robot->Get_Device_For_Name("Battery_BMS_V2_4");
 
-    Main_B* Main_Switch_Board_Control = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Main_Switch_Board));
-    Main_B* Waist_Main_Switch_Board_Control = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Waist_Main_Switch_Board));
-    Main_B* Chassis_Main_Switch_Board_Control = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Chassis_Main_Switch_Board));
+    // IO_Board = Test_Robot->Get_Device_For_Name("IO_Board");
+
+    Main_Switch_Board_Control         = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Main_Switch_Board));
+    Waist_Main_Switch_Board_Control   = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Waist_Main_Switch_Board));
+    Chassis_Main_Switch_Board_Control = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Chassis_Main_Switch_Board));
 
     Lower_Limbs_Motor_Waist_Roll_Ctl = static_cast<Eyou_Motor*>(Test_Robot->Get_Control_Class(Lower_Limbs_Motor_Waist_Roll));
     Lower_Limbs_Motor_Waist_Yaw_Ctl = static_cast<Eyou_Motor*>(Test_Robot->Get_Control_Class(Lower_Limbs_Motor_Waist_Yaw));
@@ -303,15 +386,15 @@ int hardware_init(const string& ADDR, const string& Config)
     Lower_Limbs_Motor_Hip_Ctl = static_cast<Eyou_Motor*>(Test_Robot->Get_Control_Class(Lower_Limbs_Motor_Hip));
     Lower_Limbs_Motor_Ankel_Ctl = static_cast<Eyou_Motor*>(Test_Robot->Get_Control_Class(Lower_Limbs_Motor_Ankel));
 
-    TaiHu_Device_T1 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_1));
-    TaiHu_Device_T2 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_2));
-    TaiHu_Device_T3 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_3));
-    TaiHu_Device_T4 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_4));
-    TaiHu_Device_T5 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_5));
-    TaiHu_Device_T6 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_6));
-    TaiHu_Device_T7 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_7));
-    TaiHu_Device_T8 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_8));
-    TaiHu_Device_T9 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_9));
+    TaiHu_Device_T1  = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_1));
+    TaiHu_Device_T2  = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_2));
+    TaiHu_Device_T3  = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_3));
+    TaiHu_Device_T4  = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_4));
+    TaiHu_Device_T5  = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_5));
+    TaiHu_Device_T6  = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_6));
+    TaiHu_Device_T7  = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_7));
+    TaiHu_Device_T8  = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_8));
+    TaiHu_Device_T9  = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_9));
     TaiHu_Device_T10 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_10));
     TaiHu_Device_T11 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_11));
     TaiHu_Device_T12 = static_cast<Motor_TaiHu*>(Test_Robot->Get_Control_Class(TaiHu_Device_12));
@@ -334,11 +417,19 @@ int hardware_init(const string& ADDR, const string& Config)
     Battery_BMS_V2_T3 = static_cast<BMS_V2_Protocol*>(Test_Robot->Get_Control_Class(Battery_BMS_V2_3));
     Battery_BMS_V2_T4 = static_cast<BMS_V2_Protocol*>(Test_Robot->Get_Control_Class(Battery_BMS_V2_4));
 
+    Chassis_Main_Switch_Board_Control = static_cast<Main_B*>(Test_Robot->Get_Control_Class(Chassis_Main_Switch_Board));
+
     IMU_Device_T1->Start_AHRS_Mod_And_Init(IMU_Device_1);
     usleep(100);
     IMU_Device_T2->Start_AHRS_Mod_And_Init(IMU_Device_2);
 
     Battery_BMS_V2_Init();
+
+    Chassis_Main_Switch_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(Chassis_Main_Switch_Board, W_Bot_CB_P_N0, W_Bot_CB_Pin_N0);
+    // Chassis_Main_Switch_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(Chassis_Main_Switch_Board, W_Bot_CB_P_N1, W_Bot_CB_Pin_N1);
+    // Chassis_Main_Switch_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(Chassis_Main_Switch_Board, W_Bot_CB_P_N2, W_Bot_CB_Pin_N2);
+    // Chassis_Main_Switch_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(Chassis_Main_Switch_Board, W_Bot_CB_P_N3, W_Bot_CB_Pin_N3);
+
 
 #ifdef W_BOT_ACTION
     float SetPos = 0.0f;
@@ -426,6 +517,8 @@ int hardware_init(const string& ADDR, const string& Config)
 
     // Lower_Limbs_Motor_Ankel_Ctl->Read_KP_Data(Lower_Limbs_Motor_Ankel);
     thread eyou_th(Eyou_Thread);
+    // thread io_th(Collision_Bar_IO_Thread);
+
 
     while (1) {
         // Lower_Limbs_Motor_Ankel_Ctl->Read_KP_Data(Lower_Limbs_Motor_Ankel);
@@ -457,10 +550,6 @@ int hardware_init(const string& ADDR, const string& Config)
         Lower_Limbs_Motor_Waist_Roll_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Roll, &W_Bot_OD_Get.Eyou_Roll, &Eyou_Speed, &qqqq);
         Lower_Limbs_Motor_Hip_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Hip, &W_Bot_OD_Get.Eyou_Hip, &Eyou_Speed, &qqqq);
         Lower_Limbs_Motor_Ankel_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Ankel, &W_Bot_OD_Get.Eyou_Ankel, &Eyou_Speed, &qqqq);
-        printf("%f\r\n", W_Bot_OD_Get.Eyou_Hip);
-        printf("%f\r\n", W_Bot_OD_Get.Eyou_Knee);
-        printf("%f\r\n", W_Bot_OD_Get.Eyou_Roll);
-        printf("%f\r\n", W_Bot_OD_Get.Eyou_Ankel);
 
         usleep(1000);
 

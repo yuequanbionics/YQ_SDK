@@ -19,5 +19,6 @@ import:
   Can_Config: "../../../Device_Config/Can_Config.yaml"
   Motor_Config0: "config.yaml"
   Motor_Config1: "../../../Device_Config/MZ_Motor_Config.yaml"
+  IO_MAP: "../../../Device_Config/IO_Map.yaml"
   Motors: "Devices.yaml"
 
