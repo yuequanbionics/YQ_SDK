@@ -1,118 +1,47 @@
-DriverVersion: 0.0.0
+DriverVersion: 0.0.1
 Log_Max_Size: 5
 Name: Motor
 PC_IP: &1 192.168.3.245
 Broadcast_IP: 192.168.3.255
 config:
-  - "null": &2 true
-  - "null": &3 true
+  - "null": &2 false
+  - "null": &3 false
   - Usr_Motor_Init_Config:
       Save_All_Config: &4 false
-      Motor_EN_In_Init: &5 false
+      Motor_EN_In_Init: &5 true
       Set_Zero_In_Init: &6 false
       Set_Config_In_Init: &7 false
       Set_Pid_Config_In_Init: &8 false
       Motor_Cal_In_Init: &9 false
-  - Init_Config:
-      Save_All_Config: &10 false
-      Motor_EN_In_Init: &11 true
-      Set_Zero_In_Init: &12 false
-      Set_Config_In_Init: &13 false
-      Set_Pid_Config_In_Init: &14 false
-      Motor_Cal_In_Init: &15 false
-  - MZ_10MM_Motor_default_config:
-      Motor_Set_Zero_Offest: 0.0
-      Motor_Mod: Motor_MIT_Control
-      Motor_Heart_Beat: 0
-      Motor_Pole_Pairs: 1
-      Motor_AB_Mirror: false
-      Motor_current_sample_offset: 10
-      MD_K: 10
-      Dead_Time: 1
-      V_IC_MU_FORCE: 200
-      IC_MU_SPEED: 1
-      V_rated: 700
-      DI_I_MAX: 2.0
-      I_Hardware_Max: 2
-      Current_Amplifier_Gain: 15
-      Motor_CMD_I_To_Force_K: 1.0
-      Ceil_Temperature_Alarm_Th: 90
-      Ceil_Temperature_Protect_Th: 100
-      NTC_Bx: 3950
-      Gear_Ratio: 27.16875
-      Gear_multiple: 50
-      Electricity_D_P: 200000
-      Electricity_D_I: 20000
-      Electricity_D_OUT_MAX: 0.9
-      Electricity_D_Integration_MAX: 0.9
-      Electricity_Q_P: 200000
-      Electricity_Q_I: 20000
-      Electricity_Q_OUT_MAX: 0.9
-      Electricity_Q_Integration_MAX: 0.9
-  - MZ_13MM_Motor_default_config:
-      Motor_Set_Zero_Offest: &16 0.0
-      Motor_Mod: &17 Motor_MIT_Control
-      Motor_Heart_Beat: &18 0
-      Motor_Pole_Pairs: &19 1
-      Motor_AB_Mirror: &20 false
-      Motor_current_sample_offset: &21 10
-      MD_K: &22 10
-      Dead_Time: &23 1
-      V_IC_MU_FORCE: &24 200
-      IC_MU_SPEED: &25 1
-      V_rated: &26 500
-      DI_I_MAX: &27 0.5
-      I_Hardware_Max: &28 2
-      Current_Amplifier_Gain: &29 15
-      Motor_CMD_I_To_Force_K: &30 1.0
-      Ceil_Temperature_Alarm_Th: &31 70
-      Ceil_Temperature_Protect_Th: &32 90
-      NTC_Bx: &33 3950
-      Gear_Ratio: &34 54
-      Gear_multiple: &35 10
-      Electricity_D_P: &36 200000
-      Electricity_D_I: &37 20000
-      Electricity_D_OUT_MAX: &38 0.90
-      Electricity_D_Integration_MAX: &39 0.90
-      Electricity_Q_P: &40 200000
-      Electricity_Q_I: &41 20000
-      Electricity_Q_OUT_MAX: &42 0.90
-      Electricity_Q_Integration_MAX: &43 0.90
-      Save_All_Config: *10
-      Motor_EN_In_Init: *11
-      Set_Zero_In_Init: *12
-      Set_Config_In_Init: *13
-      Set_Pid_Config_In_Init: *14
-      Motor_Cal_In_Init: *15
   - FD_Can_2M_4M:
-      Can_EN: &44 true
-      Can_FrameFormat: &45 FDCAN_FRAME_FD_BRS
-      Can_Mode: &46 FDCAN_MODE_NORMAL
-      Can_AutoRetransmission: &47 true
-      Can_TransmitPause: &48 false
-      Can_ProtocolException: &49 false
-      Can_Nominal_Prescaler: &50 1
-      Can_Nominal_SyncJumpWidth: &51 9
-      Can_Nominal_TimeSeg1: &52 30
-      Can_Nominal_TimeSeg2: &53 9
-      Can_Data_Prescaler: &54 1
-      Can_Data_SyncJumpWidth: &55 4
-      Can_Data_TimeSeg1: &56 15
-      Can_Data_TimeSeg2: &57 4
-      Can_StdFiltersNbr: &58 4
-      Can_ExtFiltersNbr: &59 4
-      Can_RxFifo0ElmtsNbr: &60 32
-      Can_RxFifo0ElmtSize: &61 FDCAN_DATA_BYTES_64
-      Can_RxFifo1ElmtsNbr: &62 0
-      Can_RxFifo1ElmtSize: &63 FDCAN_DATA_BYTES_64
-      Can_RxBuffersNbr: &64 0
-      Can_RxBufferSize: &65 FDCAN_DATA_BYTES_64
-      Can_TxEventsNbr: &66 0
-      Can_TxBuffersNbr: &67 0
-      Can_TxFifoQueueElmtsNbr: &68 16
-      Can_TxFifoQueueMode: &69 FDCAN_TX_FIFO_OPERATION
-      Can_TxElmtSize: &70 FDCAN_DATA_BYTES_64
-      Can_Set_Complete: &71 true
+      Can_EN: &10 true
+      Can_FrameFormat: &11 FDCAN_FRAME_FD_BRS
+      Can_Mode: &12 FDCAN_MODE_NORMAL
+      Can_AutoRetransmission: &13 true
+      Can_TransmitPause: &14 false
+      Can_ProtocolException: &15 false
+      Can_Nominal_Prescaler: &16 1
+      Can_Nominal_SyncJumpWidth: &17 9
+      Can_Nominal_TimeSeg1: &18 30
+      Can_Nominal_TimeSeg2: &19 9
+      Can_Data_Prescaler: &20 1
+      Can_Data_SyncJumpWidth: &21 4
+      Can_Data_TimeSeg1: &22 15
+      Can_Data_TimeSeg2: &23 4
+      Can_StdFiltersNbr: &24 4
+      Can_ExtFiltersNbr: &25 4
+      Can_RxFifo0ElmtsNbr: &26 32
+      Can_RxFifo0ElmtSize: &27 FDCAN_DATA_BYTES_64
+      Can_RxFifo1ElmtsNbr: &28 0
+      Can_RxFifo1ElmtSize: &29 FDCAN_DATA_BYTES_64
+      Can_RxBuffersNbr: &30 0
+      Can_RxBufferSize: &31 FDCAN_DATA_BYTES_64
+      Can_TxEventsNbr: &32 0
+      Can_TxBuffersNbr: &33 0
+      Can_TxFifoQueueElmtsNbr: &34 16
+      Can_TxFifoQueueMode: &35 FDCAN_TX_FIFO_OPERATION
+      Can_TxElmtSize: &36 FDCAN_DATA_BYTES_64
+      Can_Set_Complete: &37 true
   - FD_Can_2M_2M:
       Can_EN: true
       Can_FrameFormat: FDCAN_FRAME_FD_BRS
@@ -200,6 +129,77 @@ config:
       Can_TxFifoQueueMode: FDCAN_TX_FIFO_OPERATION
       Can_TxElmtSize: FDCAN_DATA_BYTES_64
       Can_Set_Complete: true
+  - Init_Config:
+      Save_All_Config: &38 false
+      Motor_EN_In_Init: &39 true
+      Set_Zero_In_Init: &40 false
+      Set_Config_In_Init: &41 false
+      Set_Pid_Config_In_Init: &42 false
+      Motor_Cal_In_Init: &43 false
+  - MZ_10MM_Motor_default_config:
+      Motor_Set_Zero_Offest: 0.0
+      Motor_Mod: Motor_MIT_Control
+      Motor_Heart_Beat: 0
+      Motor_Pole_Pairs: 1
+      Motor_AB_Mirror: false
+      Motor_current_sample_offset: 10
+      MD_K: 10
+      Dead_Time: 1
+      V_IC_MU_FORCE: 200
+      IC_MU_SPEED: 1
+      V_rated: 700
+      DI_I_MAX: 2.0
+      I_Hardware_Max: 2
+      Current_Amplifier_Gain: 15
+      Motor_CMD_I_To_Force_K: 1.0
+      Ceil_Temperature_Alarm_Th: 90
+      Ceil_Temperature_Protect_Th: 100
+      NTC_Bx: 3950
+      Gear_Ratio: 27.16875
+      Gear_multiple: 50
+      Electricity_D_P: 200000
+      Electricity_D_I: 20000
+      Electricity_D_OUT_MAX: 0.9
+      Electricity_D_Integration_MAX: 0.9
+      Electricity_Q_P: 200000
+      Electricity_Q_I: 20000
+      Electricity_Q_OUT_MAX: 0.9
+      Electricity_Q_Integration_MAX: 0.9
+  - MZ_13MM_Motor_default_config:
+      Motor_Set_Zero_Offest: &44 0.0
+      Motor_Mod: &45 Motor_MIT_Control
+      Motor_Heart_Beat: &46 0
+      Motor_Pole_Pairs: &47 1
+      Motor_AB_Mirror: &48 false
+      Motor_current_sample_offset: &49 10
+      MD_K: &50 10
+      Dead_Time: &51 1
+      V_IC_MU_FORCE: &52 200
+      IC_MU_SPEED: &53 1
+      V_rated: &54 500
+      DI_I_MAX: &55 0.5
+      I_Hardware_Max: &56 2
+      Current_Amplifier_Gain: &57 15
+      Motor_CMD_I_To_Force_K: &58 1.0
+      Ceil_Temperature_Alarm_Th: &59 70
+      Ceil_Temperature_Protect_Th: &60 90
+      NTC_Bx: &61 3950
+      Gear_Ratio: &62 54
+      Gear_multiple: &63 10
+      Electricity_D_P: &64 200000
+      Electricity_D_I: &65 20000
+      Electricity_D_OUT_MAX: &66 0.90
+      Electricity_D_Integration_MAX: &67 0.90
+      Electricity_Q_P: &68 200000
+      Electricity_Q_I: &69 20000
+      Electricity_Q_OUT_MAX: &70 0.90
+      Electricity_Q_Integration_MAX: &71 0.90
+      Save_All_Config: *38
+      Motor_EN_In_Init: *39
+      Set_Zero_In_Init: *40
+      Set_Config_In_Init: *41
+      Set_Pid_Config_In_Init: *42
+      Motor_Cal_In_Init: *43
   - cat_motor_device_config: &72
       Save_All_Config: *4
       Motor_EN_In_Init: *5
@@ -207,34 +207,34 @@ config:
       Set_Config_In_Init: *7
       Set_Pid_Config_In_Init: *8
       Motor_Cal_In_Init: *9
-      Motor_Set_Zero_Offest: *16
-      Motor_Mod: *17
-      Motor_Heart_Beat: *18
-      Motor_Pole_Pairs: *19
-      Motor_AB_Mirror: *20
-      Motor_current_sample_offset: *21
-      MD_K: *22
-      Dead_Time: *23
-      V_IC_MU_FORCE: *24
-      IC_MU_SPEED: *25
-      V_rated: *26
-      DI_I_MAX: *27
-      I_Hardware_Max: *28
-      Current_Amplifier_Gain: *29
-      Motor_CMD_I_To_Force_K: *30
-      Ceil_Temperature_Alarm_Th: *31
-      Ceil_Temperature_Protect_Th: *32
-      NTC_Bx: *33
-      Gear_Ratio: *34
-      Gear_multiple: *35
-      Electricity_D_P: *36
-      Electricity_D_I: *37
-      Electricity_D_OUT_MAX: *38
-      Electricity_D_Integration_MAX: *39
-      Electricity_Q_P: *40
-      Electricity_Q_I: *41
-      Electricity_Q_OUT_MAX: *42
-      Electricity_Q_Integration_MAX: *43
+      Motor_Set_Zero_Offest: *44
+      Motor_Mod: *45
+      Motor_Heart_Beat: *46
+      Motor_Pole_Pairs: *47
+      Motor_AB_Mirror: *48
+      Motor_current_sample_offset: *49
+      MD_K: *50
+      Dead_Time: *51
+      V_IC_MU_FORCE: *52
+      IC_MU_SPEED: *53
+      V_rated: *54
+      DI_I_MAX: *55
+      I_Hardware_Max: *56
+      Current_Amplifier_Gain: *57
+      Motor_CMD_I_To_Force_K: *58
+      Ceil_Temperature_Alarm_Th: *59
+      Ceil_Temperature_Protect_Th: *60
+      NTC_Bx: *61
+      Gear_Ratio: *62
+      Gear_multiple: *63
+      Electricity_D_P: *64
+      Electricity_D_I: *65
+      Electricity_D_OUT_MAX: *66
+      Electricity_D_Integration_MAX: *67
+      Electricity_Q_P: *68
+      Electricity_Q_I: *69
+      Electricity_Q_OUT_MAX: *70
+      Electricity_Q_Integration_MAX: *71
   - Motor_Config_Normal_0:
       DeviceType: &73 Motor_Device
       CH: &74 Head_Flag_Switch_CH1
@@ -549,7 +549,6 @@ config:
             - *106
             - *107
             - *108
-OTA_BAG: Y_Hand_OTA
 Timer_WS2812B_Config:
   - Timer_Instance: TIM17
     Timer_En: true
@@ -625,63 +624,63 @@ Base_Node:
       Save_to_Flash: false
       Can_S:
         - Can_Instance: 1
-          Can_EN: *44
-          Can_FrameFormat: *45
-          Can_Mode: *46
-          Can_AutoRetransmission: *47
-          Can_TransmitPause: *48
-          Can_ProtocolException: *49
-          Can_Nominal_Prescaler: *50
-          Can_Nominal_SyncJumpWidth: *51
-          Can_Nominal_TimeSeg1: *52
-          Can_Nominal_TimeSeg2: *53
-          Can_Data_Prescaler: *54
-          Can_Data_SyncJumpWidth: *55
-          Can_Data_TimeSeg1: *56
-          Can_Data_TimeSeg2: *57
-          Can_StdFiltersNbr: *58
-          Can_ExtFiltersNbr: *59
-          Can_RxFifo0ElmtsNbr: *60
-          Can_RxFifo0ElmtSize: *61
-          Can_RxFifo1ElmtsNbr: *62
-          Can_RxFifo1ElmtSize: *63
-          Can_RxBuffersNbr: *64
-          Can_RxBufferSize: *65
-          Can_TxEventsNbr: *66
-          Can_TxBuffersNbr: *67
-          Can_TxFifoQueueElmtsNbr: *68
-          Can_TxFifoQueueMode: *69
-          Can_TxElmtSize: *70
-          Can_Set_Complete: *71
+          Can_EN: *10
+          Can_FrameFormat: *11
+          Can_Mode: *12
+          Can_AutoRetransmission: *13
+          Can_TransmitPause: *14
+          Can_ProtocolException: *15
+          Can_Nominal_Prescaler: *16
+          Can_Nominal_SyncJumpWidth: *17
+          Can_Nominal_TimeSeg1: *18
+          Can_Nominal_TimeSeg2: *19
+          Can_Data_Prescaler: *20
+          Can_Data_SyncJumpWidth: *21
+          Can_Data_TimeSeg1: *22
+          Can_Data_TimeSeg2: *23
+          Can_StdFiltersNbr: *24
+          Can_ExtFiltersNbr: *25
+          Can_RxFifo0ElmtsNbr: *26
+          Can_RxFifo0ElmtSize: *27
+          Can_RxFifo1ElmtsNbr: *28
+          Can_RxFifo1ElmtSize: *29
+          Can_RxBuffersNbr: *30
+          Can_RxBufferSize: *31
+          Can_TxEventsNbr: *32
+          Can_TxBuffersNbr: *33
+          Can_TxFifoQueueElmtsNbr: *34
+          Can_TxFifoQueueMode: *35
+          Can_TxElmtSize: *36
+          Can_Set_Complete: *37
         - Can_Instance: 2
-          Can_EN: *44
-          Can_FrameFormat: *45
-          Can_Mode: *46
-          Can_AutoRetransmission: *47
-          Can_TransmitPause: *48
-          Can_ProtocolException: *49
-          Can_Nominal_Prescaler: *50
-          Can_Nominal_SyncJumpWidth: *51
-          Can_Nominal_TimeSeg1: *52
-          Can_Nominal_TimeSeg2: *53
-          Can_Data_Prescaler: *54
-          Can_Data_SyncJumpWidth: *55
-          Can_Data_TimeSeg1: *56
-          Can_Data_TimeSeg2: *57
-          Can_StdFiltersNbr: *58
-          Can_ExtFiltersNbr: *59
-          Can_RxFifo0ElmtsNbr: *60
-          Can_RxFifo0ElmtSize: *61
-          Can_RxFifo1ElmtsNbr: *62
-          Can_RxFifo1ElmtSize: *63
-          Can_RxBuffersNbr: *64
-          Can_RxBufferSize: *65
-          Can_TxEventsNbr: *66
-          Can_TxBuffersNbr: *67
-          Can_TxFifoQueueElmtsNbr: *68
-          Can_TxFifoQueueMode: *69
-          Can_TxElmtSize: *70
-          Can_Set_Complete: *71
+          Can_EN: *10
+          Can_FrameFormat: *11
+          Can_Mode: *12
+          Can_AutoRetransmission: *13
+          Can_TransmitPause: *14
+          Can_ProtocolException: *15
+          Can_Nominal_Prescaler: *16
+          Can_Nominal_SyncJumpWidth: *17
+          Can_Nominal_TimeSeg1: *18
+          Can_Nominal_TimeSeg2: *19
+          Can_Data_Prescaler: *20
+          Can_Data_SyncJumpWidth: *21
+          Can_Data_TimeSeg1: *22
+          Can_Data_TimeSeg2: *23
+          Can_StdFiltersNbr: *24
+          Can_ExtFiltersNbr: *25
+          Can_RxFifo0ElmtsNbr: *26
+          Can_RxFifo0ElmtSize: *27
+          Can_RxFifo1ElmtsNbr: *28
+          Can_RxFifo1ElmtSize: *29
+          Can_RxBuffersNbr: *30
+          Can_RxBufferSize: *31
+          Can_TxEventsNbr: *32
+          Can_TxBuffersNbr: *33
+          Can_TxFifoQueueElmtsNbr: *34
+          Can_TxFifoQueueMode: *35
+          Can_TxElmtSize: *36
+          Can_Set_Complete: *37
       Timer_S:
         - Timer_Index: 1
           Prescaler: 0
