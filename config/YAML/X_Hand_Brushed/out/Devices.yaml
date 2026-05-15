@@ -3,7 +3,7 @@
 
 config:
   X_Hand_Config_Normal_0: &X_Hand_Config_Normal_0
-    DeviceType: X_Hand_Protocol_Device_Custom
+    DeviceType: X_Hand_Brushed_Custom_Motor_TOP
     CH: Head_Flag_Switch_CH1
     IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
 
@@ -30,6 +30,18 @@ config:
 
     - Name: X_Hand_Protocol_6
       Id: 6
+      <<: *X_Hand_Config_Normal_0
+
+    - Name: X_Hand_Msg_1
+      Id: 31
+      <<: *X_Hand_Config_Normal_0
+
+    - Name: X_Hand_Msg_2
+      Id: 32
+      <<: *X_Hand_Config_Normal_0
+
+    - Name: X_Hand_Msg_3
+      Id: 33
       <<: *X_Hand_Config_Normal_0
 
 Base_Node:

@@ -1,8 +1,9 @@
 config:
-  Power_Supply_Init_Config: &Power_Supply_Init_Config:
-    - Bandrate: 115200
-      Go_on: false
-      OV: 48
-      OV_Lim: 85
-      OI: 3
-      OI_Lim: 20
+  Power_Supply_Init_Config: &Power_Supply_Init_Config
+    Device_choose: "/dev/ttyUSB0"
+    Bandrate: 115200
+    Go_on: flase
+    OV: 24
+    OV_Lim: 85
+    OI: 3
+    OI_Lim: 20

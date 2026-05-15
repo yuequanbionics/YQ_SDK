@@ -35,23 +35,15 @@ constexpr u16 TRAVEL_BENT     = 65535;
  */
 class X_Hand_Protocol : private Robot_Hardware {
 public:
-    /** 本实例对应的 CAN ID */
-    u16 Get_CanId() const { return can_id_; }
-
-    /** 应用层显式设置 CAN ID */
-    void Set_CanId(u16 id) { can_id_ = id; }
-
     /**
      * 设置本电机：travel(0~65535)，torque(0~65535)，使用实例的 CanId 发送
      */
-    int Set_Motor(u16 travel, u16 torque = 0);
+    int Set_Motor(shared_ptr<Device_class> Device_P, u16 travel, u16 torque = 0);
 
     /**
      * 按归一化角度设置本电机：0.0=伸直，1.0=弯曲
      */
-    int Set_Motor_Angle(float angle_01, float torque_01 = 0.0f);
-
-    // void Flush() const;
+    int Set_Motor_Angle(shared_ptr<Device_class> Device_P, float angle_01, float torque_01 = 0.0f);
 
     /** 从 YAML 初始化：绑定设备，供设备类型 Init 回调使用 */
     int Get_Device_Data_From_Yaml_And_Init(shared_ptr<Device_class> Device, const YAML::Node &Node);
@@ -59,16 +51,13 @@ public:
     int X_Hand_Protocol_Frame_Analyze(volatile u8* Can_Frame);
 
 private:
-    int Send_One_Frame(u16 can_id, u16 travel, u16 torque);
+    std::shared_ptr<Device_class> s_device;
+    int Send_One_Frame(shared_ptr<Device_class> Device, u16 travel, u16 torque);
     static void Pack_Travel_Torque_BigEndian(u8 data[4], u16 travel, u16 torque);
-
-    /** 本实例设备，用于取 Head_Flag_CHX 决定发到主板哪路 CAN） */
-    std::shared_ptr<Device_class> device_;
-    u16 can_id_ = 0;
 };
 
 /** 设备类型名与 Init/CallBack/Delete 宏，供 Add_Device_Type 与 YAML DeviceType 使用 */
-#define X_Hand_Protocol_Device_Type "X_Hand_Protocol_Device_Custom"
+#define X_Hand_Brushed_Custom_Type "X_Hand_Brushed_Custom_Motor_TOP"
 
 #define X_Hand_Protocol_Device_Init  ([](std::shared_ptr<Device_class> Device, YAML::Node *Node) -> int {\
         X_Hand_Protocol *proto = new X_Hand_Protocol();\
@@ -85,5 +74,7 @@ private:
         delete ((X_Hand_Protocol *)Device_Private_Class);\
         Device_Private_Class = nullptr;\
     })
+
+#define Can_ID_Send_Offset 0x200
 
 #endif  // X_HAND_PROTOCOL_H_

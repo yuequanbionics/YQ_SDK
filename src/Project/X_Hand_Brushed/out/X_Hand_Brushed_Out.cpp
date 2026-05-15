@@ -29,12 +29,18 @@ shared_ptr<Device_class> X_Hand_3_D;
 shared_ptr<Device_class> X_Hand_4_D;
 shared_ptr<Device_class> X_Hand_5_D;
 shared_ptr<Device_class> X_Hand_6_D;
+shared_ptr<Device_class> X_Hand_Msg_1_D;
+shared_ptr<Device_class> X_Hand_Msg_2_D;
+shared_ptr<Device_class> X_Hand_Msg_3_D;
 X_Hand_Protocol* X_Hand_1_Control;
 X_Hand_Protocol* X_Hand_2_Control;
 X_Hand_Protocol* X_Hand_3_Control;
 X_Hand_Protocol* X_Hand_4_Control;
 X_Hand_Protocol* X_Hand_5_Control;
 X_Hand_Protocol* X_Hand_6_Control;
+X_Hand_Protocol* X_Hand_Msg_1_Control;
+X_Hand_Protocol* X_Hand_Msg_2_Control;
+X_Hand_Protocol* X_Hand_Msg_3_Control;
 
 static void sigint_handler(int) {
     g_need_exit = 1;
@@ -42,12 +48,12 @@ static void sigint_handler(int) {
 
 inline void reset (){
     angle = 0.0f;
-    X_Hand_1_Control->Set_Motor_Angle(angle, 0.0f);
-    X_Hand_2_Control->Set_Motor_Angle(angle, 0.0f);
-    X_Hand_3_Control->Set_Motor_Angle(angle, 0.0f);
-    X_Hand_4_Control->Set_Motor_Angle(angle, 0.0f);
-    X_Hand_5_Control->Set_Motor_Angle(angle, 0.0f);
-    X_Hand_6_Control->Set_Motor_Angle(angle, 0.0f);
+    X_Hand_1_Control->Set_Motor_Angle(X_Hand_1_D, angle, 0.0f);
+    X_Hand_2_Control->Set_Motor_Angle(X_Hand_2_D, angle, 0.0f);
+    X_Hand_3_Control->Set_Motor_Angle(X_Hand_3_D, angle, 0.0f);
+    X_Hand_4_Control->Set_Motor_Angle(X_Hand_4_D, angle, 0.0f);
+    X_Hand_5_Control->Set_Motor_Angle(X_Hand_5_D, angle, 0.0f);
+    X_Hand_6_Control->Set_Motor_Angle(X_Hand_6_D, angle, 0.0f);
     robot->Send_Buff_Data();
     sleep(1);
 }
@@ -61,7 +67,7 @@ int hardware_init(string ADDR, string Config)
     robot = new Robot_Hardware();
     robot->Add_Device_Type(Switch_Board_Type, Switch_Board_Device_Init,
                           Switch_Board_Device_CallBack_F, Switch_Board_Device_Delete_F);
-    robot->Add_Device_Type(X_Hand_Protocol_Device_Type,
+    robot->Add_Device_Type(X_Hand_Brushed_Custom_Type,
                           X_Hand_Protocol_Device_Init,
                           X_Hand_Protocol_Device_CallBack_F,
                           X_Hand_Protocol_Device_Delete_F);
@@ -83,6 +89,9 @@ int hardware_init(string ADDR, string Config)
     X_Hand_4_D = robot->Get_Device_For_Name("X_Hand_Protocol_4");
     X_Hand_5_D = robot->Get_Device_For_Name("X_Hand_Protocol_5");
     X_Hand_6_D = robot->Get_Device_For_Name("X_Hand_Protocol_6");
+    X_Hand_Msg_1_D = robot->Get_Device_For_Name("X_Hand_Msg_1");
+    X_Hand_Msg_2_D = robot->Get_Device_For_Name("X_Hand_Msg_2");
+    X_Hand_Msg_3_D = robot->Get_Device_For_Name("X_Hand_Msg_3");
 
     X_Hand_1_Control = (X_Hand_Protocol*)robot->Get_Control_Class(X_Hand_1_D);
     X_Hand_2_Control = (X_Hand_Protocol*)robot->Get_Control_Class(X_Hand_2_D);
@@ -90,13 +99,9 @@ int hardware_init(string ADDR, string Config)
     X_Hand_4_Control = (X_Hand_Protocol*)robot->Get_Control_Class(X_Hand_4_D);
     X_Hand_5_Control = (X_Hand_Protocol*)robot->Get_Control_Class(X_Hand_5_D);
     X_Hand_6_Control = (X_Hand_Protocol*)robot->Get_Control_Class(X_Hand_6_D);
-
-    X_Hand_1_Control->Set_CanId(0x201);
-    X_Hand_2_Control->Set_CanId(0x202);
-    X_Hand_3_Control->Set_CanId(0x203);
-    X_Hand_4_Control->Set_CanId(0x204);
-    X_Hand_5_Control->Set_CanId(0x205);
-    X_Hand_6_Control->Set_CanId(0x206);
+    X_Hand_Msg_1_Control = (X_Hand_Protocol*)robot->Get_Control_Class(X_Hand_Msg_1_D);
+    X_Hand_Msg_2_Control = (X_Hand_Protocol*)robot->Get_Control_Class(X_Hand_Msg_2_D);
+    X_Hand_Msg_3_Control = (X_Hand_Protocol*)robot->Get_Control_Class(X_Hand_Msg_3_D);
 
     signal(SIGINT, sigint_handler);
     cout << "X_Hand 6-motor control demo (left hand, 0x201~0x206). angle 0=straight, 1=bent. Ctrl+C to exit (hand will straighten)." << endl;
@@ -115,17 +120,17 @@ int hardware_init(string ADDR, string Config)
             t -= 6.28318f;
 
         angle = 0.5f + 0.4f * sin(t + 1 * 0.5f);
-        X_Hand_1_Control->Set_Motor_Angle(angle, 0.0f);
+        X_Hand_1_Control->Set_Motor_Angle(X_Hand_1_D, angle, 0.0f);
         angle = 0.5f + 0.4f * sin(t + 2 * 0.5f);
-        X_Hand_2_Control->Set_Motor_Angle(angle, 0.0f);
+        X_Hand_2_Control->Set_Motor_Angle(X_Hand_2_D, angle, 0.0f);
         angle = 0.5f + 0.4f * sin(t + 3 * 0.5f);
-        X_Hand_3_Control->Set_Motor_Angle(angle, 0.0f);
+        X_Hand_3_Control->Set_Motor_Angle(X_Hand_3_D, angle, 0.0f);
         angle = 0.5f + 0.4f * sin(t + 4 * 0.5f);
-        X_Hand_4_Control->Set_Motor_Angle(angle, 0.0f);
+        X_Hand_4_Control->Set_Motor_Angle(X_Hand_4_D, angle, 0.0f);
         angle = 0.5f + 0.4f * sin(t + 5 * 0.5f);
-        X_Hand_5_Control->Set_Motor_Angle(angle, 0.0f);
+        X_Hand_5_Control->Set_Motor_Angle(X_Hand_5_D, angle, 0.0f);
         angle = 0.5f + 0.4f * sin(t + 6 * 0.5f);
-        X_Hand_6_Control->Set_Motor_Angle(angle, 0.0f);
+        X_Hand_6_Control->Set_Motor_Angle(X_Hand_6_D, angle, 0.0f);
 
         robot->Send_Buff_Data();
         usleep(loop_us);

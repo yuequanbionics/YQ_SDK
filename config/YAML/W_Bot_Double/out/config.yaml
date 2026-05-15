@@ -39,7 +39,7 @@ config:
     TaiHu_Forward_Vel: 7000
     TaiHu_Backward_vel: -7000
     TaiHu_Pos_Kp: 1200
-    TaiHu_Pos_Kd: 500
+    TaiHu_Pos_Kd: 0
     TaiHu_Vel_Kp: 600
     TaiHu_Vel_Ki: 300
     TaiHu_Cur_Kp: 3542
@@ -53,7 +53,7 @@ config:
     TaiHu_Forward_Vel: 7000
     TaiHu_Backward_vel: -7000
     TaiHu_Pos_Kp: 1200
-    TaiHu_Pos_Kd: 500
+    TaiHu_Pos_Kd: 0
     TaiHu_Vel_Kp: 600
     TaiHu_Vel_Ki: 300
     TaiHu_Cur_Kp: 3542
@@ -67,7 +67,7 @@ config:
     TaiHu_Forward_Vel: 7000
     TaiHu_Backward_vel: -7000
     TaiHu_Pos_Kp: 1200
-    TaiHu_Pos_Kd: 500
+    TaiHu_Pos_Kd: 0
     TaiHu_Vel_Kp: 600
     TaiHu_Vel_Ki: 300
     TaiHu_Cur_Kp: 3542
@@ -81,7 +81,7 @@ config:
     TaiHu_Forward_Vel: 7000
     TaiHu_Backward_vel: -7000
     TaiHu_Pos_Kp: 1200
-    TaiHu_Pos_Kd: 500
+    TaiHu_Pos_Kd: 0
     TaiHu_Vel_Kp: 600
     TaiHu_Vel_Ki: 300
     TaiHu_Cur_Kp: 3542

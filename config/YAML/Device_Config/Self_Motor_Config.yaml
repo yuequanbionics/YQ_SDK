@@ -77,7 +77,7 @@ config:
 
     DI_I_MAX: 0.5                 
     I_Hardware_Max: 2
-    Current_Amplifier_Gain: 16
+    Current_Amplifier_Gain: 15
     Motor_CMD_I_To_Force_K: 1.0
     Ceil_Temperature_Alarm_Th: 70   # 电机过温告警阈值
     Ceil_Temperature_Protect_Th: 90 # 电机过温保护阈值
