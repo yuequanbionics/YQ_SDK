@@ -76,12 +76,12 @@ int hardware_init(const string& ADDR, const string& Config)
     string ADDR = dir_path.string() + "/../config/YAML/IO_Board/out/TOP.yaml";
     // string Config = "None";
         string Config = R"(
-    PC_IP: 192.168.4.246
+    PC_IP: 192.168.3.245
     SN: asdf1234567
     Boards:
       - Id: 101
 
-        IP: 192.168.4.243
+        IP: 192.168.3.243
         # Port: 19001
     )";
     #endif

@@ -41,6 +41,7 @@ config:
     Ceil_Temperature_Alarm_Th: 90     # 电机过温告警阈值
     Ceil_Temperature_Protect_Th: 100  # 电机过温保护阈值
     NTC_Bx: 4334                      # 热敏电阻 B 值
+    NTC_Rp: 100000                    # 热敏电阻阻值 单位欧姆 Ω
 
     Gear_Ratio: 22
     Gear_multiple: 50
@@ -82,6 +83,7 @@ config:
     Ceil_Temperature_Alarm_Th: 70   # 电机过温告警阈值
     Ceil_Temperature_Protect_Th: 90 # 电机过温保护阈值
     NTC_Bx: 4334                    # 热敏电阻 B 值
+    NTC_Rp: 100000                  # 热敏电阻阻值 单位欧姆 Ω
 
     Gear_Ratio: 54
     Gear_multiple: 10

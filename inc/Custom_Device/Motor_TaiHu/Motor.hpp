@@ -109,6 +109,7 @@ enum Motor_CMD_Data_Enum
 	Motor_CMD_Coil_Temp_Alarm_Threshold,
 	Motor_CMD_Coil_Temp_Protect_Threshold,
 	Motor_CMD_NTC_Bx,
+	Motor_CMD_NTC_Rp,
 	Motor_CMD_Error_Report
 };
 

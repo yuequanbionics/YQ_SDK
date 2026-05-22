@@ -121,6 +121,11 @@ public:
     void Eyou_ErrorCode_Readthread(shared_ptr<Device_class> Device_P);
 
     /**
+     * @brief eyou电机监听回调线程 1hz
+    */
+    void Eyou_Listen_CallBack_Thread(shared_ptr<Device_class> Device_P);
+
+    /**
      * @brief 电机使能/失能
     */
     int Motor_EN(shared_ptr<Device_class> Device_P, int EN);
@@ -160,10 +165,13 @@ public:
     void Send_Data_Assemble(shared_ptr<Device_class> Device_P, Eyou_Motor_Data *Eyou_Motor_Data_point, u16 SDL, u8 CS, u16 index, u8 Sub, u8 *data, u8 BOS);
     void Eyou_Get_ErrorCode(shared_ptr<Device_class> Device_P);
     void Eyou_Add_Error(shared_ptr<Device_class> Device_P, const string& Error_string);
+    void Eyou_Listen_CallBack(shared_ptr<Device_class> Device_P);
+    void Eyou_Hold_Break(shared_ptr<Device_class> Device_P, u8 en);
 private:
     std::shared_ptr<Device_class> s_device;
     int Call_Back_Status = 0;
     int Write_Flag = 0;
+    bool Call_Back_Flag = false;
     u8 yuan_data[4] = {0};
     /* 减速比 */
     int Motor_Reduction_Ratio = 0;

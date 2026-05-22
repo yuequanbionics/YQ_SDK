@@ -108,6 +108,7 @@ int main(int argc, char *argv[])
     u16 errorno = 0;
     float PP_old = 0;
     constexpr int time_step = 1000*1000/250;
+    int zero_times_f = 1000000/time_step/1;
     // 主控制循环（持续运行）
     while (1)
     {   
@@ -155,6 +156,40 @@ int main(int argc, char *argv[])
 
         // 控制周期延时
         usleep(time_step);
+        zero_times_f--;
+        if(zero_times_f <= 0)
+        {
+            zero_times_f = 1000000/time_step/1;
+
+             Motor1_Control->Set_Zero( Motor1_Device, 0.0f);
+             Motor2_Control->Set_Zero( Motor2_Device, 0.0f);
+             Motor3_Control->Set_Zero( Motor3_Device, 0.0f);
+             Motor4_Control->Set_Zero( Motor4_Device, 0.0f);
+             Motor5_Control->Set_Zero( Motor5_Device, 0.0f);
+             Motor6_Control->Set_Zero( Motor6_Device, 0.0f);
+             Motor7_Control->Set_Zero( Motor7_Device, 0.0f);
+             Motor8_Control->Set_Zero( Motor8_Device, 0.0f);
+             Motor9_Control->Set_Zero( Motor9_Device, 0.0f);
+            Motor10_Control->Set_Zero(Motor10_Device, 0.0f);
+            Motor11_Control->Set_Zero(Motor11_Device, 0.0f);
+            Motor12_Control->Set_Zero(Motor12_Device, 0.0f);
+            Motor13_Control->Set_Zero(Motor13_Device, 0.0f);
+            Motor14_Control->Set_Zero(Motor14_Device, 0.0f);
+            Motor15_Control->Set_Zero(Motor15_Device, 0.0f);
+            Motor16_Control->Set_Zero(Motor16_Device, 0.0f);
+            Motor17_Control->Set_Zero(Motor17_Device, 0.0f);
+            Motor18_Control->Set_Zero(Motor18_Device, 0.0f);
+            Motor19_Control->Set_Zero(Motor19_Device, 0.0f);
+            Motor20_Control->Set_Zero(Motor20_Device, 0.0f);
+            Motor21_Control->Set_Zero(Motor21_Device, 0.0f);
+            Motor22_Control->Set_Zero(Motor22_Device, 0.0f);
+            Motor23_Control->Set_Zero(Motor23_Device, 0.0f);
+            Motor24_Control->Set_Zero(Motor24_Device, 0.0f);
+            Motor25_Control->Set_Zero(Motor25_Device, 0.0f);
+            Motor26_Control->Set_Zero(Motor26_Device, 0.0f);
+            Motor27_Control->Set_Zero(Motor27_Device, 0.0f);
+            Motor28_Control->Set_Zero(Motor28_Device, 0.0f);
+        }
 
         // 读取所有电机的反馈数据（存储到P、V、F数组）
         Motor1_Control->Get_Motor_FB_Data( Motor1_Device,  &P[1],  &V[1],  &F[1],  TEMP[1],  &errorno); //从1开始
