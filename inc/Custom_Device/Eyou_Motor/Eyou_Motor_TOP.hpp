@@ -39,7 +39,9 @@
 #define Normal_Mode         0
 #define Set_Status_To_Zero  1
 #define Set_Status_To_Offest  2
+#define back_tem    4
 #define Error_Code  3
+#define Clear_Offset 5
 
 enum Eyou_CS_Data{
     Write_4_Byte_Data = 0x23,
@@ -54,6 +56,7 @@ enum Eyou_CS_Data{
 enum Eyou_Dictionary_Mode{
     Set_Can_Id = 0x01,
     Save_To_Motor = 0x10,
+    Back_Tem = 0x12,
     Control_Word = 0x40,
     Mode_Of_Work = 0x60,
     Read_Motor_Pos = 0x64,
@@ -111,6 +114,7 @@ private:
 public:
     double Eyou_Motor_Speed_Now = 0.0;
     double Eyou_Motor_Pos_Now = 0.0;
+    u8 now_tem = 0;
     float motor_pos = 0.0;
     int Get_Eyou_Custom_Motor_Device_Data_From_Yaml_And_Init(shared_ptr<Device_class> Device, YAML::Node One_Node);
     int Eyou_Custom_Motor_Top_Frame_Analyze(shared_ptr<Device_class> Device, volatile u8 *Can_Frame);
@@ -135,7 +139,7 @@ public:
     */
     int Motor_Stop(shared_ptr<Device_class> Device_P);
 
-    int Send_MIT_PD_Control_Data(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
+    int Send_MIT_PD_Control_Data(shared_ptr<Device_class> Device_P, float *P, float *V, float *F, float temp[2], u16 *error);
     int Send_MIT_PD_Control_Data_(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Acceleration, float Deceleration);
     int Send_MIT_PD_Control_Data_old(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
     /**
@@ -144,8 +148,9 @@ public:
     */
     int Set_Zero(shared_ptr<Device_class> Device_P, int en);
 
-    int Set_Offest(shared_ptr<Device_class> Device_P, float Offest_Datasss);
+    int Set_Offest(shared_ptr<Device_class> Device_P, float Offest_Datasss, int en);
 
+    int Set_Offset_To_Zero(shared_ptr<Device_class> Device_P, int en);
     /**
      * @brief 读取Eyou电机当前速度、位置。
     */
@@ -167,6 +172,8 @@ public:
     void Eyou_Add_Error(shared_ptr<Device_class> Device_P, const string& Error_string);
     void Eyou_Listen_CallBack(shared_ptr<Device_class> Device_P);
     void Eyou_Hold_Break(shared_ptr<Device_class> Device_P, u8 en);
+    void Eyou_Get_Tem(shared_ptr<Device_class> Device_P);
+
 private:
     std::shared_ptr<Device_class> s_device;
     int Call_Back_Status = 0;
@@ -194,6 +201,7 @@ private:
     Eyou_Motor_Data Read_Motor_Data(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_class> Device, u8 cmd, u8 index);
     Eyou_Motor_Data Set_Zero_Call_Back(shared_ptr<Device_class> Device_P, Eyou_Motor_Data *Eyou_Motor_Data_point);
     Eyou_Motor_Data Set_Offest_Call_Back(shared_ptr<Device_class> Device_P, Eyou_Motor_Data *Eyou_Motor_Data_point);
+    Eyou_Motor_Data Clear_Offest_Call_Back(shared_ptr<Device_class> Device_P, Eyou_Motor_Data *Eyou_Motor_Data_point);
     void Print_Send_Data(Eyou_Motor_Data *Eyou_Motor_Datas);
     void Print_Back_Data(Eyou_Motor_Data *Eyou_Motor_Datas);
 };

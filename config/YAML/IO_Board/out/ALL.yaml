@@ -1,0 +1,18 @@
+DriverVersion: 0.0.1
+Log_Max_Size: 5
+Name: Motor
+PC_IP: &1 192.168.3.245
+Broadcast_IP: 192.168.3.255
+Base_Node:
+  - Name: IO_Board
+    Range_Name: Motor
+    DeviceType: Switch_Board
+    Id: 101
+    CH: Head_Flag_CH0
+    IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
+    PC_IP: *1
+    IP: 192.168.3.120
+    Port: 15120
+    Up_Data_Speed: 10000
+    DeviceConfig:
+      PrintMcuTaskStack: false

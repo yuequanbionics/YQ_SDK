@@ -179,6 +179,16 @@ class Motor_BM_M1502D : private Robot_Hardware {
     std::shared_ptr<Device_class> s_device;
 
     /**
+     * @brief 构造函数
+     */
+    Motor_BM_M1502D();
+    /**
+     * @brief 析构函数
+     */
+    ~Motor_BM_M1502D();
+
+    // ==================== 核心控制函数 ====================
+    /**
      * @brief 电机使能/失能
      * @param EN 1使能，0失能
      */

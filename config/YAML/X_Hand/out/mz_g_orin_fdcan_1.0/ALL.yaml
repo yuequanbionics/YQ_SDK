@@ -1,0 +1,204 @@
+DriverVersion: 0.0.0
+Log_Max_Size: 5
+Name: Motor
+PC_IP: &1 192.168.3.245
+Broadcast_IP: 192.168.3.255
+config:
+  - Maps_Default: &2
+      - Head_Flag_Switch_CH1: Head_Flag_Switch_CH2
+      - Head_Flag_Switch_CH2: Head_Flag_Switch_CH1
+  - IO_Map_Default: &3
+      Send: true
+      Map: *2
+  - FD_Can_2M_4M:
+      Can_EN: &4 true
+      Can_FrameFormat: &5 FDCAN_FRAME_FD_BRS
+      Can_Mode: &6 FDCAN_MODE_NORMAL
+      Can_AutoRetransmission: &7 true
+      Can_TransmitPause: &8 false
+      Can_ProtocolException: &9 false
+      Can_Nominal_Prescaler: &10 1
+      Can_Nominal_SyncJumpWidth: &11 9
+      Can_Nominal_TimeSeg1: &12 30
+      Can_Nominal_TimeSeg2: &13 9
+      Can_Data_Prescaler: &14 1
+      Can_Data_SyncJumpWidth: &15 4
+      Can_Data_TimeSeg1: &16 15
+      Can_Data_TimeSeg2: &17 4
+      Can_StdFiltersNbr: &18 4
+      Can_ExtFiltersNbr: &19 4
+      Can_RxFifo0ElmtsNbr: &20 32
+      Can_RxFifo0ElmtSize: &21 FDCAN_DATA_BYTES_64
+      Can_RxFifo1ElmtsNbr: &22 0
+      Can_RxFifo1ElmtSize: &23 FDCAN_DATA_BYTES_64
+      Can_RxBuffersNbr: &24 0
+      Can_RxBufferSize: &25 FDCAN_DATA_BYTES_64
+      Can_TxEventsNbr: &26 0
+      Can_TxBuffersNbr: &27 0
+      Can_TxFifoQueueElmtsNbr: &28 16
+      Can_TxFifoQueueMode: &29 FDCAN_TX_FIFO_OPERATION
+      Can_TxElmtSize: &30 FDCAN_DATA_BYTES_64
+      Can_Set_Complete: &31 true
+  - FD_Can_2M_2M:
+      Can_EN: &32 true
+      Can_FrameFormat: &33 FDCAN_FRAME_FD_BRS
+      Can_Mode: &34 FDCAN_MODE_NORMAL
+      Can_AutoRetransmission: &35 true
+      Can_TransmitPause: &36 false
+      Can_ProtocolException: &37 false
+      Can_Nominal_Prescaler: &38 1
+      Can_Nominal_SyncJumpWidth: &39 9
+      Can_Nominal_TimeSeg1: &40 30
+      Can_Nominal_TimeSeg2: &41 9
+      Can_Data_Prescaler: &42 1
+      Can_Data_SyncJumpWidth: &43 9
+      Can_Data_TimeSeg1: &44 30
+      Can_Data_TimeSeg2: &45 9
+      Can_StdFiltersNbr: &46 4
+      Can_ExtFiltersNbr: &47 4
+      Can_RxFifo0ElmtsNbr: &48 32
+      Can_RxFifo0ElmtSize: &49 FDCAN_DATA_BYTES_64
+      Can_RxFifo1ElmtsNbr: &50 0
+      Can_RxFifo1ElmtSize: &51 FDCAN_DATA_BYTES_64
+      Can_RxBuffersNbr: &52 0
+      Can_RxBufferSize: &53 FDCAN_DATA_BYTES_64
+      Can_TxEventsNbr: &54 0
+      Can_TxBuffersNbr: &55 0
+      Can_TxFifoQueueElmtsNbr: &56 16
+      Can_TxFifoQueueMode: &57 FDCAN_TX_FIFO_OPERATION
+      Can_TxElmtSize: &58 FDCAN_DATA_BYTES_64
+      Can_Set_Complete: &59 true
+  - FD_Can_1M_5M:
+      Can_EN: true
+      Can_FrameFormat: FDCAN_FRAME_FD_BRS
+      Can_Mode: FDCAN_MODE_NORMAL
+      Can_AutoRetransmission: true
+      Can_TransmitPause: false
+      Can_ProtocolException: false
+      Can_Nominal_Prescaler: 1
+      Can_Nominal_SyncJumpWidth: 16
+      Can_Nominal_TimeSeg1: 63
+      Can_Nominal_TimeSeg2: 16
+      Can_Data_Prescaler: 1
+      Can_Data_SyncJumpWidth: 7
+      Can_Data_TimeSeg1: 8
+      Can_Data_TimeSeg2: 7
+      Can_StdFiltersNbr: 4
+      Can_ExtFiltersNbr: 4
+      Can_RxFifo0ElmtsNbr: 32
+      Can_RxFifo0ElmtSize: FDCAN_DATA_BYTES_64
+      Can_RxFifo1ElmtsNbr: 0
+      Can_RxFifo1ElmtSize: FDCAN_DATA_BYTES_64
+      Can_RxBuffersNbr: 0
+      Can_RxBufferSize: FDCAN_DATA_BYTES_64
+      Can_TxEventsNbr: 0
+      Can_TxBuffersNbr: 0
+      Can_TxFifoQueueElmtsNbr: 16
+      Can_TxFifoQueueMode: FDCAN_TX_FIFO_OPERATION
+      Can_TxElmtSize: FDCAN_DATA_BYTES_64
+      Can_Set_Complete: true
+  - Classic_Can_1M:
+      Can_EN: true
+      Can_FrameFormat: FDCAN_FRAME_CLASSIC
+      Can_Mode: FDCAN_MODE_NORMAL
+      Can_AutoRetransmission: true
+      Can_TransmitPause: false
+      Can_ProtocolException: false
+      Can_Nominal_Prescaler: 2
+      Can_Nominal_SyncJumpWidth: 9
+      Can_Nominal_TimeSeg1: 30
+      Can_Nominal_TimeSeg2: 9
+      Can_Data_Prescaler: 1
+      Can_Data_SyncJumpWidth: 4
+      Can_Data_TimeSeg1: 15
+      Can_Data_TimeSeg2: 4
+      Can_StdFiltersNbr: 4
+      Can_ExtFiltersNbr: 4
+      Can_RxFifo0ElmtsNbr: 32
+      Can_RxFifo0ElmtSize: FDCAN_DATA_BYTES_64
+      Can_RxFifo1ElmtsNbr: 0
+      Can_RxFifo1ElmtSize: FDCAN_DATA_BYTES_64
+      Can_RxBuffersNbr: 0
+      Can_RxBufferSize: FDCAN_DATA_BYTES_64
+      Can_TxEventsNbr: 0
+      Can_TxBuffersNbr: 0
+      Can_TxFifoQueueElmtsNbr: 16
+      Can_TxFifoQueueMode: FDCAN_TX_FIFO_OPERATION
+      Can_TxElmtSize: FDCAN_DATA_BYTES_64
+      Can_Set_Complete: true
+Base_Node:
+  - Name: Main_Switch_Board
+    Range_Name: X_Hand
+    DeviceType: Switch_Board
+    Id: 101
+    CH: Head_Flag_CH0
+    IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
+    PC_IP: *1
+    IP: 192.168.3.101
+    Port: 15100
+    Up_Data_Speed: 1000
+    Heart_Beat: true
+    Save_Main_Config: true
+    IO_Map: *3
+    DeviceConfig:
+      PrintMcuTaskStack: false
+      Save_to_Flash: true
+      Can_S:
+        - Can_Instance: 1
+          Can_EN: *32
+          Can_FrameFormat: *33
+          Can_Mode: *34
+          Can_AutoRetransmission: *35
+          Can_TransmitPause: *36
+          Can_ProtocolException: *37
+          Can_Nominal_Prescaler: *38
+          Can_Nominal_SyncJumpWidth: *39
+          Can_Nominal_TimeSeg1: *40
+          Can_Nominal_TimeSeg2: *41
+          Can_Data_Prescaler: *42
+          Can_Data_SyncJumpWidth: *43
+          Can_Data_TimeSeg1: *44
+          Can_Data_TimeSeg2: *45
+          Can_StdFiltersNbr: *46
+          Can_ExtFiltersNbr: *47
+          Can_RxFifo0ElmtsNbr: *48
+          Can_RxFifo0ElmtSize: *49
+          Can_RxFifo1ElmtsNbr: *50
+          Can_RxFifo1ElmtSize: *51
+          Can_RxBuffersNbr: *52
+          Can_RxBufferSize: *53
+          Can_TxEventsNbr: *54
+          Can_TxBuffersNbr: *55
+          Can_TxFifoQueueElmtsNbr: *56
+          Can_TxFifoQueueMode: *57
+          Can_TxElmtSize: *58
+          Can_Set_Complete: *59
+        - Can_Instance: 2
+          Can_EN: *4
+          Can_FrameFormat: *5
+          Can_Mode: *6
+          Can_AutoRetransmission: *7
+          Can_TransmitPause: *8
+          Can_ProtocolException: *9
+          Can_Nominal_Prescaler: *10
+          Can_Nominal_SyncJumpWidth: *11
+          Can_Nominal_TimeSeg1: *12
+          Can_Nominal_TimeSeg2: *13
+          Can_Data_Prescaler: *14
+          Can_Data_SyncJumpWidth: *15
+          Can_Data_TimeSeg1: *16
+          Can_Data_TimeSeg2: *17
+          Can_StdFiltersNbr: *18
+          Can_ExtFiltersNbr: *19
+          Can_RxFifo0ElmtsNbr: *20
+          Can_RxFifo0ElmtSize: *21
+          Can_RxFifo1ElmtsNbr: *22
+          Can_RxFifo1ElmtSize: *23
+          Can_RxBuffersNbr: *24
+          Can_RxBufferSize: *25
+          Can_TxEventsNbr: *26
+          Can_TxBuffersNbr: *27
+          Can_TxFifoQueueElmtsNbr: *28
+          Can_TxFifoQueueMode: *29
+          Can_TxElmtSize: *30
+          Can_Set_Complete: *31

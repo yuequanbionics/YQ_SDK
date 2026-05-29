@@ -290,6 +290,35 @@ void Battery_BMS_V2_Init(void) {
     // this_thread::sleep_for(std::chrono::milliseconds(350));
 }
 
+int (*Wbot_Error_DL_ROS)(shared_ptr<Device_class> Device, std::string Info, Err_Level Level) = nullptr;
+int Wbot_Error_DL(shared_ptr<Device_class> Device, std::string Info, Err_Level Level)
+{
+    // EU 报错动作处理
+    size_t pos = Info.find("Eyou"); 
+    if (pos != string::npos) {
+        if(Level == critical)
+        {
+            Lower_Limbs_Motor_Waist_Roll_Ctl->Motor_EN(Lower_Limbs_Motor_Waist_Roll, 0);
+            usleep(10000);
+            Lower_Limbs_Motor_Waist_Yaw_Ctl->Motor_EN(Lower_Limbs_Motor_Waist_Yaw, 0);
+            usleep(10000);
+            Lower_Limbs_Motor_Knee_Ctl->Motor_EN(Lower_Limbs_Motor_Knee, 0);
+            usleep(10000);
+            Lower_Limbs_Motor_Hip_Ctl->Motor_EN(Lower_Limbs_Motor_Hip, 0);
+            usleep(10000);
+            Lower_Limbs_Motor_Ankel_Ctl->Motor_EN(Lower_Limbs_Motor_Ankel, 0);
+            usleep(10000);
+        }
+    }
+
+    if(Wbot_Error_DL_ROS != nullptr)
+    {
+        Wbot_Error_DL_ROS(Device, Info, Level);
+    }
+
+    return 0;
+}
+
 #ifndef HAVE_ROS
 int main(int argc, char* argv[])
 #else
@@ -325,6 +354,13 @@ int hardware_init(const string& ADDR, const string& Config)
     if (Test_Robot->Init_TOP(ADDR, Config) != 0) {
         cout << "Init_ERR" << endl;
         return -1;
+    }
+
+    for (auto Device = Test_Robot->Get_Device_Map()->begin(); Device != Test_Robot->Get_Device_Map()->end(); ++Device)
+    {
+        cout << "Device_Name: " << Device->first << " ID: " << Device->second->Device_Main_Data.Main_Can_ID << endl;
+        shared_ptr<Device_class> Device_This = Device->second;
+        Device_This->Error_FB = Wbot_Error_DL;
     }
 
     // string ADDR_OTA = "/home/toko/SP/sdk_2/config/OTA_BAG/Y_Hand_OTA";
@@ -430,6 +466,11 @@ int hardware_init(const string& ADDR, const string& Config)
     // Chassis_Main_Switch_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(Chassis_Main_Switch_Board, W_Bot_CB_P_N2, W_Bot_CB_Pin_N2);
     // Chassis_Main_Switch_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(Chassis_Main_Switch_Board, W_Bot_CB_P_N3, W_Bot_CB_Pin_N3);
 
+    Lower_Limbs_Motor_Waist_Roll_Ctl->Eyou_Listen_CallBack(Lower_Limbs_Motor_Waist_Roll);
+    Lower_Limbs_Motor_Waist_Yaw_Ctl->Eyou_Listen_CallBack(Lower_Limbs_Motor_Waist_Yaw);
+    Lower_Limbs_Motor_Knee_Ctl->Eyou_Listen_CallBack(Lower_Limbs_Motor_Knee);
+    Lower_Limbs_Motor_Hip_Ctl->Eyou_Listen_CallBack(Lower_Limbs_Motor_Hip);
+    Lower_Limbs_Motor_Ankel_Ctl->Eyou_Listen_CallBack(Lower_Limbs_Motor_Ankel);
 
 #ifdef W_BOT_ACTION
     float SetPos = 0.0f;
@@ -521,16 +562,6 @@ int hardware_init(const string& ADDR, const string& Config)
 
 
     while (1) {
-        // Lower_Limbs_Motor_Ankel_Ctl->Read_KP_Data(Lower_Limbs_Motor_Ankel);
-        // usleep(1000);
-
-        // Lower_Limbs_Motor_Ankel_Ctl ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel,     0  , 1, 1, 1, 1);
-        // usleep(10000);
-        Lower_Limbs_Motor_Ankel_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel, 2.1, 1, 1, 1, 1);
-        // usleep(1000);
-        Lower_Limbs_Motor_Waist_Roll_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Roll, 2.1, 1, 1, 1, 1);
-        Lower_Limbs_Motor_Knee_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Knee, 2.1, 1, 1, 1, 1);
-        Lower_Limbs_Motor_Hip_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Hip, 2.1, 1, 1, 1, 1);
         // Lower_Limbs_Motor_Ankel_Ctl     ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel,         10 , 1, 1, 1, 1);
 
         // Lower_Limbs_Motor_Waist_Yaw_Ctl ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Yaw,     0, 1, 1, 1, 1);
