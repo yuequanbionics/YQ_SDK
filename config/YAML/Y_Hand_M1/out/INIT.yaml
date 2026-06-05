@@ -1,0 +1,35 @@
+DriverVersion: 0.0.1
+
+# Log_Path: log_dir
+# Log_Name: name
+Log_Max_Size: 5
+# Debug_Level: debug
+# Debug_Level: info
+# Debug_Level: warn
+# Debug_Level: err
+# Debug_Level: critical
+# Debug_Level: _off
+
+Name: Motor
+PC_IP: &PC_IP 192.168.3.245
+Broadcast_IP: 192.168.3.255
+
+import:
+  Motor_Config1: "../../Device_Config/MZ_Motor_Config.yaml"
+  Can_Config : "../../Device_Config/Can_Config.yaml"
+  Timer_Config:  "../../Device_Config/Timer_Config.yaml"
+  Motors: "Y_Hand_M1_Devices.yaml"
+
+
+config:
+  : &Run_Auto_Set_Id true
+  : &Auto_Set_Id_Save true
+  
+ # 保存参数到FLASH
+  Usr_Motor_Init_Config: &Usr_Motor_Init_Config
+    Save_All_Config: true #不可常true 仅保存参数的时候开一次 否则快速损耗flash寿命
+    Motor_EN_In_Init: false
+    Set_Zero_In_Init: false
+    Set_Config_In_Init: true
+    Set_Pid_Config_In_Init: true
+    Motor_Cal_In_Init: true

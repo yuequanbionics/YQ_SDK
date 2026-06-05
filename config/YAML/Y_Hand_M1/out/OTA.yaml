@@ -1,0 +1,36 @@
+DriverVersion: 0.0.0
+
+# Log_Path: log_dir
+# Log_Name: name
+Log_Max_Size: 5
+# Debug_Level: debug
+# Debug_Level: info
+# Debug_Level: warn
+# Debug_Level: err
+# Debug_Level: critical
+# Debug_Level: _off
+
+Name: Motor
+PC_IP: &PC_IP 192.168.3.245
+Broadcast_IP: 192.168.3.255
+
+import:
+  Motor_Config1: "../../Device_Config/MZ_Motor_Config.yaml"
+  Can_Config : "../../Device_Config/Can_Config.yaml"
+  Timer_Config:  "../../Device_Config/Timer_Config.yaml"
+  Motors: "Y_Hand_M1_Devices.yaml"
+
+
+config:
+  : &Run_Auto_Set_Id true
+  : &Auto_Set_Id_Save true
+  
+  Usr_Motor_Init_Config: &Usr_Motor_Init_Config
+    Save_All_Config: false
+    Motor_EN_In_Init: false
+    Set_Zero_In_Init: false
+    Set_Config_In_Init: false
+    Set_Pid_Config_In_Init: false
+    Motor_Cal_In_Init: false
+
+OTA_BAG: Y_Hand_OTA

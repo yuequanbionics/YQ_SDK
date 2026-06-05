@@ -139,7 +139,7 @@ public:
     */
     int Motor_Stop(shared_ptr<Device_class> Device_P);
 
-    int Send_MIT_PD_Control_Data(shared_ptr<Device_class> Device_P, float *P, float *V, float *F, float temp[2], u16 *error);
+    int Send_MIT_PD_Control_Data(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
     int Send_MIT_PD_Control_Data_(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Acceleration, float Deceleration);
     int Send_MIT_PD_Control_Data_old(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
     /**
@@ -154,7 +154,7 @@ public:
     /**
      * @brief 读取Eyou电机当前速度、位置。
     */
-    int Get_Motor_FB_Data(shared_ptr<Device_class> Device_P, float *P, float *V, float *F);
+    int Get_Motor_FB_Data(const shared_ptr<Device_class>& Device_P, float *P, float *V, float *F, float temp[2], u16 *error);
 
     /**
      * @brief 设置Eyou电机的ID

@@ -243,14 +243,14 @@ config:
     - Name: BenMo_Motor
       DeviceType: BenMo_Custom_Motor
       Id: 3 #上报can_id -  Rec_Id_Offest
-      CH: Head_Flag_Switch_CH1
+      CH: Head_Flag_Switch_CH2
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *bm_m1502d_Motor_3_custom_device_config
 
     - Name: BenMo_Motor1
       DeviceType: BenMo_Custom_Motor
       Id: 4 #上报can_id -  Rec_Id_Offest 实际的id为3
-      CH: Head_Flag_Switch_CH2
+      CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *bm_m1502d_Motor_4_custom_device_config
 
@@ -261,7 +261,7 @@ config:
     - Name: Battery_BMS_V2_1
       DeviceType: Battery_BMS_V2_Custom
       Id: 1
-      CH: Head_Flag_Switch_CH1
+      CH: Head_Flag_Switch_CH2
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: *ch_battery_v2_1_custom_device_config
 

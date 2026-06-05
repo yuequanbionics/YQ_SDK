@@ -135,6 +135,13 @@ public:
     */
     int Send_MIT_PD_Control_Data(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
 
+      /**
+     * @brief 读取电机反馈的位置
+     * @param P 位置，单位度
+     * @param V 速度(无效）
+     * @param F 力矩(无效）
+    */
+    int Get_Motor_FB_Data(shared_ptr<Device_class> Device_P, float *P, float *V, float *F, float temp[2], uint16_t *error);
 
     /**
      * @brief 读取电机反馈的位置
@@ -144,7 +151,6 @@ public:
     */
     int Get_Motor_FB_Data(shared_ptr<Device_class> Device_P, float *P, float *V, float *F);
 
-    
      /**
      * @brief 读取电机温度
      * @param Temp 温度值，单位摄氏度

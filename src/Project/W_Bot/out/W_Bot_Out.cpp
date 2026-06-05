@@ -194,18 +194,18 @@ BMS_V2_Protocol* Battery_BMS_V2_T4;
 
 Main_B *IO_Board_Control;
 
-float jia_pos[3];
+float jia_pos[6];
 void Eyou_Thread(void) {
     while (1) {
-        Lower_Limbs_Motor_Ankel_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Ankel, &jia_pos[0], &jia_pos[1], &jia_pos[2]);
+        Lower_Limbs_Motor_Ankel_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Ankel, &jia_pos[0], &jia_pos[1], &jia_pos[2], &jia_pos[3], NULL);
         usleep(500);
-        Lower_Limbs_Motor_Knee_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Knee, &jia_pos[0], &jia_pos[1], &jia_pos[2]);
+        Lower_Limbs_Motor_Knee_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Knee, &jia_pos[0], &jia_pos[1], &jia_pos[2], &jia_pos[3], NULL);
         usleep(500);
-        Lower_Limbs_Motor_Hip_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Hip, &jia_pos[0], &jia_pos[1], &jia_pos[2]);
+        Lower_Limbs_Motor_Hip_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Hip, &jia_pos[0], &jia_pos[1], &jia_pos[2], &jia_pos[3], NULL);
         usleep(500);
-        Lower_Limbs_Motor_Waist_Roll_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Roll, &jia_pos[0], &jia_pos[1], &jia_pos[2]);
+        Lower_Limbs_Motor_Waist_Roll_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Roll, &jia_pos[0], &jia_pos[1], &jia_pos[2], &jia_pos[3], NULL);
         usleep(500);
-        Lower_Limbs_Motor_Waist_Yaw_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Yaw, &jia_pos[0], &jia_pos[1], &jia_pos[2]);
+        Lower_Limbs_Motor_Waist_Yaw_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Yaw, &jia_pos[0], &jia_pos[1], &jia_pos[2], &jia_pos[3], NULL);
         usleep(400000);
     }
 }
@@ -577,12 +577,12 @@ int hardware_init(const string& ADDR, const string& Config)
         // Lower_Limbs_Motor_Ankel_Ctl     ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel,         W_Bot_OD_Set.Eyou_Ankel , Eyou_Speed, 1, Eyou_Acc, Eyou_Dec);
 
         // Lower_Limbs_Motor_Waist_Yaw_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Yaw, &W_Bot_OD_Get.Eyou_Yaw, &Eyou_Speed, &qqqq);
-        Lower_Limbs_Motor_Knee_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Knee, &W_Bot_OD_Get.Eyou_Knee, &Eyou_Speed, &qqqq);
-        Lower_Limbs_Motor_Waist_Roll_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Roll, &W_Bot_OD_Get.Eyou_Roll, &Eyou_Speed, &qqqq);
-        Lower_Limbs_Motor_Hip_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Hip, &W_Bot_OD_Get.Eyou_Hip, &Eyou_Speed, &qqqq);
-        Lower_Limbs_Motor_Ankel_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Ankel, &W_Bot_OD_Get.Eyou_Ankel, &Eyou_Speed, &qqqq);
+        // Lower_Limbs_Motor_Knee_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Knee, &W_Bot_OD_Get.Eyou_Knee, &Eyou_Speed, &qqqq);
+        // Lower_Limbs_Motor_Waist_Roll_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Roll, &W_Bot_OD_Get.Eyou_Roll, &Eyou_Speed, &qqqq);
+        // Lower_Limbs_Motor_Hip_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Hip, &W_Bot_OD_Get.Eyou_Hip, &Eyou_Speed, &qqqq);
+        // Lower_Limbs_Motor_Ankel_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Ankel, &W_Bot_OD_Get.Eyou_Ankel, &Eyou_Speed, &qqqq);
 
-        usleep(1000);
+        // usleep(1000);
 
         // Lower_Limbs_Motor_Ankel_Ctl->Get_Error(Lower_Limbs_Motor_Ankel);
         // usleep(1000);

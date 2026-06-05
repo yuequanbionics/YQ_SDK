@@ -16,6 +16,7 @@ current_script_dir_out_bin = current_script_dir_out + "/bin"
 current_script_dir_out_inc = current_script_dir_out + "/inc"
 current_script_dir_out_lib = current_script_dir_out + "/lib/ubuntu20.04/x86_64"
 current_script_dir_out_Cmake = current_script_dir_out + "/CMakeLists.txt"
+current_script_dir_out_OTA_BAG = current_script_dir_out + "/config/OTA_BAG/"
 
 print("当前脚本路径:", current_script_path)
 print("目录:", current_script_dir)
@@ -49,6 +50,7 @@ copy_directory_with_cleanup(current_script_dir, current_script_dir_out)
 shutil.rmtree(current_script_dir_out_git, ignore_errors=False)
 shutil.rmtree(current_script_dir_out_src + "/Tool", ignore_errors=False)
 shutil.rmtree(current_script_dir_out + "/config/make_config", ignore_errors=False)
+os.remove(current_script_dir_out + "/DOC/XHand-SDK-使用说明.wps")
 try:
     shutil.rmtree(current_script_dir_out + "/bin/logs", ignore_errors=False)
 except:
@@ -59,6 +61,10 @@ except:
     pass
 try:
     os.remove(current_script_dir_out + "/config.txt")
+except:
+    pass
+try:
+    shutil.rmtree(current_script_dir_out_OTA_BAG + "/mcu_bl_HEX")
 except:
     pass
 shutil.copytree(current_script_dir_out + "/lib/ubuntu20.04", current_script_dir_out + "/lib", dirs_exist_ok=True)

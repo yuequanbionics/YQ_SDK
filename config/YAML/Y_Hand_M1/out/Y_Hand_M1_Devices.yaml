@@ -1,0 +1,234 @@
+config:
+  cat_motor_device_config: &cat_motor_device_config
+    <<: *Usr_Motor_Init_Config
+    <<: *MZ_13MM_Motor_default_config
+
+  Motor_Config_Normal_0: &Motor_Config_Normal_0
+    DeviceType: Motor_Device # Motor_Device IMU_Device Key_Device Switch_Board Custom_Device
+    CH: Head_Flag_Switch_CH2
+    IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+
+  Led_Device_Config: &Led_Device_Config
+    Led_Start_En: true
+    Led_Num: 20
+    Tim_index: 1
+    Tim_ch: 1
+    # All: true
+    # Led_R: 100
+    # Led_G: 100
+    # Led_B: 0
+    All: false
+    Led:
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+
+  Led_Belt_Config: &Led_Belt_Config
+    - Name: Led_GoGo
+      DeviceType: Led_Device
+      Id: 301
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      Detect: false
+      DeviceConfig:
+        <<: *Led_Device_Config
+
+  MotorS_0: &MotorS_0
+    - Name: Motor_1
+      Id: 1
+      <<: *Motor_Config_Normal_0
+      DeviceConfig: 
+        <<: *cat_motor_device_config
+        
+    - Name: Motor_2
+      Id: 1
+      <<: *Motor_Config_Normal_0
+      DeviceConfig:
+        <<: *cat_motor_device_config
+
+    - Name: Motor_3
+      Id: 1
+      <<: *Motor_Config_Normal_0
+      DeviceConfig:
+        <<: *cat_motor_device_config
+
+    - Name: Motor_4
+      Id: 1
+      <<: *Motor_Config_Normal_0
+      DeviceConfig:
+        <<: *cat_motor_device_config
+
+    - Name: Motor_5
+      Id: 1
+      <<: *Motor_Config_Normal_0
+      DeviceConfig:
+        <<: *cat_motor_device_config
+
+    - Name: Motor_6
+      Id: 1
+      <<: *Motor_Config_Normal_0
+      DeviceConfig:
+        <<: *cat_motor_device_config
+
+    - Name: Motor_7
+      Id: 1
+      <<: *Motor_Config_Normal_0
+      DeviceConfig:
+        <<: *cat_motor_device_config
+
+    - Name: Motor_8
+      Id: 1
+      <<: *Motor_Config_Normal_0
+      DeviceConfig:
+        <<: *cat_motor_device_config
+
+    - Name: Motor_9
+      Id: 1
+      <<: *Motor_Config_Normal_0
+      DeviceConfig:
+        <<: *cat_motor_device_config
+
+    - Name: Motor_10
+      Id: 1
+      <<: *Motor_Config_Normal_0
+      DeviceConfig:
+        <<: *cat_motor_device_config
+
+    - Name: Motor_11
+      Id: 1
+      <<: *Motor_Config_Normal_0
+      DeviceConfig:
+        <<: *cat_motor_device_config
+
+    - Name: Motor_12
+      Id: 1
+      <<: *Motor_Config_Normal_0
+      DeviceConfig:
+        <<: *cat_motor_device_config
+
+    - Name: Motor_13
+      Id: 1
+      <<: *Motor_Config_Normal_0
+      DeviceConfig:
+        <<: *cat_motor_device_config
+
+    - Name: Motor_14
+      Id: 1
+      <<: *Motor_Config_Normal_0
+      DeviceConfig:
+        <<: *cat_motor_device_config
+
+  Auto_Set_Id_DeviceS0: &Auto_Set_Id_DeviceS0
+    - Name: Auto_Set_Id_0
+      DeviceType: Auto_Set_Id 
+      Detect: false
+      Id: 1
+      CH: Head_Flag_Switch_CH2
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+
+      DeviceConfig:
+        Run_Set: *Run_Auto_Set_Id
+        Start_Id: 11
+        Save_Id: *Auto_Set_Id_Save
+        Time_Out_Ms: 1000
+        DeviceList:
+          --: *MotorS_0
+
+
+Base_Node: 
+  - Name: Main_Switch_Board
+    Range_Name: Motor
+    DeviceType: Switch_Board # Motor_Device IMU_Device Key_Device Switch_Board Custom_Device
+    Id: 101
+    # Rec_Id_Offest: [1536, 1024]
+    CH: Head_Flag_CH0
+    IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
+    PC_IP: *PC_IP
+    IP: 192.168.3.101
+    Port: 15100
+    Up_Data_Speed: 10000
+    Heart_Beat: true
+
+    DeviceConfig:
+      PrintMcuTaskStack: false
+      Save_to_Flash: false   # 置 true 表示将 Can 配置写入 flash
+      Can_S:
+       - Can_Instance: 1
+         <<: *FD_Can_2M_4M
+       - Can_Instance: 2
+         <<: *FD_Can_2M_4M
+
+      Timer_S: 
+        - Timer_Index: 1
+          Prescaler: 0
+          CounterMode: TIM_COUNTERMODE_UP
+          Period: 311
+          <<: *Tim17_Head_Config
+          Tim_CHX:
+            Timer_ChX: 1
+            Timer_ChX_OutMode: DMA
+            <<: *Tim_Ch1_Config
+            DMA_Config:
+              Timer_Ch_DMA_Instance: DMA2_Stream0
+              <<: *Tim_Ch_DMA1_Config
+
+    child:
+      --: *Led_Belt_Config
+      --: *Auto_Set_Id_DeviceS0
+      --: *MotorS_0
+
+
+# std::map<std::string, u32> IO_Mod_Map = {
+# {"Main_CMD_IO_Mod_ETH_To_CAN", Main_CMD_IO_Mod_ETH_To_CAN},
+# {"Main_CMD_IO_Mod_ETH_OR_CAN", Main_CMD_IO_Mod_ETH_OR_CAN},
+# {"Main_CMD_IO_Mod_CAN_ONLY", Main_CMD_IO_Mod_CAN_ONLY}};
+
+
+# enum Motor_CONTROL_MOD
+# {
+# Motor_Current_Control = 10,
+# Motor_MIT_Control = 11,
+# Motor_Pos_Control = 12,
+# Motor_Force_Control = 13,
+# Motor_Speed_Control = 14,
+
+# Motor_MOD_END = 100,
+# };
+
+
+
+
+
