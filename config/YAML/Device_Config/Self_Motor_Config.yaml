@@ -98,3 +98,45 @@ config:
     Electricity_Q_OUT_MAX: 0.90
     Electricity_Q_Integration_MAX: 0.90
 
+
+  Self_MZ_Motor_default_config: &Self_MZ_Motor_default_config
+    <<: *Init_Config 
+    
+    #Zero
+    Motor_Set_Zero_Offest: 0.0
+
+    #Config
+    Motor_Mod: Motor_MIT_Control
+    Motor_Heart_Beat: 0
+    Motor_Pole_Pairs: 14
+    Motor_AB_Mirror: false
+    Motor_current_sample_offset: 10
+
+    MD_K: 30000
+    Dead_Time: 0
+    V_IC_MU_FORCE: 200
+    IC_MU_SPEED: 1
+    V_rated: 120
+
+    DI_I_MAX: 50                 
+    I_Hardware_Max: 220
+    Current_Amplifier_Gain: 15
+    Motor_CMD_I_To_Force_K: 1.0
+    Ceil_Temperature_Alarm_Th: 255   # 电机过温告警阈值
+    Ceil_Temperature_Protect_Th: 255 # 电机过温保护阈值
+    NTC_Bx: 4334                    # 热敏电阻 B 值
+    NTC_Rp: 100000                  # 热敏电阻阻值 单位欧姆 Ω
+
+    Gear_Ratio: 39
+    Gear_multiple: 2
+
+    #Pid_Config
+    Electricity_D_P: 100000
+    Electricity_D_I: 10000
+    Electricity_D_OUT_MAX: 0.95
+    Electricity_D_Integration_MAX: 0.95
+    Electricity_Q_P: 100000
+    Electricity_Q_I: 10000
+    Electricity_Q_OUT_MAX: 0.95
+    Electricity_Q_Integration_MAX: 0.95
+

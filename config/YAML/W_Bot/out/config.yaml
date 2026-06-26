@@ -16,6 +16,7 @@ config:
     Eyou_Motor_Set_Speed: 18
     Ecvyou_Motor_dxfKp: 10240
     Eyou_Motor_Encoder_Res: 65536.0
+    EM_Getd_Bigdelay: true
 
   Eyou_Motor_PH25_config: &Eyou_Motor_PH25_config
     <<: *Eyou_Init_Config 
@@ -25,6 +26,7 @@ config:
     Eyou_Motor_Set_Speed: 18
     Ecvyou_Motor_dxfKp: 10240
     Eyou_Motor_Encoder_Res: 65536.0
+    EM_Getd_Bigdelay: true
 
   #--------------
   # @brief 钛虎电机相关配置

@@ -43,6 +43,8 @@
 #define Error_Code  3
 #define Clear_Offset 5
 
+#define ERROR_TEMP -125.0f
+
 enum Eyou_CS_Data{
     Write_4_Byte_Data = 0x23,
     Write_3_Byte_Data = 0x27,
@@ -107,6 +109,17 @@ typedef struct
     u8 data[4];
 } Eyou_Motor_Data;
 
+typedef struct{
+    float last_valid_temp = 25.0f;
+    float now_temp;
+    int error_cnt = 0;
+
+    float max_diff = 20.0f;
+    int max_error_cnt = 10;
+    float max_temp = 80.0f;
+    float min_temp = 5.0f;
+} Eyou_Motor_Temp;
+
 class Eyou_Motor : private Robot_Hardware
 {
 private:
@@ -116,6 +129,8 @@ public:
     double Eyou_Motor_Pos_Now = 0.0;
     u8 now_tem = 0;
     float motor_pos = 0.0;
+    bool bigdelay = false;
+    Eyou_Motor_Temp Motor_Temp_Data;
     int Get_Eyou_Custom_Motor_Device_Data_From_Yaml_And_Init(shared_ptr<Device_class> Device, YAML::Node One_Node);
     int Eyou_Custom_Motor_Top_Frame_Analyze(shared_ptr<Device_class> Device, volatile u8 *Can_Frame);
     
@@ -156,6 +171,12 @@ public:
     */
     int Get_Motor_FB_Data(const shared_ptr<Device_class>& Device_P, float *P, float *V, float *F, float temp[2], u16 *error);
 
+    int Get_Motor_FB_Data(const shared_ptr<Device_class>& Device_P, float *P, float *V, float *F);
+    /**
+     * @brief 进行温度滤波 
+    */
+    void Temp_Filter(shared_ptr<Device_class> Device_P);
+
     /**
      * @brief 设置Eyou电机的ID
     */
@@ -182,7 +203,6 @@ private:
     u8 yuan_data[4] = {0};
     /* 减速比 */
     int Motor_Reduction_Ratio = 0;
-
     /* 编码器输出分辨率 */
     float Encoder_Res = 0.0f;
     

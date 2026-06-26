@@ -20,7 +20,7 @@ using namespace std;
 
 Robot_Hardware *Test_Robot;
 
-shared_ptr<Device_class>  Led_Devicess;
+shared_ptr<Device_class>  Led_Devices;
 shared_ptr<Device_class>  Motor1_Device;
 shared_ptr<Device_class>  Motor2_Device;
 shared_ptr<Device_class>  Motor3_Device;
@@ -167,7 +167,7 @@ int hardware_init(const string& ADDR, const string& Config)
     // string ADDR_OTA = "/home/toko/SP/sdk_2/config/OTA_BAG/Y_Hand_OTA";
     // Test_Robot->OTA_GO(ADDR_OTA);
     // return 0;
-    Led_Devicess = Test_Robot->Get_Device_For_Name("Led_GoGo");
+    Led_Devices = Test_Robot->Get_Device_For_Name("Led_GoGo");
      Motor1_Device = Test_Robot->Get_Device_For_Name("Motor_1");
      Motor2_Device = Test_Robot->Get_Device_For_Name("Motor_2");
      Motor3_Device = Test_Robot->Get_Device_For_Name("Motor_3");
@@ -184,7 +184,7 @@ int hardware_init(const string& ADDR, const string& Config)
     Motor14_Device = Test_Robot->Get_Device_For_Name("Motor_14");
 
 
-    Led_Device_A_Ptr = (Led_Device*)Test_Robot->Get_Control_Class( Led_Devicess);
+    Led_Device_A_Ptr = (Led_Device*)Test_Robot->Get_Control_Class( Led_Devices);
      Motor1_Control = (Motor*)Test_Robot->Get_Control_Class( Motor1_Device);
      Motor2_Control = (Motor*)Test_Robot->Get_Control_Class( Motor2_Device);
      Motor3_Control = (Motor*)Test_Robot->Get_Control_Class( Motor3_Device);

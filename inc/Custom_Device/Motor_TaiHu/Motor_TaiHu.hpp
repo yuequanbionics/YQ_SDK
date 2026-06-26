@@ -96,7 +96,7 @@ private:
     int32_t target_V = 0;           // 目标速度
     int32_t target_F = 0;           // 目标电流
     int32_t pos_offset = 0;          // 位置偏置值(Cnt)
-    int32_t Temp_ = 0;               // 电机温度
+    float Temp_ = 0;               // 电机温度
     float reduction_ratio = 0.0f;    // 减速比
     
 
@@ -156,7 +156,7 @@ public:
      * @param Temp 温度值，单位摄氏度
     */
 
-    int Get_Motor_Temp(shared_ptr<Device_class> Device_P, int32_t *Temp);
+    int Get_Motor_Temp(shared_ptr<Device_class> Device_P, float *Temp);
 
 
       /**

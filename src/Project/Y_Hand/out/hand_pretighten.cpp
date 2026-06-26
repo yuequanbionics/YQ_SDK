@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
     // string ADDR_OTA = "/home/toko/SP/sdk_2/config/OTA_BAG/Y_Hand_OTA";
     // Test_Robot->OTA_GO(ADDR_OTA);
     // return 0;
-    shared_ptr<Device_class> Led_Devicess = Test_Robot->Get_Device_For_Name("Led_GoGo");
+    shared_ptr<Device_class> Led_Devices = Test_Robot->Get_Device_For_Name("Led_GoGo");
     shared_ptr<Device_class>  Motor1_Device = Test_Robot->Get_Device_For_Name("Motor_1");
     shared_ptr<Device_class>  Motor2_Device = Test_Robot->Get_Device_For_Name("Motor_2");
     shared_ptr<Device_class>  Motor3_Device = Test_Robot->Get_Device_For_Name("Motor_3");
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
     shared_ptr<Device_class> Motor28_Device = Test_Robot->Get_Device_For_Name("Motor_28");
 
 
-    Led_Device *Led_Device_A_Ptr = (Led_Device*)Test_Robot->Get_Control_Class( Led_Devicess);
+    Led_Device *Led_Device_A_Ptr = (Led_Device*)Test_Robot->Get_Control_Class( Led_Devices);
     Motor * Motor1_Control = (Motor*)Test_Robot->Get_Control_Class( Motor1_Device);
     Motor * Motor2_Control = (Motor*)Test_Robot->Get_Control_Class( Motor2_Device);
     Motor * Motor3_Control = (Motor*)Test_Robot->Get_Control_Class( Motor3_Device);
@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
 
         // PP = 0; 
         VV = 0;     
-        TT = -0.05;
+        TT = -0.10;
     
          Motor1_Control->Send_MIT_PD_Control_Data( Motor1_Device, PP, VV, TT, Kp, Kd);
          Motor2_Control->Send_MIT_PD_Control_Data( Motor2_Device, PP, VV, TT, Kp, Kd);

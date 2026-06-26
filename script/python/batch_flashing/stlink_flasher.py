@@ -133,7 +133,8 @@ def batch_flash(chip_model: str, hex_file: str):
     print(f"🔢 总设备数: {len(target_devices)}")
     print("=" * 50)
     print("烧录结果：")
-    for res in final_results:
+    sorted_results = sorted(final_results, key=lambda x: x["编号"])
+    for res in sorted_results:
         status = "✅ 成功" if res["success"] else "❌ 失败"
         # print(f"  编号[{res['serial']}] ")
         print(f"  编号[{res['编号']}] | {status}")

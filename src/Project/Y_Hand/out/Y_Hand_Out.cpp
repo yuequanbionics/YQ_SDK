@@ -20,7 +20,7 @@ using namespace std;
 
 Robot_Hardware *Test_Robot;
 
-shared_ptr<Device_class>  Led_Devicess;
+shared_ptr<Device_class>  Led_Devices;
 shared_ptr<Device_class>  Motor1_Device;
 shared_ptr<Device_class>  Motor2_Device;
 shared_ptr<Device_class>  Motor3_Device;
@@ -232,16 +232,16 @@ int hardware_init(const string& ADDR, const string& Config)
     // string ADDR_OTA = "/home/toko/SP/sdk_2/config/OTA_BAG/Y_Hand_OTA";
     // Test_Robot->OTA_GO(ADDR_OTA);
     // return 0;
-    Led_Devicess = Test_Robot->Get_Device_For_Name("Led_GoGo");
-     Motor1_Device = Test_Robot->Get_Device_For_Name("Motor_1");
-     Motor2_Device = Test_Robot->Get_Device_For_Name("Motor_2");
-     Motor3_Device = Test_Robot->Get_Device_For_Name("Motor_3");
-     Motor4_Device = Test_Robot->Get_Device_For_Name("Motor_4");
-     Motor5_Device = Test_Robot->Get_Device_For_Name("Motor_5");
-     Motor6_Device = Test_Robot->Get_Device_For_Name("Motor_6");
-     Motor7_Device = Test_Robot->Get_Device_For_Name("Motor_7");
-     Motor8_Device = Test_Robot->Get_Device_For_Name("Motor_8");
-     Motor9_Device = Test_Robot->Get_Device_For_Name("Motor_9");
+    Led_Devices    = Test_Robot->Get_Device_For_Name("Led_GoGo");
+    Motor1_Device  = Test_Robot->Get_Device_For_Name("Motor_1");
+    Motor2_Device  = Test_Robot->Get_Device_For_Name("Motor_2");
+    Motor3_Device  = Test_Robot->Get_Device_For_Name("Motor_3");
+    Motor4_Device  = Test_Robot->Get_Device_For_Name("Motor_4");
+    Motor5_Device  = Test_Robot->Get_Device_For_Name("Motor_5");
+    Motor6_Device  = Test_Robot->Get_Device_For_Name("Motor_6");
+    Motor7_Device  = Test_Robot->Get_Device_For_Name("Motor_7");
+    Motor8_Device  = Test_Robot->Get_Device_For_Name("Motor_8");
+    Motor9_Device  = Test_Robot->Get_Device_For_Name("Motor_9");
     Motor10_Device = Test_Robot->Get_Device_For_Name("Motor_10");
     Motor11_Device = Test_Robot->Get_Device_For_Name("Motor_11");
     Motor12_Device = Test_Robot->Get_Device_For_Name("Motor_12");
@@ -262,35 +262,35 @@ int hardware_init(const string& ADDR, const string& Config)
     Motor27_Device = Test_Robot->Get_Device_For_Name("Motor_27");
     Motor28_Device = Test_Robot->Get_Device_For_Name("Motor_28");
 
-    Led_Device_A_Ptr = (Led_Device*)Test_Robot->Get_Control_Class( Led_Devicess);
-     Motor1_Control = (Motor*)Test_Robot->Get_Control_Class( Motor1_Device);
-     Motor2_Control = (Motor*)Test_Robot->Get_Control_Class( Motor2_Device);
-     Motor3_Control = (Motor*)Test_Robot->Get_Control_Class( Motor3_Device);
-     Motor4_Control = (Motor*)Test_Robot->Get_Control_Class( Motor4_Device);
-     Motor5_Control = (Motor*)Test_Robot->Get_Control_Class( Motor5_Device);
-     Motor6_Control = (Motor*)Test_Robot->Get_Control_Class( Motor6_Device);
-     Motor7_Control = (Motor*)Test_Robot->Get_Control_Class( Motor7_Device);
-     Motor8_Control = (Motor*)Test_Robot->Get_Control_Class( Motor8_Device);
-     Motor9_Control = (Motor*)Test_Robot->Get_Control_Class( Motor9_Device);
-    Motor10_Control = (Motor*)Test_Robot->Get_Control_Class(Motor10_Device);
-    Motor11_Control = (Motor*)Test_Robot->Get_Control_Class(Motor11_Device);
-    Motor12_Control = (Motor*)Test_Robot->Get_Control_Class(Motor12_Device);
-    Motor13_Control = (Motor*)Test_Robot->Get_Control_Class(Motor13_Device);
-    Motor14_Control = (Motor*)Test_Robot->Get_Control_Class(Motor14_Device);
-    Motor15_Control = (Motor*)Test_Robot->Get_Control_Class(Motor15_Device);
-    Motor16_Control = (Motor*)Test_Robot->Get_Control_Class(Motor16_Device);
-    Motor17_Control = (Motor*)Test_Robot->Get_Control_Class(Motor17_Device);
-    Motor18_Control = (Motor*)Test_Robot->Get_Control_Class(Motor18_Device);
-    Motor19_Control = (Motor*)Test_Robot->Get_Control_Class(Motor19_Device);
-    Motor20_Control = (Motor*)Test_Robot->Get_Control_Class(Motor20_Device);
-    Motor21_Control = (Motor*)Test_Robot->Get_Control_Class(Motor21_Device);
-    Motor22_Control = (Motor*)Test_Robot->Get_Control_Class(Motor22_Device);
-    Motor23_Control = (Motor*)Test_Robot->Get_Control_Class(Motor23_Device);
-    Motor24_Control = (Motor*)Test_Robot->Get_Control_Class(Motor24_Device);
-    Motor25_Control = (Motor*)Test_Robot->Get_Control_Class(Motor25_Device);
-    Motor26_Control = (Motor*)Test_Robot->Get_Control_Class(Motor26_Device);
-    Motor27_Control = (Motor*)Test_Robot->Get_Control_Class(Motor27_Device);
-    Motor28_Control = (Motor*)Test_Robot->Get_Control_Class(Motor28_Device);
+    Led_Device_A_Ptr = static_cast<Led_Device*>(Test_Robot->Get_Control_Class(Led_Devices));
+    Motor1_Control   = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor1_Device));
+    Motor2_Control   = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor2_Device));
+    Motor3_Control   = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor3_Device));
+    Motor4_Control   = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor4_Device));
+    Motor5_Control   = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor5_Device));
+    Motor6_Control   = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor6_Device));
+    Motor7_Control   = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor7_Device));
+    Motor8_Control   = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor8_Device));
+    Motor9_Control   = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor9_Device));
+    Motor10_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor10_Device));
+    Motor11_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor11_Device));
+    Motor12_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor12_Device));
+    Motor13_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor13_Device));
+    Motor14_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor14_Device));
+    Motor15_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor15_Device));
+    Motor16_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor16_Device));
+    Motor17_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor17_Device));
+    Motor18_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor18_Device));
+    Motor19_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor19_Device));
+    Motor20_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor20_Device));
+    Motor21_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor21_Device));
+    Motor22_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor22_Device));
+    Motor23_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor23_Device));
+    Motor24_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor24_Device));
+    Motor25_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor25_Device));
+    Motor26_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor26_Device));
+    Motor27_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor27_Device));
+    Motor28_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor28_Device));
 
 
 #ifndef HAVE_ROS
@@ -302,7 +302,8 @@ int hardware_init(const string& ADDR, const string& Config)
     float PP_old = 0;
     constexpr int time_step = 5000*1000/500;
     // 主控制循环（持续运行）
-    while (1)
+    // ReSharper disable once CppDFAEndlessLoop
+    while (true)
     {   
         // hand_pretighten(0.08, 30);
 

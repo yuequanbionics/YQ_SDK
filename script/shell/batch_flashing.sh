@@ -209,32 +209,52 @@ echo " 超时：${TIMEOUT}秒"
 echo "=================================================="
 echo ""
 
-flash() {
-    local sn=$1
-    local hex=$2
-    local num=$(get_sn_number "$sn")
+# 临时文件存储结果，避免终端乱输出
+TMP_RESULT=$(mktemp /tmp/flash_result.XXXXXX)
+# 记录 编号+序列号
+record=()
 
-    echo "🔹 编号 [$num]  $sn"
-    echo "=================================================="
-
-    # 静默烧录，不输出任何 st-flash 日志（只保留结果）
-    timeout "$TIMEOUT" st-flash --serial "$sn" --format=ihex write "$hex" > /dev/null 2>&1
-
-    if [ $? -eq 0 ]; then
-        echo "✅ 编号 [$num] 烧录成功"
-    else
-        echo "❌ 编号 [$num] 烧录失败/超时"
-    fi
-    echo ""
+# 烧录函数
+flash_task() {
+    local sn="$1"
+    local hex="$2"
+    local to="$3"
+    timeout "$to" st-flash --serial "$sn" erase >/dev/null 2>&1
+    timeout "$to" st-flash --serial "$sn" --format=ihex write "$hex" >/dev/null 2>&1
+    echo "$sn $?" >> "$TMP_RESULT"
 }
 
+# 启动后台任务
 for sn in "${TARGET_SERIALS[@]}"; do
-    flash "$sn" "$SELECTED_HEX" &
+    num=$(get_sn_number "$sn")
+    record+=("$num $sn")
+    flash_task "$sn" "$SELECTED_HEX" "$TIMEOUT" &
 done
 
+# 等待所有后台任务执行完毕
 wait
 
-# clear
-# echo "=================================================="
-# echo " 🎉 所有 $TARGET_CHIP 烧录完成！"
-# echo "=================================================="
+# 加载结果到关联数组
+declare -A ret_map
+while read -r sn code; do
+    ret_map["$sn"]="$code"
+done < "$TMP_RESULT"
+
+# 删除临时文件
+rm -f "$TMP_RESULT"
+
+# 按编号数字升序输出，增加空值/非数字容错
+echo "=================================================="
+echo "📋 烧录结果"
+echo "=================================================="
+printf "%s\n" "${record[@]}" | sort -n -k1 | while read -r num sn; do
+    c="${ret_map[$sn]}"
+    # 容错：非数字/空值直接判定失败
+    if [[ $c =~ ^[0-9]+$ && $c -eq 0 ]]; then
+        echo "✅ 编号 [${num}] 烧录成功"
+    else
+        echo "❌ 编号 [${num}] 烧录失败/超时"
+    fi
+done
+
+echo ""
