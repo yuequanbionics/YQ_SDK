@@ -564,11 +564,19 @@ int hardware_init(const string& ADDR, const string& Config)
     while (1) {
         // Lower_Limbs_Motor_Ankel_Ctl     ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel,         10 , 1, 1, 1, 1);
 
-        // Lower_Limbs_Motor_Waist_Yaw_Ctl ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Yaw,     0, 1, 1, 1, 1);
-        // Lower_Limbs_Motor_Waist_Roll_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Roll,    0, 1, 1, 1, 1);
-        // Lower_Limbs_Motor_Knee_Ctl      ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Knee,          0, 1, 1, 1, 1);
-        // Lower_Limbs_Motor_Hip_Ctl       ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Hip,           0, 1, 1, 1, 1);
-        // Lower_Limbs_Motor_Ankel_Ctl     ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel,         0, 1, 1, 1, 1);
+        Classis_Motor_T1->Send_MIT_PD_Control_Data(Classis_Motor_1, 0.0f, 60.0f, 0.0f, 0.0f, 1.0f);
+        Classis_Motor_T2->Send_MIT_PD_Control_Data(Classis_Motor_2, 0.0f, -60.0f, 0.0f, 0.0f, 1.0f);    
+
+        Lower_Limbs_Motor_Waist_Yaw_Ctl ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Yaw,     0, 0, 0, 0, 0);
+        usleep(1000);
+        Lower_Limbs_Motor_Waist_Roll_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Roll,    0, 0, 0, 0, 0);
+        usleep(1000);
+        Lower_Limbs_Motor_Knee_Ctl      ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Knee,          0, 0, 0, 0, 0);
+        usleep(1000);
+        Lower_Limbs_Motor_Hip_Ctl       ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Hip,           0, 0, 0, 0, 0);
+        usleep(1000);
+        Lower_Limbs_Motor_Ankel_Ctl     ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel,         0, 0, 0, 0, 0);
+        usleep(1000);
 
         // Lower_Limbs_Motor_Waist_Yaw_Ctl ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Yaw,     W_Bot_OD_Set.Eyou_Yaw   , Eyou_Speed, 1, Eyou_Acc, Eyou_Dec);
         // Lower_Limbs_Motor_Waist_Roll_Ctl->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Waist_Roll,    W_Bot_OD_Set.Eyou_Roll  , Eyou_Speed, 1, Eyou_Acc, Eyou_Dec);
@@ -587,22 +595,24 @@ int hardware_init(const string& ADDR, const string& Config)
         // Lower_Limbs_Motor_Ankel_Ctl->Get_Error(Lower_Limbs_Motor_Ankel);
         // usleep(1000);
 
-        // TaiHu_Device_T1->Send_MIT_PD_Control_Data(TaiHu_Device_1,W_Bot_OD_Set.left_shoulder_pitch,0.0f, 0.0f, 0.0f, 0.0f);
-        // TaiHu_Device_T2->Send_MIT_PD_Control_Data(TaiHu_Device_2,W_Bot_OD_Set.left_shoulder_roll,0.0f, 0.0f, 0.0f, 0.0f);
-        // TaiHu_Device_T3->Send_MIT_PD_Control_Data(TaiHu_Device_3,W_Bot_OD_Set.left_shoulder_yaw,0.0f, 0.0f, 0.0f, 0.0f);
-        // TaiHu_Device_T4->Send_MIT_PD_Control_Data(TaiHu_Device_4,W_Bot_OD_Set.left_elbow,0.0f, 0.0f, 0.0f, 0.0f);
-        // TaiHu_Device_T5->Send_MIT_PD_Control_Data(TaiHu_Device_5,W_Bot_OD_Set.left_wrist_yaw,0.0f, 0.0f, 0.0f, 0.0f);
-        // TaiHu_Device_T6->Send_MIT_PD_Control_Data(TaiHu_Device_6,W_Bot_OD_Set.left_wrist_roll,0.0f, 0.0f, 0.0f, 0.0f);
+        TaiHu_Device_T1->Send_MIT_PD_Control_Data(TaiHu_Device_1, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        TaiHu_Device_T2->Send_MIT_PD_Control_Data(TaiHu_Device_2, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        TaiHu_Device_T3->Send_MIT_PD_Control_Data(TaiHu_Device_3, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        TaiHu_Device_T4->Send_MIT_PD_Control_Data(TaiHu_Device_4, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        TaiHu_Device_T5->Send_MIT_PD_Control_Data(TaiHu_Device_5, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        TaiHu_Device_T6->Send_MIT_PD_Control_Data(TaiHu_Device_6, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        TaiHu_Device_T7->Send_MIT_PD_Control_Data(TaiHu_Device_7, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
-        // TaiHu_Device_T7->Send_MIT_PD_Control_Data(TaiHu_Device_7,W_Bot_OD_Set.right_shoulder_pitch,0.0f, 0.0f, 0.0f, 0.0f);
-        // TaiHu_Device_T8->Send_MIT_PD_Control_Data(TaiHu_Device_8,W_Bot_OD_Set.right_shoulder_roll,0.0f, 0.0f, 0.0f, 0.0f);
-        // TaiHu_Device_T9->Send_MIT_PD_Control_Data(TaiHu_Device_9,W_Bot_OD_Set.right_shoulder_yaw,0.0f, 0.0f, 0.0f, 0.0f);
-        // TaiHu_Device_T10->Send_MIT_PD_Control_Data(TaiHu_Device_10,W_Bot_OD_Set.right_elbow,0.0f, 0.0f, 0.0f, 0.0f);
-        // TaiHu_Device_T11->Send_MIT_PD_Control_Data(TaiHu_Device_11,W_Bot_OD_Set.right_wrist_yaw,0.0f, 0.0f, 0.0f, 0.0f);
-        // TaiHu_Device_T12->Send_MIT_PD_Control_Data(TaiHu_Device_12,W_Bot_OD_Set.right_wrist_pitch,0.0f, 0.0f, 0.0f, 0.0f);
-        // TaiHu_Device_T13->Send_MIT_PD_Control_Data(TaiHu_Device_13,W_Bot_OD_Set.right_wrist_roll,0.0f, 0.0f, 0.0f, 0.0f);
-        // TaiHu_Device_T14->Send_MIT_PD_Control_Data(TaiHu_Device_14,W_Bot_OD_Set.head_pitch,0.0f, 0.0f, 0.0f, 0.0f);
-        // TaiHu_Device_T15->Send_MIT_PD_Control_Data(TaiHu_Device_15,W_Bot_OD_Set.head_yaw,0.0f, 0.0f, 0.0f, 0.0f);
+        TaiHu_Device_T8->Send_MIT_PD_Control_Data(TaiHu_Device_8, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        TaiHu_Device_T9->Send_MIT_PD_Control_Data(TaiHu_Device_9, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        TaiHu_Device_T10->Send_MIT_PD_Control_Data(TaiHu_Device_10, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        TaiHu_Device_T11->Send_MIT_PD_Control_Data(TaiHu_Device_11, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        TaiHu_Device_T12->Send_MIT_PD_Control_Data(TaiHu_Device_12, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        TaiHu_Device_T13->Send_MIT_PD_Control_Data(TaiHu_Device_13, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        TaiHu_Device_T14->Send_MIT_PD_Control_Data(TaiHu_Device_14, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+
+        TaiHu_Device_T15->Send_MIT_PD_Control_Data(TaiHu_Device_15, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        TaiHu_Device_T16->Send_MIT_PD_Control_Data(TaiHu_Device_16, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
         // TaiHu_Device_T1->Get_Motor_FB_Data(TaiHu_Device_1,&W_Bot_OD_Get.left_shoulder_pitch, &vel, &cur);
         // TaiHu_Device_T2->Get_Motor_FB_Data(TaiHu_Device_2,&W_Bot_OD_Get.left_shoulder_roll, &vel, &cur);

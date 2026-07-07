@@ -38,9 +38,9 @@ public:
     void *Device_Private_Class;
     void (*DeviceType_Delete)(void *);
 
-    int (*Sen_F)(shared_ptr<Device_class> Device, u8 *Data);
-    int (*Rec_F_Pr)(shared_ptr<Device_class> Device, u8 *Data);
-    int (*Rec_F_Base)(shared_ptr<Device_class> Device, u8 *Data);
+    std::function<int(shared_ptr<Device_class>, u8*)> Sen_F;
+    std::function<int(shared_ptr<Device_class>, u8*)> Rec_F_Pr;
+    std::function<int(shared_ptr<Device_class>, u8*)> Rec_F_Base;
 
     shared_ptr<Device_class> Parent_Device;
     shared_ptr<Device_class> Child_Device_List[1024];

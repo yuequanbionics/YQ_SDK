@@ -16,6 +16,26 @@ config:
         Serial_interrupt: USART1_IRQn
         TX_DMA: DMA_REQUEST_USART1_TX
         RX_DMA: DMA_REQUEST_USART1_RX
+        TX_DMA_STREAM: DMA1_Stream3
+        RX_DMA_STREAM: DMA1_Stream2
+
+  Serial_3_Config: &Serial_3_Config
+    - Serial_CH: USART3
+      Serial_menu: 3
+      Serial_EN: true
+      Serial_Baud: 6000000
+      Serial_ID: 200
+      WordLength: UART_WORDLENGTH_8B
+      Stm_Tx_Rx_GPIO:
+        Tx_GPIO: GPIOD
+        Rx_GPIO: GPIOD
+        Tx_GPIO_PIN: GPIO_PIN_8
+        Rx_GPIO_PIN: GPIO_PIN_9
+      Other_Config:
+        GPIO_AF: GPIO_AF7_USART3
+        Serial_interrupt: USART3_IRQn
+        TX_DMA: DMA_REQUEST_USART3_TX
+        RX_DMA: DMA_REQUEST_USART3_RX
         TX_DMA_STREAM: DMA1_Stream1
         RX_DMA_STREAM: DMA1_Stream0
 
@@ -58,6 +78,14 @@ config:
     TX_DMA_STREAM: DMA1_Stream1
     RX_DMA_STREAM: DMA1_Stream0
 
+  Serial_3_DMA_Config: &Serial_3_DMA_Config
+    GPIO_AF: GPIO_AF7_USART3
+    Serial_interrupt: USART3_IRQn
+    TX_DMA: DMA_REQUEST_USART3_TX
+    RX_DMA: DMA_REQUEST_USART3_RX
+    TX_DMA_STREAM: DMA1_Stream3
+    RX_DMA_STREAM: DMA1_Stream2
+
   Serial_4_DMA_Config: &Serial_4_DMA_Config
     GPIO_AF: GPIO_AF8_UART4
     Serial_interrupt: UART4_IRQn
@@ -73,3 +101,11 @@ config:
     RX_DMA: DMA_REQUEST_UART5_RX
     TX_DMA_STREAM: DMA1_Stream1
     RX_DMA_STREAM: DMA1_Stream0
+
+  Serial_7_DMA_Config: &Serial_7_DMA_Config
+    GPIO_AF: GPIO_AF11_UART7
+    Serial_interrupt: UART7_IRQn
+    TX_DMA: DMA_REQUEST_UART7_TX
+    RX_DMA: DMA_REQUEST_UART7_RX
+    TX_DMA_STREAM: DMA1_Stream3
+    RX_DMA_STREAM: DMA1_Stream2

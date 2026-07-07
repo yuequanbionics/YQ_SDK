@@ -305,92 +305,92 @@ int hardware_init(const string& ADDR, const string& Config)
     // ReSharper disable once CppDFAEndlessLoop
     while (true)
     {   
-        // hand_pretighten(0.08, 30);
+        hand_pretighten(0.08, 30);
 
-        // 更新相位并计算目标控制量（正弦轨迹）
-        S += 0.0125f;                                                                 // 位置步长, 角度
-        float PP = sin(S) * 90.0f - 100;                                            // MIT 目标控制位置
-        float VV = (PP - PP_old) * (static_cast<float>(1000000) / time_step);  // MIT 控制目标速度, 它是位置的微分
-        float TT = -sin(S)*0.5f;   
+        // // 更新相位并计算目标控制量（正弦轨迹）
+        // S += 0.0125f;                                                                 // 位置步长, 角度
+        // float PP = sin(S) * 90.0f - 100;                                            // MIT 目标控制位置
+        // float VV = (PP - PP_old) * (static_cast<float>(1000000) / time_step);  // MIT 控制目标速度, 它是位置的微分
+        // float TT = -sin(S)*0.5f;   
 
-        PP = 0;
-        VV = 0;
-        TT = 0;
+        // PP = 0;
+        // VV = 0;
+        // TT = 0;
     
-         Motor1_Control->Send_MIT_PD_Control_Data( Motor1_Device, PP, VV, 0, Kp, Kd);
-         Motor2_Control->Send_MIT_PD_Control_Data( Motor2_Device, PP, VV, 0.0, Kp, Kd);
-         Motor3_Control->Send_MIT_PD_Control_Data( Motor3_Device, PP, VV, 0.0, Kp, Kd);
-         Motor4_Control->Send_MIT_PD_Control_Data( Motor4_Device, PP, VV, 0.0, Kp, Kd);
-         Motor5_Control->Send_MIT_PD_Control_Data( Motor5_Device, PP, VV, 0.0, Kp, Kd);
-         Motor6_Control->Send_MIT_PD_Control_Data( Motor6_Device, PP, VV, 0.0, Kp, Kd);
-         Motor7_Control->Send_MIT_PD_Control_Data( Motor7_Device, PP, VV, 0.0, Kp, Kd);
-         Motor8_Control->Send_MIT_PD_Control_Data( Motor8_Device, PP, VV, 0.0, Kp, Kd);
-         Motor9_Control->Send_MIT_PD_Control_Data( Motor9_Device, PP, VV, 0.0, Kp, Kd);
-        Motor10_Control->Send_MIT_PD_Control_Data(Motor10_Device, PP, VV, 0.0, Kp, Kd);
-        Motor11_Control->Send_MIT_PD_Control_Data(Motor11_Device, PP, VV, 0.0, Kp, Kd);
-        Motor12_Control->Send_MIT_PD_Control_Data(Motor12_Device, PP, VV, 0.0, Kp, Kd);
-        Motor13_Control->Send_MIT_PD_Control_Data(Motor13_Device, PP, VV, 0.0, Kp, Kd);
-        Motor14_Control->Send_MIT_PD_Control_Data(Motor14_Device, PP, VV, 0.0, Kp, Kd);
-        Motor15_Control->Send_MIT_PD_Control_Data(Motor15_Device, PP, VV, 0.0, Kp, Kd);
-        Motor16_Control->Send_MIT_PD_Control_Data(Motor16_Device, PP, VV, 0.0, Kp, Kd);
-        Motor17_Control->Send_MIT_PD_Control_Data(Motor17_Device, PP, VV, 0.0, Kp, Kd);
-        Motor18_Control->Send_MIT_PD_Control_Data(Motor18_Device, PP, VV, 0.0, Kp, Kd);
-        Motor19_Control->Send_MIT_PD_Control_Data(Motor19_Device, PP, VV, 0.0, Kp, Kd);
-        Motor20_Control->Send_MIT_PD_Control_Data(Motor20_Device, PP, VV, 0.0, Kp, Kd);
-        Motor21_Control->Send_MIT_PD_Control_Data(Motor21_Device, PP, VV, 0.0, Kp, Kd);
-        Motor22_Control->Send_MIT_PD_Control_Data(Motor22_Device, PP, VV, 0.0, Kp, Kd);
-        Motor23_Control->Send_MIT_PD_Control_Data(Motor23_Device, PP, VV, 0.0, Kp, Kd);
-        Motor24_Control->Send_MIT_PD_Control_Data(Motor24_Device, PP, VV, 0.0, Kp, Kd);
-        Motor25_Control->Send_MIT_PD_Control_Data(Motor25_Device, PP, VV, 0.0, Kp, Kd);
-        Motor26_Control->Send_MIT_PD_Control_Data(Motor26_Device, PP, VV, 0.0, Kp, Kd);
-        Motor27_Control->Send_MIT_PD_Control_Data(Motor27_Device, PP, VV, 0.0, Kp, Kd);
-        Motor28_Control->Send_MIT_PD_Control_Data(Motor28_Device, PP, VV, 0.0, Kp, Kd);
+        //  Motor1_Control->Send_MIT_PD_Control_Data( Motor1_Device, PP, VV, 0, Kp, Kd);
+        //  Motor2_Control->Send_MIT_PD_Control_Data( Motor2_Device, PP, VV, 0.0, Kp, Kd);
+        //  Motor3_Control->Send_MIT_PD_Control_Data( Motor3_Device, PP, VV, 0.0, Kp, Kd);
+        //  Motor4_Control->Send_MIT_PD_Control_Data( Motor4_Device, PP, VV, 0.0, Kp, Kd);
+        //  Motor5_Control->Send_MIT_PD_Control_Data( Motor5_Device, PP, VV, 0.0, Kp, Kd);
+        //  Motor6_Control->Send_MIT_PD_Control_Data( Motor6_Device, PP, VV, 0.0, Kp, Kd);
+        //  Motor7_Control->Send_MIT_PD_Control_Data( Motor7_Device, PP, VV, 0.0, Kp, Kd);
+        //  Motor8_Control->Send_MIT_PD_Control_Data( Motor8_Device, PP, VV, 0.0, Kp, Kd);
+        //  Motor9_Control->Send_MIT_PD_Control_Data( Motor9_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor10_Control->Send_MIT_PD_Control_Data(Motor10_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor11_Control->Send_MIT_PD_Control_Data(Motor11_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor12_Control->Send_MIT_PD_Control_Data(Motor12_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor13_Control->Send_MIT_PD_Control_Data(Motor13_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor14_Control->Send_MIT_PD_Control_Data(Motor14_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor15_Control->Send_MIT_PD_Control_Data(Motor15_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor16_Control->Send_MIT_PD_Control_Data(Motor16_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor17_Control->Send_MIT_PD_Control_Data(Motor17_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor18_Control->Send_MIT_PD_Control_Data(Motor18_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor19_Control->Send_MIT_PD_Control_Data(Motor19_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor20_Control->Send_MIT_PD_Control_Data(Motor20_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor21_Control->Send_MIT_PD_Control_Data(Motor21_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor22_Control->Send_MIT_PD_Control_Data(Motor22_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor23_Control->Send_MIT_PD_Control_Data(Motor23_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor24_Control->Send_MIT_PD_Control_Data(Motor24_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor25_Control->Send_MIT_PD_Control_Data(Motor25_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor26_Control->Send_MIT_PD_Control_Data(Motor26_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor27_Control->Send_MIT_PD_Control_Data(Motor27_Device, PP, VV, 0.0, Kp, Kd);
+        // Motor28_Control->Send_MIT_PD_Control_Data(Motor28_Device, PP, VV, 0.0, Kp, Kd);
 
-        // 发送控制缓冲区数据到硬件
-        Test_Robot->Send_Buff_Data();
+        // // 发送控制缓冲区数据到硬件
+        // Test_Robot->Send_Buff_Data();
 
-        // 控制周期延时
-        usleep(time_step);
+        // // 控制周期延时
+        // usleep(time_step);
 
-        // 读取所有电机的反馈数据（存储到P、V、F数组）
-        Motor1_Control->Get_Motor_FB_Data( Motor1_Device,  &P[1],  &V[1],  &F[1]); //从1开始
-        Motor2_Control->Get_Motor_FB_Data( Motor2_Device,  &P[2],  &V[2],  &F[2]);
-        Motor3_Control->Get_Motor_FB_Data( Motor3_Device,  &P[3],  &V[3],  &F[3]);
-        Motor4_Control->Get_Motor_FB_Data( Motor4_Device,  &P[4],  &V[4],  &F[4]);
-        Motor5_Control->Get_Motor_FB_Data( Motor5_Device,  &P[5],  &V[5],  &F[5]);
-        Motor6_Control->Get_Motor_FB_Data( Motor6_Device,  &P[6],  &V[6],  &F[6]);
-        Motor7_Control->Get_Motor_FB_Data( Motor7_Device,  &P[7],  &V[7],  &F[7]);
-        Motor8_Control->Get_Motor_FB_Data( Motor8_Device,  &P[8],  &V[8],  &F[8]);
-        Motor9_Control->Get_Motor_FB_Data( Motor9_Device,  &P[9],  &V[9],  &F[9]);
-        Motor10_Control->Get_Motor_FB_Data(Motor10_Device, &P[10], &V[10], &F[10]);
-        Motor11_Control->Get_Motor_FB_Data(Motor11_Device, &P[11], &V[11], &F[11]);
-        Motor12_Control->Get_Motor_FB_Data(Motor12_Device, &P[12], &V[12], &F[12]);
-        Motor13_Control->Get_Motor_FB_Data(Motor13_Device, &P[13], &V[13], &F[13]);
-        Motor14_Control->Get_Motor_FB_Data(Motor14_Device, &P[14], &V[14], &F[14]);
-        Motor15_Control->Get_Motor_FB_Data(Motor15_Device, &P[15], &V[15], &F[15]);
-        Motor16_Control->Get_Motor_FB_Data(Motor16_Device, &P[16], &V[16], &F[16]);
-        Motor17_Control->Get_Motor_FB_Data(Motor17_Device, &P[17], &V[17], &F[17]);
-        Motor18_Control->Get_Motor_FB_Data(Motor18_Device, &P[18], &V[18], &F[18]);
-        Motor19_Control->Get_Motor_FB_Data(Motor19_Device, &P[19], &V[19], &F[19]);
-        Motor20_Control->Get_Motor_FB_Data(Motor20_Device, &P[20], &V[20], &F[20]);
-        Motor21_Control->Get_Motor_FB_Data(Motor21_Device, &P[21], &V[21], &F[21]);
-        Motor22_Control->Get_Motor_FB_Data(Motor22_Device, &P[22], &V[22], &F[22]);
-        Motor23_Control->Get_Motor_FB_Data(Motor23_Device, &P[23], &V[23], &F[23]);
-        Motor24_Control->Get_Motor_FB_Data(Motor24_Device, &P[24], &V[24], &F[24]);
-        Motor25_Control->Get_Motor_FB_Data(Motor25_Device, &P[25], &V[25], &F[25]);
-        Motor26_Control->Get_Motor_FB_Data(Motor26_Device, &P[26], &V[26], &F[26]);
-        Motor27_Control->Get_Motor_FB_Data(Motor27_Device, &P[27], &V[27], &F[27]);
-        Motor28_Control->Get_Motor_FB_Data(Motor28_Device, &P[28], &V[28], &F[28]);
+        // // 读取所有电机的反馈数据（存储到P、V、F数组）
+        // Motor1_Control->Get_Motor_FB_Data( Motor1_Device,  &P[1],  &V[1],  &F[1]); //从1开始
+        // Motor2_Control->Get_Motor_FB_Data( Motor2_Device,  &P[2],  &V[2],  &F[2]);
+        // Motor3_Control->Get_Motor_FB_Data( Motor3_Device,  &P[3],  &V[3],  &F[3]);
+        // Motor4_Control->Get_Motor_FB_Data( Motor4_Device,  &P[4],  &V[4],  &F[4]);
+        // Motor5_Control->Get_Motor_FB_Data( Motor5_Device,  &P[5],  &V[5],  &F[5]);
+        // Motor6_Control->Get_Motor_FB_Data( Motor6_Device,  &P[6],  &V[6],  &F[6]);
+        // Motor7_Control->Get_Motor_FB_Data( Motor7_Device,  &P[7],  &V[7],  &F[7]);
+        // Motor8_Control->Get_Motor_FB_Data( Motor8_Device,  &P[8],  &V[8],  &F[8]);
+        // Motor9_Control->Get_Motor_FB_Data( Motor9_Device,  &P[9],  &V[9],  &F[9]);
+        // Motor10_Control->Get_Motor_FB_Data(Motor10_Device, &P[10], &V[10], &F[10]);
+        // Motor11_Control->Get_Motor_FB_Data(Motor11_Device, &P[11], &V[11], &F[11]);
+        // Motor12_Control->Get_Motor_FB_Data(Motor12_Device, &P[12], &V[12], &F[12]);
+        // Motor13_Control->Get_Motor_FB_Data(Motor13_Device, &P[13], &V[13], &F[13]);
+        // Motor14_Control->Get_Motor_FB_Data(Motor14_Device, &P[14], &V[14], &F[14]);
+        // Motor15_Control->Get_Motor_FB_Data(Motor15_Device, &P[15], &V[15], &F[15]);
+        // Motor16_Control->Get_Motor_FB_Data(Motor16_Device, &P[16], &V[16], &F[16]);
+        // Motor17_Control->Get_Motor_FB_Data(Motor17_Device, &P[17], &V[17], &F[17]);
+        // Motor18_Control->Get_Motor_FB_Data(Motor18_Device, &P[18], &V[18], &F[18]);
+        // Motor19_Control->Get_Motor_FB_Data(Motor19_Device, &P[19], &V[19], &F[19]);
+        // Motor20_Control->Get_Motor_FB_Data(Motor20_Device, &P[20], &V[20], &F[20]);
+        // Motor21_Control->Get_Motor_FB_Data(Motor21_Device, &P[21], &V[21], &F[21]);
+        // Motor22_Control->Get_Motor_FB_Data(Motor22_Device, &P[22], &V[22], &F[22]);
+        // Motor23_Control->Get_Motor_FB_Data(Motor23_Device, &P[23], &V[23], &F[23]);
+        // Motor24_Control->Get_Motor_FB_Data(Motor24_Device, &P[24], &V[24], &F[24]);
+        // Motor25_Control->Get_Motor_FB_Data(Motor25_Device, &P[25], &V[25], &F[25]);
+        // Motor26_Control->Get_Motor_FB_Data(Motor26_Device, &P[26], &V[26], &F[26]);
+        // Motor27_Control->Get_Motor_FB_Data(Motor27_Device, &P[27], &V[27], &F[27]);
+        // Motor28_Control->Get_Motor_FB_Data(Motor28_Device, &P[28], &V[28], &F[28]);
 
-        // // 打印电机反馈数据（当前仅打印P[0]和V[0]，此处可能存在索引偏移，实际应用中需根据需求调整）
-            // for (int i = 0; i < 28; i++) {
-            //     int motorNo = i + 1;
-            //     cout << "Motor: "
-            //         << setw(2) << setfill('0') << motorNo // 核心：两位宽，补0
-            //         << " Post:" << P[i+1]
-            //         << " F:" << F[i+1]
-            //         << endl;
-            // }
+        // // // 打印电机反馈数据（当前仅打印P[0]和V[0]，此处可能存在索引偏移，实际应用中需根据需求调整）
+        //     // for (int i = 0; i < 28; i++) {
+        //     //     int motorNo = i + 1;
+        //     //     cout << "Motor: "
+        //     //         << setw(2) << setfill('0') << motorNo // 核心：两位宽，补0
+        //     //         << " Post:" << P[i+1]
+        //     //         << " F:" << F[i+1]
+        //     //         << endl;
+        //     // }
     }
 #endif
 

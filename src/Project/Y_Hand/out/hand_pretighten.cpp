@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
 
         // PP = 0; 
         VV = 0;     
-        TT = -0.10;
+        TT = -0.05;
     
          Motor1_Control->Send_MIT_PD_Control_Data( Motor1_Device, PP, VV, TT, Kp, Kd);
          Motor2_Control->Send_MIT_PD_Control_Data( Motor2_Device, PP, VV, TT, Kp, Kd);

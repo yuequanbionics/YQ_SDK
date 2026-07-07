@@ -26,6 +26,8 @@ inline std::map<std::string, u32> MCU_Config_Map = {
             {"DMA_REQUEST_USART1_RX", DMA_REQUEST_USART1_RX},
             {"DMA_REQUEST_USART2_TX", DMA_REQUEST_USART2_TX},
             {"DMA_REQUEST_USART2_RX", DMA_REQUEST_USART2_RX},
+            {"DMA_REQUEST_USART3_TX", DMA_REQUEST_USART3_TX},
+            {"DMA_REQUEST_USART3_RX", DMA_REQUEST_USART3_RX},
             {"DMA_REQUEST_UART4_TX", DMA_REQUEST_UART4_TX},
             {"DMA_REQUEST_UART4_RX", DMA_REQUEST_UART4_RX},
             {"DMA1_Stream0", DMA1_Stream0_BASE},
@@ -46,6 +48,7 @@ inline std::map<std::string, u32> MCU_Config_Map = {
             {"DMA2_Stream7", DMA2_Stream7_BASE},
             {"USART1_IRQn", USART1_IRQn},
             {"USART2_IRQn", USART2_IRQn},
+            {"USART3_IRQn", USART3_IRQn},
             {"UART4_IRQn", UART4_IRQn},
             {"GPIOA",  GPIOA_BASE},
             {"GPIOB",  GPIOB_BASE},
@@ -77,6 +80,7 @@ inline std::map<std::string, u32> MCU_Config_Map = {
             {"GPIO_PIN_All",  GPIO_PIN_All},
             {"GPIO_AF7_USART1",  GPIO_AF7_USART1},
             {"GPIO_AF7_USART2",  GPIO_AF7_USART2},
+            {"GPIO_AF7_USART3",  GPIO_AF7_USART3},
             {"GPIO_AF8_UART4", GPIO_AF8_UART4},
 
                /* ---------- FDCAN ---------- */
