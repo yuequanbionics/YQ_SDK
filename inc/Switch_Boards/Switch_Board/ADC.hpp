@@ -81,10 +81,26 @@ struct Global_ADC_Config
     ADC_Instance_Config ADC_Config;
 };
 
+struct ADC_DATA
+{
+    // Head
+	u16 Can_Id;
+	u16 Len;
+	u16 Flag;
+
+	u8 Cmd;
+    u8 ADC_Instance;
+    u16 ADC_Data[8];
+    //std::vector<ADC_Instance_Config> ADC_Config;
+    //ADC_Instance_Config ADC_Config;
+};
+
 class ADC : private Robot_Hardware
 {
     public:
         int Get_Yaml_And_Init(const shared_ptr<Device_class>& Device, const YAML::Node& One_Node);
+        int ADCx_Read(const shared_ptr<Device_class>& Device);
+        int ADCx_Call_Back(const volatile u8* Can_Frame);
 };
 
 

@@ -208,11 +208,11 @@ class Motor_BM_M1502D : private Robot_Hardware {
 
     /**
      * @brief MIT控制数据发送（速度环控制）
-     * @param Rad 位置值（度）- 在速度环模式下此参数无效
-     * @param Speed_Rad_S 速度值（度/秒）- 转换为RPM
-     * @param Force_N 力矩值（N）- 在速度环模式下此参数无效
-     * @param P_N_Rad P参数 - 在速度环模式下此参数无效
-     * @param D_N_Rad_s D参数 - 在速度环模式下此参数无效
+     * @param Rad 位置值（度）
+     * @param Speed_Rad_S 速度值（度/秒）
+     * @param Force_N 电流值（mA）
+     * @param P_N_Rad 
+     * @param D_N_Rad_s 
      */
     int Send_MIT_PD_Control_Data(std::shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
 

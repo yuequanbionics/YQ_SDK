@@ -119,3 +119,44 @@ config:
       Can_TxFifoQueueMode: FDCAN_TX_FIFO_OPERATION
       Can_TxElmtSize: FDCAN_DATA_BYTES_64
       Can_Set_Complete: true  # 每路 CAN 必须要有且为 true, 否则主控不会写入寄存器
+
+
+  Classic_Can_G474_1M: &Classic_Can_G474_1M
+    Can_EN: true
+    Can_BRS_EN: false
+    Can_NominalPrescaler: 12
+    Can_NominalSyncJumpWidth: 1        
+    Can_Nominal_TimeSeg1: 10
+    Can_Nominal_TimeSeg2: 3
+    Can_DataPrescaler: 3
+    Can_DataSyncJumpWidth: 1
+    Can_DataTimeSeg1: 10
+    Can_DataTimeSeg2: 3
+
+
+
+  FD_Can_G474_1M_4M: &FD_Can_G474_1M_4M
+    Can_EN: true
+    Can_BRS_EN: true
+    Can_NominalPrescaler: 12
+    Can_NominalSyncJumpWidth: 1        
+    Can_Nominal_TimeSeg1: 10
+    Can_Nominal_TimeSeg2: 3
+    Can_DataPrescaler: 3
+    Can_DataSyncJumpWidth: 1
+    Can_DataTimeSeg1: 10
+    Can_DataTimeSeg2: 3
+
+
+
+  FD_Can_G474_4M_4M: &FD_Can_G474_4M_4M
+    Can_EN: true
+    Can_BRS_EN: true
+    Can_NominalPrescaler: 3
+    Can_NominalSyncJumpWidth: 1        
+    Can_Nominal_TimeSeg1: 10
+    Can_Nominal_TimeSeg2: 3
+    Can_DataPrescaler: 3
+    Can_DataSyncJumpWidth: 1
+    Can_DataTimeSeg1: 10
+    Can_DataTimeSeg2: 3

@@ -53,7 +53,8 @@ enum Main_B_CMD_Data_Enum
     Main_CMD_CAN_CONFIG,
     Main_CMD_GPIO_CONFIG,
     Main_CMD_GPIO_CONTROL,
-    Main_CMD_ADC_CONFIG
+    Main_CMD_ADC_CONFIG,
+    Main_CMD_ADC_DATA
 };
 
 #endif

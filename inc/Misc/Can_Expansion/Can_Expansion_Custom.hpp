@@ -2,10 +2,17 @@
 #define Can_Expansion_Custom_H_
 
 #include "HARDWARE_TOP.hpp"
+#include <map>
+#include <memory>
+#include <functional>
 
 #include <vector>
 #include <numeric>
 using namespace std;
+
+#define Device_Do_Not_Test_Online_Custom 3
+
+using SenF_Func = std::function<int(shared_ptr<Device_class>, u8*)>;
 
 #define Can_Expansion_Custom_Type "Can_Expansion_Custom"
 
@@ -51,20 +58,56 @@ struct CanFrame {
 
 
 
+typedef struct Set_FDCAN
+{ 
+    u8 Head = 0xAA;
+    u8 Len = sizeof(Set_FDCAN);
+    u8 flag = 0xC3;
+    u8 CH;
+    u8 BRS_EN;
+    u8 NominalPrescaler;
+    u8 NominalSyncJumpWidth;
+    u8 Nominal_TimeSeg1;
+    u8 Nominal_TimeSeg2;
+    u8 DataPrescaler;
+    u8 DataSyncJumpWidth;
+    u8 DataTimeSeg1;
+    u8 DataTimeSeg2;
+    u8 check_num;
+
+} Set_FDCAN;
+
+
+
 class Can_Expansion_Custom : private Robot_Hardware
 {
 public:
 	int Can_Expansion_Custom_Data_From_Yaml_And_Init(shared_ptr<Device_class> Device, YAML::Node One_Node);
 	int Can_Expansion_Custom_Frame_Analyze(volatile u8 *Can_Frame);
 
-    int Serial_Send(shared_ptr<Device_class> Device_P);
-	int (*Custom_Msg_CallBack)(volatile u8 *);
-
+    int Serial_Send();
+    
 	Can_Expansion_Custom(void);
 
     void Build_CanFrame(uint8_t canch, uint32_t canid, uint8_t len, uint8_t *data);
     vector<uint8_t> Get_CanFrame();
+    bool parse_one_frame(vector<uint8_t>& buffer);
+    void print_can_data();
+
+    int Send_F_Orin_CanFD(shared_ptr<Device_class> Device, u8 *Data);
+
+
+    Set_FDCAN Set_FDCan[3];
+
+    Serial_Data Serial_Datas;
+    std::map<shared_ptr<Device_class>, SenF_Func> m_dev_old_senf;
+    shared_ptr<Device_class> Device_my;
     vector<CanFrame> send_list;
+    vector<CanFrame> g_can_list; 
+    vector<uint8_t> recv_buf;
 };
+
+
+int Can_Data_Analysis(shared_ptr<Device_class> Device, u8* Data);
 
 #endif
