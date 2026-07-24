@@ -168,23 +168,23 @@ typedef struct {
     uint64_t timestamp_ms;
 
     // 0x01 电池基本信息
-    uint8_t cell_count;         // 电池单体数
-    uint8_t ntc_count;          // NTC数量
-    float nominal_capacity;   // 电池标称容量（单位：0.1AH）
+    uint8_t cell_count;      // 电池单体数
+    uint8_t ntc_count;       // NTC数量
+    float nominal_capacity;  // 电池标称容量（单位：0.1AH）
     float software_version;  // BMS软件版本号（单位：0.01）
     float hardware_version;  // BMS硬件版本号（单位：0.01）
 
     // 0x02 电池能源信息
     float total_voltage;  // 总电压（单位：0.01V）
-    float current;         // 电流（有符号，单位：0.01A）
-    uint8_t soc;             // SOC（单位：1%）
+    float current;        // 电流（有符号，单位：0.01A）
+    uint8_t soc;          // SOC（单位：1%）
     float soh;            // SOH（单位：0.1%）
 
     // 0x03 电池容量温度信息
-    float actual_capacity;  // 电池实际容量（单位：0.01AH）
-    uint16_t cycle_count;      // 循环次数
+    float actual_capacity;   // 电池实际容量（单位：0.01AH）
+    uint16_t cycle_count;    // 循环次数
     float cell_temperature;  // 电芯温度（有符号，单位：0.01℃）
-    int8_t mos_temperature;    // MOS温度（有符号，单位：1℃）
+    int8_t mos_temperature;  // MOS温度（有符号，单位：1℃）
 
     // 0x04 电池状态信息
     uint8_t discharge_mos_status;      // 放电MOS状态（0断开 1闭合）
@@ -196,9 +196,9 @@ typedef struct {
 
     // 0x05 电池最高最低电压信息
     float max_cell_voltage;  // 单体最高电压（单位：0.001V）
-    uint8_t max_cell_index;     // 单体最高电压序号
+    uint8_t max_cell_index;  // 单体最高电压序号
     float min_cell_voltage;  // 单体最低电压（单位：0.001V）
-    uint8_t min_cell_index;     // 单体最低电压序号
+    uint8_t min_cell_index;  // 单体最低电压序号
 
     // 0x06 告警&保护信息
     // 告警信息1
@@ -241,6 +241,37 @@ typedef struct {
 
     // 保护信息3（预留）
     uint8_t protect_reserved;
+
+    /**
+     * @brief 异常状态统一码 (bit=1 表示对应异常激活, 0=无异常)
+     *
+     *  bit  0- 7: 告警1 (Alarm 1)  —— 来自 alarm1 字节
+     *    bit 0: 单体过压告警    bit 1: 单体欠压告警
+     *    bit 2: 总压过压告警    bit 3: 总压欠压告警
+     *    bit 4: 放电过流告警    bit 5: 充电过流告警
+     *    bit 6: 放电高温告警    bit 7: 充电高温告警
+     *
+     *  bit  8-15: 告警2 (Alarm 2)  —— 来自 alarm2 字节
+     *    bit  8: 放电低温告警   bit  9: 充电低温告警
+     *    bit 10: SOC过低告警    bit 11: MOS高温告警
+     *    bit 12: 环境高温告警   bit 13-15: 预留
+     *
+     *  bit 16-23: 保护1 (Protection 1)  —— 来自 protect1 字节
+     *    bit 16: 单体过压保护   bit 17: 单体欠压保护
+     *    bit 18: 总压过压保护   bit 19: 总压欠压保护
+     *    bit 20: 放电过流保护   bit 21: 充电过流保护
+     *    bit 22: 放电高温保护   bit 23: 充电高温保护
+     *
+     *  bit 24-31: 保护2/故障 (Protection 2 / Fault)  —— 来自 protect2 字节
+     *    bit 24: 放电低温保护   bit 25: 充电低温保护
+     *    bit 26: MOS高温保护    bit 27: 放电MOS故障
+     *    bit 28: 充电MOS故障    bit 29: 硬件IC故障
+     *    bit 30: 低压禁止充电   bit 31: 短路保护
+     *
+     *  用途: 用一个变量代替"告警 + 保护 + 故障"三类共 29 个 bool,
+     *        bit 位用于区分各状态下的具体异常; 0 表示"无任何异常".
+     */
+    uint32_t exception_code;  // 告警+保护+故障 统一异常码
 
     // 0x0A~0x0E 单体电压详细信息（最多15节）
     float cell_voltages[15];  // 单体电压数组（单位：0.001V）
