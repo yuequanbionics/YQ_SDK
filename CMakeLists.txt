@@ -303,7 +303,9 @@ add_library(spdlog_global SHARED IMPORTED
         inc/Z_SYS_SRC/Socket_CAN/Socket_CAN.hpp
         inc/Switch_Boards/Switch_Board_Orin_CANFD/Switch_Board_Orin_CANFD.hpp
         src/Switch_Boards/Switch_Board_Orin/Switch_Board_Orin.cpp
-        inc/Switch_Boards/Switch_Board_Orin/Switch_Board_Orin.hpp)
+        inc/Switch_Boards/Switch_Board_Orin/Switch_Board_Orin.hpp
+        src/Switch_Boards/Switch_Board_RS485/Switch_Board_RS485.cpp
+        inc/Switch_Boards/Switch_Board_RS485/Switch_Board_RS485.hpp)
 set_target_properties(spdlog_global PROPERTIES
     IMPORTED_LOCATION "${THIRD_PARTY_INSTALL_DIR}/lib/libspdlogs.so"
     INTERFACE_INCLUDE_DIRECTORIES "${THIRD_PARTY_INSTALL_DIR}/include/spdlog"
@@ -392,6 +394,7 @@ endfunction()
     import_shared_library(Led_Device)
     import_shared_library(IMU_Device_YuanJi)
     import_shared_library(Custom_Motor_Device_DaMiao)
+    import_shared_library(Switch_Board_RS485)
     import_shared_library(Auto_Set_Id)
     import_shared_library(X_Hand_Protocol)
     import_shared_library(Switch_Board)
@@ -400,6 +403,7 @@ endfunction()
     import_shared_library(Uart_Custom_Dome_Device)
     import_shared_library(Eyou_Custom_Motor_Device)
     import_shared_library(Motor_Device_BenMo)
+    import_shared_library(Phu_Custom_Motor_Device)
     import_shared_library(Motor_Device_TaiHu)
     import_shared_library(Motor_Interpolation)
 # script auto end -> lib_add

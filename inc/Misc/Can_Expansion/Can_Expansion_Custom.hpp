@@ -56,12 +56,29 @@ struct CanFrame {
     uint8_t data[64];     // 数据（最长64字节）
 };
 
+typedef struct Set_OTA
+{
+    u8 Head = 0xAA;
+    u8 Len;
+    u8 cnt = 1;
+    u8 flag = 0xC2;
+    u8 result = 1;
+    u32 num ;
+    u8 data[1024];
+    u8 check_num;
+}Set_OTA;
 
+typedef struct response_Data
+{
+    u8 flag;
+    u32 num;
+}response_Data;
 
 typedef struct Set_FDCAN
 { 
     u8 Head = 0xAA;
     u8 Len = sizeof(Set_FDCAN);
+    u8 cnt = 1;
     u8 flag = 0xC3;
     u8 CH;
     u8 BRS_EN;
@@ -82,29 +99,40 @@ typedef struct Set_FDCAN
 class Can_Expansion_Custom : private Robot_Hardware
 {
 public:
+    Can_Expansion_Custom(void);
 	int Can_Expansion_Custom_Data_From_Yaml_And_Init(shared_ptr<Device_class> Device, YAML::Node One_Node);
+
+
 	int Can_Expansion_Custom_Frame_Analyze(volatile u8 *Can_Frame);
-
-    int Serial_Send();
-    
-	Can_Expansion_Custom(void);
-
-    void Build_CanFrame(uint8_t canch, uint32_t canid, uint8_t len, uint8_t *data);
-    vector<uint8_t> Get_CanFrame();
-    bool parse_one_frame(vector<uint8_t>& buffer);
-    void print_can_data();
+    bool Analyze_One_Frame(vector<uint8_t>& buffer);
+    void Handle_Device_Response();
+    vector<uint8_t> recv_buf;
+    vector<CanFrame> g_can_list; 
+    vector<response_Data> response_data; 
 
     int Send_F_Orin_CanFD(shared_ptr<Device_class> Device, u8 *Data);
+    int Can_Expansion_Custom_Serial_Send();
+    void Build_CanFrame(uint8_t canch, uint32_t canid, uint8_t len, uint8_t *data);
+    vector<uint8_t> Get_CanFrame();
+    vector<CanFrame> send_list;
 
-
-    Set_FDCAN Set_FDCan[3];
-
-    Serial_Data Serial_Datas;
     std::map<shared_ptr<Device_class>, SenF_Func> m_dev_old_senf;
     shared_ptr<Device_class> Device_my;
-    vector<CanFrame> send_list;
-    vector<CanFrame> g_can_list; 
-    vector<uint8_t> recv_buf;
+    
+    Set_OTA Set_ota;
+    Set_FDCAN Set_FDCan[3];
+    Serial_Data Serial_Datas;
+
+    
+    void OAT_GO_Timeout();
+    void OAT_GO();
+    uint32_t m_last_ota_send_tick = 0;
+    uint32_t m_last_ota_r_tick = 0;
+    const uint32_t OAT_PERIOD_MS = 1000;
+    bool ota_stop_flag =    false;
+    vector<uint8_t> flash_data;
+
+    void w_flash_data(vector<uint8_t>Data);
 };
 
 

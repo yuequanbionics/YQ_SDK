@@ -77,7 +77,7 @@ config:
     IC_MU_SPEED: 1
     V_rated: 500
 
-    DI_I_MAX: 0.5                 
+    DI_I_MAX: 0.8                 
     I_Hardware_Max: 2
     Current_Amplifier_Gain: 15
     Motor_CMD_I_To_Force_K: 1.0

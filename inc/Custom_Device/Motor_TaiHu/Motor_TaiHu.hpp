@@ -47,6 +47,9 @@ enum Command : uint8_t
 {
     CMD_STOP = 0x02,              // 失能           
     CMD_GET_POS_VALUE = 0x08,     // 位置读取
+    CMD_GET_ERROR_STATUS = 0x0A,  // 获取报错状态
+    CMD_CLEAR_ERROR_STATUS = 0x0B,// 清除报错状态
+    //CMD_GET_POS_VALUE = 0x0D,     // 恢复出厂设置
     CMD_FORWARD_VEL = 0X24,       // 正转速度控制
     CMD_BACKWARD_VEL = 0X25,      // 反转速度控制
     CMD_SET_OFFSET = 0x53,        // 设置零点
@@ -66,6 +69,25 @@ enum Command : uint8_t
     CMD_SET_CUR_KI = 0x84         // 设置电流环Ki
 
 };
+
+// enum ERROR_STATUS : uint32_t
+// {
+
+//     ERR_BIT0_SW_WRITE_FLASH     = 0x00000001, // bit0 电机内部软件错误(运行写FLASH)
+//     ERR_BIT1_OVER_VOLTAGE       = 0x00000002, // bit1 过压
+//     ERR_BIT2_UNDER_VOLTAGE      = 0x00000004, // bit2 欠压
+//     ERR_BIT4_START_ERR          = 0x00000010, // bit4 启动错误
+//     ERR_BIT5_SPEED_FEEDBACK_ERR = 0x00000020, // bit5 速度反馈错误
+//     ERR_BIT6_OVER_CURRENT       = 0x00000040, // bit6 过流
+//     ERR_BIT7_SW_WRITE_FLASH2    = 0x00000080, // bit7 软件错误(运行写FLASH)
+//     ERR_BIT16_ENC_COMM_ERR      = 0x00010000, // bit16 编码器通讯错误
+//     ERR_BIT17_MOTOR_TEMP_HIGH   = 0x00020000, // bit17 电机温度过高
+//     ERR_BIT18_PCB_TEMP_HIGH     = 0x00040000, // bit18 电路板温度过高
+//     ERR_BIT19_DRIVER_ERR        = 0x00080000, // bit19 驱动芯片错误/电流过载
+//     ERR_BIT20_ECAT_COMM_ERR     = 0x00100000, // bit20 EtherCAT通讯错误
+//     ERR_BIT21_POS_FOLLOW_ERR    = 0x00200000  // bit21 位置追随误差过大
+
+// };
 
 #define Motor_Device_Init_TaiHu  [](shared_ptr<Device_class> Device, YAML::Node *Node) -> int\
                             {\
@@ -96,8 +118,9 @@ private:
     int32_t target_V = 0;           // 目标速度
     int32_t target_F = 0;           // 目标电流
     int32_t pos_offset = 0;          // 位置偏置值(Cnt)
-    float Temp_ = 0;               // 电机温度
+    float Temp_ = 0;                // 电机温度
     float reduction_ratio = 0.0f;    // 减速比
+    uint32_t motor_error_st = 0;     //电机错误状态
     
 
 
@@ -155,7 +178,6 @@ public:
      * @brief 读取电机温度
      * @param Temp 温度值，单位摄氏度
     */
-
     int Get_Motor_Temp(shared_ptr<Device_class> Device_P, float *Temp);
 
 
@@ -182,42 +204,36 @@ public:
      * @brief 设置位置环KP
      * @param kp 比例增益
      */
-
     int Set_Pos_KP(shared_ptr<Device_class> device, int kp);
 
     /**
      * @brief 设置位置环KD
      * @param kd 微分增益
      */
-
     int Set_Pos_KD(shared_ptr<Device_class> device, int kd);
 
      /**
      * @brief 设置速度环KP
      * @param kp 比例增益
      */
-
     int Set_Vel_KP(shared_ptr<Device_class> device, int kp);
 
     /**
      * @brief 设置速度环KI
      * @param ki 积分增益
      */
-
     int Set_Vel_KI(shared_ptr<Device_class> device, int ki);
 
     /**
      * @brief 设置电流环KD
      * @param kd 微分增益
      */
-
     int Set_Cur_KP(shared_ptr<Device_class> device, int kp);
 
      /**
      * @brief 设置电流环Ki
      * @param ki 积分增益
      */
-
     int Set_Cur_KI(shared_ptr<Device_class> device, int ki);
 
 
@@ -225,7 +241,6 @@ public:
      * @brief 设置电机在位置模式下的正向速度
      * @param Vel_Rad_S 速度值，单位度每秒
     */
-
     int Set_Forward_Vel(shared_ptr<Device_class> Device_P, float Vel_Rad_S);
 
     /**
@@ -237,8 +252,21 @@ public:
     /**
      * @brief 保存设置参数到flash
     */
-
     int Save_To_Flash(shared_ptr<Device_class> device);
+
+
+    /*
+        * @brief 获取电机报错状态
+        * @param error_status 报错状态，0表示无报错，非0表示有报错  
+    */
+    int Get_Motor_Error_Status(shared_ptr<Device_class> device, uint32_t *error_status);
+
+
+    /*
+        * @brief 清除电机报错状态
+        * @param device 设备指针
+    */
+    int Clear_Motor_Error_Status(shared_ptr<Device_class> device);
 
 
 

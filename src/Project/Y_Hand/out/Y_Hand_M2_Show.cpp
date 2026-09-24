@@ -3743,7 +3743,16 @@ int main(int argc, char *argv[])
     std::cout << "程序所在目录: " << dir_path << std::endl;
 
     string ADDR = dir_path.string() + "/../config/YAML/Y_Hand/M2_Show_Demo/TOP.yaml";
-    if(Test_Robot->Init_TOP(ADDR) != 0)
+    string Config = "None";
+    //     string Config = R"(
+    // PC_IP: 192.168.3.245
+    // SN: 1Y2S2607020M
+    // Boards:
+    //   - Id: 101
+    //     IP: 192.168.3.105
+    //     # Port: 19001
+    // )";
+    if(Test_Robot->Init_TOP(ADDR, Config) != 0)
     { 
         cout << "Init_ERR" << endl;
         return -1;

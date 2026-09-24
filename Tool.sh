@@ -404,7 +404,7 @@ WantedBy=default.target"
                 fi
                 ;;
             4)
-                sudo apt install -y build-essential cmake libboost-all-dev htop tmux net-tools gparted expect stlink-tools
+                sudo apt install -y build-essential cmake libboost-all-dev htop tmux net-tools gparted expect stlink-tools libreadline-dev
                 ;;
             *)
                 # 处理无效输入

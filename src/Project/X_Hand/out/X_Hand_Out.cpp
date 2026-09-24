@@ -192,12 +192,12 @@ void X_hand_Init(void) {
 
     while (true) {
         // 放
-        Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror * 0.15f, kp, kd);
-        Motor_2_Control->Send_MIT_PD_Control_Data(Motor_2_D, 0, 0, mirror * 0.15f, kp, kd);
-        Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * -0.15f, kp, kd);
-        Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * -0.15f, kp, kd);
-        Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * -0.15f, kp, kd);
-        Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror * -0.15f, kp, kd);
+        Motor_1_Control->Send_MIT_PD_Control_Data(Motor_1_D, 0, 0, mirror * 0.20f, kp, kd);
+        Motor_2_Control->Send_MIT_PD_Control_Data(Motor_2_D, 0, 0, mirror * 0.20f, kp, kd);
+        Motor_3_Control->Send_MIT_PD_Control_Data(Motor_3_D, 0, 0, mirror * -0.20f, kp, kd);
+        Motor_4_Control->Send_MIT_PD_Control_Data(Motor_4_D, 0, 0, mirror * -0.20f, kp, kd);
+        Motor_5_Control->Send_MIT_PD_Control_Data(Motor_5_D, 0, 0, mirror * -0.20f, kp, kd);
+        Motor_6_Control->Send_MIT_PD_Control_Data(Motor_6_D, 0, 0, mirror * -0.20f, kp, kd);
         X_Hand->Send_Buff_Data();
         usleep(init_time_step);
         Get_FB();
@@ -245,24 +245,20 @@ void Tactile_Sensor_Init(void) {
 }
 
 void Tactile_Sensor_Get_Data(void) {
-    static const vector<u8> sensor_ids = {HW_THUMB_ID, HW_INDEX_FINGER_ID, HW_MIDDLE_FINGER_ID, HW_RING_FINGER_ID, HW_LITTLE_FINGER_ID, HW_PALM_CENTER_ID};
-
-    for (u8 sensor_id : sensor_ids) {
+    for (u8 sensor_id : kAllSensorIds) {
         vector<u16> data = Tactile_Sensor_Control->Get_Stored_Sensor_Data(sensor_id);  // 读取传感器数据
-        if (!data.empty()) {
-            g_sensor_data[sensor_id] = data;
-
-            cout << "已存储 " << g_sensor_data[sensor_id].size() << " 个数据点: [";
-            for (size_t i = 0; i < g_sensor_data[sensor_id].size(); ++i) {
-                cout << g_sensor_data[sensor_id][i];
-                if (i < g_sensor_data[sensor_id].size() - 1) {
-                    cout << ", ";
-                }
-            }
-            cout << "]" << endl;
-        } else {
-            cout << "数据为空或未收到数据。" << endl;
+        if (data.empty()) {
+            cout << "  [" << hw_sensor_detail::FingerNameOf(sensor_id) << "] 数据为空或未收到数据。" << endl;
+            continue;
         }
+
+        g_sensor_data[sensor_id] = data;
+
+        // cout << "已存储 " << g_sensor_data[sensor_id].size() << " 个数据点: [";
+        // for (size_t i = 0; i < g_sensor_data[sensor_id].size(); ++i) {
+        //     cout << g_sensor_data[sensor_id][i] << (i + 1 < g_sensor_data[sensor_id].size() ? ", " : "");
+        // }
+        // cout << "]" << endl;
     }
 }
 
@@ -282,11 +278,11 @@ int hardware_init(const string& ADDR, const string& Config)
 #ifndef HAVE_ROS
     filesystem::path exe_path = filesystem::canonical("/proc/self/exe");
     filesystem::path dir_path = exe_path.parent_path();
-    string ADDR = dir_path.string() + "/../config/YAML/X_Hand/out/mz_g_1.0/TOP.yaml";
+    string ADDR = dir_path.string() + "/../config/YAML/X_Hand/out/self_1.0/TOP.yaml";
     // string Config = "None";
     string Config = R"(
 PC_IP: 192.168.3.245
-SN: 1X1T2603005MG
+SN: 1X1T2605031
 Boards:
   - Id: 101
     IP: 192.168.3.105
@@ -356,8 +352,8 @@ Boards:
         // Tactile_Sensor_Get_Data();
     }
 #endif
-    /* ------------------- 四指握力动作 ------------------- */
-    // 需要把 yaml 电流放开 DI_I_MAX: 2.0
+/* ------------------- 四指握力动作 ------------------- */
+// 需要把 yaml 电流放开 DI_I_MAX: 2.0
 #if 0
     // ReSharper disable once CppDFAEndlessLoop
     while (true) {

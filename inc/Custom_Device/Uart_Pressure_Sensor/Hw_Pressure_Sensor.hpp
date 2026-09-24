@@ -23,7 +23,18 @@
 #define HW_RING_FINGER_ID 0x04    // 无名指
 #define HW_LITTLE_FINGER_ID 0x05  // 小拇指
 #define HW_PALM_CENTER_ID 0x06    // 掌心
-#define HW_PALM_BACK_ID 0x07      // 掌背
+
+// 6 个手指传感器 ID 集合（轮询顺序，掌心放最后）
+inline constexpr u8 kAllSensorIds[] = {
+    HW_THUMB_ID, HW_INDEX_FINGER_ID, HW_MIDDLE_FINGER_ID,
+    HW_RING_FINGER_ID, HW_LITTLE_FINGER_ID, HW_PALM_CENTER_ID};
+
+// 手指名称（按下标 0..6 索引，0="未知"）
+inline constexpr const char* kFingerNames[] = {"未知", "大拇指", "食指", "中指", "无名指", "小拇指", "掌心"};
+
+namespace hw_sensor_detail {
+inline const char* FingerNameOf(u8 id) { return (id >= 1 && id <= 6) ? kFingerNames[id] : kFingerNames[0]; }
+}  // namespace hw_sensor_detail
 
 // 信道定义
 #define HW_CHANNEL_DEVICE_INFO 0x01  // 设备信息
@@ -81,27 +92,6 @@ struct Sensor_Device_Status {
     uint32_t success_count;        // 成功计数
     uint32_t total_request_count;  // 总请求次数
     float success_rate;            // 成功率
-};
-
-// 数据质量统计
-struct Data_Quality_Stats {
-    u16 valid_count;         // 有效数据点数
-    u16 out_of_range_count;  // 超范围数据点数
-    u16 min_value;           // 最小值
-    u16 max_value;           // 最大值
-    u32 sum_value;           // 总和
-    u16 average_value;       // 平均值
-    float quality_score;     // 数据质量评分
-};
-
-// 传感器数据查询结果
-struct Sensor_Data_Result {
-    bool success;               // 查询是否成功
-    bool device_online;         // 设备是否在线
-    u8 sensor_id;               // 传感器ID
-    uint64_t timestamp;         // 数据时间戳
-    std::vector<u16> data;      // 传感器数据
-    std::string error_message;  // 错误信息
 };
 
 typedef struct Serial_Data {
@@ -276,26 +266,7 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
     /* 获取当前时间戳(毫秒) */
     uint64_t Get_Current_Time_Ms();
 
-    /**
-     * @brief 如果传感器离线，清空其存储的数据
-     * @param sensor_id 传感器ID
-     */
-    void Clear_Sensor_Data_If_Offline(u8 sensor_id);
-
     void Check_And_Recover_Offline_Sensor(u8 sensor_id);
-
-    /**
-     * @brief 打印十六进制数据
-     * @param data 数据指针
-     * @param length 数据长度
-     * @param prefix 前缀说明
-     */
-    void Print_Hex_Data(const u8* data, u16 length, const std::string& prefix);
-
-    /**
-     * @brief 快速提取传感器ID（不解析完整帧）
-     */
-    u8 Quick_Extract_Sensor_ID(const u8* data, u16 length);
 
     /**
      * @brief 存储传感器数据到字典
@@ -327,14 +298,12 @@ class Hw_Pressure_Sensor : private Robot_Hardware {
     std::map<u8, uint64_t> last_request_time_;
     // --- 异步采集 ---
 
-    // --- 同步模式改进 ---
-    std::mutex sync_response_mutex_;                    // 同步模式响应保护锁
-    std::map<u8, bool> sync_sensor_response_received_;  // 同步模式下的传感器响应标志
-    // --- 同步模式改进 ---
-
     // 回调函数
     std::function<void(u8 sensor_id, const std::vector<u16>& data)> data_callback_;
     std::function<void(u8 sensor_id, u8 cmd, const std::vector<u8>& data)> device_info_callback_;
+
+    // 采集线程句柄（析构时 join，避免线程持有已释放的 this）
+    std::thread collection_thread_;
 };
 
 #endif  // HW_PRESSURE_SENSOR_H_
