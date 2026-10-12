@@ -12,7 +12,7 @@
 #define Can_Id_Back_Offset          0x580
 #define R_T_A                       (float)57.29577
 
-#define SDO_WR_Delayus              100
+#define SDO_WR_Delayus              1000
 #define PDO_WR_Delayus              100
 
 #define Phu_Custom_Motor_Device_Init  [](shared_ptr<Device_class> Device, YAML::Node *Node) -> int\
@@ -141,6 +141,8 @@ public:
     int     start_lock      = 0;
 
     bool    wait_zero_lock  = false;
+
+    float     Phu_Offset = 0.0f;
 
     /* 减速比 */
     int Motor_Reduction_Ratio = 0;

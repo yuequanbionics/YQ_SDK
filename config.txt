@@ -16,14 +16,6 @@ ENABLE=1
 [Project]
 ENABLE=1
 
-[Project/E_Bot]
-ENABLE=1
-
-[Project/E_Bot/out]
-ENABLE=1
-ENABLE_E_hand_demo=ON
-ENABLE_E_hand_demo_Debug=OFF
-
 [Project/IO_Board]
 ENABLE=1
 ENABLE_IO_Board=ON

@@ -62,6 +62,8 @@ public:
     int Get_Yaml_And_Init(const shared_ptr<Device_class>& Device, const YAML::Node& One_Node);
 
     void Set_GPIOx_To_Input_Mode(const shared_ptr<Device_class> &Device, GPIO_TypeDef *GPIOx, u32 GPIOx_Pin);
+    void Set_GPIOx_To_Output_PP_Mode(const shared_ptr<Device_class> &Device, GPIO_TypeDef *GPIOx, u32 GPIOx_Pin);
+    void Set_GPIOx_To_Output_OD_Mode(const shared_ptr<Device_class> &Device, GPIO_TypeDef *GPIOx, u32 GPIOx_Pin);
     u8 Get_GPIOx_Value(const GPIO_TypeDef *GPIOx, u32 GPIOx_Pin);
 
     void GPIOx_Init(const shared_ptr<Device_class>& Device, GPIO_TypeDef *GPIOx, const GPIO_InitTypeDef *GPIO_Init_Struct);

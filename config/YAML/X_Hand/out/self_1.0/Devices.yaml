@@ -14,7 +14,7 @@ config:
       <<: *Motor_Config_Normal_0
       DeviceConfig: 
         <<: *cat_motor_device_config
-        DI_I_MAX: 0.4
+        DI_I_MAX: 0.6
         Gear_multiple: 20
         
     - Name: Motor_2
@@ -22,7 +22,7 @@ config:
       <<: *Motor_Config_Normal_0
       DeviceConfig: 
         <<: *cat_motor_device_config
-        DI_I_MAX: 0.4
+        DI_I_MAX: 0.6
         Gear_multiple: 4
 
     - Name: Motor_3

@@ -68,7 +68,7 @@ config:
     Motor_Mod: Motor_MIT_Control
     Motor_Heart_Beat: 0
     Motor_Pole_Pairs: 1
-    Motor_AB_Mirror: false
+    Motor_AB_Mirror: true
     Motor_current_sample_offset: 10
 
     MD_K: 10

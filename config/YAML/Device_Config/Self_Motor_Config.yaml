@@ -103,13 +103,13 @@ config:
     <<: *Init_Config 
     
     #Zero
-    Motor_Set_Zero_Offest: 90.0
+    Motor_Set_Zero_Offest: 0.0
 
     #Config
     Motor_Mod: Motor_MIT_Control
     Motor_Heart_Beat: 0
     Motor_Pole_Pairs: 14
-    Motor_AB_Mirror: true
+    Motor_AB_Mirror: false
     Motor_current_sample_offset: 1
 
     MD_K: 20000

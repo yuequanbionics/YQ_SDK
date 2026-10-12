@@ -212,6 +212,7 @@ private:
     float Deceleration = 0.0;
     float Offest_From_Yaml = 0.0;
     float Offest_Data = 0.0;
+    u8 enable_flag = 0;
     Eyou_Motor_Data Data_Init(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_class> Device); 
     Eyou_Motor_Data Data_Save_To_Motor(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_class> Device);
     Eyou_Motor_Data Write_1_Data(Eyou_Motor_Data *Eyou_Motor_Datas, std::shared_ptr<Device_class> Device, u8 now_, u8 cmd, u8 index, u8 data);
