@@ -104,8 +104,8 @@ def run_get_sn(sdk_dir, timeout_arg="100"):
 
 
 def DEC(sdk_dir):
-    SN_MOD = ["1X1000000000"]
-    SN_MSK = ["111000000000"]
+    SN_MOD = ["1X100000000SG","1X100000000S","1Y2S0000000M","1Y2S0000000","1X100000000"]
+    SN_MSK = ["1110000000001","111000000000","111000000000","11100000000","11100000000"]
 
     lock_file_path = "/tmp/dec_sn.lock"
     lock_fd = open(lock_file_path, 'w')
@@ -139,6 +139,7 @@ def DEC(sdk_dir):
                 print(f"SN原始数值: {sn}")
                 print(f"模板:{mod} 掩码:{msk} 校验通过")
                 print(f"Main_SN_DATA_STR# {decoded_str}\n")
+                break
     
     print("\n==== 解析结果 ====")
     for sn in decoded_str_s:
