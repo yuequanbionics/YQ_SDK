@@ -51,7 +51,8 @@ typedef struct
 typedef enum
 {
     E_GPIO_Read = 0U,
-    E_GPIO_Write
+    E_GPIO_Write_Positive,
+    E_GPIO_Write_Negative,
 }GPIO_Control_Cmd;
 
 extern u8 g_pin_state[168];
@@ -68,6 +69,7 @@ public:
 
     void GPIOx_Init(const shared_ptr<Device_class>& Device, GPIO_TypeDef *GPIOx, const GPIO_InitTypeDef *GPIO_Init_Struct);
     int GPIOx_Read(const shared_ptr<Device_class>& Device, GPIO_TypeDef* GPIOx, u32 GPIOx_Pin, u32 timeout);
+    int GPIOx_Write( const shared_ptr<Device_class>& Device, GPIO_TypeDef *GPIOx, u32 GPIOx_Pin, u8 Pin_Status);
     int GPIOx_Call_Back(const volatile u8* Can_Frame);
     int Get_GPIO_Unique_Code(const GPIO_TypeDef *GPIOx, uint32_t GPIO_Pin);
 

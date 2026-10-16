@@ -125,7 +125,9 @@ int hardware_init(const string& ADDR, const string& Config)
     IO_Board_Control->m_GPIO.Set_GPIOx_To_Input_Mode(IO_Board, A1_PORT, A1_PIN);  // A1
 
 
+    /* GPIO 读写接口调用示例 */
     // IO_Board_Control->m_GPIO.GPIOx_Read(IO_Board, GPIOA, GPIO_PIN_10, 1000);
+    // IO_Board_Control->m_GPIO.GPIOx_Write(IO_Board, GPIOD, GPIO_PIN_9, GPIO_PIN_SET);
 
     /* ---------------- End ---------------- */
 

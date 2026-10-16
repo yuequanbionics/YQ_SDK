@@ -14,7 +14,7 @@ ENABLE=1
 ENABLE=1
 
 [Project]
-ENABLE=0
+ENABLE=1
 
 [Project/IO_Board]
 ENABLE=1
