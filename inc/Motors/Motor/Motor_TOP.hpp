@@ -40,6 +40,7 @@ public:
     int IC_MU_CAL(const shared_ptr<Device_class> &Device_P,UDP_Def *UDP_Def_one, int EN);
     int Motor_Cal_Start(const shared_ptr<Device_class> &Device_P);
     void Motor_Calibration_Data_Send(const shared_ptr<Device_class> &Device_P);
+    int Set_I_Max(const shared_ptr<Device_class> &Device_P, float Current_A);
     int Send_Current_Control_Data(const shared_ptr<Device_class> &Device_P, float Current_A);
     int Send_Force_Control_Data(const shared_ptr<Device_class> &Device_P, float Force_N);
     int Send_Speed_Control_Data(const shared_ptr<Device_class> &Device_P, float Speed_Rad_S, float Force_N, float Force_MAX_N);

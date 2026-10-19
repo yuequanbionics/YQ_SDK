@@ -293,6 +293,35 @@ int hardware_init(const string& ADDR, const string& Config)
     Motor28_Control  = static_cast<Motor*>(Test_Robot->Get_Control_Class(Motor28_Device));
 
 
+    //  Motor1_Control->Set_I_Max( Motor1_Device, 0.5);
+    //  Motor2_Control->Set_I_Max( Motor2_Device, 0.5);
+    //  Motor3_Control->Set_I_Max( Motor3_Device, 0.5);
+    //  Motor4_Control->Set_I_Max( Motor4_Device, 0.5);
+    //  Motor5_Control->Set_I_Max( Motor5_Device, 0.5);
+    //  Motor6_Control->Set_I_Max( Motor6_Device, 0.5);
+    //  Motor7_Control->Set_I_Max( Motor7_Device, 0.5);
+    //  Motor8_Control->Set_I_Max( Motor8_Device, 0.5);
+    //  Motor9_Control->Set_I_Max( Motor9_Device, 0.5);
+    // Motor10_Control->Set_I_Max(Motor10_Device, 0.5);
+    // Motor11_Control->Set_I_Max(Motor11_Device, 0.5);
+    // Motor12_Control->Set_I_Max(Motor12_Device, 0.5);
+    // Motor13_Control->Set_I_Max(Motor13_Device, 0.5);
+    // Motor14_Control->Set_I_Max(Motor14_Device, 0.5);
+    // Motor15_Control->Set_I_Max(Motor15_Device, 0.5);
+    // Motor16_Control->Set_I_Max(Motor16_Device, 0.5);
+    // Motor17_Control->Set_I_Max(Motor17_Device, 0.5);
+    // Motor18_Control->Set_I_Max(Motor18_Device, 0.5);
+    // Motor19_Control->Set_I_Max(Motor19_Device, 0.5);
+    // Motor20_Control->Set_I_Max(Motor20_Device, 0.5);
+    // Motor21_Control->Set_I_Max(Motor21_Device, 0.5);
+    // Motor22_Control->Set_I_Max(Motor22_Device, 0.5);
+    // Motor23_Control->Set_I_Max(Motor23_Device, 0.5);
+    // Motor24_Control->Set_I_Max(Motor24_Device, 0.5);
+    // Motor25_Control->Set_I_Max(Motor25_Device, 0.5);
+    // Motor26_Control->Set_I_Max(Motor26_Device, 0.5);
+    // Motor27_Control->Set_I_Max(Motor27_Device, 0.5);
+    // Motor28_Control->Set_I_Max(Motor28_Device, 0.5);
+
 #ifndef HAVE_ROS
     float S = 0;                   // 正弦函数相位变量（随时间递增）
     float P[30], V[30], F[30];     // 存储电机反馈数据：位置(Position)、速度(Velocity)、力(电流 0-100 参数为百分比*100) //从1开始
