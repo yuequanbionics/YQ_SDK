@@ -12,7 +12,7 @@
 #define Can_Id_Back_Offset          0x580
 #define R_T_A                       (float)57.29577
 
-#define SDO_WR_Delayus              1000
+#define SDO_WR_Delayus              2000
 #define PDO_WR_Delayus              100
 
 #define Phu_Custom_Motor_Device_Init  [](shared_ptr<Device_class> Device, YAML::Node *Node) -> int\
@@ -52,6 +52,11 @@ enum Phu_Motor_Status{
     Phu_Motor_Close_Break   = 0x04,
 };
 
+enum Phu_Motor_Mode{
+    CSP = 0,
+    CSF = 1,
+};
+
 enum Phu_CMD{
     /* 抱闸输出控制 */
     Break_Modectl = 0x2110,
@@ -71,10 +76,12 @@ enum Phu_CMD{
     Read_Pos      = 0x6064,
     /* 实际速度值 */
     Read_Speed    = 0x606C,
+    /* 目标扭矩 */
+    Target_Torque = 0x6071,
+    /* 实际扭矩值 */
+    Torque_Actual = 0x6077,
     /* 电机额定力矩 */
     Rated_Torque  = 0x6076,
-    /* 实际力矩值 */
-    Actual_Torque = 0x6077,
     /* 目标位置 */
     Goal_Pos      = 0x607A,
     /* 插值周期 */
@@ -109,6 +116,8 @@ enum Phu_CMD{
     Mapping_Txpdo_entry_N2      =   0x1A02,
     Mapping_Txpdo_entry_N3      =   0x1A03,
 
+    Motor_Rated_Moment          =   0x2087,
+    Read_Torque                 =   0x27BD,
     Save_Para                   =   0x2130,
 };
 
@@ -132,17 +141,17 @@ public:
     float   Phu_Pos;
     float   Phu_Speed;
 
+    float   Phu_Offset = 0.0f;
+
     int     Phu_PosY;
+    int     Phu_TorqueY;
+    int     start_lock      = 0;
+    int     PhuMotor_Mode   = 0;
+    int     plrhu_rated_moment  =   0;
 
     char    Phu_temp;
 
     u16     Phu_ctlword;
-
-    int     start_lock      = 0;
-
-    bool    wait_zero_lock  = false;
-
-    float     Phu_Offset = 0.0f;
 
     /* 减速比 */
     int Motor_Reduction_Ratio = 0;
@@ -162,6 +171,15 @@ public:
 
 
     /**
+     * @brief 获取电机 位置 速度 温度 数据
+    */
+    int Get_Motor_FB_Data(const shared_ptr<Device_class>& Device_P, float *P, float *V, float *F);
+
+
+    int Get_Motor_Temp_Data(const shared_ptr<Device_class>& Device_P, float *T);
+
+
+    /**
      * @brief 发送位置
      *  @param Rad          目标位置 单位-角度 
      *  @param Speed_Rad_S  NULL
@@ -169,7 +187,15 @@ public:
      *  @param P_N_Rad      NULL
      *  @param D_N_Rad_s    NULL
     */
+    int Send_MIT_PD_Control_Data_(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
+
     int Send_MIT_PD_Control_Data(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
+
+    int (Phu_Motor::*Motor_Ctl_Ptr)(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s) = nullptr;
+
+    int Motor_CSP_Send(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
+
+    int Motor_CSF_Send(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
 
 
     /**
@@ -228,6 +254,8 @@ private:
     */
     int PDO_WR(shared_ptr<Device_class> Device_P, u16 canid, u8 *data, int len);
 
+    int NMT_W(shared_ptr<Device_class> Device_P, u8 data);
+
 
     /**
      * @brief   SDO设置CSP模式 （禁止使用 无法使用）
@@ -245,6 +273,8 @@ private:
      * @brief   SDO设置PDO 设置为CSP模式
     */
     int Set_CSP_PDO(shared_ptr<Device_class> Device_P);
+
+    int Set_CSF_PDO(shared_ptr<Device_class> Device_P);
 };
 
 

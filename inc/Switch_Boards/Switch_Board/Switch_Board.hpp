@@ -6,6 +6,7 @@
 #include "GPIO.hpp"
 #include "Timer.hpp"
 #include "ADC.hpp"
+// #include "Berry.hpp"
 
 #define Switch_Board_Type "Switch_Board"
 
@@ -38,6 +39,7 @@ public:
     C_GPIO  m_GPIO;
     Timer   Timers;
     ADC     ADCs;
+    // Berry   Berrys;
     
     int Get_Main_B_Device_Data_From_Yaml_And_Init(shared_ptr<Device_class> Device, YAML::Node One_Node);
     int Main_B_Top_Frame_Analyze(volatile u8 *Can_Frame);
@@ -54,7 +56,8 @@ enum Main_B_CMD_Data_Enum
     Main_CMD_GPIO_CONFIG,
     Main_CMD_GPIO_CONTROL,
     Main_CMD_ADC_CONFIG,
-    Main_CMD_ADC_DATA
+    Main_CMD_ADC_DATA,
+    Main_CMD_Berry
 };
 
 #endif

@@ -36,8 +36,8 @@ public:
     int Motor_EN(const shared_ptr<Device_class> &Device_P, int EN);
     int Set_Mod(const shared_ptr<Device_class> &Device_P, int Mod);
     int Set_Zero(const shared_ptr<Device_class> &Device_P, float offest);
+    int Save_Config(const shared_ptr<Device_class> &Device_P);
     int IC_MU_CAL(const shared_ptr<Device_class> &Device_P, int EN);
-    int IC_MU_CAL(const shared_ptr<Device_class> &Device_P,UDP_Def *UDP_Def_one, int EN);
     int Motor_Cal_Start(const shared_ptr<Device_class> &Device_P);
     void Motor_Calibration_Data_Send(const shared_ptr<Device_class> &Device_P);
     int Set_I_Max(const shared_ptr<Device_class> &Device_P, float Current_A);
@@ -66,6 +66,7 @@ public:
 // script auto start -> OUT_USE
 #ifndef IN_USE
     shared_ptr<void> Motor_Private_Data;
+    UDP_Def *UDP_DEF = nullptr;
 #endif
 // script auto end -> OUT_USE
 

@@ -1,9 +1,11 @@
 #ifndef BATTERY_BMS_V2_H_
 #define BATTERY_BMS_V2_H_
+#include <atomic>
 #include <cstdint>
 #include <memory>
 #include <mutex>
 #include <string>
+#include <thread>
 
 #include "HARDWARE_TOP.hpp"
 #include "UDP.hpp"
@@ -405,22 +407,56 @@ class BMS_V2_Protocol : private Robot_Hardware {
     int BMS_Frame_Analyze(volatile u8* Can_Frame);
 
     // ==================== 数据获取函数（const只读，线程安全） ====================
-    BMS_Basic_Info Get_Basic_Info() const { return basic_info; }
-    BMS_Voltage_Current_Info Get_Voltage_Current_Info() const { return voltage_current_info; }
-    BMS_Capacity_Temp_Info Get_Capacity_Temp_Info() const { return capacity_temp_info; }
-    BMS_Status_Info Get_Status_Info() const { return status_info; }
-    BMS_Cell_Voltage_Limit_Info Get_Cell_Voltage_Limit_Info() const { return cell_voltage_limit_info; }
-    BMS_Alarm_Protection_Info Get_Alarm_Protection_Info() const { return alarm_protection_info; }
+    BMS_Basic_Info Get_Basic_Info() const {
+        std::lock_guard<std::mutex> lock(data_mutex);
+        return basic_info;
+    }
+    BMS_Voltage_Current_Info Get_Voltage_Current_Info() const {
+        std::lock_guard<std::mutex> lock(data_mutex);
+        return voltage_current_info;
+    }
+    BMS_Capacity_Temp_Info Get_Capacity_Temp_Info() const {
+        std::lock_guard<std::mutex> lock(data_mutex);
+        return capacity_temp_info;
+    }
+    BMS_Status_Info Get_Status_Info() const {
+        std::lock_guard<std::mutex> lock(data_mutex);
+        return status_info;
+    }
+    BMS_Cell_Voltage_Limit_Info Get_Cell_Voltage_Limit_Info() const {
+        std::lock_guard<std::mutex> lock(data_mutex);
+        return cell_voltage_limit_info;
+    }
+    BMS_Alarm_Protection_Info Get_Alarm_Protection_Info() const {
+        std::lock_guard<std::mutex> lock(data_mutex);
+        return alarm_protection_info;
+    }
     BMS_Cell_Voltage_Detail Get_Cell_Voltage_Detail(u8 group) const {
+        std::lock_guard<std::mutex> lock(data_mutex);
         return (group < 5) ? cell_voltage_detail[group] : BMS_Cell_Voltage_Detail();
     }
-    BMS_UID_Info Get_UID_Info() const { return uid_info; }
+    BMS_UID_Info Get_UID_Info() const {
+        std::lock_guard<std::mutex> lock(data_mutex);
+        return uid_info;
+    }
 
     // ==================== 状态获取函数 ====================
-    u16 Get_BMS_CAN_ID() const { return bms_can_id; }
-    bool Is_Initialized() const { return is_initialized; }
-    bool Is_Low_Power_Mode() const { return is_low_power_mode; }
-    u32 Get_Last_Communication_Time() const { return last_communication_time; }
+    u16 Get_BMS_CAN_ID() const {
+        std::lock_guard<std::mutex> lock(data_mutex);
+        return bms_can_id;
+    }
+    bool Is_Initialized() const {
+        std::lock_guard<std::mutex> lock(data_mutex);
+        return is_initialized;
+    }
+    bool Is_Low_Power_Mode() const {
+        std::lock_guard<std::mutex> lock(data_mutex);
+        return is_low_power_mode;
+    }
+    u32 Get_Last_Communication_Time() const {
+        std::lock_guard<std::mutex> lock(data_mutex);
+        return last_communication_time;
+    }
 
     //=================== 数据采集函数 ====================
     /**

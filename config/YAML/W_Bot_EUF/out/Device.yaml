@@ -1,0 +1,528 @@
+config:
+  #--------------
+  # @brief Eyou电机相关配置
+  #--------------
+  phu17_motor_device_config: &phu17_motor_device_config
+    <<: *Eyou_Motor_PHU17_config
+  phu20_motor_device_config: &phu20_motor_device_config
+    <<: *Eyou_Motor_PHU20_config
+  phu25_motor_device_config: &phu25_motor_device_config
+    <<: *Eyou_Motor_PHU25_config
+
+  rhu20_motor_device_config: &rhu20_motor_device_config
+    <<: *Eyou_Motor_RHU20_config
+  rhu17_motor_device_config: &rhu17_motor_device_config
+    <<: *Eyou_Motor_RHU17_config
+  rhu14_motor_device_config: &rhu14_motor_device_config
+    <<: *Eyou_Motor_RHU14_config
+  
+  
+  #--------------
+  # @brief 本末电机相关配置
+  #--------------
+  bm_m1502d_Motor_1_custom_device_config: &bm_m1502d_Motor_1_custom_device_config
+    <<: *BM_M1502D_Motor1_config
+  bm_m1502d_Motor_2_custom_device_config: &bm_m1502d_Motor_2_custom_device_config
+    <<: *BM_M1502D_Motor2_config
+  bm_m1502d_Motor_3_custom_device_config: &bm_m1502d_Motor_3_custom_device_config
+    <<: *BM_M1502D_Motor3_config
+  bm_m1502d_Motor_4_custom_device_config: &bm_m1502d_Motor_4_custom_device_config
+    <<: *BM_M1502D_Motor4_config
+  bm_m1502d_Motor_5_custom_device_config: &bm_m1502d_Motor_5_custom_device_config
+    <<: *BM_M1502D_Motor5_config
+  bm_m1502d_Motor_6_custom_device_config: &bm_m1502d_Motor_6_custom_device_config
+    <<: *BM_M1502D_Motor6_config
+  bm_m1502d_Motor_7_custom_device_config: &bm_m1502d_Motor_7_custom_device_config
+    <<: *BM_M1502D_Motor7_config
+  bm_m1502d_Motor_8_custom_device_config: &bm_m1502d_Motor_8_custom_device_config
+    <<: *BM_M1502D_Motor8_config
+
+  #--------------
+  # @brief 长虹电池相关配置
+  #--------------
+  ch_battery_v2_1_custom_device_config: &ch_battery_v2_1_custom_device_config
+    <<: *Battery_BMS_V2_1_config
+  ch_battery_v2_2_custom_device_config: &ch_battery_v2_2_custom_device_config
+    <<: *Battery_BMS_V2_2_config
+  ch_battery_v2_3_custom_device_config: &ch_battery_v2_3_custom_device_config
+    <<: *Battery_BMS_V2_3_config
+  ch_battery_v2_4_custom_device_config: &ch_battery_v2_4_custom_device_config
+    <<: *Battery_BMS_V2_4_config
+  
+  #--------------
+  # @brief  Eyou电机 腰部
+  #--------------
+  Phu_Motor_Yaw: &Phu_Motor_Yaw
+    - Name: Phu_Waist_Yaw_N35
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 35
+      CH: Head_Flag_Switch_CH2
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Phu_Motor_Sync_Device_ID: 35
+        Motor_Mod: CSP
+        <<: *phu20_motor_device_config
+
+  Phu_Motor_Roll: &Phu_Motor_Roll
+    - Name: Phu_Waist_Roll_N34
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 34
+      CH: Head_Flag_Switch_CH2
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *phu20_motor_device_config
+  
+  #--------------
+  # @brief  Eyou电机 腰部
+  #--------------
+  Phu_Motor_Hip: &Phu_Motor_Hip
+    - Name: Phu_Hip_N33
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 33
+      CH: Head_Flag_Switch_CH2
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *phu25_motor_device_config
+  #--------------
+  # @brief  Eyou电机 膝盖
+  #--------------
+  Phu_Motor_Knee: &Phu_Motor_Knee
+    - Name: Eyou_Knee_N32
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 32
+      CH: Head_Flag_Switch_CH2
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *phu25_motor_device_config
+  # #--------------
+  # # @brief  Eyou电机 脚踝
+  # #--------------
+  Phu_Motor_Ankel: &Phu_Motor_Ankel
+    - Name: Eyou_Ankel_N31
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 31
+      CH: Head_Flag_Switch_CH2
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *phu25_motor_device_config
+
+  #--------------
+  # @brief  TaiHu电机 左臂
+  #--------------
+  Rhu_Motor_Left_Arm: &Rhu_Motor_Left_Arm
+      # 左肩俯仰
+    - Name: left_shoulder_pitch_N11
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 11
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Phu_Motor_Sync_Device_ID: 11
+        Motor_Mod: CSP
+        <<: *rhu20_motor_device_config
+
+      # 左肩翻滚
+    - Name: left_shoulder_roll_N12
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 12
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *rhu20_motor_device_config
+
+      # 左肩偏航
+    - Name: left_shoulder_yaw_N13
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 13
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *rhu17_motor_device_config
+
+      # 左肩肘部
+    - Name: left_elbow_N14
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 14
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *rhu20_motor_device_config
+
+      # 左肩手腕偏航
+    - Name: left_wrist_yaw_N15
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 15
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *rhu17_motor_device_config
+
+      # 左肩手腕俯仰
+    - Name: left_wrist_pitch_N16
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 16
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *rhu14_motor_device_config
+
+      # 左肩手腕翻滚
+    - Name: left_wrist_roll_N17
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 17
+      CH: Head_Flag_Switch_CH1
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *rhu14_motor_device_config
+
+    - Name: head_pitch_N2
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 2
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      # DeviceConfig: *TaiHu_5060_Motor_config
+
+    - Name: head_yaw_N1
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 1
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      # DeviceConfig: *TaiHu_5060_Motor_config
+  #--------------
+  # @brief  TaiHu电机 右臂
+  #--------------
+  Rhu_Motor_Right_Arm: &Rhu_Motor_Right_Arm
+      # 右肩俯仰
+    - Name: right_shoulder_pitch_N21
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 21
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *rhu20_motor_device_config
+      # 右肩翻滚
+    - Name: right_shoulder_roll_N22
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 22
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *rhu20_motor_device_config
+      # 右肩偏航
+    - Name: right_shoulder_yaw_N23
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 23
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *rhu17_motor_device_config
+
+      # 右肩肘部
+    - Name: right_elbow_N24
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 24
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *rhu20_motor_device_config
+        
+      # 右肩手腕偏航
+    - Name: right_wrist_yaw_N25
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 25
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: *rhu17_motor_device_config
+      # 右肩手腕俯仰
+    - Name: right_wrist_pitch_N26
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 26
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *rhu14_motor_device_config
+
+      # 右肩手腕翻滚
+    - Name: right_wrist_roll_N27
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 27
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *rhu14_motor_device_config
+
+  #--------------
+  # @brief  本末电机 设备
+  #--------------
+  BenMo_Motor_Chassis_Wheel: &BenMo_Motor_Chassis_Wheel
+    - Name: BenMo_Motor
+      DeviceType: BenMo_Custom_Motor
+      Id: 3 #上报can_id -  Rec_Id_Offest
+      CH: Head_Flag_Switch_CH2
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: *bm_m1502d_Motor_3_custom_device_config
+
+    - Name: BenMo_Motor1
+      DeviceType: BenMo_Custom_Motor
+      Id: 4 #上报can_id -  Rec_Id_Offest 实际的id为3
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: *bm_m1502d_Motor_4_custom_device_config
+
+  #--------------
+  # @brief  长虹电池 设备
+  #--------------
+  Battery_BMS_V2_Device: &Battery_BMS_V2_Device
+    - Name: Battery_BMS_V2_1
+      DeviceType: Battery_BMS_V2_Custom
+      Id: 1
+      CH: Head_Flag_Switch_CH2
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: *ch_battery_v2_1_custom_device_config
+
+    - Name: Battery_BMS_V2_2
+      DeviceType: Battery_BMS_V2_Custom
+      Id: 2
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: *ch_battery_v2_2_custom_device_config
+
+  Battery_BMS_V2_Knee_Device: &Battery_BMS_V2_Knee_Device
+    - Name: Battery_BMS_V2_3
+      DeviceType: Battery_BMS_V2_Custom
+      Id: 3
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: *ch_battery_v2_3_custom_device_config
+
+    - Name: Battery_BMS_V2_4
+      DeviceType: Battery_BMS_V2_Custom
+      Id: 4
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: *ch_battery_v2_4_custom_device_config
+
+  #--------------
+  # @brief  灯带设备
+  #--------------
+  Tape_Lights_Device: &Tape_Lights_Device
+    - Name: Led_Tape_Lights
+      DeviceType: Led_Device
+      Id: 301
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      Detect: false
+      DeviceConfig:
+        <<: *Led_Device_Config
+
+ #--------------
+  # @brief  IMU
+  #--------------
+  Tho_IMU_Device: &Tape_Tho_IMU_Device
+    - Name: YuanJi_IMU1
+      DeviceType: YuanJi_Custom_IMU # Motor_Device IMU_Device Key_Device Switch_Board Custom_Device
+      Detect: false
+      Id: 200
+      CH: Head_Flag_Switch_CH11
+
+  Cha_IMU_Device: &Tape_Cha_IMU_Device
+    - Name: YuanJi_IMU2
+      DeviceType: YuanJi_Custom_IMU # Motor_Device IMU_Device Key_Device Switch_Board Custom_Device
+      Detect: false
+      Id: 201
+      CH: Head_Flag_Switch_CH11
+
+  Led_Device_Shoulder_Config: &Led_Device_Shoulder_Config
+    Led_Start_En: true
+    Led_Num: 11
+    Tim_index: 1
+    Tim_ch: 1
+    All: false
+    Led:
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+
+  Led_Device_Chassis_Config: &Led_Device_Chassis_Config
+    Led_Start_En: true
+    Led_Num: 20
+    Tim_index: 1
+    Tim_ch: 1
+    All: false
+    Led:
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+      - [  0,   0,  125]
+
+  Led_Belt_Shoulder_Config: &Led_Belt_Shoulder_Config
+    - Name: Led_GoGo
+      DeviceType: Led_Device
+      Id: 301
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      Detect: false
+      DeviceConfig:
+        <<: *Led_Device_Shoulder_Config
+
+  Led_Belt_Chassis_Config: &Led_Belt_Chassis_Config
+    - Name: Led_Chassis_GoGo
+      DeviceType: Led_Device
+      Id: 302
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      Detect: false
+      DeviceConfig:
+        <<: *Led_Device_Chassis_Config
+
+Base_Node: 
+  - Name: Main_Switch_Board
+    Range_Name: W_Bot
+    DeviceType: Switch_Board 
+    Id: 101
+    Rec_Id_Offest: [1408, 1024]
+    CH: Head_Flag_CH0
+    IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
+    PC_IP: *PC_IP
+    IP: 192.168.3.101
+    Port: 15101
+    Up_Data_Speed: 10000
+    # Save_Config: *Save_Main_Config
+
+    DeviceConfig:
+      PrintMcuTaskStack: true
+      Serial_S:
+        - Serial_CH: USART1
+          Serial_menu: 1
+          Serial_Baud: 115200
+          <<: *Serial_General_Config
+          Stm_Tx_Rx_GPIO:
+            Tx_GPIO: GPIOA
+            Rx_GPIO: GPIOA
+            Tx_GPIO_PIN: GPIO_PIN_9
+            Rx_GPIO_PIN: GPIO_PIN_10
+          Other_Config:
+            <<: *Serial_1_DMA_Config
+
+      Timer_S:  *Timer_WS2812B_Config
+      Can_S: 
+        - Can_Instance: 1
+          <<: *FD_Can_1M_5M
+        - Can_Instance: 2
+          <<: *FD_Can_1M_5M
+
+    child:
+      --: *Phu_Motor_Yaw
+      --: *Rhu_Motor_Left_Arm
+      --: *Rhu_Motor_Right_Arm
+      --: *Led_Belt_Shoulder_Config
+      --: *Tape_Tho_IMU_Device
+
+
+  - Name: Waist_Main_Switch_Board
+    Range_Name: W_Bot
+    DeviceType: Switch_Board 
+    Id: 102
+    Rec_Id_Offest: [1408, 1024]
+    CH: Head_Flag_CH0
+    IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
+    PC_IP: *PC_IP
+    IP: 192.168.3.102
+    Port: 15102
+    Up_Data_Speed: 2000
+    DeviceConfig:
+      Can_S: 
+        - Can_Instance: 2
+          <<: *FD_Can_1M_5M
+
+    child:
+      --: *Phu_Motor_Roll
+      --: *Phu_Motor_Hip
+      --: *Phu_Motor_Knee
+      --: *Phu_Motor_Ankel
+      --: *Battery_BMS_V2_Knee_Device
+
+  - Name: Chassis_Main_Switch_Board
+    Range_Name: W_Bot
+    DeviceType: Switch_Board 
+    Id: 103
+    Rec_Id_Offest: [1024, 150]
+    CH: Head_Flag_CH0
+    IO_Mod: Main_CMD_IO_Mod_ETH_To_CAN
+    PC_IP: *PC_IP
+    IP: 192.168.3.103
+    Port: 15103
+    Up_Data_Speed: 2000
+    DeviceConfig:
+      PrintMcuTaskStack: true
+      Serial_S:
+        - Serial_CH: USART1
+          Serial_menu: 1
+          Serial_Baud: 115200
+          Serial_ID: 201
+          <<: *Serial_General_Config
+          Stm_Tx_Rx_GPIO:
+            Tx_GPIO: GPIOA
+            Rx_GPIO: GPIOA
+            Tx_GPIO_PIN: GPIO_PIN_9
+            Rx_GPIO_PIN: GPIO_PIN_10
+          Other_Config:
+            <<: *Serial_1_DMA_Config
+
+      Timer_S:  *Timer_WS2812B_Config
+      Can_S: 
+        - Can_Instance: 1
+          <<: *Classic_Can_1M
+        - Can_Instance: 2
+          <<: *Classic_Can_1M
+
+    child:
+      --: *Led_Belt_Chassis_Config
+      --: *Tape_Cha_IMU_Device
+      --: *BenMo_Motor_Chassis_Wheel
+      --: *Battery_BMS_V2_Device
+
+
+
+
+
+

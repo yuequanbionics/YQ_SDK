@@ -65,6 +65,7 @@ enum Command : uint8_t
     CMD_SET_POS_KD = 0x2D,        // 设置位置环Kd
     CMD_GET_TEMP = 0x31,          // 获取电机温度
     CMD_GET_CUR_VEL_POS = 0x41,   // 获取电流速度位置反馈
+    CMD_GET_SOFT_VER = 0x65,      // 获取电机软件版本
     CMD_SET_CUR_KP = 0x83,        // 设置电流环Kp
     CMD_SET_CUR_KI = 0x84         // 设置电流环Ki
 
@@ -121,6 +122,7 @@ private:
     float Temp_ = 0;                // 电机温度
     float reduction_ratio = 0.0f;    // 减速比
     uint32_t motor_error_st = 0;     //电机错误状态
+    uint32_t link_status = 0;        //连接状态
     
 
 
@@ -266,8 +268,14 @@ public:
         * @brief 清除电机报错状态
         * @param device 设备指针
     */
-    int Clear_Motor_Error_Status(shared_ptr<Device_class> device);
+    int Clear_Motor_Error_Status(shared_ptr<Device_class> Device_P);
 
+
+     /*
+        * @brief 检查电机连通状态
+        * @param status 连通状态  
+    */
+    int Check_Motor_Link(shared_ptr<Device_class> Device_P);
 
 
     ~Motor_TaiHu();

@@ -560,8 +560,45 @@ int hardware_init(const string& ADDR, const string& Config)
     thread eyou_th(Eyou_Thread);
     // thread io_th(Collision_Bar_IO_Thread);
 
+    uint32_t ccccccc = 1;
+
 
     while (1) {
+
+        // usleep(1000000);
+
+        // std::cout << "opopdsopds:    " << ccccccc << std::endl;
+
+        // Lower_Limbs_Motor_Waist_Roll_Ctl->Motor_EN(Lower_Limbs_Motor_Waist_Roll, false);
+        // usleep(100000);
+        // Lower_Limbs_Motor_Knee_Ctl->Motor_EN(Lower_Limbs_Motor_Knee, false);
+        // usleep(100000);
+        // Lower_Limbs_Motor_Hip_Ctl->Motor_EN(Lower_Limbs_Motor_Hip, false);
+        // usleep(100000);
+        // Lower_Limbs_Motor_Ankel_Ctl->Motor_EN(Lower_Limbs_Motor_Ankel, false);
+        // usleep(100000);
+        // Lower_Limbs_Motor_Waist_Yaw_Ctl->Motor_EN(Lower_Limbs_Motor_Waist_Yaw, false);
+        // usleep(100000);
+
+
+        // Lower_Limbs_Motor_Waist_Roll_Ctl->Motor_EN(Lower_Limbs_Motor_Waist_Roll, true);
+        // usleep(100000);
+        // Lower_Limbs_Motor_Knee_Ctl->Motor_EN(Lower_Limbs_Motor_Knee, true);
+        // usleep(100000);
+        // Lower_Limbs_Motor_Hip_Ctl->Motor_EN(Lower_Limbs_Motor_Hip, true);
+        // usleep(100000);
+        // Lower_Limbs_Motor_Ankel_Ctl->Motor_EN(Lower_Limbs_Motor_Ankel, true);
+        // usleep(100000);
+        // Lower_Limbs_Motor_Waist_Yaw_Ctl->Motor_EN(Lower_Limbs_Motor_Waist_Yaw, true);
+        // usleep(100000);
+
+        // ccccccc++;
+
+
+
+
+
+
         // Lower_Limbs_Motor_Ankel_Ctl     ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel,         10 , 1, 1, 1, 1);
 
         // Classis_Motor_T1->Send_MIT_PD_Control_Data(Classis_Motor_1, 0.0f, 60.0f, 0.0f, 0.0f, 1.0f);
@@ -585,6 +622,8 @@ int hardware_init(const string& ADDR, const string& Config)
         // Lower_Limbs_Motor_Ankel_Ctl     ->Send_MIT_PD_Control_Data(Lower_Limbs_Motor_Ankel,         W_Bot_OD_Set.Eyou_Ankel , Eyou_Speed, 1, Eyou_Acc, Eyou_Dec);
 
         // Lower_Limbs_Motor_Waist_Yaw_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Yaw, &W_Bot_OD_Get.Eyou_Yaw, &Eyou_Speed, &qqqq);
+        // printf("%f\r\n", W_Bot_OD_Get.Eyou_Yaw);
+        // usleep(500000);
         // Lower_Limbs_Motor_Knee_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Knee, &W_Bot_OD_Get.Eyou_Knee, &Eyou_Speed, &qqqq);
         // Lower_Limbs_Motor_Waist_Roll_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Waist_Roll, &W_Bot_OD_Get.Eyou_Roll, &Eyou_Speed, &qqqq);
         // Lower_Limbs_Motor_Hip_Ctl->Get_Motor_FB_Data(Lower_Limbs_Motor_Hip, &W_Bot_OD_Get.Eyou_Hip, &Eyou_Speed, &qqqq);

@@ -24,6 +24,14 @@ ENABLE_IO_Board_Debug=OFF
 [Project/IO_Board/out]
 ENABLE=1
 
+[Project/Motor_Update]
+ENABLE=1
+
+[Project/Motor_Update/Update]
+ENABLE=1
+ENABLE_Motor_Update=ON
+ENABLE_Motor_Update_Debug=OFF
+
 [Project/W_Bot]
 ENABLE=1
 
@@ -39,6 +47,14 @@ ENABLE=1
 ENABLE=1
 ENABLE_W_Bot_Double_Out=ON
 ENABLE_W_Bot_Double_Out_Debug=OFF
+
+[Project/W_Bot_EUF]
+ENABLE=1
+
+[Project/W_Bot_EUF/out]
+ENABLE=1
+ENABLE_W_Bot_EUF_Out=ON
+ENABLE_W_Bot_EUF_Out_Debug=OFF
 
 [Project/X_Hand]
 ENABLE=1
@@ -87,6 +103,16 @@ ENABLE=1
 ENABLE=1
 ENABLE_Y_Hand_M1_Demo=ON
 ENABLE_Y_Hand_M1_Demo_Debug=OFF
+
+[Project/Y_Hand_M2]
+ENABLE=1
+
+[Project/Y_Hand_M2/out]
+ENABLE=1
+ENABLE_Y_Hand_Demo=ON
+ENABLE_Y_Hand_Demo_Debug=OFF
+ENABLE_hand_pretighten=ON
+ENABLE_hand_pretighten_Debug=OFF
 
 [Switch_Boards]
 ENABLE=1
