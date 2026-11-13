@@ -372,34 +372,34 @@ int hardware_init(const string& ADDR, const string& Config)
 
 
     usleep(10000);
-     Motor1_Control->Motor_EN( Motor1_Device, Motor_FOC_Stop);
-     Motor2_Control->Motor_EN( Motor2_Device, Motor_FOC_Stop);
-     Motor3_Control->Motor_EN( Motor3_Device, Motor_FOC_Stop);
-     Motor4_Control->Motor_EN( Motor4_Device, Motor_FOC_Stop);
-     Motor5_Control->Motor_EN( Motor5_Device, Motor_FOC_Stop);
-     Motor6_Control->Motor_EN( Motor6_Device, Motor_FOC_Stop);
-     Motor7_Control->Motor_EN( Motor7_Device, Motor_FOC_Stop);
-     Motor8_Control->Motor_EN( Motor8_Device, Motor_FOC_Stop);
-     Motor9_Control->Motor_EN( Motor9_Device, Motor_FOC_Stop);
-    Motor10_Control->Motor_EN(Motor10_Device, Motor_FOC_Stop);
-    Motor11_Control->Motor_EN(Motor11_Device, Motor_FOC_Stop);
-    Motor12_Control->Motor_EN(Motor12_Device, Motor_FOC_Stop);
-    Motor13_Control->Motor_EN(Motor13_Device, Motor_FOC_Stop);
-    Motor14_Control->Motor_EN(Motor14_Device, Motor_FOC_Stop);
-    Motor15_Control->Motor_EN(Motor15_Device, Motor_FOC_Stop);
-    Motor16_Control->Motor_EN(Motor16_Device, Motor_FOC_Stop);
-    Motor17_Control->Motor_EN(Motor17_Device, Motor_FOC_Stop);
-    Motor18_Control->Motor_EN(Motor18_Device, Motor_FOC_Stop);
-    Motor19_Control->Motor_EN(Motor19_Device, Motor_FOC_Stop);
-    Motor20_Control->Motor_EN(Motor20_Device, Motor_FOC_Stop);
-    Motor21_Control->Motor_EN(Motor21_Device, Motor_FOC_Stop);
-    Motor22_Control->Motor_EN(Motor22_Device, Motor_FOC_Stop);
-    Motor23_Control->Motor_EN(Motor23_Device, Motor_FOC_Stop);
-    Motor24_Control->Motor_EN(Motor24_Device, Motor_FOC_Stop);
-    Motor25_Control->Motor_EN(Motor25_Device, Motor_FOC_Stop);
-    Motor26_Control->Motor_EN(Motor26_Device, Motor_FOC_Stop);
-    Motor27_Control->Motor_EN(Motor27_Device, Motor_FOC_Stop);
-    Motor28_Control->Motor_EN(Motor28_Device, Motor_FOC_Stop);
+     Motor1_Control->Motor_EN( Motor1_Device, 0); // Motor_FOC_Stop
+     Motor2_Control->Motor_EN( Motor2_Device, 0);
+     Motor3_Control->Motor_EN( Motor3_Device, 0);
+     Motor4_Control->Motor_EN( Motor4_Device, 0);
+     Motor5_Control->Motor_EN( Motor5_Device, 0);
+     Motor6_Control->Motor_EN( Motor6_Device, 0);
+     Motor7_Control->Motor_EN( Motor7_Device, 0);
+     Motor8_Control->Motor_EN( Motor8_Device, 0);
+     Motor9_Control->Motor_EN( Motor9_Device, 0);
+    Motor10_Control->Motor_EN(Motor10_Device, 0);
+    Motor11_Control->Motor_EN(Motor11_Device, 0);
+    Motor12_Control->Motor_EN(Motor12_Device, 0);
+    Motor13_Control->Motor_EN(Motor13_Device, 0);
+    Motor14_Control->Motor_EN(Motor14_Device, 0);
+    Motor15_Control->Motor_EN(Motor15_Device, 0);
+    Motor16_Control->Motor_EN(Motor16_Device, 0);
+    Motor17_Control->Motor_EN(Motor17_Device, 0);
+    Motor18_Control->Motor_EN(Motor18_Device, 0);
+    Motor19_Control->Motor_EN(Motor19_Device, 0);
+    Motor20_Control->Motor_EN(Motor20_Device, 0);
+    Motor21_Control->Motor_EN(Motor21_Device, 0);
+    Motor22_Control->Motor_EN(Motor22_Device, 0);
+    Motor23_Control->Motor_EN(Motor23_Device, 0);
+    Motor24_Control->Motor_EN(Motor24_Device, 0);
+    Motor25_Control->Motor_EN(Motor25_Device, 0);
+    Motor26_Control->Motor_EN(Motor26_Device, 0);
+    Motor27_Control->Motor_EN(Motor27_Device, 0);
+    Motor28_Control->Motor_EN(Motor28_Device, 0);
 
     usleep(20000);
     int res = 0;
@@ -435,34 +435,34 @@ int hardware_init(const string& ADDR, const string& Config)
 
     if(res >= 0)
     {
-        Motor1_Control->Motor_EN( Motor1_Device, Motor_FOC_Start);
-        Motor2_Control->Motor_EN( Motor2_Device, Motor_FOC_Start);
-        Motor3_Control->Motor_EN( Motor3_Device, Motor_FOC_Start);
-        Motor4_Control->Motor_EN( Motor4_Device, Motor_FOC_Start);
-        Motor5_Control->Motor_EN( Motor5_Device, Motor_FOC_Start);
-        Motor6_Control->Motor_EN( Motor6_Device, Motor_FOC_Start);
-        Motor7_Control->Motor_EN( Motor7_Device, Motor_FOC_Start);
-        Motor8_Control->Motor_EN( Motor8_Device, Motor_FOC_Start);
-        Motor9_Control->Motor_EN( Motor9_Device, Motor_FOC_Start);
-        Motor10_Control->Motor_EN(Motor10_Device, Motor_FOC_Start);
-        Motor11_Control->Motor_EN(Motor11_Device, Motor_FOC_Start);
-        Motor12_Control->Motor_EN(Motor12_Device, Motor_FOC_Start);
-        Motor13_Control->Motor_EN(Motor13_Device, Motor_FOC_Start);
-        Motor14_Control->Motor_EN(Motor14_Device, Motor_FOC_Start);
-        Motor15_Control->Motor_EN(Motor15_Device, Motor_FOC_Start);
-        Motor16_Control->Motor_EN(Motor16_Device, Motor_FOC_Start);
-        Motor17_Control->Motor_EN(Motor17_Device, Motor_FOC_Start);
-        Motor18_Control->Motor_EN(Motor18_Device, Motor_FOC_Start);
-        Motor19_Control->Motor_EN(Motor19_Device, Motor_FOC_Start);
-        Motor20_Control->Motor_EN(Motor20_Device, Motor_FOC_Start);
-        Motor21_Control->Motor_EN(Motor21_Device, Motor_FOC_Start);
-        Motor22_Control->Motor_EN(Motor22_Device, Motor_FOC_Start);
-        Motor23_Control->Motor_EN(Motor23_Device, Motor_FOC_Start);
-        Motor24_Control->Motor_EN(Motor24_Device, Motor_FOC_Start);
-        Motor25_Control->Motor_EN(Motor25_Device, Motor_FOC_Start);
-        Motor26_Control->Motor_EN(Motor26_Device, Motor_FOC_Start);
-        Motor27_Control->Motor_EN(Motor27_Device, Motor_FOC_Start);
-        Motor28_Control->Motor_EN(Motor28_Device, Motor_FOC_Start);
+        Motor1_Control->Motor_EN( Motor1_Device, 1);  // Motor_FOC_Start
+        Motor2_Control->Motor_EN( Motor2_Device, 1);
+        Motor3_Control->Motor_EN( Motor3_Device, 1);
+        Motor4_Control->Motor_EN( Motor4_Device, 1);
+        Motor5_Control->Motor_EN( Motor5_Device, 1);
+        Motor6_Control->Motor_EN( Motor6_Device, 1);
+        Motor7_Control->Motor_EN( Motor7_Device, 1);
+        Motor8_Control->Motor_EN( Motor8_Device, 1);
+        Motor9_Control->Motor_EN( Motor9_Device, 1);
+        Motor10_Control->Motor_EN(Motor10_Device, 1);
+        Motor11_Control->Motor_EN(Motor11_Device, 1);
+        Motor12_Control->Motor_EN(Motor12_Device, 1);
+        Motor13_Control->Motor_EN(Motor13_Device, 1);
+        Motor14_Control->Motor_EN(Motor14_Device, 1);
+        Motor15_Control->Motor_EN(Motor15_Device, 1);
+        Motor16_Control->Motor_EN(Motor16_Device, 1);
+        Motor17_Control->Motor_EN(Motor17_Device, 1);
+        Motor18_Control->Motor_EN(Motor18_Device, 1);
+        Motor19_Control->Motor_EN(Motor19_Device, 1);
+        Motor20_Control->Motor_EN(Motor20_Device, 1);
+        Motor21_Control->Motor_EN(Motor21_Device, 1);
+        Motor22_Control->Motor_EN(Motor22_Device, 1);
+        Motor23_Control->Motor_EN(Motor23_Device, 1);
+        Motor24_Control->Motor_EN(Motor24_Device, 1);
+        Motor25_Control->Motor_EN(Motor25_Device, 1);
+        Motor26_Control->Motor_EN(Motor26_Device, 1);
+        Motor27_Control->Motor_EN(Motor27_Device, 1);
+        Motor28_Control->Motor_EN(Motor28_Device, 1);
 
 
         while (true)

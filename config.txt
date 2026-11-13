@@ -109,10 +109,10 @@ ENABLE=1
 
 [Project/Y_Hand_M2/out]
 ENABLE=1
-ENABLE_Y_Hand_Demo=ON
-ENABLE_Y_Hand_Demo_Debug=OFF
-ENABLE_hand_pretighten=ON
-ENABLE_hand_pretighten_Debug=OFF
+ENABLE_Y_Hand_M2_Demo=ON
+ENABLE_Y_Hand_M2_Demo_Debug=OFF
+ENABLE_hand_pretighten_m2=ON
+ENABLE_hand_pretighten_m2_Debug=OFF
 
 [Switch_Boards]
 ENABLE=1

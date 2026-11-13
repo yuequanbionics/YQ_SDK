@@ -1,12 +1,12 @@
 # --------------------------
-# 编译 Y_Hand_Demo 可执行文件
+# 编译 Y_Hand_M2_Demo 可执行文件
 # --------------------------
-set(EXE_NAME Y_Hand_Demo)
+set(EXE_NAME Y_Hand_M2_Demo)
 NAME_TO_VAR("PROJECT" "-${EXE_NAME}" OUT)
 if(${OUT})
     # 添加可执行文件+源文件
     add_executable(${EXE_NAME} 
-        ./Y_Hand_Out.cpp
+        ./Y_Hand_M2_Out.cpp
     )
     
     target_include_directories(${EXE_NAME} PUBLIC
@@ -42,14 +42,14 @@ if(${OUT})
 endif()
 
 # --------------------------
-# 编译 hand_pretighten 可执行文件
+# 编译 hand_pretighten_m2 可执行文件
 # --------------------------
-set(EXE_NAME hand_pretighten)
+set(EXE_NAME hand_pretighten_m2)
 NAME_TO_VAR("PROJECT" "-${EXE_NAME}" OUT)
 if(${OUT})
     # 添加可执行文件+源文件
     add_executable(${EXE_NAME} 
-        ./hand_pretighten.cpp
+        ./hand_pretighten_m2.cpp
     )
     
     target_include_directories(${EXE_NAME} PUBLIC
