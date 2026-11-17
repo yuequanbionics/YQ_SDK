@@ -3,6 +3,8 @@ config:
 
     # Phu_Motor_Sync_Device_ID: 1
     Motor_Mod: CSP
+    Phu_Motor_SDO_Config_Delay: 1000
+    Phu_Motor_SDO_ReadData_Delay: 100
     Eyou_Motor_Set_Reduction_Ratio: 101
     Ecvyou_Motor_dxfKp: 10240
     Eyou_Motor_Encoder_Res: 524288.0

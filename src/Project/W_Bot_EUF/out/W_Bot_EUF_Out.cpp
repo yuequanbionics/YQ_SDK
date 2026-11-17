@@ -140,8 +140,8 @@ shared_ptr<Device_class> right_wrist_roll_N27;
 /**
  * @brief 头部电机
  */
-// shared_ptr<Device_class> TaiHu_Device_15;
-// shared_ptr<Device_class> TaiHu_Device_16;
+shared_ptr<Device_class> head_yaw_N1;
+shared_ptr<Device_class> head_pitch_N2;
 /**
  * @brief 底盘轮子
  */
@@ -185,8 +185,8 @@ Phu_Motor* right_wrist_yaw_N25_Ctl;
 Phu_Motor* right_wrist_pitch_N26_Ctl;
 Phu_Motor* right_wrist_roll_N27_Ctl;
 
-Phu_Motor* TaiHu_Device_T15;
-Phu_Motor* TaiHu_Device_T16;
+Phu_Motor* head_yaw_N1_Ctl;
+Phu_Motor* head_pitch_N2_Ctl;
 
 Led_Device* Led_Device_Shoulder_Ptr;
 Led_Device* Led_Device_Chassis_Ptr;
@@ -335,8 +335,8 @@ int hardware_init(const string& ADDR, const string& Config)
     right_wrist_pitch_N26       = Test_Robot->Get_Device_For_Name("right_wrist_pitch_N26");
     right_wrist_roll_N27        = Test_Robot->Get_Device_For_Name("right_wrist_roll_N27");
 
-    // TaiHu_Device_15 = Test_Robot->Get_Device_For_Name("head_pitch_N2");
-    // TaiHu_Device_16 = Test_Robot->Get_Device_For_Name("head_yaw_N1");
+    head_yaw_N1   = Test_Robot->Get_Device_For_Name("head_yaw_N1");
+    head_pitch_N2 = Test_Robot->Get_Device_For_Name("head_pitch_N2");
 
     Led_Shoulder_Devices = Test_Robot->Get_Device_For_Name("Led_GoGo");
     Led_Chassis_Devices = Test_Robot->Get_Device_For_Name("Led_Chassis_GoGo");
@@ -379,8 +379,8 @@ int hardware_init(const string& ADDR, const string& Config)
     right_wrist_pitch_N26_Ctl       = static_cast<Phu_Motor*>(Test_Robot->Get_Control_Class(right_wrist_pitch_N26));
     right_wrist_roll_N27_Ctl        = static_cast<Phu_Motor*>(Test_Robot->Get_Control_Class(right_wrist_roll_N27));
 
-    // TaiHu_Device_T15                = static_cast<Phu_Motor*>(Test_Robot->Get_Control_Class(TaiHu_Device_15));
-    // TaiHu_Device_T16                = static_cast<Phu_Motor*>(Test_Robot->Get_Control_Class(TaiHu_Device_16));
+    head_yaw_N1_Ctl                 = static_cast<Phu_Motor*>(Test_Robot->Get_Control_Class(head_yaw_N1));
+    head_pitch_N2_Ctl               = static_cast<Phu_Motor*>(Test_Robot->Get_Control_Class(head_pitch_N2));
 
     Led_Device_Shoulder_Ptr = (Led_Device*)Test_Robot->Get_Control_Class(Led_Shoulder_Devices);
     Led_Device_Chassis_Ptr = (Led_Device*)Test_Robot->Get_Control_Class(Led_Chassis_Devices);

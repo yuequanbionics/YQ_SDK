@@ -111,7 +111,30 @@ config:
         <<: *phu25_motor_device_config
 
   #--------------
-  # @brief  TaiHu电机 左臂
+  # @brief  电机 头部
+  #--------------
+  Rhu_Motor_Head: &Rhu_Motor_Head
+    - Name: head_yaw_N1
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 1
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Phu_Motor_Sync_Device_ID: 1
+        Motor_Mod: CSP
+        <<: *rhu14_motor_device_config
+
+    - Name: head_pitch_N2
+      DeviceType: Phu_Custom_Motor_TOP
+      Id: 2
+      CH: Head_Flag_Switch_CH1
+      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *rhu14_motor_device_config
+
+  #--------------
+  # @brief  电机 左臂
   #--------------
   Rhu_Motor_Left_Arm: &Rhu_Motor_Left_Arm
       # 左肩俯仰
@@ -121,7 +144,6 @@ config:
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
       DeviceConfig: 
-        Phu_Motor_Sync_Device_ID: 11
         Motor_Mod: CSP
         <<: *rhu20_motor_device_config
 
@@ -184,19 +206,6 @@ config:
         Motor_Mod: CSP
         <<: *rhu14_motor_device_config
 
-    - Name: head_pitch_N2
-      DeviceType: Phu_Custom_Motor_TOP
-      Id: 2
-      CH: Head_Flag_Switch_CH1
-      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      # DeviceConfig: *TaiHu_5060_Motor_config
-
-    - Name: head_yaw_N1
-      DeviceType: Phu_Custom_Motor_TOP
-      Id: 1
-      CH: Head_Flag_Switch_CH1
-      IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      # DeviceConfig: *TaiHu_5060_Motor_config
   #--------------
   # @brief  TaiHu电机 右臂
   #--------------
@@ -245,7 +254,9 @@ config:
       Id: 25
       CH: Head_Flag_Switch_CH1
       IO_Mod: Main_CMD_IO_Mod_CAN_ONLY
-      DeviceConfig: *rhu17_motor_device_config
+      DeviceConfig: 
+        Motor_Mod: CSP
+        <<: *rhu17_motor_device_config
       # 右肩手腕俯仰
     - Name: right_wrist_pitch_N26
       DeviceType: Phu_Custom_Motor_TOP
@@ -454,6 +465,7 @@ Base_Node:
       --: *Phu_Motor_Yaw
       --: *Rhu_Motor_Left_Arm
       --: *Rhu_Motor_Right_Arm
+      # --: *Rhu_Motor_Head
       --: *Led_Belt_Shoulder_Config
       --: *Tape_Tho_IMU_Device
 

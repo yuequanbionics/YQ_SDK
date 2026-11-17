@@ -12,7 +12,8 @@
 #define Can_Id_Back_Offset          0x580
 #define R_T_A                       (float)57.29577
 
-#define SDO_WR_Delayus              2000
+#define SDO_WR_Delayus              1000
+#define SDO_R_Delayus               100
 #define PDO_WR_Delayus              100
 
 #define Phu_Custom_Motor_Device_Init  [](shared_ptr<Device_class> Device, YAML::Node *Node) -> int\
@@ -140,6 +141,8 @@ public:
 
     float   Phu_Pos;
     float   Phu_Speed;
+    float   Phu_Torque;
+    char    Phu_temp;
 
     float   Phu_Offset = 0.0f;
 
@@ -149,8 +152,8 @@ public:
     int     PhuMotor_Mode   = 0;
     int     plrhu_rated_moment  =   0;
 
-    char    Phu_temp;
-
+    u32     sdo_config_delay = 0;
+    u32     sdo_readdata_delay = 0;
     u16     Phu_ctlword;
 
     /* 减速比 */
@@ -187,13 +190,14 @@ public:
      *  @param P_N_Rad      NULL
      *  @param D_N_Rad_s    NULL
     */
-    int Send_MIT_PD_Control_Data_(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
-
     int Send_MIT_PD_Control_Data(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
+
 
     int (Phu_Motor::*Motor_Ctl_Ptr)(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s) = nullptr;
 
+
     int Motor_CSP_Send(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
+
 
     int Motor_CSF_Send(shared_ptr<Device_class> Device_P, float Rad, float Speed_Rad_S, float Force_N, float P_N_Rad, float D_N_Rad_s);
 
@@ -246,6 +250,8 @@ private:
     int SDO_WR(shared_ptr<Device_class> Device_P, u16 Object_index, u8 Object_sub_index, int data, u8 data_len);
 
 
+    int SDO_WR_R(shared_ptr<Device_class> Device_P, u16 Object_index, u8 Object_sub_index, int data, u8 data_len);
+
     /**
      * @brief   用于PDO下的数据发送
      *  @param  canid   期望地址
@@ -253,6 +259,7 @@ private:
      *  @param  len     数据长度
     */
     int PDO_WR(shared_ptr<Device_class> Device_P, u16 canid, u8 *data, int len);
+
 
     int NMT_W(shared_ptr<Device_class> Device_P, u8 data);
 
@@ -273,6 +280,7 @@ private:
      * @brief   SDO设置PDO 设置为CSP模式
     */
     int Set_CSP_PDO(shared_ptr<Device_class> Device_P);
+
 
     int Set_CSF_PDO(shared_ptr<Device_class> Device_P);
 };

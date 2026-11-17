@@ -1,64 +1,76 @@
+# ADC_S 配置固定输入，ADC_N 按实例列表配置输入序列。
+# 将需要的入口放入 Switch_Board 的设备配置节点。
+# 同时配置两者时，SDK 先执行 ADC_S，再执行 ADC_N；后者会重新配置同一实例。
+# ADC_S：固定 ADC1 / ADC_CHANNEL_2 / PF11，使用 Rank 1。
+ADC_S:
+  ADC_EN: true
 
-  config:
-  ADC_Global_Default: &ADC_Global_Default
+config:
+  ADC_Init_Default: &ADC_Init_Default
     ADC_ClockPrescaler: ADC_CLOCK_ASYNC_DIV2
     ADC_Resolution: ADC_RESOLUTION_16B
-    ADC_ScanConvMode: ADC_SCAN_ENABLE
-    ADC_EOCSelection: ADC_EOC_SINGLE_CONV
-    ADC_LowPowerAutoWait: DISABLE
-    ADC_ContinuousConvMode: DISABLE
-    ADC_DiscontinuousConvMode: DISABLE
-    ADC_ExternalTrigConv: ADC_SOFTWARE_START
-    ADC_ExternalTrigConvEdge: ADC_EXTERNALTRIGCONVEDGE_NONE
-    ADC_ConversionDataManagement: ADC_CONVERSIONDATA_DR
-    ADC_Overrun: ADC_OVR_DATA_OVERWRITTEN
     ADC_LeftBitShift: ADC_LEFTBITSHIFT_NONE
     ADC_OversamplingMode: DISABLE
     ADC_Oversampling_Ratio: 1
-    ADC_NbrOfConversion: 2
 
-  # 通道默认配置（所有通道共用）
-  ADC_Channel_Default: &ADC_Channel_Default
-    ADC_SamplingTime: ADC_SAMPLETIME_16CYCLES_5
-    ADC_SingleDiff: ADC_SINGLE_ENDED
-    ADC_OffsetNumber: ADC_OFFSET_NONE
-    ADC_Offset: 0
-    ADC_OffsetSignedSaturation: DISABLE
-
-
-  ADC_Config:
-    - ADC_Instance: 1
-      <<: *ADC_Global_Default
-      ADC_NbrOfConversion: 1           #采样次数            
-      ADC_ChannelConfig:
-        - <<: *ADC_Channel_Default      
-          ADC_Channel: ADC_CHANNEL_2   #通道号   
-          ADC_Rank: ADC_REGULAR_RANK_1 #采样顺序
-
-        # - <<: *ADC_Channel_Default
-        #   ADC_Channel: ADC_CHANNEL_3
-        #   ADC_Rank: ADC_REGULAR_RANK_2
-
-    # - ADC_Instance: 2
-    #   <<: *ADC_Global_Default
-    #   ADC_NbrOfConversion: 2
-    #   ADC_ChannelConfig:
-    #     - <<: *ADC_Channel_Default
-    #       ADC_Channel: ADC_CHANNEL_2
-    #       ADC_Rank: ADC_REGULAR_RANK_1
-
-    #     - <<: *ADC_Channel_Default
-    #       ADC_Channel: ADC_CHANNEL_3
-    #       ADC_Rank: ADC_REGULAR_RANK_2
-
-    # - ADC_Instance: 3
-    #   <<: *ADC_Global_Default
-    #   ADC_NbrOfConversion: 2
-    #   ADC_ChannelConfig:
-    #     - <<: *ADC_Channel_Default
-    #       ADC_Channel: ADC_CHANNEL_2
-    #       ADC_Rank: ADC_REGULAR_RANK_1
-
-    #     - <<: *ADC_Channel_Default
-    #       ADC_Channel: ADC_CHANNEL_3
-    #       ADC_Rank: ADC_REGULAR_RANK_2
+# ADC_N：完整实例列表；常规参数通过 ADC_Init: *模板名 引用同一文档中的公共模板。
+# 每个实例须完整填写下列字段；Rank 数和 GPIO 数由对应列表长度确定。
+# Rank 顺序由列表位置决定；ADC_Rank 仅作描述，不参与协议编码。
+# 同一通道可占多个 Rank；建议 ADC_Rank 与列表位置保持一致。
+# ADC1/2 共用时钟分频与 IRQ，使用一致的分频和中断配置。
+# GPIO 使用模拟模式、无上下拉；采样采用软件触发、单端输入和逐 EOC 读取。
+# ADC_EN 和 ADC_IrqEnable 均为 true 时才可采样；成功返回全部 Rank 样本。
+ADC_N:
+  - ADC_Instance: 1
+    ADC_EN: true
+    ADC_IrqEnable: true
+    ADC_IrqPreemptPriority: 5
+    ADC_IrqSubPriority: 0
+    ADC_Init: *ADC_Init_Default
+    ADC_ChannelConfig:
+      - ADC_Rank: ADC_REGULAR_RANK_1
+        ADC_Channel: ADC_CHANNEL_2
+        ADC_SamplingTime: ADC_SAMPLETIME_16CYCLES_5
+        ADC_OffsetNumber: ADC_OFFSET_NONE
+        ADC_Offset: 0
+      - ADC_Rank: ADC_REGULAR_RANK_2
+        ADC_Channel: ADC_CHANNEL_5
+        ADC_SamplingTime: ADC_SAMPLETIME_64CYCLES_5
+        ADC_OffsetNumber: ADC_OFFSET_NONE
+        ADC_Offset: 0
+    ADC_GPIOConfig:
+      - GPIO_Port: GPIOF
+        GPIO_Pin: GPIO_PIN_11
+      - GPIO_Port: GPIOB
+        GPIO_Pin: GPIO_PIN_1
+  - ADC_Instance: 2
+    ADC_EN: true
+    ADC_IrqEnable: true
+    ADC_IrqPreemptPriority: 5
+    ADC_IrqSubPriority: 0
+    ADC_Init: *ADC_Init_Default
+    ADC_ChannelConfig:
+      - ADC_Rank: ADC_REGULAR_RANK_1
+        ADC_Channel: ADC_CHANNEL_2
+        ADC_SamplingTime: ADC_SAMPLETIME_16CYCLES_5
+        ADC_OffsetNumber: ADC_OFFSET_NONE
+        ADC_Offset: 0
+    ADC_GPIOConfig:
+      - GPIO_Port: GPIOF
+        GPIO_Pin: GPIO_PIN_13
+  - ADC_Instance: 3
+    ADC_EN: true
+    ADC_IrqEnable: true
+    ADC_IrqPreemptPriority: 5
+    ADC_IrqSubPriority: 0
+    ADC_Init: *ADC_Init_Default
+    ADC_ChannelConfig:
+      # 同一通道可占多个Rank；同一物理引脚的GPIO只配置一次。
+      - ADC_Rank: ADC_REGULAR_RANK_1
+        ADC_Channel: ADC_CHANNEL_1
+        ADC_SamplingTime: ADC_SAMPLETIME_16CYCLES_5
+        ADC_OffsetNumber: ADC_OFFSET_NONE
+        ADC_Offset: 0
+    ADC_GPIOConfig:
+      - GPIO_Port: GPIOC
+        GPIO_Pin: GPIO_PIN_3
