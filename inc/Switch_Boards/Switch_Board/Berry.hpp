@@ -13,10 +13,12 @@ using namespace std;
 #define Berry_Head_Len  8
 #define W_File_Finish   0xFF
 #define CHUNK_SIZE      256
+#define DelayTime       500
+#define TimeCountMax    5
 
 void printHexAndText(volatile const unsigned char* recvbuff, int data_len);
 typedef enum {
-    CMD_UNKNOWN,
+    CMD_EXIT,
     CMD_MKDIR,
     CMD_DELETE,
     CMD_RETRIEVE,
@@ -24,7 +26,10 @@ typedef enum {
     CMD_BERRY,
     CMD_MKDIR_ALL,
     CMD_MKFS,
-    CMD_CD
+    CMD_CD,
+    CMD_SET = 0xF0,
+    CMD_SHELL_START = 0xFE,
+    CMD_UNKNOWN = 0xFF
 } CmdType;     
 
 typedef enum {
@@ -78,9 +83,56 @@ typedef struct Berry_Data
 typedef struct Berrt_Frame
 { 
     int mode;
-    vector<uint8_t> Berry_data;
     string Berry_dir;
+    vector<uint8_t> Berry_data;
 } Berrt_Frame;
+
+
+
+class SafeTimer
+{
+public:
+    std::atomic<bool> stop{false};
+    std::thread th;
+
+    void start(int interval_ms, int max_count, std::function<void(int)> cb)
+    {
+        // 先停上一次的定时器
+        stop_timer();
+        stop = false;
+        th = std::thread([interval_ms, max_count, cb, this]()
+        {
+            int cnt = 0;
+            while (!stop)
+            {
+                std::this_thread::sleep_for(std::chrono::milliseconds(interval_ms));
+                if (stop) break;
+                cnt++;
+                cb(cnt);
+                if (cnt >= max_count)
+                {
+                    stop = true;
+                    return;
+                }
+            }
+        });
+    }
+
+    // 外部关闭定时器
+    void stop_timer()
+    {
+        stop = true;
+        if (th.joinable())
+        {
+            th.join();
+        }
+    }
+
+    ~SafeTimer()
+    {
+        stop_timer();
+    }
+};
 
 class Berry : private Robot_Hardware
 {
@@ -89,7 +141,11 @@ public:
     int Berry_Custom_Send(shared_ptr<Device_class> Device_P, u8 *Data, u32 len);
 	int Berry_Call_Back(volatile u8 *Can_Frame);
 
-
+    SafeTimer sendTimer;
+    bool BerryState = false;
+    bool TimeOutFlag = false;
+    bool mcu_shell_flag = false;
+    
 
     shared_ptr<Device_class> Device_my;
     int open_file(const std::string& path);
@@ -100,9 +156,6 @@ public:
     void Berry_Send();
     
     bool Berry_stop_flag = false;
-    const uint32_t Berry_PERIOD_MS = 1000;
-    uint32_t Berry_send_tick = 0;
-    uint32_t Berry_r_tick = 0;
     string mcu_path = "/";
 
 };

@@ -180,7 +180,7 @@ int hardware_init(const string& ADDR, const string& Config)
 #ifndef HAVE_ROS
     float S = 0;                   // 正弦函数相位变量（随时间递增）
     float P[30], V[30], F[30], FF[30];     // 存储电机反馈数据：位置(Position)、速度(Velocity)、力(电流 0-100 参数为百分比*100) //从1开始
-    float Kp = 1600;
+    float Kp = 500;
     float Kd = 10;
     int times = 0;
     float PP_old = 0;
@@ -265,11 +265,11 @@ int hardware_init(const string& ADDR, const string& Config)
         Motor27_Control->Get_Motor_FB_Data(Motor27_Device, &P[27], &V[27], &F[27]);
         Motor28_Control->Get_Motor_FB_Data(Motor28_Device, &P[28], &V[28], &F[28]);
 
-        // for(int i = 0; i < 28; i++)
-        // {
-        //     FF[i] += (PP - P[i]) * 0.001;
-        //     FF[i] = std::clamp(FF[i], -0.1f, 0.1f);
-        // }
+        for(int i = 0; i < 28; i++)
+        {
+            FF[i] += (PP - P[i]) * 0.001;
+            FF[i] = std::clamp(FF[i], -1.0f, 1.0f);
+        }
 
         for (uint8_t i = 1; i < 29; i++) {
             // 核心格式控制：固定宽度8位 + 保留3位小数 + 右对齐（保证正负号对齐）

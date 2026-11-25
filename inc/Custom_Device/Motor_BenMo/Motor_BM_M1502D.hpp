@@ -56,8 +56,8 @@ enum BM_Control_Mode : uint8_t {
     BM_MODE_CURRENT = 0x01,   // 电流环模式
     BM_MODE_SPEED = 0x02,     // 速度环模式
     BM_MODE_POSITION = 0x03,  // 位置环模式
-    BM_MODE_DISABLE = 0x09,   // 失能电机
-    BM_MODE_ENABLE = 0x0A     // 使能电机（默认使能）
+    BM_MODE_DISABLE = 0x09,   // 失能电机（上电默认失能）
+    BM_MODE_ENABLE = 0x0A     // 使能电机（需先使能再配置控制模式）
 };
 
 // 反馈模式定义

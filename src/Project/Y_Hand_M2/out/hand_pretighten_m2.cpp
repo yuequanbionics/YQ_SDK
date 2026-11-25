@@ -356,7 +356,7 @@ int hardware_init(const string& ADDR, const string& Config)
     set_raw(true);
     while (true)
     {   
-        hand_pretighten(0.08, 30);
+        hand_pretighten(0.5, 30);
 
         char c;
         if (read(STDIN_FILENO, &c, 1) > 0)

@@ -83,8 +83,6 @@ ENABLE=1
 ENABLE=1
 ENABLE_Y_Hand_Demo=ON
 ENABLE_Y_Hand_Demo_Debug=OFF
-ENABLE_Y_Hand_M2_Show=ON
-ENABLE_Y_Hand_M2_Show_Debug=OFF
 ENABLE_hand_pretighten=ON
 ENABLE_hand_pretighten_Debug=OFF
 
@@ -111,6 +109,8 @@ ENABLE=1
 ENABLE=1
 ENABLE_Y_Hand_M2_Demo=ON
 ENABLE_Y_Hand_M2_Demo_Debug=OFF
+ENABLE_Y_Hand_M2_Show=ON
+ENABLE_Y_Hand_M2_Show_Debug=OFF
 ENABLE_hand_pretighten_m2=ON
 ENABLE_hand_pretighten_m2_Debug=OFF
 
