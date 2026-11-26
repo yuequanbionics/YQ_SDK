@@ -21,6 +21,18 @@ typedef struct
     uint32_t sdo_data;
 } CMD_Data_Sc;
 
+typedef struct
+{
+	// Head
+	uint16_t Can_Id;
+	uint16_t Len;
+	uint16_t Flag;
+
+	// DATA
+
+    uint16_t bc_data;
+} CMD_Data_Bc;
+
 
 #pragma pack(pop) // 恢复默认的对齐设置
 
@@ -33,13 +45,18 @@ enum e_sdo_cmd : uint8_t
     CMD_WRITE_2_BYTE = 0x2B,   //写 2 字节
     CMD_WRITE_1_BYTE = 0x2F,   //写 1 字节
 
+    CMD_READ_4_BYTE = 0x40,    //读 4 字节
+    // CMD_READ_3_BYTE = 0x47,    //读 3 字节
+    // CMD_READ_2_BYTE = 0x4B,    //读 2 字节
+    // CMD_READ_1_BYTE = 0x4F,    //读 1 字节
+
 
 
     //从站→主站
-    CMD_READ_4_BYTE = 0x43,    //读应答：4 字节
-    CMD_READ_3_BYTE = 0x47,    //读应答：3 字节
-    CMD_READ_2_BYTE = 0x4B,    //读应答：2 字节
-    CMD_READ_1_BYTE = 0x4F,    //读应答：1 字节
+    CMD_READ_RES_4_BYTE = 0x43,    //读应答：4 字节
+    CMD_READ_RES_3_BYTE = 0x47,    //读应答：3 字节
+    CMD_READ_RES_2_BYTE = 0x4B,    //读应答：2 字节
+    CMD_READ_RES_1_BYTE = 0x4F,    //读应答：1 字节
     CMD_WRITE_OK = 0x60        //写成功应答
 
 };
@@ -49,8 +66,15 @@ enum e_sdo_index : uint16_t
 
 
     CMD_CONTROL_WORD = 0X6040,  //控制字
+    CMD_RUN_MODE = 0x6060,      //运行模式
     CMD_ACTUAL_POS = 0X6064,    //实际位置值
     CMD_ACTUAL_VEL = 0X606C,    //实际速度值
+    CMD_TARGRT_POS = 0x607A,    //设置目标位置
+    CMD_PRO_VEL = 0x6081,       //设置轮廓速度
+    CMD_PRO_ACC = 0x6083,       //设置加速度
+    CMD_PRO_DEC = 0x6084,       //设置减速度
+    CMD_GEAR_RATIO = 0x6093,    //设置电子齿轮比
+    CMD_TARGET_VEL = 0x60FF     //目标速度
 };
 
 enum e_sdo_subindex : uint8_t
@@ -88,14 +112,18 @@ enum e_sdo_subindex : uint8_t
 class Motor_SenChuang : private Robot_Hardware
 {
 private:
-    // int32_t target_P = 0;           // 目标位置
-    // int32_t target_V = 0;           // 目标速度
-    // int32_t target_F = 0;           // 目标电流
-    // int32_t pos_offset = 0;          // 位置偏置值(Cnt)
-    // float Temp_ = 0;                // 电机温度
-    // float reduction_ratio = 0.0f;    // 减速比
-    // uint32_t motor_error_st = 0;     //电机错误状态
-    // uint32_t link_status = 0;        //连接状态
+    int32_t m_target_P = 0;            // 目标位置
+    int32_t m_target_V = 0;            // 目标速度
+
+    uint32_t m_pos_pro_vel = 1000;     //位置模式轮廓速度
+    uint32_t m_pos_pro_acc = 100;      //位置模式轮廓加速度
+    uint32_t m_pos_pro_dec = 100;      //位置模式轮廓减速度
+    uint32_t m_gear_num = 1;           //齿轮比分子
+    uint32_t m_gear_Den = 1;           //齿轮比分母
+
+    uint32_t m_vel_pro_acc = 1000;     //速度模式轮廓加速度
+    uint32_t m_vel_pro_dec = 1000;     //速度模式轮廓减速度
+    
     
 
 
@@ -144,13 +172,13 @@ public:
     */
     int Get_Motor_FB_Data(shared_ptr<Device_class> Device_P, float *P, float *V, float *F, float temp[2], uint16_t *error);
 
-    // /**
-    //  * @brief 读取电机反馈的位置
-    //  * @param P 位置，单位度
-    //  * @param V 速度(无效）
-    //  * @param F 力矩(无效）
-    // */
-    // int Get_Motor_FB_Data(shared_ptr<Device_class> Device_P, float *P, float *V, float *F);
+    /**
+     * @brief 读取电机反馈的位置
+     * @param P 位置，单位度
+     * @param V 速度(无效）
+     * @param F 力矩(无效）
+    */
+    int Get_Motor_FB_Data(shared_ptr<Device_class> Device_P, float *P, float *V, float *F);
 
     //  /**
     //  * @brief 读取电机温度

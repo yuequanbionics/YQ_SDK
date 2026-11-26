@@ -1,0 +1,13 @@
+config:
+
+  SenChuang_Motor_config: &SenChuang_Motor_config
+    SenChuang_Pos_Pro_Vel: 1000
+    SenChuang_Pos_Pro_Acc: 100
+    SenChuang_Pos_Pro_Dec: 100
+    SenChuang_Ratio_Num: 1
+    SenChuang_Ratio_Den: 1
+
+    SenChuang_Vel_Pro_Acc: 1000
+    SenChuang_Vel_Pro_Dec: 1000
+
+
